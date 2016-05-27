@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.converge.transportdepartment.SelectApplicationType">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Please select the desired class for which you are applying"
+            android:textSize="20dp"
+            android:id="@+id/textView4" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Motor cycle without gear for less then 50cc"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Motor cycle without grear"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow>
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Motor cycle withgear"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow>
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Light Motor Vehicle Non Transport"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow>
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Light Motor Vehicle-Auto Riksha Non Transport"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow>
+            <TableRow
+                android:layout_margin="1dp">
+                <CheckBox
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/checkbox_home_activity"
+                    android:layout_weight=".10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="LMC Trackor Trailer"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView1"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    android:layout_weight=".90"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical" />
+
+            </TableRow><TableRow
+            android:layout_margin="1dp">
+            <CheckBox
+                android:layout_width="20dp"
+                android:layout_height="35dp"
+                android:src="@drawable/checkbox_home_activity"
+                android:layout_weight=".10"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="IVC"
+                android:textColor="@android:color/black"
+                android:id="@+id/textView1"
+                android:paddingLeft="5dp"
+                android:textSize="12sp"
+                android:layout_weight=".90"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical" />
+
+        </TableRow>
+        </TableLayout>
+        <Button
+            android:id="@+id/buttonSelectApplication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimaryTransportDepartment"
+            android:text="Next"
+            android:layout_marginTop="26dp"
+            android:textColor="@android:color/background_light"
+            android:onClick="onClick"/>
+    </LinearLayout>
+
+    <!--Please select the desired class for which you are applying-->
+
+    <!--Motor cycle without gear for less then 50cc-->
+    <!--Motor cycle without grear-->
+    <!--Motor cycle withgear-->
+    <!--Light Motor Vehicle Non Transport-->
+    <!--Light Motor Vehicle-Auto Riksha Non Transport-->
+    <!--LMC Trackor Trailer-->
+    <!--IVC-->

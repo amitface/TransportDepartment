@@ -1,0 +1,289 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context="com.converge.transportdepartment.SelectSchedule">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Please click on time of particular date to book slot."
+        android:id="@+id/textView6"
+        android:textSize="18dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="16dp"
+            >
+            <TableRow
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:background="#AF5300"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:text="Date"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="11:00 to 11:40"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10dp"
+                    android:layout_margin="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="11:50 to 12:30"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/background_light"
+                    android:layout_margin="2dp"
+                    android:text="12:40 to 13:20"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/background_light"
+                    android:layout_margin="2dp"
+                    android:text="13:30 to 14:10"/>
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#E56C01"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="28/5/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#FF7900"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="29/5/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#E56C01"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="30/5/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#FF7900"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="31/5/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#E56C01"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="01/6/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </TableRow>
+            <TableRow
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:background="#FF7900"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@android:color/background_light"
+                    android:text="02/6/15"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <CheckBox
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+                <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/background_light"
+                android:layout_gravity="center"/>
+
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:text="Apply Learning License"
+        android:textColor="@android:color/background_light"/>
+
+</LinearLayout>
+
+<!--Please click on time of particular bate to book slot.-->

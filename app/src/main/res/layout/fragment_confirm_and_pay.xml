@@ -1,0 +1,258 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:padding="5dp"
+    tools:context="com.converge.transportdepartment.ConfirmAndPay">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".9">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="2dp">
+        <!--Application Schedule Details-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:text="Application Schedule Detail"
+            android:background="@color/colorPrimaryTransportDepartment"
+            />
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Reference id:46474658972"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Appointment Place: Jhasuguda"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Application Date: 28/5/15"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Application Time: 11 to 11:30"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Application Type: LL"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction Type: Fresh"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+
+        <!--Personal Information-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:text="Personal Information"
+            android:background="@color/colorPrimaryTransportDepartment"
+            />
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Applicant Name : Rajesh Sharma"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email ID :Rajeshs@gamil.com"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+            </TableRow>
+            <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Relation Type : S/o"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qualification : Higher"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Father's Name : Jitendra Sharma"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOB : 19/05/1994"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Current Address : Jharsuguda Odisha"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Group : A +ve"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Gender : Male"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id Mark : Scar on Face"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="City : Jharsuguda"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id Mark : Jharsuguda Odisha"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Pin Code : 450544"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moblie No : 99777 83744"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+
+        <!--Personal Information-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:text="Personal Information"
+            android:background="@color/colorPrimaryTransportDepartment"
+            />
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Application Fee : 140 Rs"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction ID :9MP09KTI26542 "
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Concessioner Charges : 85 RS"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class : Motot Cycle without Gear"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="Transaction Amount :112 Rs"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount : 340 Rs"
+                android:textSize="10sp"
+                android:layout_margin="3dp"
+                android:padding="2dp"/>
+        </TableRow>
+    </TableLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:text="Proceed to Pay"
+        android:layout_weight=".1"
+        android:textColor="@android:color/background_light"
+        android:onClick="onClick"/>
+</LinearLayout>
