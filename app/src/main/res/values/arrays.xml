@@ -1,14 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="planets_array">
-        <item>RTO Odisha</item>
-    <item>Mercury</item>
-    <item>Venus</item>
-    <item>Earth</item>
-    <item>Mars</item>
-    <item>Jupiter</item>
-    <item>Saturn</item>
-    <item>Uranus</item>
-    <item>Neptune</item>
-</string-array>
+    <string-array name="Gender">
+
+        <item>--Select*--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="RelationType">
+
+        <item>Select</item>
+        <item>S/O </item>
+        <item>W/O </item>
+        <item>D/O </item>
+        <item>N/A </item>
+        
+    </string-array>
+    
+    <string-array name="RTO">
+
+        <item>--- Select---</item>
+        <item>BHOPAL RTO</item>
+        <item>HOSANGABAD RTO</item>
+        <item>MORENA RTO</item>
+        <item>GWALIOR RTO</item>
+        <item>GUNA RTO</item>
+        <item>INDORE RTO</item>
+        <item>KHARGONE RTO</item>
+        <item>DHAR RTO</item>
+        <item>KHANDWA RTO</item>
+        <item>UJJAIN RTO</item>
+        <item>MANDSAUR RTO</item>
+        <item>SAGAR RTO</item>
+        <item>CHATTARPUR RTO</item>
+        <item>REWA RTO</item>
+        <item>SHAHDOL RTO</item>
+        <item>SATNA RTO</item>
+        <item>JABALPUR RTO</item>
+        <item>KATNI RTO</item>
+        <item>SEONI RTO</item>
+        <item>CHHINDWARA RTO</item>
+        <item>BHIND RTO</item>
+        <item>SHEOPUR RTO</item>
+        <item>DATIA RTO</item>
+        <item>SHIVPURI RTO</item>
+        <item>DAMOH RTO</item>
+        <item>PANNA RTO</item>
+        <item>TIKAMGARH RTO</item>
+        <item>SEHORE RTO</item>
+        <item>RAISEN RTO</item>
+        <item>RAJGARH RTO</item>
+        <item>VIDISHA RTO</item>
+        <item>DEWAS RTO</item>
+        <item>SHAJAPUR RTO</item>
+        <item>RATLAM RTO</item>
+        <item>NEEMUCH RTO</item>
+        <item>JHABUA RTO</item>
+        <item>BADWANI RTO</item>
+        <item>HARDA RTO</item>
+        <item>BETUL RTO</item>
+        <item>NARSINGHPUR RTO</item>
+        <item>BALAGHAT RTO</item>
+        <item>MANDLA RTO</item>
+        <item>DINDORI RTO</item>
+        <item>SIDHI RTO</item>
+        <item>UMARIA RTO</item>
+        <item>NUPPUR</item>
+        <item>SINGRAULI</item>
+        <item>ASHOK NAGAR</item>
+        <item>BURAHNPUR</item>
+        <item>ALIRAJPUR</item>
+        <item>AGAR MALWA RTO</item>
+    </string-array>
+    
+    <string-array name="Blood">
+        <item>--select--</item>
+
+        <item>A</item>
+        <item>B</item>
+        <item>AB</item>
+        <item>O</item>
+        <item>None</item>
+        
+    </string-array>
+
+    <string-array name="Rh">
+        <item>Select</item>
+        <item>"+ve</item>
+        <item>-ve</item>
+        <item>None</item>
+    </string-array>
+
+    
+    <string-array name="District">
+        <item>--- Select RTO ---</item>
+        <item>BHOPAL RTO</item>
+        <item>HOSANGABAD RTO</item>
+        <item>MORENA RTO</item>
+        <item>GWALIOR RTO</item>
+        <item>GUNA RTO</item>
+        <item>INDORE RTO</item>
+        <item>KHARGONE RTO</item>
+        <item>DHAR RTO</item>
+        <item>KHANDWA RTO</item>
+        <item>UJJAIN RTO</item>
+        <item>MANDSAUR RTO</item>
+        <item>SAGAR RTO</item>
+        <item>CHATTARPUR RTO</item>
+        <item>REWA RTO</item>
+        <item>SHAHDOL RTO</item>
+        <item>SATNA RTO</item>
+        <item>JABALPUR RTO</item>
+        <item>KATNI RTO</item>
+        <item>SEONI RTO</item>
+        <item>CHHINDWARA RTO</item>
+        <item>BHIND RTO</item>
+        <item>SHEOPUR RTO</item>
+        <item>DATIA RTO</item>
+        <item>SHIVPURI RTO</item>
+        <item>DAMOH RTO</item>
+        <item>PANNA RTO</item>
+        <item>TIKAMGARH RTO</item>
+        <item>SEHORE RTO</item>
+        <item>RAISEN RTO</item>
+        <item>RAJGARH RTO</item>
+        <item>VIDISHA RTO</item>
+        <item>DEWAS RTO</item>
+        <item>SHAJAPUR RTO</item>
+        <item>RATLAM RTO</item>
+        <item>NEEMUCH RTO</item>
+        <item>JHABUA RTO</item>
+        <item>BADWANI RTO</item>
+        <item>HARDA RTO</item>
+        <item>BETUL RTO</item>
+        <item>NARSINGHPUR RTO</item>
+        <item>BALAGHAT RTO</item>
+        <item>MANDLA RTO</item>
+        <item>DINDORI RTO</item>
+        <item>SIDHI RTO</item>
+        <item>UMARIA RTO</item>
+        <item>NUPPUR</item>
+        <item>SINGRAULI</item>
+        <item>ASHOK NAGAR</item>
+        <item>BURAHNPUR</item>
+        <item>ALIRAJPUR</item>
+        <item>AGAR MALWA RTO</item>
+    
+    </string-array>
+
+    <string-array name="Qualification">
+    <item>Select</item>
+    <item>NOT SPECIFIED </item>
+    <item>ILLITERATE </item>
+    <item>PRIMARY </item>
+    <item>SECONDARY </item>
+    <item>HIGHER </item>
+    <item>GRADUATE </item>
+    <item>POST GRADUATE </item>
+    <item>DIPLOMA </item>
+    <item>ENGINEER </item>
+    <item>HIGH SCHOOL </item>
+    <item>MIDDLE </item>
+    <item>DIPLOMA HOLDER </item>
+
+    </string-array>
+
+    <string-array name="states">
+
+        <item>--Select State*--</item>
+        <item>Andaman and Nicobar</item>
+        <item>Andhra Pradesh</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>ChattisGarh</item>
+        <item>Chandigarh</item>
+        <item>Delhi</item>
+        <item>Dadra &amp; Nagar Haveli</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Himachal Pradesh</item>
+        <item>Haryana</item>
+        <item>Jammu and Kashmir</item>
+        <item>Jharkhand</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Lakshadweep</item>
+        <item>Maharashtra</item>
+        <item>Meghalaya</item>
+        <item>Manipur</item>
+        <item>Madhya Pradesh</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Punjab</item>
+        <item>Pondicherry</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>West Bengal</item>
+        <item>Not Specified</item>
+        <item>Daman and Diu</item>
+        <item>Uttarakhand</item>
+        <item>UA-Uttarakhand</item>
+        <item>Odisha</item>
+    </string-array>
+
+    <string-array name="idMark">
+        <item>Select</item>
+        <item>NONE</item>
+        <item>SCAR ON FACE</item>
+        <item>MOLE ON RIGHT THUMB</item>
+        <item>SCAR ON RIGHT CHEEK</item>
+        <item>SCAR ON LEFT CHEEK</item>
+        <item>SCAR ON LEFT HAND</item>
+        <item>SCAR ON RIGHT HAND</item>
+        <item>MARK UNDER LEFT EYE</item>
+        <item>MARK UNDER RIGHT EYE</item>
+    </string-array>
 </resources>

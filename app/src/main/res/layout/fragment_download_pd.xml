@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.converge.transportdepartment.DownloadPDF">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Download"
+        android:id="@+id/textView12"
+        android:layout_margin="4dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="26sp" />
+
+    <EditText
+        android:layout_width="318dp"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:ems="10"
+        android:padding="5dp"
+        android:hint="Reference Number"
+        android:layout_margin="4dp"
+        android:id="@+id/editText"
+        android:background="@drawable/edit_text_personal_details"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/buttonDownloadFormPdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download"
+        android:layout_marginTop="20dp"
+
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

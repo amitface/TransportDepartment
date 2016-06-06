@@ -1,6 +1,8 @@
 package com.converge.transportdepartment;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -20,7 +24,7 @@ import android.widget.TextView;
  * Use the {@link LicenseApplication#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LicenseApplication extends Fragment implements View.OnClickListener, PayablePayment.OnFragmentInteractionListener{
+public class LicenseApplication extends Fragment implements TabHost.OnTabChangeListener, View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +36,7 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
 
     private OnFragmentInteractionListener mListener;
     private FragmentTabHost mTabHost;
+    private SelectApplicationType.OnFragmentInteractionListener mSelectApplication;
 
 
     public LicenseApplication() {
@@ -69,6 +74,8 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        onAttachFragment(getParentFragment());
+
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
 
@@ -80,7 +87,9 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
                PersonalDetails.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
-//        mTabHost.setOnTabChangedListener(container);
+//        mTabHost.getTabWidget().setEnabled(false);
+
+        mTabHost.setCurrentTab(Integer.parseInt(mParam1));
 
         /* Increase tab height programatically
              * tabs.getTabWidget().getChildAt(1).getLayoutParams().height = 150;
@@ -107,6 +116,25 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
 //        return inflater.inflate(R.layout.fragment_license_application, container, false);
     }
 
+    public FragmentTabHost getTabHost()
+    {
+        return mTabHost;
+    }
+    public void onAttachFragment(Fragment fragment)
+    {
+        try
+        {
+            mSelectApplication = (SelectApplicationType.OnFragmentInteractionListener)fragment;
+
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(
+                    fragment.toString() + " must implement OnPlayerSelectionSetListener");
+        }
+    }
+
+
     private View getTabIndicator(Context context,  int icon) {
         View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
         ImageView iv = (ImageView) view.findViewById(R.id.imageView);
@@ -115,9 +143,9 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(View view) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(view);
         }
     }
 
@@ -146,17 +174,26 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
 
         switch (view.getId())
         {
-            case R.id.buttonConfirm:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,PayablePayment.newInstance("1","1")).commit();
+            case R.id.button_confirm_and_pay:
+                mTabHost.setCurrentTab(1);
                 break;
             default:break;
         }
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
+
+    @Override
+    public void onTabChanged(String s) {
+        showToast("Fragment Personal Details on Tab Changed");
     }
+
+    private void showToast(String s)
+    {
+        Toast.makeText(getActivity(), s,Toast.LENGTH_LONG).show();
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -170,6 +207,6 @@ public class LicenseApplication extends Fragment implements View.OnClickListener
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(View view);
     }
 }

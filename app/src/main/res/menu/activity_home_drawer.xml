@@ -7,20 +7,20 @@
 
             android:title="Home"/>
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_apply_license"
 
             android:title="Apply for Learning Licence" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_check_status"
             android:title="Check Status of Learning Licence Application" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_read_instruction"
 
             android:title="Read Instructions" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_download"
 
-            android:title="Download Application form for learning license" />
+            android:title="Download Application form " />
     </group>
 
     <!--<item android:title="Communicate">-->

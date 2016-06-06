@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
+    android:weightSum="1"
     tools:context="com.converge.transportdepartment.SelectSchedule">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,21 +15,27 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Please click on time of particular date to book slot."
         android:id="@+id/textView6"
+        android:layout_weight=".2"
         android:textSize="18dp"/>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight=".7"
+        android:layout_marginTop="10dp"
         android:paddingTop="5dp">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:shrinkColumns="*"
             android:elevation="16dp"
             >
             <TableRow
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:background="#AF5300"
+
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -36,8 +43,7 @@
                     android:layout_gravity="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:text="Date"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="10dp"
-                    android:layout_margin="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="11:50 to 12:30"/>
                 <TextView
@@ -60,7 +66,7 @@
                     android:layout_gravity="center"
                     android:textSize="10dp"
                     android:textColor="@android:color/background_light"
-                    android:layout_margin="2dp"
+
                     android:text="12:40 to 13:20"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,23 +88,30 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="28/5/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule1"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule2"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule3"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule4"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -115,24 +128,31 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="29/5/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule5"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
 
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule6"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule7"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule8"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -149,23 +169,30 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="30/5/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule9"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule10"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule11"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule12"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -182,23 +209,30 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="31/5/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule13"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule14"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule15"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule16"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -215,23 +249,30 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="01/6/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule17"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule18"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule19"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule20"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -248,42 +289,85 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
+
                     android:textColor="@android:color/background_light"
                     android:text="02/6/15"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule21"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule22"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/checkbox_schedule23"
+                    android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
-                <android.support.v7.widget.AppCompatCheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/background_light"
-                android:layout_gravity="center"/>
+                <CheckBox
+                    android:id="@+id/checkbox_schedule24"
+                    android:onClick="onClickCheckboxSchedule"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
 
 
             </TableRow>
         </TableLayout>
-    </LinearLayout>
+    </ScrollView>
 
-    <Button
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
         android:layout_gravity="bottom"
-        android:layout_marginTop="40dp"
-        android:background="@color/colorPrimaryTransportDepartment"
-        android:text="Apply Learning License"
-        android:textColor="@android:color/background_light"/>
+        android:layout_marginTop="5dp"
+        android:layout_weight=".1">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/buttonBackSelectSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:text="Back"
+                android:layout_margin="2dp"
+                android:textColor="@android:color/background_light"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/buttonSelectSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:text="Next"
+                android:layout_margin="2dp"
+                android:textColor="@android:color/background_light"
+                android:onClick="onClick"/>
+        </TableRow>
+    </TableLayout>
+
 
 </LinearLayout>
 
 <!--Please click on time of particular bate to book slot.-->
+<!--<Button-->
+<!--android:id="@+id/buttonClearSelectApplication"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_gravity="bottom"-->
+<!--android:background="@color/colorPrimaryTransportDepartment"-->
+<!--android:text="Clear"-->
+<!--android:layout_margin="2dp"-->
+<!--android:textColor="@android:color/background_light"-->
+<!--android:onClick="onClickCheckBox"/>-->

@@ -2,6 +2,7 @@ package com.converge.transportdepartment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,16 +23,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity
-        implements View.OnClickListener,PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener,LicenseApplication.OnFragmentInteractionListener,PersonalDetails.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener, SelectApplicationType.OnFragmentInteractionListener {
+        implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener,PersonalDetails.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
 
     private FragmentTabHost mTabHost;
+    private LicenseApplication.OnFragmentInteractionListener mLicenseApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,37 +67,84 @@ public class Home extends AppCompatActivity
         {
             case R.id.textViewApply:
 //                    initView();
-                 fragment = LicenseApplication.newInstance("1","2");
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
+                vibrate();
+                 fragment = LicenseApplication.newInstance("0","2");
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"App1").commit();
                 break;
             case R.id.imageViewApply:
-                 fragment = LicenseApplication.newInstance("1","2");
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
+                vibrate();
+                 fragment = LicenseApplication.newInstance("0","2");
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"App1").commit();
                 break;
             case R.id.textViewReadInstructions:
-                fragment = ReadInstructionFragment.newInstance("1","2");
+                vibrate();
+                fragment = ReadInstructionFragment.newInstance("0","2");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
             case R.id.imageViewReadInstructions:
-                fragment = ReadInstructionFragment.newInstance("1","2");
+                vibrate();
+                fragment = ReadInstructionFragment.newInstance("0","2");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
             case R.id.buttonReadBack:
+                vibrate();
                 fragment = HomeFragment.newInstance("1","1");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
             case R.id.buttonReadNext:
+                vibrate();
                 fragment = LicenseApplication.newInstance("1","2");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
-            case R.id.buttonSelectApplication:
+            case R.id.textViewDownloadApplication:
+                vibrate();
+                replaceFragment(DownloadPDF.newInstance("1","1"));
+                break;
+            case R.id.imageViewDownloadApplication:
+                vibrate();
+                replaceFragment(DownloadPDF.newInstance("1","1"));
+                break;
+            case R.id.textViewCheckStatus:
+                vibrate();
+                replaceFragment(CheckStatus.newInstance("1","1"));
+                break;
+            case R.id.imageViewCheckStatus:
+                vibrate();
+                replaceFragment(CheckStatus.newInstance("1","1"));
+                break;
 
-//                    LicenseApplication.
+            /*Select Applicaiton Type */
+            case R.id.buttonSelectApplication:
+                vibrate();
+                replaceFragment(LicenseApplication.newInstance("1","1"));
                 break;
-            case R.id.buttonConfirm:
+
+            /*Select Schedule */
+            case R.id.buttonSelectSchedule:
+                replaceFragment(LicenseApplication.newInstance("2","1"));
+                break;
+            case R.id.buttonBackSelectSchedule:
+                replaceFragment(LicenseApplication.newInstance("0","1"));
+                break;
+
+            /*Personal Details */
+            case R.id.buttonBackPersonalDetail:
+                replaceFragment(LicenseApplication.newInstance("1","1"));
+                break;
+            case R.id.buttonNextPersonalDetail:
+                replaceFragment(LicenseApplication.newInstance("3","1"));
+                break;
+
+            /*Confirm And Pay */
+            case R.id.buttonBackConfirmAndPay:
+                replaceFragment(LicenseApplication.newInstance("2","1"));
+                break;
+            case R.id.button_confirm_and_pay:
                 replaceFragment(PayablePayment.newInstance("1","2"));
-//                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
+
+            /*Pay Now */
             case R.id.buttonPayNow:
                 replaceFragment(PaymentSuccessfull.newInstance("1","2"));
                 break;
@@ -101,46 +152,6 @@ public class Home extends AppCompatActivity
         }
     }
 
-    private  void replaceFragment(Fragment fragment)
-    {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
-    }
-//    private void initView() {
-//
-//
-//        mTabHost = new FragmentTabHost(this);
-//        mTabHost.setup(this, getSupportFragmentManager(), R.id.content_home);
-//
-//        mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator(getTabIndicator(mTabHost.getContext(), android.R.drawable.star_on)),
-//                SelectApplicationType.class, null);
-//        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Select Schedule"),
-//                SelectSchedule.class, null);
-//        mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
-//                PersonalDetails.class, null);
-//        mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
-//                ConfirmAndPay.class, null);
-//            /* Increase tab height programatically
-//             * tabs.getTabWidget().getChildAt(1).getLayoutParams().height = 150;
-//             */
-//
-//        getSupportFragmentManager().beginTransaction().replace(R.id.content_home,mTabHost).commit();
-//        for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
-//            final TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-//            if (tv == null)
-//                continue;
-//            else
-//                tv.setTextSize(10);
-//
-//        }
-//
-//    }
-//
-//    private View getTabIndicator(Context context, int icon) {
-//        View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
-//        ImageView iv = (ImageView) view.findViewById(R.id.imageView);
-//        iv.setImageResource(icon);
-//        return view;
-//    }
     private void addDynamicFragment() {
         // TODO Auto-generated method stub
         // creating instance of the HelloWorldFragment.
@@ -155,7 +166,11 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else  if(getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2")).commit();
+        } else
+         {
             super.onBackPressed();
         }
     }
@@ -168,21 +183,27 @@ public class Home extends AppCompatActivity
         Fragment fragment;
         if(id == R.id.nav_home)
         {
+            vibrate();
             fragment = HomeFragment.newInstance("1","2");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
 
         }
-        else if (id == R.id.nav_camera) {
+        else if (id == R.id.nav_apply_license) {
             // Handle the camera action
-            fragment = LicenseApplication.newInstance("1","2");
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
-        } else if (id == R.id.nav_gallery) {
+            vibrate();
+            fragment = LicenseApplication.newInstance("0","2");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"App1").commit();
+        } else if (id == R.id.nav_check_status) {
+            vibrate();
+            replaceFragment(CheckStatus.newInstance("1","1"));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_read_instruction) {
+            vibrate();
             fragment = ReadInstructionFragment.newInstance("1","2");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_download) {
+            vibrate();
+            replaceFragment(DownloadPDF.newInstance("1","1"));
 //        } else if (id == R.id.nav_share) {
 //
 //        } else if (id == R.id.nav_send) {
@@ -194,13 +215,39 @@ public class Home extends AppCompatActivity
         return true;
     }
 
+    private void vibrate()
+    {
+        // Get instance of Vibrator from current Context
+        Vibrator mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
+// Vibrate for 300 milliseconds
+        mVibrator.vibrate(20);
     }
 
+    private  void replaceFragment(Fragment fragment)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
+    }
 
+    private void showToast(String s)
+    {
+        Toast.makeText(this, s,Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+            showToast(uri.toString());
+    }
+
+//
+//    @Override
+//    public void onFragmentInteraction(int id) {
+//        showToast("id :-"+id);
+//    }
+
+    @Override
+    public void onFragmentInteraction(View view) {
+
+    }
 }
 
 
