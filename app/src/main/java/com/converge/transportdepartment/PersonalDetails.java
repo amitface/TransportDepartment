@@ -286,6 +286,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
         meditViewAddress = (EditText) rootView.findViewById(R.id.editTextAddress);
         meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
+        meditViewFee.setText("250");
 
         mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
         mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
@@ -314,7 +315,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewMobileNo.setText("");
         meditViewPincode.setText("");
         meditViewAddress.setText("");
-        meditViewFee.setText("");
+
 
         mspinnerRTO.setSelection(0);
         mspinnerRelationshipType.setSelection(0);

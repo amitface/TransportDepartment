@@ -169,7 +169,8 @@ public class Home extends AppCompatActivity
         } else  if(getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2")).commit();
-        } else
+        }
+        else
          {
             super.onBackPressed();
         }
