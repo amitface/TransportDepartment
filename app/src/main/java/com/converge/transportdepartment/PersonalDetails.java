@@ -285,7 +285,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
         meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
         meditViewAddress = (EditText) rootView.findViewById(R.id.editTextAddress);
-        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
+//        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
 
         mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
         mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
@@ -314,7 +314,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewMobileNo.setText("");
         meditViewPincode.setText("");
         meditViewAddress.setText("");
-        meditViewFee.setText("");
+//        meditViewFee.setText("");
 
         mspinnerRTO.setSelection(0);
         mspinnerRelationshipType.setSelection(0);
@@ -368,7 +368,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
         editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
         editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
-        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
+//        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
 
         editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
         editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
@@ -400,7 +400,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         usr_mobile = meditViewMobileNo.getText().toString();
         usr_pincode = meditViewPincode.getText().toString();
         usr_address = meditViewAddress.getText().toString();
-        usr_feeamnt = meditViewFee.getText().toString();
+//        usr_feeamnt = editViewFee.getText().toString();
+        usr_feeamnt = "250";
         usr_city = "indore";
         usr_district = usr_city;
 
@@ -456,7 +457,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
         }
         if(sharedpreferences.contains(meditViewFeeString)) {
-            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
+//            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
         }
         if(sharedpreferences.contains(mspinnerRTOInt)){
             mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));

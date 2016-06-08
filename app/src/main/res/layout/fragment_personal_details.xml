@@ -41,10 +41,12 @@
                     android:paddingLeft="4dp"
                     android:layout_marginRight="2dp"
                     android:entries="@array/RTO"
+                    android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog"
                     android:layout_span="3" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:layout_marginTop="6dp">
                 <TextView
 
                     android:layout_width="match_parent"
@@ -53,7 +55,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Applicant Name"/>
+                    android:text="Applicant First Name"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,16 +108,7 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Relationship Type"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
 
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Relation's Name"/>
 
             </TableRow>
             <TableRow>
@@ -127,9 +120,44 @@
                     android:entries="@array/RelationType"
                     android:paddingLeft="4dp"
                     android:layout_margin="2dp"
-
-
+                    android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Relation's Name"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text=" Middle Name"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Last Name"/>
+            </TableRow>
+            <TableRow>
                 <EditText
                     android:id="@+id/editTextRelationsName"
                     android:layout_width="match_parent"
@@ -137,10 +165,25 @@
                     android:paddingLeft="4dp"
                     android:layout_margin="2dp"
                     android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="2" />
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextRelationsMiddleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextRelationsLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
             </TableRow>
-
-            <!--Address-->
+            <!--Permanant Address-->
             <TableRow
             android:layout_marginTop="8dp"
             >
@@ -150,7 +193,7 @@
                 android:textSize="12sp"
                 android:layout_margin="2dp"
                 android:layout_gravity="start"
-                android:text="Address"/>
+                android:text="Permanent Address"/>
 
             </TableRow>
             <TableRow
@@ -166,52 +209,132 @@
             </TableRow>
 
 
-            <!--PinCode mobile-->
+            <LinearLayout
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkboxSameAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:text="Present address same as Premanant"/>
+            </LinearLayout>
+            <!--Present  Address-->
             <TableRow
-            android:layout_marginTop="10dp"
-            >
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Present Address"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:layout_gravity="start"
-                android:layout_margin="2dp"
+            </TableRow>
+            <TableRow>
 
-                android:text="Pin Code"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:layout_gravity="start"
-                android:layout_margin="2dp"
-                android:layout_span="1"
-                android:text="Moblie No"/>
+                <EditText
+                    android:id="@+id/editTextLocalAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+            </TableRow>
+            <!--Duration of stay PinCode mobile-->
+            <TableRow
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:text="Duration of Stay"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+
+                    android:text="Pin Code"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:text="Moblie No"/>
 
 
             </TableRow>
             <TableRow
-            >
-            <EditText
-                android:id="@+id/editTextPinCode"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_margin="2dp"
-                android:layout_span="1"
-                android:maxLength="6"
-                android:inputType="phone"
-                android:background="@drawable/edit_text_personal_details"/>
-            <EditText
-                android:id="@+id/editTextMoblieNo"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_margin="2dp"
-                android:layout_span="1"
-                android:background="@drawable/edit_text_personal_details"
-                android:maxLength="10"
-                android:inputType="phone" />
+                >
+                <EditText
+                    android:id="@+id/editTextStay"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:maxLength="6"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextPinCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:maxLength="6"
+                    android:inputType="phone"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextMoblieNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:maxLength="10"
+                    android:inputType="phone" />
 
             </TableRow>
+            <!--Citizenship status-->
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:text="Citizenship status by"/>
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerCitizenship"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/Citizenship"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dropdown" />
+
+            </TableRow>
+
 
             <!--EmailId-->
             <TableRow>
@@ -246,6 +369,7 @@
                 android:textSize="12dp"
                 android:layout_gravity="start"
                 android:layout_span="3"
+
                 android:text="Qualification"/>
 
 
@@ -260,10 +384,8 @@
                     android:entries="@array/Qualification"
                     android:layout_marginRight="2dp"
                     android:layout_span="3"
+                    android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
-
-
-
             </TableRow>
 
             <!--DOB Gender-->
@@ -319,6 +441,7 @@
                     android:paddingLeft="4dp"
                     android:entries="@array/Gender"
                     android:layout_marginRight="2dp"
+                    android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
 
             </TableRow>
@@ -334,9 +457,6 @@
                 android:layout_span="3"
 
                 android:text="Id Mark"/>
-
-
-
         </TableRow>
         <TableRow
             android:layout_gravity="center">
@@ -348,17 +468,14 @@
                 android:layout_marginRight="2dp"
                 android:layout_span="3"
                 android:entries="@array/idMark"
+                android:background="@drawable/gradient_spinner"
                 android:spinnerMode="dialog" />
-
-
         </TableRow>
 
             <!-- BloodGroup Rh-->
             <TableRow
                 android:layout_marginTop="8dp"
                 >
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -375,15 +492,8 @@
                     android:layout_gravity="start"
                     android:layout_span="1"
                     android:text="RH"/>
-
-
-
             </TableRow>
-
-            <TableRow
-                >
-
-
+            <TableRow >
                 <Spinner
                     android:id="@+id/spinnerBloodGroup"
                     android:layout_width="match_parent"
@@ -391,6 +501,7 @@
                     android:paddingLeft="4dp"
                     android:entries="@array/Blood"
                     android:layout_marginRight="2dp"
+                    android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
                 <Spinner
                     android:id="@+id/spinnerRH"
@@ -398,32 +509,89 @@
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
                     android:entries="@array/Rh"
+                    android:background="@drawable/gradient_spinner"
                     android:layout_marginRight="2dp"
                     />
 
             </TableRow>
 
-            <!--fee-->
-            <TableRow>
+            <!--PhotoId -->
+            <TableRow
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Fee"/>
+                    android:text="Id Proof"/>
             </TableRow>
             <TableRow>
-                <EditText
-                    android:id="@+id/editTextFee"
+                <Spinner
+                    android:id="@+id/spinnerIdcard"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:layout_span="2"
-                    android:padding="2dp"
-                    android:hint="Rs 250"
-                    android:background="@drawable/edit_text_personal_details"/>
+                    android:paddingLeft="4dp"
+                    android:background="@drawable/gradient_spinner"
+                    android:layout_span="3"
+                    android:entries="@array/IdProof"/>
+             </TableRow>
+            <!--Photo Id Detail-->
+            <TableRow
+                    android:layout_marginTop="6dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Document Number"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Issuing Authority"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Date of Issue"/>
+
             </TableRow>
+            <TableRow  >
+                    <EditText
+                        android:id="@+id/editTextDocumentNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                       />
+                    <EditText
+                        android:id="@+id/editTextIssuingAuthority"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1"
+
+                       />
+                    <EditText
+                        android:id="@+id/editTextDateofIssue"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        />
+
+                </TableRow>
+
         </TableLayout>
 
     </ScrollView>
@@ -484,3 +652,15 @@
 <!--android:text="Next"-->
 <!--android:onClick="onClick"-->
 <!--android:textColor="@android:color/background_light"/>-->
+
+
+    <!--<EditText-->
+    <!--android:id="@+id/editTextFee"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_margin="2dp"-->
+    <!--android:layout_span="2"-->
+    <!--android:padding="2dp"-->
+    <!--android:hint="Rs 250"-->
+    <!--android:visibility="gone"-->
+    <!--android:background="@drawable/edit_text_personal_details"/>-->

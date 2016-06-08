@@ -90,7 +90,7 @@ public class Home extends AppCompatActivity
             case R.id.buttonReadBack:
                 vibrate();
                 fragment = HomeFragment.newInstance("1","1");
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"HomeFragment").commit();
                 break;
             case R.id.buttonReadNext:
                 vibrate();
@@ -157,21 +157,32 @@ public class Home extends AppCompatActivity
         // creating instance of the HelloWorldFragment.
         Fragment fg = HomeFragment.newInstance("1","1");
         // adding fragment to relative layout by using layout id
-        getSupportFragmentManager().beginTransaction().add(R.id.content_home, fg).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.content_home, fg,"HomeFragment").commit();
     }
 
 
     @Override
     public void onBackPressed() {
+        try{
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else  if(getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
+        } else  if(getSupportFragmentManager().findFragmentByTag("App1")!=null && getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2")).commit();
-        } else
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
+        } else if(getSupportFragmentManager().findFragmentByTag("HomeFragment")!=null && getSupportFragmentManager().findFragmentByTag("HomeFragment").isVisible())
          {
             super.onBackPressed();
+        }
+            else
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
+        }
+        }catch (Exception e)
+        {
+
         }
     }
 
@@ -185,7 +196,7 @@ public class Home extends AppCompatActivity
         {
             vibrate();
             fragment = HomeFragment.newInstance("1","2");
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"HomeFragment").commit();
 
         }
         else if (id == R.id.nav_apply_license) {

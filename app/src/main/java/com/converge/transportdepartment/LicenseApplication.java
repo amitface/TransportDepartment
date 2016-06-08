@@ -79,9 +79,9 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
 
-        mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Application Type"),
+        mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Class of Vehicle"),
                 SelectApplicationType.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Select Schedule"),
+        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
                SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
                PersonalDetails.class, null);
