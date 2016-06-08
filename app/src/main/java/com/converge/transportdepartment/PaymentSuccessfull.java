@@ -122,6 +122,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 Context.MODE_PRIVATE);
 
         Button buttonDownload = (Button) view.findViewById(R.id.buttonDownload);
+        try {
+
+
         buttonDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +134,10 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 downloadPdf();
             }
         });
-
+        }catch (Exception e)
+        {
+            showToast("error");
+        }
 
         return view;
     }

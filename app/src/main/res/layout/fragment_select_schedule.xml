@@ -11,22 +11,23 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Please click on time of particular date to book slot."
         android:id="@+id/textView6"
         android:layout_weight=".2"
-        android:textSize="18dp"/>
+        android:padding="4dp"
+        android:textSize="24dp"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight=".7"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_weight=".7"
         android:paddingTop="5dp">
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:stretchColumns="*"
             android:shrinkColumns="*"
             android:elevation="16dp"
@@ -96,22 +97,26 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule2"
                     android:onClick="onClickCheckboxSchedule"
+                    android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule3"
                     android:onClick="onClickCheckboxSchedule"
+                    android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule4"
                     android:onClick="onClickCheckboxSchedule"
+                    android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -136,6 +141,7 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
 
                     android:layout_gravity="center"/>
                 <CheckBox
@@ -143,18 +149,22 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule7"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule8"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
 
 
@@ -169,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="12dp"
-
+                    android:button="@drawable/checkbox"
                     android:textColor="@android:color/background_light"
                     android:text="30/5/15"/>
                 <CheckBox
@@ -177,24 +187,28 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule10"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule11"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule12"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
 
 
@@ -216,18 +230,21 @@
                     android:id="@+id/checkbox_schedule13"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule14"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule15"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
                 <CheckBox
@@ -235,6 +252,7 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
 
 
@@ -257,22 +275,26 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule18"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule19"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule20"
                     android:onClick="onClickCheckboxSchedule"
+                    android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"/>
@@ -297,24 +319,28 @@
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule22"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule23"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
                 <CheckBox
                     android:id="@+id/checkbox_schedule24"
                     android:onClick="onClickCheckboxSchedule"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:button="@drawable/checkbox"
                     android:layout_gravity="center"/>
 
 
@@ -324,7 +350,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
         android:layout_gravity="bottom"

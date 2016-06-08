@@ -14,65 +14,60 @@
         <item>S/O </item>
         <item>W/O </item>
         <item>D/O </item>
-        <item>N/A </item>
+
         
     </string-array>
     
     <string-array name="RTO">
 
+
         <item>--- Select---</item>
-        <item>BHOPAL RTO</item>
-        <item>HOSANGABAD RTO</item>
-        <item>MORENA RTO</item>
-        <item>GWALIOR RTO</item>
-        <item>GUNA RTO</item>
-        <item>INDORE RTO</item>
-        <item>KHARGONE RTO</item>
-        <item>DHAR RTO</item>
-        <item>KHANDWA RTO</item>
-        <item>UJJAIN RTO</item>
-        <item>MANDSAUR RTO</item>
-        <item>SAGAR RTO</item>
-        <item>CHATTARPUR RTO</item>
-        <item>REWA RTO</item>
-        <item>SHAHDOL RTO</item>
-        <item>SATNA RTO</item>
-        <item>JABALPUR RTO</item>
-        <item>KATNI RTO</item>
-        <item>SEONI RTO</item>
-        <item>CHHINDWARA RTO</item>
-        <item>BHIND RTO</item>
-        <item>SHEOPUR RTO</item>
-        <item>DATIA RTO</item>
-        <item>SHIVPURI RTO</item>
-        <item>DAMOH RTO</item>
-        <item>PANNA RTO</item>
-        <item>TIKAMGARH RTO</item>
-        <item>SEHORE RTO</item>
-        <item>RAISEN RTO</item>
-        <item>RAJGARH RTO</item>
-        <item>VIDISHA RTO</item>
-        <item>DEWAS RTO</item>
-        <item>SHAJAPUR RTO</item>
-        <item>RATLAM RTO</item>
-        <item>NEEMUCH RTO</item>
-        <item>JHABUA RTO</item>
-        <item>BADWANI RTO</item>
-        <item>HARDA RTO</item>
-        <item>BETUL RTO</item>
-        <item>NARSINGHPUR RTO</item>
-        <item>BALAGHAT RTO</item>
-        <item>MANDLA RTO</item>
-        <item>DINDORI RTO</item>
-        <item>SIDHI RTO</item>
-        <item>UMARIA RTO</item>
-        <item>NUPPUR</item>
-        <item>SINGRAULI</item>
-        <item>ASHOK NAGAR</item>
-        <item>BURAHNPUR</item>
-        <item>ALIRAJPUR</item>
-        <item>AGAR MALWA RTO</item>
+        <item >BALASORE RTO</item>
+        <item>BHUBANESWAR-I RTO</item>
+        <item>KHURDA ASST.RTO </item>
+        <item>BOLANGIR RTO </item>
+        <item>CHANDIKHOL RTO </item>
+        <item>CUTTACK RTO </item>
+        <item>DHENKANAL RTO </item>
+        <item>COLLECTORIATE BUILDING,MUNGER</item>
+        <item>KALAHANDI RTO </item>
+        <item>KEONJHAR RTO </item>
+        <item>BARBIL ADDL.RTO </item>
+        <item>KORAPUT RTO RTO</item>
+        <item>MAYURBHANJ RTO </item>
+        <item>RAIRANGPUR ASST.RTO</item>
+        <item>GANJAM</item>
+        <item>PHULBANI RTO </item>
+        <item>PURI RTO</item>
+        <item>PURI RTO </item>
+        <item>SAMBALPUR RTO </item>
+        <item>SUNDERGARH RTO</item>
+        <item>BARAGARH RTO </item>
+        <item>RAYAGADA RTO </item>
+        <item>ANGUL RTO </item>
+        <item>GAJAPATI RTO</item>
+        <item>JAGATSINGHPUR RTO </item>
+        <item>BHADRAK ADDL.RTO </item>
+        <item>JHARSUGUDA RTO </item>
+        <item>NAWARANGPUR RTO </item>
+        <item>NAYAGARH ASST.RTO </item>
+        <item>PHULBANI RTO </item>
+        <item>NUAPADA RTO </item>
+        <item>BOUDH RTO </item>
+        <item>DEOGARH RTO</item>
+        <item>KENDRAPARA RTO </item>
+        <item>MALKANGIRI RTO </item>
+        <item>SUBARNAPUR RTO </item>
+        <item>BHANJANAGAR RTO </item>
+        <item>BHUBANESWAR-II RTO PATIA</item>
+        <item>JAJPUR RTO COLLECTORATE</item>
+        <item>TALCHER ADDL.RTO STADIUM</item>
     </string-array>
+
+
+
+
+
     
     <string-array name="Blood">
         <item>--select--</item>
@@ -220,4 +215,19 @@
         <item>MARK UNDER LEFT EYE</item>
         <item>MARK UNDER RIGHT EYE</item>
     </string-array>
+
+    <string-array name="Citizenship">
+        <item>Select</item>
+        <item>Birth</item>
+        <item>Registration</item>
+        <item>Descent</item>
+        <item>Naturalization</item>
+        <item>Non Indian</item>
+    </string-array>
+
+    <string-array name="IdProof">
+        <item>Select</item>
+        <item>Pan Card</item>
+    </string-array>
 </resources>
+
