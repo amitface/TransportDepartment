@@ -146,18 +146,86 @@
 
     <string-array name="Qualification">
     <item>Select</item>
-    <item>NOT SPECIFIED </item>
-    <item>ILLITERATE </item>
-    <item>PRIMARY </item>
-    <item>SECONDARY </item>
-    <item>HIGHER </item>
-    <item>GRADUATE </item>
-    <item>POST GRADUATE </item>
-    <item>DIPLOMA </item>
-    <item>ENGINEER </item>
-    <item>HIGH SCHOOL </item>
-    <item>MIDDLE </item>
-    <item>DIPLOMA HOLDER </item>
+    <!--<item>NOT SPECIFIED </item>-->
+    <!--<item>ILLITERATE </item>-->
+    <!--<item>PRIMARY </item>-->
+    <!--<item>SECONDARY </item>-->
+    <!--<item>HIGHER </item>-->
+    <!--<item>GRADUATE </item>-->
+    <!--<item>POST GRADUATE </item>-->
+    <!--<item>DIPLOMA </item>-->
+    <!--<item>ENGINEER </item>-->
+    <!--<item>HIGH SCHOOL </item>-->
+    <!--<item>MIDDLE </item>-->
+    <!--<item>DIPLOMA HOLDER </item>-->
+
+        <item> Illiterate</item>
+
+        <item> Not specified </item>
+
+        <item> Below 8 th </item>
+
+        <item> 8th PASSED</item>
+
+        <item>10th Class /SSC/ SSLC/CBSE (X)/ICSE (X)</item>
+
+        <item> I T I </item>
+
+        <item>Certificate course </item>
+
+        <item> +2/Intermediate/ICSE (12th )/CBSE(12th)</item>
+
+        <item> Diploma in Engineering (non Mechanical)</item>
+
+        <item>Diploma in Mechanical Engineering </item>
+
+        <item> Diploma in Other faculties </item>
+
+        <item> DHMS</item>
+
+        <item> B A / BBA / B. Com / B Sc </item>
+
+        <item> Bachelor of Agriculture / Vet.Sciences </item>
+
+        <item> B E ( other than Mechanical)</item>
+
+        <item> B E (Mechanical)</item>
+
+        <item> MBBS / BHMS / BAMS </item>
+
+        <item> Bachelor of Education / Law </item>
+
+        <item>Any Other Graduation Not specified above </item>
+
+        <item> MA / MBA / M.Com / M.SC </item>
+
+        <item>PG Diploma In Science/Arts/Commerce/Mgt </item>
+
+        <item> PG Diploma In Engineering / Medicine</item>
+
+        <item> M Sc (Agriculture / Vet. Sciences) </item>
+
+        <item> M E ( other than Mechanical ) </item>
+
+        <item> M E (Mechanical) </item>
+
+        <item>MS / MD / MHMS / MAMS / MDS </item>
+
+        <item> Master of Education / Law</item>
+
+        <item> CA / ICWA / ICS – or equivalent </item>
+
+        <item> Any Other PG/PG Diploma Not specified </item>
+
+        <item> M Phil. (Sci/Arts/Com/ Edn/Law/ Mgt/etc)</item>
+
+        <item> Ph.D. (Sci/Arts/Com/ Edn/Law/ Mgt/etc)</item>
+
+        <item> Ph.D in Engineering </item>
+
+        <item> Ph. D. in Medicine </item>
+
+        <item> M. Ch. ( Surgery )/ D.M. ( Medicine )</item>
 
     </string-array>
 
@@ -227,7 +295,46 @@
 
     <string-array name="IdProof">
         <item>Select</item>
-        <item>Pan Card</item>
+
+        <item>Psv Badge </item>
+
+        <item> First Aid Certificate </item>
+
+        <item> Driving Licence (DL) </item>
+
+        <item>FIR(First Information Report) </item>
+
+        <item> Hill Driving Training Certificate </item>
+
+        <item> International Driving Permit (IDP) </item>
+
+        <item> Learners Licence (LL) </item>
+
+        <item> Driving Training Certificate </item>
+
+        <item>Visa </item>
+
+        <item> Hazardous Training Certificate </item>
+
+        <item>Age-School/Educational Cert. </item>
+
+        <item>Age-Passport </item>
+
+        <item> Age-Birth Certificate </item>
+
+        <item>Age-Affidavit by Magistrate/Notary Public </item>
+
+        <item> Address-Voter- ID </item>
+
+        <item>Address-Passport </item>
+
+        <item> Address-LIC Policy </item>
+
+        <item> Address-ID Card issued by Central/State Govt </item>
+
+        <item> Address-PaySlip by Central/State Govt/Localbody </item>
+
+        <item> Address-AADHAAR CARD </item>
     </string-array>
 </resources>
 

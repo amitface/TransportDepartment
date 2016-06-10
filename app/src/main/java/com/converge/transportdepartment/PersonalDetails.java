@@ -109,41 +109,32 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private TextView meditViewApplicantMiddleName;
     private TextView meditViewApplicantLastName;
     private TextView meditViewApplicantRelationsName;
+    private TextView meditViewApplicantRelationsMiddleName;
+    private TextView meditViewApplicantRelationsLastName;
     private TextView meditViewEmail;
     private TextView meditViewMobileNo;
     private TextView meditViewPincode;
     private TextView meditViewAddress;
     private TextView meditViewFee;
+    private TextView meditView;
+
     public static TextView mtextViewDate;
 
 
-    private Spinner mspinnerRTO;
-    private Spinner mspinnerRelationshipType;
-    private Spinner mspinnerQualification;
-    private Spinner mspinnerGender;
-    private Spinner mspinnerIdmark;
-    private Spinner mspinnerBloodGroup;
-    private Spinner mspinnerRH;
+    private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
+    private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH;
 
     private ImageView mimageViewDatePicker;
 
-    private Button buttonNextPersonalDetails;
-    private Button buttonClearPersonalDetails;
-    private Button buttonBackPersonalDetails;
+    private Button buttonNextPersonalDetails, buttonClearPersonalDetails, buttonBackPersonalDetails;
 
 
     private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
     private String usr_email, usr_qualification, usr_dob, usr_gender;
     private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
 
-    private int int_relation_type;
-    private int int_qualification;
-    private int int_gender ;
-    private int int_idmark ;
-    private int int_blood_gr;
-    private int int_blood_rh;
-    private int int_apply_class;
-    private int int_dob ;
+    private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
+    private int int_apply_class, int_dob ;
 
     private String vehicleClass[] = {"Motor cycle without gear for less then 50cc",
             "Motor cycle without grear",
@@ -237,7 +228,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             }
         }).start();
-
         return rootView;
     }
 
@@ -281,6 +271,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
         meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
         meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
+        meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
+        meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastName);
         meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
         meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
         meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);

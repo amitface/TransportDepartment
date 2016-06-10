@@ -239,7 +239,7 @@
             <TableRow>
 
                 <EditText
-                    android:id="@+id/editTextLocalAddress"
+                    android:id="@+id/editTextPresentAddress"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
@@ -414,6 +414,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
                     android:layout_span="2">
                     <ImageView
                         android:id="@+id/imageViewDatePicker"
