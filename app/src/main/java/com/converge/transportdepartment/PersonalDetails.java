@@ -236,16 +236,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             case R.id.buttonNextPersonalDetail:
                 saveSharedPreference();
                 getFieldData();
-                if(textFieldValidation()) {
-                    sendPostRequest(view);
+//                if(textFieldValidation()) {
+//                    sendPostRequest(view);
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
                             super.handleMessage(msg);
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("4", "1")).commit();
                         }
                     };
-                }
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+//                }
                 break;
             case R.id.buttonBackPersonalDetail:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("1", "1")).commit();
@@ -276,9 +277,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
         meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
         meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
-        meditViewAddress = (EditText) rootView.findViewById(R.id.editTextAddress);
-        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
-        meditViewFee.setText("250");
+        meditViewAddress = (EditText) rootView.findViewById(R.id.editTextFlatNum);
+//        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
+//        meditViewFee.setText("250");
 
         mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
         mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
@@ -361,7 +362,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
         editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
         editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
-        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
+//        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
 
         editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
         editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
@@ -393,7 +394,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         usr_mobile = meditViewMobileNo.getText().toString();
         usr_pincode = meditViewPincode.getText().toString();
         usr_address = meditViewAddress.getText().toString();
-        usr_feeamnt = meditViewFee.getText().toString();
+//        usr_feeamnt = meditViewFee.getText().toString();
         usr_city = "indore";
         usr_district = usr_city;
 
@@ -448,9 +449,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if(sharedpreferences.contains(meditViewAddressString)) {
             meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
         }
-        if(sharedpreferences.contains(meditViewFeeString)) {
-            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
-        }
+//        if(sharedpreferences.contains(meditViewFeeString)) {
+//            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
+//        }
         if(sharedpreferences.contains(mspinnerRTOInt)){
             mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));
         }

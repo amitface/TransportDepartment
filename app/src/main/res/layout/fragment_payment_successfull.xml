@@ -79,20 +79,10 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimaryTransportDepartment"
         android:layout_marginTop="30dp"
-        android:text="Download Recipt"
+        android:text="Download Recipt and Application"
         android:layout_weight=".1"
         android:textColor="@android:color/background_light"
         />
-    <Button
-        android:id="@+id/buttonDownloadf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimaryTransportDepartment"
-        android:layout_marginTop="30dp"
-        android:text="Download  Application Form"
-        android:layout_weight=".1"
-        android:textColor="@android:color/background_light"
-        />
+
 
 </LinearLayout>

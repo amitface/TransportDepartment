@@ -163,16 +163,25 @@ public class Home extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        try{
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else  if(getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
+        } else  if(getSupportFragmentManager().findFragmentByTag("App1")!=null && getSupportFragmentManager().findFragmentByTag("App1").isVisible()) {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2")).commit();
-        }
-        else
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
+        } else if(getSupportFragmentManager().findFragmentByTag("HomeFragment")!= null && getSupportFragmentManager().findFragmentByTag("HomeFragment").isVisible())
          {
             super.onBackPressed();
+        }
+            else
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
+
+        }catch (Exception e)
+        {
+
         }
     }
 

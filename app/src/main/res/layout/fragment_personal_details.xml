@@ -13,6 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadeScrollbars="false"
         android:layout_weight=".9">
         <TableLayout
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:layout_margin="2dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="Select RTO"/>
+                android:text="Select RTO*"/>
             </TableRow>
             <TableRow>
                 <Spinner
@@ -54,15 +55,13 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-
-                    android:text="Applicant First Name"/>
+                    android:text="Applicant Name*"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-
                     android:text="Midddle Name"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -70,7 +69,6 @@
                     android:textSize="12dp"
                     android:layout_margin="2dp"
                     android:layout_gravity="start"
-
                     android:text="Last Name"/>
 
             </TableRow>
@@ -95,299 +93,6 @@
                     android:background="@drawable/edit_text_personal_details"/>
             </TableRow>
 
-            <!--RTO Relationship Type Fathers Name-->
-            <TableRow
-            android:layout_marginTop="8dp">
-
-                    <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-
-                    android:layout_margin="2dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Relationship Type"/>
-
-
-            </TableRow>
-            <TableRow>
-
-                <Spinner
-                    android:id="@+id/spinnerRelationshipType"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:entries="@array/RelationType"
-                    android:paddingLeft="4dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/gradient_spinner"
-                    android:spinnerMode="dialog" />
-
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Relation's Name"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text=" Middle Name"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Last Name"/>
-            </TableRow>
-            <TableRow>
-                <EditText
-                    android:id="@+id/editTextRelationsName"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingLeft="4dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="1" />
-                <EditText
-                    android:id="@+id/editTextRelationsMiddleName"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingLeft="4dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="1" />
-                <EditText
-                    android:id="@+id/editTextRelationsLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingLeft="4dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="1" />
-            </TableRow>
-            <!--Permanant Address-->
-            <TableRow
-            android:layout_marginTop="8dp"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_margin="2dp"
-                android:layout_gravity="start"
-                android:text="Permanent Address"/>
-
-            </TableRow>
-            <TableRow
-            >
-
-            <EditText
-                android:id="@+id/editTextAddress"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/edit_text_personal_details"
-                android:layout_span="3" />
-            </TableRow>
-
-
-            <LinearLayout
-                android:orientation="horizontal">
-                <CheckBox
-                    android:id="@+id/checkboxSameAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:text="Present address same as Premanant"/>
-            </LinearLayout>
-            <!--Present  Address-->
-            <TableRow
-                android:layout_marginTop="8dp"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_margin="2dp"
-                    android:layout_gravity="start"
-                    android:text="Present Address"/>
-
-            </TableRow>
-            <TableRow>
-
-                <EditText
-                    android:id="@+id/editTextPresentAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="3" />
-            </TableRow>
-            <!--Duration of stay PinCode mobile-->
-            <TableRow
-                android:layout_marginTop="10dp"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:text="Duration of Stay"/>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-
-                    android:text="Pin Code"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-                    android:layout_span="1"
-                    android:text="Moblie No"/>
-
-
-            </TableRow>
-            <TableRow
-                >
-                <EditText
-                    android:id="@+id/editTextStay"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:layout_span="1"
-                    android:maxLength="6"
-                    android:inputType="number"
-                    android:background="@drawable/edit_text_personal_details"/>
-                <EditText
-                    android:id="@+id/editTextPinCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:layout_span="1"
-                    android:maxLength="6"
-                    android:inputType="phone"
-                    android:background="@drawable/edit_text_personal_details"/>
-                <EditText
-                    android:id="@+id/editTextMoblieNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:layout_span="1"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:maxLength="10"
-                    android:inputType="phone" />
-
-            </TableRow>
-            <!--Citizenship status-->
-            <TableRow>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_margin="2dp"
-                    android:layout_gravity="start"
-                    android:layout_span="3"
-                    android:text="Citizenship status by"/>
-            </TableRow>
-            <TableRow>
-                <Spinner
-                    android:id="@+id/spinnerCitizenship"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingLeft="4dp"
-                    android:entries="@array/Citizenship"
-                    android:layout_marginRight="2dp"
-                    android:layout_span="3"
-                    android:background="@drawable/gradient_spinner"
-                    android:spinnerMode="dropdown" />
-
-            </TableRow>
-
-
-            <!--EmailId-->
-            <TableRow>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:layout_margin="2dp"
-                    android:layout_gravity="start"
-                    android:layout_span="3"
-                    android:text="Email"/>
-            </TableRow>
-
-            <TableRow>
-                <EditText
-                    android:id="@+id/editTextEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:layout_span="3"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
-
-            <!--Qualification-->
-            <TableRow
-            android:layout_marginTop="8dp"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:layout_gravity="start"
-                android:layout_span="3"
-
-                android:text="Qualification"/>
-
-
-
-            </TableRow>
-            <TableRow>
-                <Spinner
-                    android:id="@+id/spinnerQualification"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingLeft="4dp"
-                    android:entries="@array/Qualification"
-                    android:layout_marginRight="2dp"
-                    android:layout_span="3"
-                    android:background="@drawable/gradient_spinner"
-                    android:spinnerMode="dialog" />
-            </TableRow>
-
             <!--DOB Gender-->
             <TableRow>
                 <TextView
@@ -396,7 +101,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Date of Birth"/>
+                    android:text="Date of Birth*"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -441,11 +146,913 @@
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
                     android:entries="@array/Gender"
-                    android:layout_marginRight="2dp"
+                    android:layout_margin="2dp"
                     android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
 
             </TableRow>
+
+            <!--Place of Birth-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:text="Place of Birth*"/>
+
+
+
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextPlaceofBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"/>
+            </TableRow>
+            <!--Migration time-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
+
+
+
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Year"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Month"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+            </TableRow>
+
+            <!--Country-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:text="Country by Birth*"/>
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/Country"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dialog" />
+            </TableRow>
+            <!--EmailId-->
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:text="Email"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+
+                    android:layout_span="3"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:inputType="textEmailAddress" />
+            </TableRow>
+
+            <!--RTO Relationship Type Fathers Name-->
+            <TableRow
+            android:layout_marginTop="8dp">
+
+                    <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Relationship Type*"/>
+
+
+            </TableRow>
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/spinnerRelationshipType"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:entries="@array/RelationType"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dialog" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Relation's Name*"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text=" Middle Name"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Last Name"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextRelationsName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextRelationsMiddleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextRelationsLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+            </TableRow>
+
+            <!--Permanant Address-->
+            <TableRow
+            android:layout_marginTop="8dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_margin="2dp"
+                android:layout_gravity="start"
+                android:text="Permanent Address"/>
+
+            </TableRow>
+            
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="1"
+                    android:text="Flat Number"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Flat / House Name"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextFlatNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextHouseName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="2" />
+
+            </TableRow>
+            <!--Second 2-->
+
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="1"
+                    android:text="House Number/Plot No"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Street"/>
+            </TableRow>
+            <TableRow
+            >
+
+
+            <EditText
+                android:id="@+id/editTextHouseNum"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/edit_text_personal_details"
+                android:layout_span="1" />
+
+                <EditText
+                    android:id="@+id/editTextStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <!--Third 1-->
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:text=" Locality"/>
+
+            </TableRow>
+            <TableRow
+                >
+                <EditText
+                    android:id="@+id/editTextLocality"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+
+            <!--fourth 1-->
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Village / Town / City"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextvillage"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+            <!--fifth 1-->
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Taluka / Mandal"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextTaluka"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow><!--District-->
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text=" District"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+            <!--State-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:text="State"/>
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerState"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/states"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dialog" />
+            </TableRow>
+
+
+            <!--Duration of stay-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:text="Duration of Stay"/>
+
+
+
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Year"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Month"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+            </TableRow>
+           <!--  PinCode mobile-->
+            <TableRow
+                android:layout_marginTop="10dp"
+                >
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+
+                    android:text="Pin Code*"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:text="Moblie No*"/>
+
+
+            </TableRow>
+            <TableRow
+                >
+
+                <EditText
+                    android:id="@+id/editTextPinCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:maxLength="6"
+                    android:inputType="phone"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextMoblieNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:maxLength="10"
+                    android:inputType="phone" />
+
+            </TableRow>
+
+        <!--Check Box for Permatnat address-->
+            <LinearLayout
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkboxSameAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:text="Present address same as Premanant"/>
+            </LinearLayout>
+
+            <!--Present  Address-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Present Address"/>
+
+            </TableRow>
+
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="1"
+                    android:text="Flat Number"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Flat / House Name"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextPresentFlatNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+                <EditText
+                    android:id="@+id/editTextPresentHouseName"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="2" />
+
+            </TableRow>
+            <!--Second 2-->
+
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="1"
+                    android:text="House Number/Plot No"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Street"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextPresentHouseNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1" />
+
+                <EditText
+                    android:id="@+id/editTextPresentStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <!--Third 1-->
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:text=" Locality"/>
+
+            </TableRow>
+            <TableRow
+                >
+                <EditText
+                    android:id="@+id/editTextPresentLocality"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+
+            <!--fourth 1-->
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Village / Town / City"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextPresentvillage"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+            <!--fifth 1-->
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text="Taluka / Mandal"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextPresentTaluka"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow><!--District-->
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:text=" District"/>
+            </TableRow>
+            <TableRow
+                >
+
+
+                <EditText
+                    android:id="@+id/editTextPresentDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="3" />
+
+
+
+            </TableRow>
+
+            <!--State-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:text="State"/>
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerPresentState"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/states"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dialog" />
+            </TableRow>
+
+
+            <!--Duration of stay-->
+            <TableRow
+                android:layout_marginTop="8dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:text="Duration of Stay"/>
+
+
+
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Year"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_span="1"
+                    android:hint="Month"
+                    android:layout_margin="2dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_personal_details"/>
+            </TableRow>
+            <!-- PinCode mobile-->
+            <TableRow
+                android:layout_marginTop="10dp"
+                >
+
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+
+                    android:text="Pin Code*"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:text="Moblie No*"/>
+
+
+            </TableRow>
+            <TableRow
+                >
+
+                <EditText
+                    android:id="@+id/editTextPresentPinCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:maxLength="6"
+                    android:inputType="phone"
+                    android:background="@drawable/edit_text_personal_details"/>
+                <EditText
+                    android:id="@+id/editTextPresentMoblieNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:layout_span="1"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:maxLength="10"
+                    android:inputType="phone" />
+
+            </TableRow>
+
+            <!--Citizenship status-->
+            <TableRow
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start"
+                    android:layout_span="3"
+                    android:text="Citizenship status by*"/>
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerCitizenship"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/Citizenship"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dropdown" />
+            </TableRow>
+
+
+            <!--Qualification-->
+            <TableRow
+            android:layout_marginTop="8dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="start"
+                android:layout_span="3"
+
+                android:text="Educational Qualification*"/>
+
+
+
+            </TableRow>
+            <TableRow>
+                <Spinner
+                    android:id="@+id/spinnerQualification"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingLeft="4dp"
+                    android:entries="@array/Qualification"
+                    android:layout_marginRight="2dp"
+                    android:layout_span="3"
+                    android:background="@drawable/gradient_spinner"
+                    android:spinnerMode="dialog" />
+            </TableRow>
+
+
         <!--Id mark -->
         <TableRow
             android:layout_marginTop="10dp"
@@ -515,9 +1122,9 @@
                     />
 
             </TableRow>
-
             <!--PhotoId -->
             <TableRow
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="match_parent"
@@ -525,9 +1132,10 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Id Proof"/>
+                    android:text="Id Proof 4"/>
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:visibility="gone">
                 <Spinner
                     android:id="@+id/spinnerIdcard"
                     android:layout_width="match_parent"
@@ -536,62 +1144,66 @@
                     android:background="@drawable/gradient_spinner"
                     android:layout_span="3"
                     android:entries="@array/IdProof"/>
-             </TableRow>
+            </TableRow>
             <!--Photo Id Detail-->
             <TableRow
-                    android:layout_marginTop="6dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-                        android:text="Document Number"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
+                android:visibility="gone"
+                android:layout_marginTop="6dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
+                    android:text="Document Number"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
 
-                        android:text="Issuing Authority"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
+                    android:text="Issuing Authority"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="2dp"
 
-                        android:text="Date of Issue"/>
+                    android:text="Date of Issue"/>
 
             </TableRow>
-            <TableRow  >
-                    <EditText
-                        android:id="@+id/editTextDocumentNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"
-                       />
-                    <EditText
-                        android:id="@+id/editTextIssuingAuthority"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"
-                        android:layout_span="1"
+            <TableRow
+                android:visibility="gone">
+                <EditText
+                    android:id="@+id/editTextDocumentNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    />
+                <EditText
+                    android:id="@+id/editTextIssuingAuthority"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1"
 
-                       />
-                    <EditText
-                        android:id="@+id/editTextDateofIssue"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:textSize="12dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
+                    />
+                <EditText
+                    android:id="@+id/editTextDateofIssue"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:textSize="12dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/edit_text_personal_details"
+                    />
 
-                </TableRow>
+            </TableRow>
+
+
 
         </TableLayout>
 
@@ -665,3 +1277,83 @@
     <!--android:hint="Rs 250"-->
     <!--android:visibility="gone"-->
     <!--android:background="@drawable/edit_text_personal_details"/>-->
+
+
+    <!--PhotoId -->
+
+
+<!--<TableRow-->
+<!--android:layout_marginTop="10dp">-->
+<!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="12dp"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:layout_span="2"-->
+    <!--android:text="Id Proof"/>-->
+<!--</TableRow>-->
+<!--<TableRow>-->
+<!--<Spinner-->
+    <!--android:id="@+id/spinnerIdcard"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:paddingLeft="4dp"-->
+    <!--android:background="@drawable/gradient_spinner"-->
+    <!--android:layout_span="3"-->
+    <!--android:entries="@array/IdProof"/>-->
+<!--</TableRow>-->
+    <!--&lt;!&ndash;Photo Id Detail&ndash;&gt;-->
+<!--<TableRow-->
+<!--android:layout_marginTop="6dp">-->
+<!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="12dp"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:layout_margin="2dp"-->
+    <!--android:text="Document Number"/>-->
+<!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="12dp"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:layout_margin="2dp"-->
+
+    <!--android:text="Issuing Authority"/>-->
+<!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="12dp"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:layout_margin="2dp"-->
+
+    <!--android:text="Date of Issue"/>-->
+
+<!--</TableRow>-->
+<!--<TableRow  >-->
+<!--<EditText-->
+    <!--android:id="@+id/editTextDocumentNum"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_margin="2dp"-->
+    <!--android:background="@drawable/edit_text_personal_details"-->
+    <!--/>-->
+<!--<EditText-->
+    <!--android:id="@+id/editTextIssuingAuthority"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_margin="2dp"-->
+    <!--android:background="@drawable/edit_text_personal_details"-->
+    <!--android:layout_span="1"-->
+
+    <!--/>-->
+<!--<EditText-->
+    <!--android:id="@+id/editTextDateofIssue"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:textSize="12dp"-->
+    <!--android:layout_margin="2dp"-->
+    <!--android:background="@drawable/edit_text_personal_details"-->
+    <!--/>-->
+
+<!--</TableRow>-->

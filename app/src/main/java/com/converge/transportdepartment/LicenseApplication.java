@@ -85,6 +85,8 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
                PersonalDetails.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),
+                IdProof.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
 //        mTabHost.getTabWidget().setEnabled(false);
@@ -104,7 +106,7 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                 continue;
             else
             {
-                tv.setTextSize(10);
+                tv.setTextSize(8);
                 tv.setPadding(6,0,0,0);
             }
 
