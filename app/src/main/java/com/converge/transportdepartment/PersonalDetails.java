@@ -1,7 +1,5 @@
 package com.converge.transportdepartment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,20 +7,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +29,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Calendar;
 
 
 /**
@@ -51,6 +45,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static boolean permanent = false;
+    private static boolean present = false;
+
     //Temporary data
     public ProgressDialog progress;
 
@@ -59,6 +56,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private String mParam2;
     private static Handler handler;
 
+    ImageView imageViewPermanent ;
+    ImageView imageViewPresent ;
     //Check Box.
     private static final String CheckBoxApplicationType1 = "CheckBoxApplicationType1";
     private static final String CheckBoxApplicationType2 = "CheckBoxApplicationType2";
@@ -116,9 +115,48 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private TextView meditViewPincode;
     private TextView meditViewAddress;
     private TextView meditViewFee;
-    private TextView meditView;
+    private TableRow mtextViewPresentAddress;
+    private TableRow mtextViewPremanentAddress;
 
     public static TextView mtextViewDate;
+
+    private TableRow tableRowAddress1;
+    private TableRow tableRowAddress2;
+    private TableRow tableRowAddress3;
+    private TableRow tableRowAddress4;
+    private TableRow tableRowAddress5;
+    private TableRow tableRowAddress6;
+    private TableRow tableRowAddress7;
+    private TableRow tableRowAddress8;
+    private TableRow tableRowAddress9;
+    private TableRow tableRowAddress10;
+    private TableRow tableRowAddress11;
+    private TableRow tableRowAddress12;
+    private TableRow tableRowAddress13;
+    private TableRow tableRowAddress14;
+    private TableRow tableRowAddress15;
+    private TableRow tableRowAddress16;
+    private TableRow tableRowAddress17;
+    private TableRow tableRowAddress18;
+
+    private TableRow  tableRowPresentAddress1;
+    private TableRow  tableRowPresentAddress2;
+    private TableRow  tableRowPresentAddress3;
+    private TableRow  tableRowPresentAddress4;
+    private TableRow  tableRowPresentAddress5;
+    private TableRow  tableRowPresentAddress6;
+    private TableRow  tableRowPresentAddress7;
+    private TableRow  tableRowPresentAddress8;
+    private TableRow  tableRowPresentAddress9;
+    private TableRow  tableRowPresentAddress10;
+    private TableRow  tableRowPresentAddress11;
+    private TableRow  tableRowPresentAddress12;
+    private TableRow  tableRowPresentAddress13;
+    private TableRow  tableRowPresentAddress14;
+    private TableRow  tableRowPresentAddress15;
+    private TableRow  tableRowPresentAddress16;
+    private TableRow  tableRowPresentAddress17;
+    private TableRow  tableRowPresentAddress18;
 
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
@@ -193,6 +231,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 Context.MODE_PRIVATE);
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
+
+        imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanent);
+        imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresent);
+        hidePermanent();
+        hidePresent();
+
         setListner();
         getPreferenceData();
 
@@ -258,6 +302,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
+            case R.id.textViewPermanant:
+                if(permanent==true)
+                    hidePermanent();
+                else
+                    showPremanent();
+                break;
+            case R.id.textViewPresentAddress:
+                if(present==true)
+                    hidePresent();
+                else
+                    showPresent();
+                break;
             default:
                 break;
         }
@@ -265,63 +321,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showToast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
-    }
-
-    private void initailizeFelids(View rootView) {
-        meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
-        meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
-        meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
-        meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
-        meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
-        meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastName);
-        meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
-        meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
-        meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
-        meditViewAddress = (EditText) rootView.findViewById(R.id.editTextFlatNum);
-//        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
-//        meditViewFee.setText("250");
-
-        mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
-        mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
-        mspinnerQualification = (Spinner) rootView.findViewById(R.id.spinnerQualification);
-        mspinnerGender = (Spinner) rootView.findViewById(R.id.spinnerGender);
-        mspinnerIdmark = (Spinner) rootView.findViewById(R.id.spinnerIdmark);
-        mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroup);
-        mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
-
-        mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePicker);
-
-        mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
-
-        buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
-        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
-        buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
-
-    }
-
-    private void clearFelids(View rootView) {
-        meditViewApplicantFirstName.setText("");
-        meditViewApplicantMiddleName.setText("");
-        meditViewApplicantLastName.setText("");
-        meditViewApplicantRelationsName.setText("");
-        meditViewEmail.setText("");
-        meditViewMobileNo.setText("");
-        meditViewPincode.setText("");
-        meditViewAddress.setText("");
-
-
-        mspinnerRTO.setSelection(0);
-        mspinnerRelationshipType.setSelection(0);
-        mspinnerQualification.setSelection(0);
-        mspinnerGender.setSelection(0);
-        mspinnerIdmark.setSelection(0);
-        mspinnerBloodGroup.setSelection(0);
-        mspinnerRH.setSelection(0);
-
-
-        mtextViewDate.setText("");
-
-
     }
 
     private void setListner() {
@@ -350,35 +349,149 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 onClickPersonalDetails(view);
             }
         });
+
+        mtextViewPresentAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickPersonalDetails(v);
+            }
+        });
+        mtextViewPremanentAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickPersonalDetails(v);
+            }
+        });
+    }
+
+    private void initailizeFelids(View rootView) {
+        meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
+        meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
+        meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
+        meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
+        meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
+        meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastName);
+        meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
+        meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
+        meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
+        meditViewAddress = (EditText) rootView.findViewById(R.id.editTextFlatNum);
+//        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
+//        meditViewFee.setText("250");
+
+        mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
+        mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
+        mspinnerQualification = (Spinner) rootView.findViewById(R.id.spinnerQualification);
+        mspinnerGender = (Spinner) rootView.findViewById(R.id.spinnerGender);
+        mspinnerIdmark = (Spinner) rootView.findViewById(R.id.spinnerIdmark);
+        mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroup);
+        mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
+
+        mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePicker);
+
+        mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
+        mtextViewPremanentAddress =(TableRow) rootView.findViewById(R.id.textViewPermanant);
+        mtextViewPresentAddress =(TableRow) rootView.findViewById(R.id.textViewPresentAddress);
+
+
+        buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
+        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
+        buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
+
+
+        tableRowAddress1 = (TableRow) rootView.findViewById(R.id.tableRowAddress1);
+        tableRowAddress2 = (TableRow) rootView.findViewById(R.id.tableRowAddress2);
+        tableRowAddress3 = (TableRow) rootView.findViewById(R.id.tableRowAddress3);
+        tableRowAddress4 = (TableRow) rootView.findViewById(R.id.tableRowAddress4);
+        tableRowAddress5 = (TableRow) rootView.findViewById(R.id.tableRowAddress5);
+        tableRowAddress6 = (TableRow) rootView.findViewById(R.id.tableRowAddress6);
+        tableRowAddress7 = (TableRow) rootView.findViewById(R.id.tableRowAddress7);
+        tableRowAddress8 = (TableRow) rootView.findViewById(R.id.tableRowAddress8);
+        tableRowAddress9 = (TableRow) rootView.findViewById(R.id.tableRowAddress9);
+        tableRowAddress10 = (TableRow) rootView.findViewById(R.id.tableRowAddress10);
+        tableRowAddress11 = (TableRow) rootView.findViewById(R.id.tableRowAddress11);
+        tableRowAddress12 = (TableRow) rootView.findViewById(R.id.tableRowAddress12);
+        tableRowAddress13 = (TableRow) rootView.findViewById(R.id.tableRowAddress13);
+        tableRowAddress14 = (TableRow) rootView.findViewById(R.id.tableRowAddress14);
+        tableRowAddress15 = (TableRow) rootView.findViewById(R.id.tableRowAddress15);
+        tableRowAddress16 = (TableRow) rootView.findViewById(R.id.tableRowAddress16);
+        tableRowAddress17 = (TableRow) rootView.findViewById(R.id.tableRowAddress17);
+        tableRowAddress18 = (TableRow) rootView.findViewById(R.id.tableRowAddress18);
+
+
+        tableRowPresentAddress1 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress1);
+        tableRowPresentAddress2 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress2);
+        tableRowPresentAddress3 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress3);
+        tableRowPresentAddress4 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress4);
+        tableRowPresentAddress5 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress5);
+        tableRowPresentAddress6 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress6);
+        tableRowPresentAddress7 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress7);
+        tableRowPresentAddress8 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress8);
+        tableRowPresentAddress9 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress9);
+
+        tableRowPresentAddress10 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress10);
+        tableRowPresentAddress11 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress11);
+        tableRowPresentAddress12 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress12);
+        tableRowPresentAddress13 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress13);
+        tableRowPresentAddress14 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress14);
+        tableRowPresentAddress15 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress15);
+        tableRowPresentAddress16 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress16);
+        tableRowPresentAddress17 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress17);
+        tableRowPresentAddress18 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress18);
+
+    }
+
+    private void clearFelids(View rootView) {
+        meditViewApplicantFirstName.setText("");
+        meditViewApplicantMiddleName.setText("");
+        meditViewApplicantLastName.setText("");
+        meditViewApplicantRelationsName.setText("");
+        meditViewEmail.setText("");
+        meditViewMobileNo.setText("");
+        meditViewPincode.setText("");
+        meditViewAddress.setText("");
+
+
+        mspinnerRTO.setSelection(0);
+        mspinnerRelationshipType.setSelection(0);
+        mspinnerQualification.setSelection(0);
+        mspinnerGender.setSelection(0);
+        mspinnerIdmark.setSelection(0);
+        mspinnerBloodGroup.setSelection(0);
+        mspinnerRH.setSelection(0);
+
+
+        mtextViewDate.setText("");
+
+
     }
 
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
-        editor.putString(meditViewApplicantMiddleNameString, meditViewApplicantMiddleName.getText().toString());
-        editor.putString(meditViewApplicantLastNameString, meditViewApplicantLastName.getText().toString());
-        editor.putString(meditViewApplicantRelationsNameString, meditViewApplicantRelationsName.getText().toString());
-        editor.putString(meditViewEmailString, meditViewEmail.getText().toString());
-        editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
-        editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
-        editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
-//        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
-
-        editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
-        editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
-        editor.putString(mspinnerGenderString, mspinnerGender.getSelectedItem().toString());
-        editor.putString(mspinnerIdmarkString, mspinnerIdmark.getSelectedItem().toString());
-        editor.putString(mspinnerBloodGroupString, mspinnerBloodGroup.getSelectedItem().toString());
-        editor.putString(mspinnerRHString, mspinnerRH.getSelectedItem().toString());
-        editor.putString(mtextViewDateString, mtextViewDate.getText().toString());
-
-        editor.putInt(mspinnerRTOInt,mspinnerRTO.getSelectedItemPosition());
-        editor.putInt(mspinnerRelationshipTypeInt, mspinnerRelationshipType.getSelectedItemPosition());
-        editor.putInt(mspinnerQualificationInt, mspinnerQualification.getSelectedItemPosition());
-        editor.putInt(mspinnerGenderInt, mspinnerGender.getSelectedItemPosition());
-        editor.putInt(mspinnerIdmarkInt, mspinnerIdmark.getSelectedItemPosition());
-        editor.putInt(mspinnerBloodGroupInt, mspinnerBloodGroup.getSelectedItemPosition());
-        editor.putInt(mspinnerRHInt, mspinnerRH.getSelectedItemPosition());
+//        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
+//        editor.putString(meditViewApplicantMiddleNameString, meditViewApplicantMiddleName.getText().toString());
+//        editor.putString(meditViewApplicantLastNameString, meditViewApplicantLastName.getText().toString());
+//        editor.putString(meditViewApplicantRelationsNameString, meditViewApplicantRelationsName.getText().toString());
+//        editor.putString(meditViewEmailString, meditViewEmail.getText().toString());
+//        editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
+//        editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
+//        editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
+////        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
+//
+//        editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
+//        editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
+//        editor.putString(mspinnerGenderString, mspinnerGender.getSelectedItem().toString());
+//        editor.putString(mspinnerIdmarkString, mspinnerIdmark.getSelectedItem().toString());
+//        editor.putString(mspinnerBloodGroupString, mspinnerBloodGroup.getSelectedItem().toString());
+//        editor.putString(mspinnerRHString, mspinnerRH.getSelectedItem().toString());
+//        editor.putString(mtextViewDateString, mtextViewDate.getText().toString());
+//
+//        editor.putInt(mspinnerRTOInt,mspinnerRTO.getSelectedItemPosition());
+//        editor.putInt(mspinnerRelationshipTypeInt, mspinnerRelationshipType.getSelectedItemPosition());
+//        editor.putInt(mspinnerQualificationInt, mspinnerQualification.getSelectedItemPosition());
+//        editor.putInt(mspinnerGenderInt, mspinnerGender.getSelectedItemPosition());
+//        editor.putInt(mspinnerIdmarkInt, mspinnerIdmark.getSelectedItemPosition());
+//        editor.putInt(mspinnerBloodGroupInt, mspinnerBloodGroup.getSelectedItemPosition());
+//        editor.putInt(mspinnerRHInt, mspinnerRH.getSelectedItemPosition());
 //        editor.putString(mtextViewDateInt,mtextViewDate.getSelectedItemPosition());
 
 
@@ -554,6 +667,102 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     }
 
+    private void hidePermanent()
+    {
+        tableRowAddress1.setVisibility(View.GONE);
+                tableRowAddress2.setVisibility(View.GONE);
+        tableRowAddress3.setVisibility(View.GONE);
+                tableRowAddress4.setVisibility(View.GONE);
+        tableRowAddress5.setVisibility(View.GONE);
+                tableRowAddress6.setVisibility(View.GONE);
+        tableRowAddress7.setVisibility(View.GONE);
+                tableRowAddress8.setVisibility(View.GONE);
+        tableRowAddress9.setVisibility(View.GONE);
+                tableRowAddress10.setVisibility(View.GONE);
+        tableRowAddress11.setVisibility(View.GONE);
+                tableRowAddress12.setVisibility(View.GONE);
+        tableRowAddress13.setVisibility(View.GONE);
+                tableRowAddress14.setVisibility(View.GONE);
+        tableRowAddress15.setVisibility(View.GONE);
+                tableRowAddress16.setVisibility(View.GONE);
+        tableRowAddress17.setVisibility(View.GONE);
+                tableRowAddress18.setVisibility(View.GONE);
+        permanent=false;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+    }
+
+    private void showPremanent()
+    {
+        tableRowAddress1.setVisibility(View.VISIBLE);
+                tableRowAddress2.setVisibility(View.VISIBLE);
+        tableRowAddress3.setVisibility(View.VISIBLE);
+                tableRowAddress4.setVisibility(View.VISIBLE);
+        tableRowAddress5.setVisibility(View.VISIBLE);
+                tableRowAddress6.setVisibility(View.VISIBLE);
+        tableRowAddress7.setVisibility(View.VISIBLE);
+                tableRowAddress8.setVisibility(View.VISIBLE);
+        tableRowAddress9.setVisibility(View.VISIBLE);
+                tableRowAddress10.setVisibility(View.VISIBLE);
+        tableRowAddress11.setVisibility(View.VISIBLE);
+                tableRowAddress12.setVisibility(View.VISIBLE);
+        tableRowAddress13.setVisibility(View.VISIBLE);
+                tableRowAddress14.setVisibility(View.VISIBLE);
+        tableRowAddress15.setVisibility(View.VISIBLE);
+                tableRowAddress16.setVisibility(View.VISIBLE);
+                tableRowAddress17.setVisibility(View.VISIBLE);
+                tableRowAddress18.setVisibility(View.VISIBLE);
+        permanent=true;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+
+    }
+   private void hidePresent()
+   {
+       tableRowPresentAddress1.setVisibility(View.GONE);
+               tableRowPresentAddress2.setVisibility(View.GONE);
+       tableRowPresentAddress3.setVisibility(View.GONE);
+               tableRowPresentAddress4.setVisibility(View.GONE);
+       tableRowPresentAddress5.setVisibility(View.GONE);
+               tableRowPresentAddress6.setVisibility(View.GONE);
+       tableRowPresentAddress7.setVisibility(View.GONE);
+               tableRowPresentAddress8.setVisibility(View.GONE);
+       tableRowPresentAddress9.setVisibility(View.GONE);
+
+               tableRowPresentAddress10.setVisibility(View.GONE);
+       tableRowPresentAddress11.setVisibility(View.GONE);
+               tableRowPresentAddress12.setVisibility(View.GONE);
+       tableRowPresentAddress13.setVisibility(View.GONE);
+               tableRowPresentAddress14.setVisibility(View.GONE);
+       tableRowPresentAddress15.setVisibility(View.GONE);
+               tableRowPresentAddress16.setVisibility(View.GONE);
+       tableRowPresentAddress17.setVisibility(View.GONE);
+               tableRowPresentAddress18.setVisibility(View.GONE);
+       present=false;
+       imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+   }
+    private void showPresent()
+    {
+        tableRowPresentAddress1.setVisibility(View.VISIBLE);
+                tableRowPresentAddress2.setVisibility(View.VISIBLE);
+        tableRowPresentAddress3.setVisibility(View.VISIBLE);
+                tableRowPresentAddress4.setVisibility(View.VISIBLE);
+        tableRowPresentAddress5.setVisibility(View.VISIBLE);
+                tableRowPresentAddress6.setVisibility(View.VISIBLE);
+        tableRowPresentAddress7.setVisibility(View.VISIBLE);
+                tableRowPresentAddress8.setVisibility(View.VISIBLE);
+        tableRowPresentAddress9.setVisibility(View.VISIBLE);
+
+                tableRowPresentAddress10.setVisibility(View.VISIBLE);
+        tableRowPresentAddress11.setVisibility(View.VISIBLE);
+                tableRowPresentAddress12.setVisibility(View.VISIBLE);
+        tableRowPresentAddress13.setVisibility(View.VISIBLE);
+                tableRowPresentAddress14.setVisibility(View.VISIBLE);
+        tableRowPresentAddress15.setVisibility(View.VISIBLE);
+                tableRowPresentAddress16.setVisibility(View.VISIBLE);
+        tableRowPresentAddress17.setVisibility(View.VISIBLE);
+                tableRowPresentAddress18.setVisibility(View.VISIBLE);
+        present=true;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

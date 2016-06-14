@@ -1,28 +1,21 @@
 package com.converge.transportdepartment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Vibrator;
-import android.support.v4.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTabHost;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity
@@ -214,11 +207,13 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_download) {
             vibrate();
             replaceFragment(DownloadPDF.newInstance("1","1"));
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
+        } else if (id == R.id.nav_exit) {
+                finish();
         }
+
+//
+// else if (id == R.id.nav_send) {
+//}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

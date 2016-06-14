@@ -79,7 +79,7 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimaryTransportDepartment"
         android:layout_marginTop="30dp"
-        android:text="Download Recipt and Application"
+        android:text="Download Receipt and Application"
         android:layout_weight=".1"
         android:textColor="@android:color/background_light"
         />

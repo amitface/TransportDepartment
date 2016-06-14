@@ -20,14 +20,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import com.converge.transportdepartment.Utility.MarshMallowPermission;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -124,16 +123,21 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         Button buttonDownload = (Button) view.findViewById(R.id.buttonDownload);
         try {
 
-
-        buttonDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
+                buttonDownload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                new GetClass(getActivity()).execute();
 //                startDownload(view);
-                showToast("Downloading Receipt");
-                downloadPdf();
+                        showToast("Downloading Receipt");
+                        downloadPdf();
+                    }
+                });
             }
-        });
+            else
+            {
+                new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+            }
         }catch (Exception e)
         {
             showToast("error");

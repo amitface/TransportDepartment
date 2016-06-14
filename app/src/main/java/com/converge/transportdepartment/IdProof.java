@@ -2,14 +2,14 @@ package com.converge.transportdepartment;
 
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.Toast;
 
 
 /**
@@ -27,6 +27,11 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
+    TableLayout tableLayout2;
+    TableLayout tableLayout3;
+    TableLayout tableLayout4;
+
+    private static int count=0;
 
     public IdProof() {
         // Required empty public constructor
@@ -64,6 +69,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return
+        count=0;
               View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
         Button button = (Button)view.findViewById(R.id.buttonNextIdProofNext);
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +78,43 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 onClickIdProof(v);
             }
         });
-return view;
+
+//        Button buttonAdd= (Button) view.findViewById(R.id.buttonAdd);
+//        buttonAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickIdProof(v);
+//            }
+//        });
+//
+//        Button buttonRemove = (Button) view.findViewById(R.id.buttonRemove);
+//        buttonRemove.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickIdProof(v);
+//            }
+//        });
+
+        ImageView img1 =(ImageView) view.findViewById(R.id.buttonAdd);
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickIdProof(v);
+            }
+        });
+
+        ImageView img2 =(ImageView) view.findViewById(R.id.buttonRemove);
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickIdProof(v);
+            }
+        });
+
+        tableLayout2 = (TableLayout) view.findViewById(R.id.table2);
+        tableLayout3 = (TableLayout) view.findViewById(R.id.table3);
+        tableLayout4 = (TableLayout) view.findViewById(R.id.table4);
+            return view;
     }
 
     public void onClickIdProof(View view) {
@@ -87,10 +129,58 @@ return view;
             case R.id.buttonClearPersonalDetail:
 
                 break;
+            case R.id.buttonAdd:
+                if(count==0)
+                {
+                    count++;
+                    tableLayout2.setVisibility(View.VISIBLE);
+                }
+                else if(count==1)
+                {
+                    count++;
+                    tableLayout3.setVisibility(View.VISIBLE);
+                }
+                else if(count==2)
+                {
+                    count++;
+                    tableLayout4.setVisibility(View.VISIBLE);
+                }
+                else if(count==3)
+                {
+                    showToast("Cannot Add More");
+                }
+                break;
+            case R.id.buttonRemove:
+                if(count==0)
+                {
+                    showToast("Cannot Remove More");
+                }
+                else if(count==1)
+                {
+                    count--;
+                    tableLayout2.setVisibility(View.INVISIBLE);
+                }
+                else if(count==2)
+                {
+                    count--;
+                    tableLayout3.setVisibility(View.INVISIBLE);
+                }
+                else if(count==3)
+                {
+                    count--;
+                    tableLayout4.setVisibility(View.GONE);
+                }
+
+                break;
         }
     }
     @Override
     public void onClick(View v) {
 
     }
+    private void showToast(String s)
+    {
+        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
+    }
+
 }

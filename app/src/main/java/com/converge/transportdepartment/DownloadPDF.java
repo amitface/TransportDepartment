@@ -14,8 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,14 +84,17 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         final Button buttonDownloadPdf = (Button) view.findViewById(R.id.buttonDownloadFormPdf);
-        buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(),"Downloading Form",Toast.LENGTH_SHORT).show();
-                downloadPdf();
-            }
-        });
 
+        if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
+            buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
+                    downloadPdf();
+                }
+            });
+        }else
+        new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
         return view;
     }
 
