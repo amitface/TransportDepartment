@@ -17,10 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TableRow;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -47,6 +52,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private static boolean permanent = false;
     private static boolean present = false;
+    private static boolean personalDetail = true;
+    private static boolean otherInfo = false;
 
     //Temporary data
     public ProgressDialog progress;
@@ -58,6 +65,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     ImageView imageViewPermanent ;
     ImageView imageViewPresent ;
+    ImageView imageViewPersonal ;
+    ImageView imageViewOther;
     //Check Box.
     private static final String CheckBoxApplicationType1 = "CheckBoxApplicationType1";
     private static final String CheckBoxApplicationType2 = "CheckBoxApplicationType2";
@@ -104,59 +113,55 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
 
     // TextView and Spinner
-    private TextView meditViewApplicantFirstName;
-    private TextView meditViewApplicantMiddleName;
-    private TextView meditViewApplicantLastName;
-    private TextView meditViewApplicantRelationsName;
-    private TextView meditViewApplicantRelationsMiddleName;
-    private TextView meditViewApplicantRelationsLastName;
-    private TextView meditViewEmail;
-    private TextView meditViewMobileNo;
-    private TextView meditViewPincode;
-    private TextView meditViewAddress;
-    private TextView meditViewFee;
-    private TableRow mtextViewPresentAddress;
-    private TableRow mtextViewPremanentAddress;
+    private EditText meditViewApplicantFirstName;
+    private EditText meditViewApplicantMiddleName;
+    private EditText meditViewApplicantLastName;
+    private EditText meditViewApplicantRelationsName;
+    private EditText meditViewApplicantRelationsMiddleName;
+    private EditText meditViewApplicantRelationsLastName;
+
+    private EditText meditTextPermanentFlatNum;
+    private EditText meditTextPermanentHouseName;
+    private EditText meditTextPermanentHouseNum;
+    private EditText meditTextPermanentStreet;
+    private EditText meditTextPermanentLocality;
+    private EditText meditTextPermanentvillage;
+    private EditText meditTextPermanentTaluka;
+    private EditText meditTextPermanentDistrict;
+    private EditText meditTextPermanentMonth;
+    private EditText meditTextPermanentYear;
+    private EditText meditTextPermanentPinCode;
+    private EditText meditTextPermanentMoblieNo;
+
+    private EditText meditTextPresentFlatNum;
+    private EditText meditTextPresentHouseName;
+    private EditText meditTextPresentHouseNum;
+    private EditText meditTextPresentStreet;
+    private EditText meditTextPresentLocality;
+    private EditText meditTextPresentvillage;
+    private EditText meditTextPresentTaluka;
+    private EditText meditTextPresentDistrict;
+    private EditText meditTextPresentMonth;
+    private EditText meditTextPresentYear;
+    private EditText meditTextPresentPinCode;
+    private EditText meditTextPresentMoblieNo;
+
+
+    private EditText meditViewFee;
+
+    private LinearLayout mlinearlayoutPersonalDetail;
+    private LinearLayout mlinearlayoutPresentAddress;
+    private LinearLayout mlinearlayoutPremanentAddress;
+    private LinearLayout mlinearlayoutOtherInfo;
+
+    private TableLayout mtablelayoutPersonalDetail;
+    private TableLayout mtablelayoutPresentAddress;
+    private TableLayout mtablelayoutPremanentAddress;
+    private TableLayout mtablelayoutOtherInfo;
 
     public static TextView mtextViewDate;
 
-    private TableRow tableRowAddress1;
-    private TableRow tableRowAddress2;
-    private TableRow tableRowAddress3;
-    private TableRow tableRowAddress4;
-    private TableRow tableRowAddress5;
-    private TableRow tableRowAddress6;
-    private TableRow tableRowAddress7;
-    private TableRow tableRowAddress8;
-    private TableRow tableRowAddress9;
-    private TableRow tableRowAddress10;
-    private TableRow tableRowAddress11;
-    private TableRow tableRowAddress12;
-    private TableRow tableRowAddress13;
-    private TableRow tableRowAddress14;
-    private TableRow tableRowAddress15;
-    private TableRow tableRowAddress16;
-    private TableRow tableRowAddress17;
-    private TableRow tableRowAddress18;
 
-    private TableRow  tableRowPresentAddress1;
-    private TableRow  tableRowPresentAddress2;
-    private TableRow  tableRowPresentAddress3;
-    private TableRow  tableRowPresentAddress4;
-    private TableRow  tableRowPresentAddress5;
-    private TableRow  tableRowPresentAddress6;
-    private TableRow  tableRowPresentAddress7;
-    private TableRow  tableRowPresentAddress8;
-    private TableRow  tableRowPresentAddress9;
-    private TableRow  tableRowPresentAddress10;
-    private TableRow  tableRowPresentAddress11;
-    private TableRow  tableRowPresentAddress12;
-    private TableRow  tableRowPresentAddress13;
-    private TableRow  tableRowPresentAddress14;
-    private TableRow  tableRowPresentAddress15;
-    private TableRow  tableRowPresentAddress16;
-    private TableRow  tableRowPresentAddress17;
-    private TableRow  tableRowPresentAddress18;
 
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
@@ -189,6 +194,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
+
 
 
     public PersonalDetails() {
@@ -232,8 +238,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
 
-        imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanent);
-        imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresent);
+
         hidePermanent();
         hidePresent();
 
@@ -251,7 +256,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                     try
                     {
                         for(int i=0;i<2;)
@@ -268,8 +272,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     {
                         showToast(e.toString());
                     }
-
-
             }
         }).start();
         return rootView;
@@ -280,7 +282,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             case R.id.buttonNextPersonalDetail:
                 saveSharedPreference();
                 getFieldData();
-//                if(textFieldValidation()) {
+                if(textFieldValidation()) {
 //                    sendPostRequest(view);
                     handler = new Handler() {
                         @Override
@@ -290,7 +292,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                         }
                     };
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
-//                }
+                }
                 break;
             case R.id.buttonBackPersonalDetail:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("1", "1")).commit();
@@ -302,22 +304,36 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
-            case R.id.textViewPermanant:
+            case R.id.linearlayoutPermanant:
                 if(permanent==true)
                     hidePermanent();
                 else
                     showPremanent();
                 break;
-            case R.id.textViewPresentAddress:
+            case R.id.linearlayoutPresentAddress:
                 if(present==true)
                     hidePresent();
                 else
                     showPresent();
                 break;
+            case R.id.linearlayoutOtherInfo:
+                if(otherInfo==true)
+                    hideOtherInfo();
+                else
+                    showOtherInfo();
+                break;
+            case R.id.linearlayoutPersonalDetail:
+                if(personalDetail==true)
+                    hidePersonalDetail();
+                else
+                    showPersonalDetail();
+                break;
             default:
                 break;
         }
     }
+
+
 
     private void showToast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
@@ -350,13 +366,25 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             }
         });
 
-        mtextViewPresentAddress.setOnClickListener(new View.OnClickListener() {
+        mlinearlayoutPresentAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickPersonalDetails(v);
             }
         });
-        mtextViewPremanentAddress.setOnClickListener(new View.OnClickListener() {
+        mlinearlayoutPremanentAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickPersonalDetails(v);
+            }
+        });
+        mlinearlayoutPersonalDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickPersonalDetails(v);
+            }
+        });
+        mlinearlayoutOtherInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickPersonalDetails(v);
@@ -365,16 +393,45 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     }
 
     private void initailizeFelids(View rootView) {
+
+        imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanent);
+        imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresent);
+        imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonal);
+        imageViewOther=(ImageView) rootView.findViewById(R.id.imageOther);
+
         meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
         meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
         meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
         meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
         meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
         meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastName);
-        meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
-        meditViewMobileNo = (EditText) rootView.findViewById(R.id.editTextMoblieNo);
-        meditViewPincode = (EditText) rootView.findViewById(R.id.editTextPinCode);
-        meditViewAddress = (EditText) rootView.findViewById(R.id.editTextFlatNum);
+
+        meditTextPermanentFlatNum = (EditText) rootView.findViewById(R.id.editTextPermanentFlatNum);
+        meditTextPermanentHouseName = (EditText) rootView.findViewById(R.id.editTextPermanentHouseName);
+        meditTextPermanentHouseNum = (EditText) rootView.findViewById(R.id.editTextPermanentHouseNum);
+        meditTextPermanentStreet = (EditText) rootView.findViewById(R.id.editTextPermanentStreet);
+        meditTextPermanentLocality = (EditText) rootView.findViewById(R.id.editTextPermanentLocality);
+        meditTextPermanentvillage = (EditText) rootView.findViewById(R.id.editTextPermanentvillage);
+        meditTextPermanentTaluka = (EditText) rootView.findViewById(R.id.editTextPermanentTaluka);
+        meditTextPermanentDistrict = (EditText) rootView.findViewById(R.id.editTextPermanentDistrict);
+        meditTextPermanentMonth = (EditText) rootView.findViewById(R.id.editTextPermanentMonth);
+        meditTextPermanentYear = (EditText) rootView.findViewById(R.id.editTextPermanentYear);
+        meditTextPermanentPinCode = (EditText) rootView.findViewById(R.id.editTextPermanentPinCode);
+        meditTextPermanentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPermanentMoblieNo);
+
+        meditTextPresentFlatNum = (EditText) rootView.findViewById(R.id.editTextPresentFlatNum);
+        meditTextPresentHouseName = (EditText) rootView.findViewById(R.id.editTextPresentHouseName);
+        meditTextPresentHouseNum = (EditText) rootView.findViewById(R.id.editTextPresentHouseNum);
+        meditTextPresentStreet = (EditText) rootView.findViewById(R.id.editTextPresentStreet);
+        meditTextPresentLocality = (EditText) rootView.findViewById(R.id.editTextPresentLocality);
+        meditTextPresentvillage = (EditText) rootView.findViewById(R.id.editTextPresentvillage);
+        meditTextPresentTaluka = (EditText) rootView.findViewById(R.id.editTextPresentTaluka);
+        meditTextPresentDistrict = (EditText) rootView.findViewById(R.id.editTextPresentDistrict);
+        meditTextPresentMonth = (EditText) rootView.findViewById(R.id.editTextPresentMonth);
+        meditTextPresentYear = (EditText) rootView.findViewById(R.id.editTextPresentYear);
+        meditTextPresentPinCode = (EditText) rootView.findViewById(R.id.editTextPresentPinCode);
+        meditTextPresentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPresentMoblieNo);
+
 //        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
 //        meditViewFee.setText("250");
 
@@ -389,8 +446,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePicker);
 
         mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
-        mtextViewPremanentAddress =(TableRow) rootView.findViewById(R.id.textViewPermanant);
-        mtextViewPresentAddress =(TableRow) rootView.findViewById(R.id.textViewPresentAddress);
+        mlinearlayoutPersonalDetail =(LinearLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
+        mlinearlayoutPremanentAddress=(LinearLayout) rootView.findViewById(R.id.linearlayoutPermanant);
+        mlinearlayoutPresentAddress =(LinearLayout) rootView.findViewById(R.id.linearlayoutPresentAddress);
+        mlinearlayoutOtherInfo =(LinearLayout) rootView.findViewById(R.id.linearlayoutOtherInfo);
+
+
+        mtablelayoutPersonalDetail = (TableLayout)rootView.findViewById(R.id.tablelayoutPersonalDetail);
+        mtablelayoutPresentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPresentAddress);
+        mtablelayoutPremanentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPermanenetAddress);
+        mtablelayoutOtherInfo = (TableLayout)rootView.findViewById(R.id.tablelayoutOtherInfo);
 
 
         buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
@@ -398,45 +463,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
 
 
-        tableRowAddress1 = (TableRow) rootView.findViewById(R.id.tableRowAddress1);
-        tableRowAddress2 = (TableRow) rootView.findViewById(R.id.tableRowAddress2);
-        tableRowAddress3 = (TableRow) rootView.findViewById(R.id.tableRowAddress3);
-        tableRowAddress4 = (TableRow) rootView.findViewById(R.id.tableRowAddress4);
-        tableRowAddress5 = (TableRow) rootView.findViewById(R.id.tableRowAddress5);
-        tableRowAddress6 = (TableRow) rootView.findViewById(R.id.tableRowAddress6);
-        tableRowAddress7 = (TableRow) rootView.findViewById(R.id.tableRowAddress7);
-        tableRowAddress8 = (TableRow) rootView.findViewById(R.id.tableRowAddress8);
-        tableRowAddress9 = (TableRow) rootView.findViewById(R.id.tableRowAddress9);
-        tableRowAddress10 = (TableRow) rootView.findViewById(R.id.tableRowAddress10);
-        tableRowAddress11 = (TableRow) rootView.findViewById(R.id.tableRowAddress11);
-        tableRowAddress12 = (TableRow) rootView.findViewById(R.id.tableRowAddress12);
-        tableRowAddress13 = (TableRow) rootView.findViewById(R.id.tableRowAddress13);
-        tableRowAddress14 = (TableRow) rootView.findViewById(R.id.tableRowAddress14);
-        tableRowAddress15 = (TableRow) rootView.findViewById(R.id.tableRowAddress15);
-        tableRowAddress16 = (TableRow) rootView.findViewById(R.id.tableRowAddress16);
-        tableRowAddress17 = (TableRow) rootView.findViewById(R.id.tableRowAddress17);
-        tableRowAddress18 = (TableRow) rootView.findViewById(R.id.tableRowAddress18);
 
-
-        tableRowPresentAddress1 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress1);
-        tableRowPresentAddress2 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress2);
-        tableRowPresentAddress3 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress3);
-        tableRowPresentAddress4 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress4);
-        tableRowPresentAddress5 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress5);
-        tableRowPresentAddress6 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress6);
-        tableRowPresentAddress7 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress7);
-        tableRowPresentAddress8 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress8);
-        tableRowPresentAddress9 = (TableRow) rootView.findViewById(R.id.tableRowPresentAddress9);
-
-        tableRowPresentAddress10 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress10);
-        tableRowPresentAddress11 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress11);
-        tableRowPresentAddress12 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress12);
-        tableRowPresentAddress13 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress13);
-        tableRowPresentAddress14 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress14);
-        tableRowPresentAddress15 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress15);
-        tableRowPresentAddress16 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress16);
-        tableRowPresentAddress17 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress17);
-        tableRowPresentAddress18 =(TableRow) rootView.findViewById(R.id.tableRowPresentAddress18);
 
     }
 
@@ -445,10 +472,34 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewApplicantMiddleName.setText("");
         meditViewApplicantLastName.setText("");
         meditViewApplicantRelationsName.setText("");
-        meditViewEmail.setText("");
-        meditViewMobileNo.setText("");
-        meditViewPincode.setText("");
-        meditViewAddress.setText("");
+        meditViewApplicantRelationsMiddleName.setText("");
+        meditViewApplicantRelationsLastName.setText("");
+
+        meditTextPermanentFlatNum.setText("");
+        meditTextPermanentHouseName.setText("");
+        meditTextPermanentHouseNum.setText("");
+        meditTextPermanentStreet.setText("");
+        meditTextPermanentLocality.setText("");
+        meditTextPermanentvillage.setText("");
+        meditTextPermanentTaluka.setText("");
+        meditTextPermanentDistrict.setText("");
+        meditTextPermanentMonth.setText("");
+        meditTextPermanentYear.setText("");
+        meditTextPermanentPinCode.setText("");
+        meditTextPermanentMoblieNo.setText("");
+
+        meditTextPresentFlatNum.setText("");
+        meditTextPresentHouseName.setText("");
+        meditTextPresentHouseNum.setText("");
+        meditTextPresentStreet.setText("");
+        meditTextPresentLocality.setText("");
+        meditTextPresentvillage.setText("");
+        meditTextPresentTaluka.setText("");
+        meditTextPresentDistrict.setText("");
+        meditTextPresentMonth.setText("");
+        meditTextPresentYear.setText("");
+        meditTextPresentPinCode.setText("");
+        meditTextPresentMoblieNo.setText("");
 
 
         mspinnerRTO.setSelection(0);
@@ -461,10 +512,88 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
 
         mtextViewDate.setText("");
-
-
     }
 
+    private String createJsonString()
+    {
+        JSONArray ja = new JSONArray();
+        JSONObject js = new JSONObject();
+        JSONObject applicant = new JSONObject();
+        try
+        {
+        applicant.put("refno","");
+        applicant.put("statecode","");
+        applicant.put("rtocode","");
+
+        js.put("pplicant_first_name","");
+        js.put("applicant_middle_name","");
+        js.put("applicant_last_name","");
+        applicant.put("applicant",js);
+        applicant.put("dob","");
+        applicant.put("gender_type","");
+        applicant.put("relation_type","");
+        applicant.put("relative_first_name","");
+        applicant.put("relative_middle_name","");
+        applicant.put("relative_last_name","");
+        applicant.put("edu_qualification","");
+        applicant.put("identification_mark","");
+        applicant.put("blood_group","");
+
+        JSONObject permanentAddress = new JSONObject();
+        permanentAddress.put("p_flat_house_no","");
+        permanentAddress.put("p_street_locality","");
+        permanentAddress.put("p_village_city","");
+        permanentAddress.put("p_district","");
+        permanentAddress.put("p_state","");
+        permanentAddress.put("p_pin","");
+        permanentAddress.put("p_phone_no","");
+        permanentAddress.put("p_mobile_no","");
+        permanentAddress.put("p_years","");
+        permanentAddress.put("p_months","");
+
+        applicant.accumulate("permanent",permanentAddress);
+
+        JSONObject presentAddress = new JSONObject();
+        presentAddress.put("t_flat_house_no","");
+        presentAddress.put("t_street_locality","");
+        presentAddress.put("t_village_city","");
+        presentAddress.put("t_district","");
+        presentAddress.put("t_state","");
+        presentAddress.put("t_pin","");
+        presentAddress.put("t_phone_no","");
+        presentAddress.put("t_mobile_no","");
+        presentAddress.put("t_years","");
+        presentAddress.put("t_months","");
+
+
+        applicant.accumulate("present",presentAddress);
+        applicant.put("citizenship_status_type","");
+        applicant.put(" birth_place","");
+        applicant.put("year","");
+        applicant.put("birth_country","");
+        applicant.put("email_id","");
+        applicant.put("proofcode","");
+        applicant.put("licence_certificate_badge_no","");
+        applicant.put("issuing_authority","");
+        applicant.put("date_of_issue","");
+        applicant.put("covs","");
+        applicant.put("rcnumber","");
+        applicant.put("parentleterforbelow18age","");
+        applicant.put("allnecessarycertificates","");
+        applicant.put("exemptedmedicaltest","");
+        applicant.put("exemptedpreliminarytest","");
+        applicant.put("convicted","");
+        applicant.put("attdlnumber","");
+        applicant.put("attdtofconviction","");
+        applicant.put("attreason","");
+
+            return applicant.toString();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
 //        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
@@ -503,11 +632,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         usr_fname = meditViewApplicantFirstName.getText().toString() + " " + meditViewApplicantMiddleName.getText().toString();
         usr_lname = meditViewApplicantLastName.getText().toString();
         usr_father_name = meditViewApplicantRelationsName.getText().toString();
-        usr_email = meditViewEmail.getText().toString();
+       /* usr_email = meditViewEmail.getText().toString();
         usr_mobile = meditViewMobileNo.getText().toString();
         usr_pincode = meditViewPincode.getText().toString();
         usr_address = meditViewAddress.getText().toString();
-//        usr_feeamnt = meditViewFee.getText().toString();
+        usr_feeamnt = meditViewFee.getText().toString();*/
+
         usr_city = "indore";
         usr_district = usr_city;
 
@@ -550,7 +680,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if(sharedpreferences.contains(meditViewApplicantRelationsNameString)) {
             meditViewApplicantRelationsName.setText(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
         }
-        if(sharedpreferences.contains(meditViewEmailString)) {
+        /*if(sharedpreferences.contains(meditViewEmailString)) {
             meditViewEmail.setText(sharedpreferences.getString(meditViewEmailString, ""));
         }
         if(sharedpreferences.contains(meditViewMobileNoString)) {
@@ -562,9 +692,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if(sharedpreferences.contains(meditViewAddressString)) {
             meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
         }
-//        if(sharedpreferences.contains(meditViewFeeString)) {
-//            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
-//        }
+        if(sharedpreferences.contains(meditViewFeeString)) {
+            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
+        }*/
+
         if(sharedpreferences.contains(mspinnerRTOInt)){
             mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));
         }
@@ -667,99 +798,53 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     }
 
+    private void hidePersonalDetail()
+    {
+        mtablelayoutPersonalDetail.setVisibility(View.GONE);
+        personalDetail = false;
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+    }
+
+    private void showPersonalDetail()
+    {
+        mtablelayoutPersonalDetail.setVisibility(View.VISIBLE);
+        personalDetail = true;
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+    }
+    private void hideOtherInfo() {
+        mtablelayoutOtherInfo.setVisibility(View.GONE);
+        otherInfo = false;
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+    }
+    private void showOtherInfo() {
+        mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
+        otherInfo = true;
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+    }
+
     private void hidePermanent()
     {
-        tableRowAddress1.setVisibility(View.GONE);
-                tableRowAddress2.setVisibility(View.GONE);
-        tableRowAddress3.setVisibility(View.GONE);
-                tableRowAddress4.setVisibility(View.GONE);
-        tableRowAddress5.setVisibility(View.GONE);
-                tableRowAddress6.setVisibility(View.GONE);
-        tableRowAddress7.setVisibility(View.GONE);
-                tableRowAddress8.setVisibility(View.GONE);
-        tableRowAddress9.setVisibility(View.GONE);
-                tableRowAddress10.setVisibility(View.GONE);
-        tableRowAddress11.setVisibility(View.GONE);
-                tableRowAddress12.setVisibility(View.GONE);
-        tableRowAddress13.setVisibility(View.GONE);
-                tableRowAddress14.setVisibility(View.GONE);
-        tableRowAddress15.setVisibility(View.GONE);
-                tableRowAddress16.setVisibility(View.GONE);
-        tableRowAddress17.setVisibility(View.GONE);
-                tableRowAddress18.setVisibility(View.GONE);
+        mtablelayoutPremanentAddress.setVisibility(View.GONE);
         permanent=false;
         imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
     }
 
     private void showPremanent()
     {
-        tableRowAddress1.setVisibility(View.VISIBLE);
-                tableRowAddress2.setVisibility(View.VISIBLE);
-        tableRowAddress3.setVisibility(View.VISIBLE);
-                tableRowAddress4.setVisibility(View.VISIBLE);
-        tableRowAddress5.setVisibility(View.VISIBLE);
-                tableRowAddress6.setVisibility(View.VISIBLE);
-        tableRowAddress7.setVisibility(View.VISIBLE);
-                tableRowAddress8.setVisibility(View.VISIBLE);
-        tableRowAddress9.setVisibility(View.VISIBLE);
-                tableRowAddress10.setVisibility(View.VISIBLE);
-        tableRowAddress11.setVisibility(View.VISIBLE);
-                tableRowAddress12.setVisibility(View.VISIBLE);
-        tableRowAddress13.setVisibility(View.VISIBLE);
-                tableRowAddress14.setVisibility(View.VISIBLE);
-        tableRowAddress15.setVisibility(View.VISIBLE);
-                tableRowAddress16.setVisibility(View.VISIBLE);
-                tableRowAddress17.setVisibility(View.VISIBLE);
-                tableRowAddress18.setVisibility(View.VISIBLE);
+        mtablelayoutPremanentAddress.setVisibility(View.VISIBLE);
         permanent=true;
         imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
 
     }
    private void hidePresent()
    {
-       tableRowPresentAddress1.setVisibility(View.GONE);
-               tableRowPresentAddress2.setVisibility(View.GONE);
-       tableRowPresentAddress3.setVisibility(View.GONE);
-               tableRowPresentAddress4.setVisibility(View.GONE);
-       tableRowPresentAddress5.setVisibility(View.GONE);
-               tableRowPresentAddress6.setVisibility(View.GONE);
-       tableRowPresentAddress7.setVisibility(View.GONE);
-               tableRowPresentAddress8.setVisibility(View.GONE);
-       tableRowPresentAddress9.setVisibility(View.GONE);
-
-               tableRowPresentAddress10.setVisibility(View.GONE);
-       tableRowPresentAddress11.setVisibility(View.GONE);
-               tableRowPresentAddress12.setVisibility(View.GONE);
-       tableRowPresentAddress13.setVisibility(View.GONE);
-               tableRowPresentAddress14.setVisibility(View.GONE);
-       tableRowPresentAddress15.setVisibility(View.GONE);
-               tableRowPresentAddress16.setVisibility(View.GONE);
-       tableRowPresentAddress17.setVisibility(View.GONE);
-               tableRowPresentAddress18.setVisibility(View.GONE);
+       mtablelayoutPresentAddress.setVisibility(View.GONE);
        present=false;
        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
    }
     private void showPresent()
     {
-        tableRowPresentAddress1.setVisibility(View.VISIBLE);
-                tableRowPresentAddress2.setVisibility(View.VISIBLE);
-        tableRowPresentAddress3.setVisibility(View.VISIBLE);
-                tableRowPresentAddress4.setVisibility(View.VISIBLE);
-        tableRowPresentAddress5.setVisibility(View.VISIBLE);
-                tableRowPresentAddress6.setVisibility(View.VISIBLE);
-        tableRowPresentAddress7.setVisibility(View.VISIBLE);
-                tableRowPresentAddress8.setVisibility(View.VISIBLE);
-        tableRowPresentAddress9.setVisibility(View.VISIBLE);
-
-                tableRowPresentAddress10.setVisibility(View.VISIBLE);
-        tableRowPresentAddress11.setVisibility(View.VISIBLE);
-                tableRowPresentAddress12.setVisibility(View.VISIBLE);
-        tableRowPresentAddress13.setVisibility(View.VISIBLE);
-                tableRowPresentAddress14.setVisibility(View.VISIBLE);
-        tableRowPresentAddress15.setVisibility(View.VISIBLE);
-                tableRowPresentAddress16.setVisibility(View.VISIBLE);
-        tableRowPresentAddress17.setVisibility(View.VISIBLE);
-                tableRowPresentAddress18.setVisibility(View.VISIBLE);
+        mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
         present=true;
         imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
     }
@@ -804,7 +889,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         protected Void doInBackground(String... params) {
             try {
 
-//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
+
                 URL url = new URL("http://103.27.233.206/learningLicense/user_registration.php/");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -816,8 +901,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                                 + "usr_blood_gr=" + usr_blood_gr + "&" + "usr_blood_rh=" + usr_blood_rh + "&" + "usr_idmark=" + usr_idmark + "& " + "usr_feeamnt=" + usr_feeamnt + "&" +
                                 "usr_status=" + usr_status;
 
-//                "fName=" + URLEncoder.encode("Amit", "UTF-8") +
-//                                "&lName=" + URLEncoder.encode("???", "UTF-8")
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
@@ -880,127 +963,3 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 }
-//
-//    private class GetClass extends AsyncTask<String, Void, Void> {
-//
-//        private final Context context;
-//
-//        public GetClass(Context c) {
-//            this.context = c;
-//        }
-//
-//        protected void onPreExecute() {
-//            progress = new ProgressDialog(this.context);
-//            progress.setMessage("Loading");
-//            progress.show();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(String... params) {
-//            try {
-//
-////                final TextView outputView = (TextView) findViewById(R.id.showOutput);
-//                URL url = new URL("http://103.27.233.206/learningLicense/user_registration.php/");
-//
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                String urlParameters = " ";
-//
-////                "fName=" + URLEncoder.encode("Amit", "UTF-8") +
-////                                "&lName=" + URLEncoder.encode("???", "UTF-8")
-//                connection.setRequestMethod("GET");
-//                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-//                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-//                connection.setDoOutput(true);
-//                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-//                dStream.writeBytes(urlParameters);
-//                dStream.flush();
-//                dStream.close();
-//                int responseCode = connection.getResponseCode();
-//
-//
-//                final StringBuilder output = new StringBuilder("Request URL " + url);
-//                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-//                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
-//                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                String line = "";
-//                StringBuilder responseOutput = new StringBuilder();
-//                System.out.println("output===============" + br);
-//                while ((line = br.readLine()) != null) {
-//                    responseOutput.append(line);
-//                }
-//                br.close();
-//
-//                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//
-//                getActivity().runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-////                        outputView.setText(output);
-////                        Toast.makeText(getActivity(),output.toString(),Toast.LENGTH_LONG).show();
-//                        Log.d("Rsponse   ", output.toString());
-//                        progress.dismiss();
-//                    }
-//                });
-//
-//            } catch (MalformedURLException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//    }
-//}
-
-//    @SuppressWarnings("deprecation")
-//    public void setDate(View view) {
-//        showDialog(999);
-//        Toast.makeText(getActivity(), "ca", Toast.LENGTH_SHORT)
-//                .show();
-//    }
-//
-//    @Override
-//    protected Dialog onCreateDialog(int id) {
-//        // TODO Auto-generated method stub
-//        if (id == 999) {
-//            return new DatePickerDialog(this, myDateListener, year, month, day);
-//        }
-//        return null;
-//    }
-//
-//    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-//        @Override
-//        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-//            // TODO Auto-generated method stub
-//            // arg1 = year
-//            // arg2 = month
-//            // arg3 = day
-//            showDate(arg1, arg2 + 1, arg3);
-//        }
-//    };
-//    private void showDialog(View view)
-//    {
-//        DialogFragment newFragment = new DatePickerDialog();
-//        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-//    }
-//
-//
-//
-//    private void showDate(int year, int month, int day) {
-//        mtextViewDate.setText(new StringBuilder().append(day).append("/")
-//                .append(month).append("/").append(year));
-//    }
-
-//
-
-//
-//"usr_fname=amit&" + "usr_lname=choudhar& "+ "usr_relation_type=S/o&" + "usr_father_name=A.R choudhary&" +
-//        "usr_address=42,Baikunthdham&" + "usr_city= indore&" +
-//        "usr_district=indore&" + "usr_pincode=452001&" +"usr_apply_class=IVC&"+ "usr_mobile=9981950533&" +
-//        "usr_email=amit@gmail.com&" +  "usr_qualification=PRIMARY&"+ "usr_dob=21/05/1969&"+ "usr_gender=Male&"
-//        +"usr_blood_gr=A&" + "usr_blood_rh=+ve&" + "usr_idmark=SCARONFACE& " + "usr_feeamnt=200&"+
-//        "usr_status=1";

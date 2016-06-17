@@ -13,7 +13,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="75dp"
+        android:layout_width="100dp"
         android:layout_height="75dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/lancher_icon_new" />
@@ -32,3 +32,186 @@
         android:text="Odissa state transport." />
 
 </LinearLayout>
+    <!--<?xml version="1.0" encoding="UTF-8"?>-->
+    <!--<!DOCTYPE applicants PUBLIC "//National Informatics Center/" "../../files_uc09/llform.dtd">-->
+<!--<applicants>-->
+
+<!--<applicant refno="">-->
+
+    <!--<statecode>KA</statecode>-->
+
+    <!--<rtocode>KA53</rtocode>-->
+
+    <!--<licence-type>l</licence-type>-->
+
+    <!--<applicant-name>-->
+
+        <!--<first-name>VENKATESWARA</first-name>-->
+
+        <!--<middle-name>RAO</middle-name>-->
+
+        <!--<last-name>S S</last-name>-->
+
+    <!--</applicant-name>-->
+
+    <!--<dob>14-06-1989</dob>-->
+
+    <!--<gender type="male" />-->
+
+    <!--<relation type="father" />-->
+
+    <!--<parent-name>-->
+
+        <!--<first-name>NARAYANA</first-name>-->
+
+        <!--<middle-name>RAO</middle-name>-->
+
+        <!--<last-name />-->
+
+    <!--</parent-name>-->
+
+    <!--<edu-qualification>31</edu-qualification>-->
+
+    <!--<identification-marks />-->
+
+    <!--<identification-marks />-->
+
+    <!--<blood-group>O-</blood-group>-->
+
+    <!--<permanent-address>-->
+
+        <!--<p-flat-house-no>Flat-102, SAI APTS</p-flat-house-no>-->
+
+        <!--<p-street-locality>39, 19th crs, muneeswar nagar</p-street-locality>-->
+
+        <!--<p-village-city>tc palya main road</p-village-city>-->
+
+        <!--<p-district>bangalore</p-district>-->
+
+        <!--<p-state>KA</p-state>-->
+
+        <!--<p-pin>560016</p-pin>-->
+
+        <!--<p-phone-no />-->
+
+        <!--<p-mobile-no>9573443091</p-mobile-no>-->
+
+        <!--<p-durationofstay>-->
+
+            <!--<p-years />-->
+
+            <!--<p-months />-->
+
+        <!--</p-durationofstay>-->
+
+    <!--</permanent-address>-->
+
+    <!--<temporary-address>-->
+
+        <!--<t-flat-house-no>Flat-102, SAI APTS</t-flat-house-no>-->
+
+        <!--<t-street-locality>39, 19th crs, muneeswar nagar</t-street-locality>-->
+
+        <!--<t-village-city>tc palya main road</t-village-city>-->
+
+        <!--<t-district>bangalore</t-district>-->
+
+        <!--<t-state>KA</t-state>-->
+
+        <!--<t-pin>560016</t-pin>-->
+
+        <!--<t-phone-no />-->
+
+        <!--<t-durationofstay>-->
+
+            <!--<t-years />-->
+
+            <!--<t-months />-->
+
+        <!--</t-durationofstay>-->
+
+    <!--</temporary-address>-->
+
+    <!--<citizenship-status type="birth" />-->
+
+    <!--<birth-place>Warangal</birth-place>-->
+
+    <!--<migration>-->
+
+        <!--<year />-->
+
+        <!--<month />-->
+
+    <!--</migration>-->
+
+    <!--<birth-country>IND</birth-country>-->
+
+    <!--<email-id>sasdfs23-sd@abc.com</email-id>-->
+
+    <!--<list-of-proofs>-->
+
+        <!--<doc>-->
+
+            <!--<proofcode>1</proofcode>-->
+
+            <!--<licence-certificate-badge-no>c1</licence-certificate-badge-no>-->
+
+            <!--<issuing-authority>i1</issuing-authority>-->
+
+            <!--<date-of-issue>02-12-1992</date-of-issue>-->
+
+        <!--</doc>-->
+
+        <!--<doc>-->
+
+            <!--<proofcode>3</proofcode>-->
+
+            <!--<licence-certificate-badge-no>c2</licence-certificate-badge-no>-->
+
+            <!--<issuing-authority>i2</issuing-authority>-->
+
+            <!--<date-of-issue>02-12-2011</date-of-issue>-->
+
+        <!--</doc>-->
+
+        <!--<doc>-->
+
+            <!--<proofcode>O</proofcode>-->
+
+            <!--<licence-certificate-badge-no />-->
+
+            <!--<issuing-authority />-->
+
+            <!--<date-of-issue>02-12-2014</date-of-issue>-->
+
+        <!--</doc>-->
+
+    <!--</list-of-proofs>-->
+
+    <!--<covs>3,4</covs>-->
+
+    <!--<rcnumber />-->
+
+    <!--<parentleterforbelow18age type="n" />-->
+
+    <!--<allnecessarycertificates type="y" />-->
+
+    <!--<exemptedmedicaltest type="n" />-->
+
+    <!--<exemptedpreliminarytest type="n" />-->
+
+    <!--<convicted type="n" />-->
+
+    <!--<attachdoc>-->
+
+        <!--<attdlnumber />-->
+
+        <!--<attdtofconviction />-->
+
+        <!--<attreason />-->
+
+    <!--</attachdoc>-->
+
+<!--</applicant>-->
+
+<!--</applicants>-->

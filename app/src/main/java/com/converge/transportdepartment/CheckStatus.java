@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -38,17 +41,17 @@ public class CheckStatus extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
-            "<applicants>"+
-                "<applicant refno=\"1\">"+
-                    "<statecode>AP</statecode>"+
-                            "<rtocode>AP028</rtocode>"+
+    String s =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+                "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+                "<applicants>"+
+                "<applicant refno=\"6\">"+
+                            "<statecode>AP</statecode>"+
+                            "<rtocode>OD01</rtocode>"+
                             "<licence-type>L</licence-type>"+
                             "<applicant-name>" +
                                 "<first-name>Ramana</first-name>" +
                                 "<middle-name>Rao</middle-name>" +
                                 "<last-name>Yogi</last-name>" +
-                                "</applicant-name>"+
                             "</applicant-name>"+
                             "<dob>05-08-1989</dob>" +
                             "<gender type=\"male\"/>" +
@@ -58,15 +61,15 @@ public class CheckStatus extends Fragment {
                                 "<middle-name>rao</middle-name>" +
                                 "<last-name>Yogi</last-name>" +
                             "</parent-name>"+
-                            "<edu-qualification>50</edu-qualification>" +
+                            "<edu-qualification>4</edu-qualification>" +
                             "<identification-marks>A mole on the right side of the neck</identification-marks>" +
-                            "<identification-marks></identification-marks>" +
+                            "<identification-marks/>"+
                             "<blood-group>O+</blood-group>"+
                             "<permanent-address>" +
                                 "<p-flat-house-no>21</p-flat-house-no>" +
                                 "<p-street-locality>Ramarajyanagar</p-street-locality>" +
                                 "<p-village-city>Hyderabad</p-village-city>" +
-                                "<p-district> Ranga Reddy </p-district>" +
+                                "<p-district>Ranga Reddy</p-district>" +
                                 "<p-state>AP</p-state>" +
                                 "<p-pin>500012</p-pin>" +
                                 "<p-phone-no></p-phone-no>" +
@@ -78,12 +81,12 @@ public class CheckStatus extends Fragment {
                              "</permanent-address>" +
                              "<present-address>" +
                                 "<t-flat-house-no>21</t-flat-house-no>" +
-                                "<t-street-locality>Ramarajyanagar</t-street-locality>" +                                "\t\t\t<t-village-city>Hyderabad</t-village-city>\n" +
+                                "<t-street-locality>Ramarajyanagar</t-street-locality>" +
+                                "<t-village-city>Hyderabad</t-village-city>" +
                                 "<t-district> Ranga Reddy </t-district>" +
                                 "<t-state>AP</t-state>" +
                                 "<t-pin>500012</t-pin>" +
                                 "<t-phone-no></t-phone-no>" +
-                                "<t-mobile-no>9533241448</t-mobile-no>" +
                                 "<t-durationofstay>" +
                                   "<t-years>5</t-years>" +
                                   "<t-months>5</t-months>" +
@@ -105,10 +108,204 @@ public class CheckStatus extends Fragment {
                         "<date-of-issue>18-07-2007</date-of-issue>" +
                         "</doc>" +
                         "</list-of-proofs>"+
-                         "<covs>58</covs>" +
+                        "<covs>3</covs>" +
+                        "<rcnumber/>"+
+                        "<parentleterforbelow18age/>"+
+                        "<allnecessarycertificates type=\"y\"/>"+
+                        "<exemptedmedicaltest type=\"n\"/>"+
+                        "<exemptedpreliminarytest type=\"n\"/>"+
+                        "<convicted type=\"n\"/>"+
+                            "<attachdoc>" +
+                                "<attdlnumber/>" +
+                                "<attdtofconviction/>" +
+                                "<attreason/>" +
+                            "</attachdoc>"+
                 "</applicant>" +
             "</applicants>";
-    String s1 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBhcHBsaWNhbnRzIFBVQkxJQyAiLy9OYXRpb25hbCBJbmZvcm1hdGljcyBDZW50ZXIvIiAiLi4vLi4vZmlsZXNfdWMwOS9sbGZvcm0uZHRkIj4NCjxhcHBsaWNhbnRzPg0KCTxhcHBsaWNhbnQgcmVmbm89IjIiPg0KCQk8c3RhdGVjb2RlPkFQPC9zdGF0ZWNvZGU+DQoJCTxydG9jb2RlPkFQMDI4PC9ydG9jb2RlPg0KCQk8bGljZW5jZS10eXBlPkw8L2xpY2VuY2UtdHlwZT4NCgkJPGFwcGxpY2FudC1uYW1lPg0KCQkJPGZpcnN0LW5hbWU+UmFtYW5hPC9maXJzdC1uYW1lPg0KCQkJPG1pZGRsZS1uYW1lPlJhbzwvbWlkZGxlLW5hbWU+DQoJCQk8bGFzdC1uYW1lPllvZ2k8L2xhc3QtbmFtZT4NCgkJPC9hcHBsaWNhbnQtbmFtZT4NCgkJPGRvYj4wNS0wOC0xOTg5PC9kb2I+DQoJCTxnZW5kZXIgdHlwZT0ibWFsZSIvPg0KCQk8cmVsYXRpb24gdHlwZT0iZmF0aGVyIi8+DQoJCTxwYXJlbnQtbmFtZT4NCgkJCTxmaXJzdC1uYW1lPlNoYW5rYXI8L2ZpcnN0LW5hbWU+DQoJCQk8bWlkZGxlLW5hbWU+cmFvPC9taWRkbGUtbmFtZT4NCgkJCTxsYXN0LW5hbWU+WW9naTwvbGFzdC1uYW1lPg0KCQk8L3BhcmVudC1uYW1lPg0KCQk8ZWR1LXF1YWxpZmljYXRpb24+NTA8L2VkdS1xdWFsaWZpY2F0aW9uPg0KCQk8aWRlbnRpZmljYXRpb24tbWFya3M+QSBtb2xlIG9uIHRoZSByaWdodCBzaWRlIG9mIHRoZSBuZWNrPC9pZGVudGlmaWNhdGlvbi1tYXJrcz4NCgkJPGlkZW50aWZpY2F0aW9uLW1hcmtzPjwvaWRlbnRpZmljYXRpb24tbWFya3M+DQoJCTxibG9vZC1ncm91cD5PKzwvYmxvb2QtZ3JvdXA+DQoJCTxwZXJtYW5lbnQtYWRkcmVzcz4NCgkJCTxwLWZsYXQtaG91c2Utbm8+MjE8L3AtZmxhdC1ob3VzZS1ubz4NCgkJCTxwLXN0cmVldC1sb2NhbGl0eT5SYW1hcmFqeWFuYWdhcjwvcC1zdHJlZXQtbG9jYWxpdHk+DQoJCQk8cC12aWxsYWdlLWNpdHk+SHlkZXJhYmFkPC9wLXZpbGxhZ2UtY2l0eT4NCgkJCTxwLWRpc3RyaWN0PiBSYW5nYSBSZWRkeSA8L3AtZGlzdHJpY3Q+DQoJCQk8cC1zdGF0ZT5BUDwvcC1zdGF0ZT4NCgkJCTxwLXBpbj41MDAwMTI8L3AtcGluPg0KCQkJPHAtcGhvbmUtbm8+PC9wLXBob25lLW5vPg0KCQkJPHAtbW9iaWxlLW5vPjk1MzMyNDE0NDg8L3AtbW9iaWxlLW5vPg0KCQkJPHAtZHVyYXRpb25vZnN0YXk+DQoJCQkJPHAteWVhcnM+NTwvcC15ZWFycz4NCgkJCQk8cC1tb250aHM+NTwvcC1tb250aHM+DQoJCQk8L3AtZHVyYXRpb25vZnN0YXk+DQoJCTwvcGVybWFuZW50LWFkZHJlc3M+DQoJCTxwcmVzZW50LWFkZHJlc3M+DQoJCQk8dC1mbGF0LWhvdXNlLW5vPjIxPC90LWZsYXQtaG91c2Utbm8+DQoJCQk8dC1zdHJlZXQtbG9jYWxpdHk+UmFtYXJhanlhbmFnYXI8L3Qtc3RyZWV0LWxvY2FsaXR5Pg0KCQkJPHQtdmlsbGFnZS1jaXR5Pkh5ZGVyYWJhZDwvdC12aWxsYWdlLWNpdHk+DQoJCQk8dC1kaXN0cmljdD4gUmFuZ2EgUmVkZHkgPC90LWRpc3RyaWN0Pg0KCQkJPHQtc3RhdGU+QVA8L3Qtc3RhdGU+DQoJCQk8dC1waW4+NTAwMDEyPC90LXBpbj4NCgkJCTx0LXBob25lLW5vPjwvdC1waG9uZS1ubz4NCgkJCTx0LW1vYmlsZS1ubz45NTMzMjQxNDQ4PC90LW1vYmlsZS1ubz4NCgkJCTx0LWR1cmF0aW9ub2ZzdGF5Pg0KCQkJCTx0LXllYXJzPjU8L3QteWVhcnM+DQoJCQkJPHQtbW9udGhzPjU8L3QtbW9udGhzPg0KCQkJPC90LWR1cmF0aW9ub2ZzdGF5Pg0KCQk8L3ByZXNlbnQtYWRkcmVzcz4NCgkJPGNpdGl6ZW5zaGlwLXN0YXR1cyB0eXBlPSJiaXJ0aCIvPg0KCQk8YmlydGgtcGxhY2U+V2FyYW5nYWw8L2JpcnRoLXBsYWNlPg0KCQk8bWlncmF0aW9uPg0KCQkJPHllYXI+MjAxMjwveWVhcj4NCgkJCTxtb250aD4wNTwvbW9udGg+DQoJCTwvbWlncmF0aW9uPg0KCQk8YmlydGgtY291bnRyeT5JTkQ8L2JpcnRoLWNvdW50cnk+DQoJCTxlbWFpbC1pZD5yYW1hbmFAZ21haWwuY29tPC9lbWFpbC1pZD4NCgkJPGxpc3Qtb2YtcHJvb2ZzPg0KCQk8ZG9jPg0KCQk8cHJvb2Zjb2RlPkQ8L3Byb29mY29kZT4NCgkJPGxpY2VuY2UtY2VydGlmaWNhdGUtYmFkZ2Utbm8+TUgwMTE5NzYwMTI5MTQ0PC9saWNlbmNlLWNlcnRpZmljYXRlLWJhZGdlLW5vPg0KCQk8aXNzdWluZy1hdXRob3JpdHk+TUgwMTwvaXNzdWluZy1hdXRob3JpdHk+DQoJCTxkYXRlLW9mLWlzc3VlPjE4LTA3LTIwMDc8L2RhdGUtb2YtaXNzdWU+DQoJCTwvZG9jPg0KCQk8L2xpc3Qtb2YtcHJvb2ZzPg0KCQk8Y292cz41ODwvY292cz4NCgk8L2FwcGxpY2FudD4NCjwvYXBwbGljYW50cz4=";
+    String s2="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+            "<applicants>"
+             +
+            "<applicant refno=\"2\">" +
+
+            "<statecode>KA</statecode>" +
+
+            "<rtocode>KA53</rtocode>" +
+
+            "<licence-type>l</licence-type>" +
+
+            "<applicant-name>" +
+
+            "<first-name>VENKATESWARA</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name>S S</last-name>" +
+
+            "</applicant-name>" +
+
+            "<dob>14-06-1989</dob>" +
+
+            "<gender type=\"male\"/>" +
+
+            "<relation type=\"father\" />" +
+
+            "<parent-name>" +
+
+            "<first-name>NARAYANA</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name />" +
+
+            "</parent-name>" +
+
+            "<edu-qualification>31</edu-qualification>" +
+
+            "<identification-marks />" +
+
+            "<identification-marks />" +
+
+            "<blood-group>O-</blood-group>" +
+
+            "<permanent-address>" +
+
+            "<p-flat-house-no>Flat-102, SAI APTS</p-flat-house-no>" +
+
+            "<p-street-locality>39, 19th crs, muneeswar nagar</p-street-locality>" +
+
+            "<p-village-city>tc palya main road</p-village-city>" +
+
+            "<p-district>bangalore</p-district>" +
+
+            "<p-state>KA</p-state>" +
+
+            "<p-pin>560016</p-pin>" +
+
+            "<p-phone-no />" +
+
+            "<p-mobile-no>9573443091</p-mobile-no>" +
+
+            "<p-durationofstay>" +
+
+            "<p-years />" +
+
+            "<p-months />" +
+
+            "</p-durationofstay>" +
+
+            "</permanent-address>" +
+
+            "<temporary-address>" +
+
+            "<t-flat-house-no>Flat-102, SAI APTS</t-flat-house-no>" +
+
+            "<t-street-locality>39, 19th crs, muneeswar nagar</t-street-locality>" +
+
+            "<t-village-city>tc palya main road</t-village-city>" +
+
+            "<t-district>bangalore</t-district>" +
+
+            "<t-state>KA</t-state>" +
+
+            "<t-pin>560016</t-pin>" +
+
+            "<t-phone-no />" +
+
+            "<t-durationofstay>" +
+
+            "<t-years />" +
+
+            "<t-months />" +
+
+            "</t-durationofstay>" +
+
+            "</temporary-address>" +
+
+            "<citizenship-status type=\"birth\" />" +
+
+            "<birth-place>Warangal</birth-place>" +
+
+            "<migration>" +
+
+            "<year />" +
+
+            "<month />" +
+
+            "</migration>" +
+
+            "<birth-country>IND</birth-country>" +
+
+            "<email-id>sasdfs23-sd@abc.com</email-id>" +
+
+            "<list-of-proofs>" +
+
+            "<doc>" +
+
+            "<proofcode>1</proofcode>" +
+
+            "<licence-certificate-badge-no>c1</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i1</issuing-authority>" +
+
+            "<date-of-issue>02-12-1992</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>3</proofcode>" +
+
+            "<licence-certificate-badge-no>c2</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i2</issuing-authority>" +
+
+            "<date-of-issue>02-12-2011</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>O</proofcode>" +
+
+            "<licence-certificate-badge-no />" +
+
+            "<issuing-authority />" +
+
+            "<date-of-issue>02-12-2014</date-of-issue>" +
+
+            "</doc>" +
+
+            "</list-of-proofs>" +
+
+            "<covs>3,4</covs>" +
+
+            "<rcnumber />" +
+
+            "<parentleterforbelow18age type=\"n\" />" +
+
+            "<allnecessarycertificates type=\"y\" />" +
+
+            "<exemptedmedicaltest type=\"n\" />" +
+
+            "<exemptedpreliminarytest type=\"n\" />" +
+
+            "<convicted type=\"n\" />" +
+
+            "<attachdoc>" +
+
+            "<attdlnumber />" +
+
+            "<attdtofconviction />" +
+
+            "<attreason />" +
+
+            "</attachdoc>" +
+
+            "</applicant>" +
+
+            "</applicants>";
+
     private OnFragmentInteractionListener mListener;
 
     public CheckStatus() {
@@ -147,11 +344,12 @@ public class CheckStatus extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_check_status, container, false);
-        sendPostRequest(view);
+        //Method to Send data to api.
+//        sendPostRequest(view);
         return view;
     }
 
-
+    //Method to Encode to Base64
     private String endcodetoBase64(String s) throws UnsupportedEncodingException {
         byte[] byteArray = s.getBytes("UTF-8");
        return Base64.encodeToString(byteArray,0);
@@ -196,10 +394,12 @@ public class CheckStatus extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
     public void sendPostRequest(View View) {
         new PostClass(getActivity()).execute();
     }
 
+    //Class to Post Data in Background
     private class PostClass extends AsyncTask<String, Void, Void> {
 
         private final Context context;
@@ -214,37 +414,46 @@ public class CheckStatus extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
+            HttpURLConnection connection=null;
             try {
 
 //                final TextView outputView = (TextView) findViewById(R.id.showOutput);
                 URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
 
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlParameters ="base64file="+s1+"&agentID=smartchip" +
+                 connection = (HttpURLConnection) url.openConnection();
+//                String urlParameters ="base64file="+endcodetoBase64(s)+"&agentID=smartchip"+"&password=3998151263B55EB10F7AE1A974FD036E";
 
-                        "&password=3998151263B55EB10F7AE1A974FD036E";
+                //Creating json object.
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.accumulate("base64file", endcodetoBase64(s));
+                jsonObject.accumulate("agentID", "smartchip");
+                jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.accumulate("seckey","");
+
+                String json = jsonObject.toString();
 
 
-//                "fName=" + URLEncoder.encode("Amit", "UTF-8") +
-//                                "&lName=" + URLEncoder.encode("???", "UTF-8")
-                connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setRequestProperty("Content-Type", "application/TEXT_PLAIN");
-                connection.setRequestProperty("Accept", "application/TEXT_PLAIN");
-
+                connection.setRequestProperty("Content-Type", "application/json");
+//                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+//                connection.setDoInput(true);
                 connection.setDoOutput(true);
 
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
+                dStream.writeBytes(json);
                 dStream.flush();
                 dStream.close();
                 int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
 
+//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
 
                 final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
                 output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
 //                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
@@ -256,7 +465,7 @@ public class CheckStatus extends Fragment {
                 br.close();
 
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
 
 
 
@@ -266,7 +475,12 @@ public class CheckStatus extends Fragment {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }finally {
+                connection.disconnect();
             }
+
             return null;
         }
     }
