@@ -108,7 +108,7 @@ public class Home extends AppCompatActivity
                 break;
 
             /*Select Applicaiton Type */
-            case R.id.buttonSelectApplication:
+            case R.id.buttonNextSelectApplication:
                 vibrate();
                 replaceFragment(LicenseApplication.newInstance("1","1"));
                 break;

@@ -15,9 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -53,10 +54,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private static boolean permanent = false;
     private static boolean present = false;
     private static boolean personalDetail = true;
-    private static boolean otherInfo = false;
+    private static boolean otherInfo = true;
 
     //Temporary data
     public ProgressDialog progress;
+
+    Validation validation = new Validation();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,46 +70,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     ImageView imageViewPresent ;
     ImageView imageViewPersonal ;
     ImageView imageViewOther;
-    //Check Box.
-    private static final String CheckBoxApplicationType1 = "CheckBoxApplicationType1";
-    private static final String CheckBoxApplicationType2 = "CheckBoxApplicationType2";
-    private static final String CheckBoxApplicationType3 = "CheckBoxApplicationType3";
-    private static final String CheckBoxApplicationType4 = "CheckBoxApplicationType4";
-    private static final String CheckBoxApplicationType5 = "CheckBoxApplicationType5";
-    private static final String CheckBoxApplicationType6 = "CheckBoxApplicationType6";
-    private static final String CheckBoxApplicationType7 = "CheckBoxApplicationType7";
+    CheckBox  checkboxSameAddress;
 
-    private static final String meditViewApplicantFirstNameString = "meditViewApplicantFirstName";
-    private static final String meditViewApplicantMiddleNameString = "meditViewApplicantMiddleName";
-    private static final String meditViewApplicantLastNameString = "meditViewApplicantLastName";
-    private static final String meditViewApplicantRelationsNameString = "meditViewApplicantRelationsName";
-    private static final String meditViewEmailString = "meditViewEmail";
-    private static final String meditViewMobileNoString = "meditViewMobileNo";
-    private static final String meditViewPincodeString = "meditViewPincode";
-    private static final String meditViewAddressString = "meditViewAddress";
-    private static final String meditViewFeeString = "meditViewFee";
-
-
-    private static final String mspinnerRTOString = "mspinnerRTO";
-    private static final String mspinnerRTOInt = "mspinnerRTOInt";
-
-    private static final String mspinnerRelationshipTypeString = "mspinnerRelationshipType";
-    private static final String mspinnerRelationshipTypeInt = "mspinnerRelationshipTypeInt";
-
-    private static final String mspinnerQualificationString = "mspinnerQualification";
-    private static final String mspinnerQualificationInt = "mspinnerQualificationInt";
-
-    private static final String mspinnerGenderString = "mspinnerGender";
-    private static final String mspinnerGenderInt = "mspinnerGenderInt";
-
-    private static final String mspinnerIdmarkString = "mspinnerIdmark";
-    private static final String mspinnerIdmarkInt = "mspinnerIdmarkInt";
-
-    private static final String mspinnerBloodGroupString = "mspinnerBloodGroup";
-    private static final String mspinnerBloodGroupInt = "mspinnerBloodGroupInt";
-
-    private static final String mspinnerRHString = "mspinnerRH";
-    private static final String mspinnerRHInt = "mspinnerRHInt";
 
     private String mtextViewDateString = "mtextViewDate";
     private String mtextViewDateInt = "mtextViewDateInt";
@@ -116,9 +81,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private EditText meditViewApplicantFirstName;
     private EditText meditViewApplicantMiddleName;
     private EditText meditViewApplicantLastName;
+
     private EditText meditViewApplicantRelationsName;
     private EditText meditViewApplicantRelationsMiddleName;
     private EditText meditViewApplicantRelationsLastName;
+
+
+    private EditText meditViewPlaceOfBirth;
+    private EditText meditViewYear;
+    private EditText meditViewMonth;
+    private EditText meditViewEmail;
 
     private EditText meditTextPermanentFlatNum;
     private EditText meditTextPermanentHouseName;
@@ -149,10 +121,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private EditText meditViewFee;
 
-    private LinearLayout mlinearlayoutPersonalDetail;
-    private LinearLayout mlinearlayoutPresentAddress;
-    private LinearLayout mlinearlayoutPremanentAddress;
-    private LinearLayout mlinearlayoutOtherInfo;
+    private RelativeLayout mlinearlayoutPersonalDetail;
+    private RelativeLayout mlinearlayoutPresentAddress;
+    private RelativeLayout mlinearlayoutPremanentAddress;
+    private RelativeLayout mlinearlayoutOtherInfo;
 
     private TableLayout mtablelayoutPersonalDetail;
     private TableLayout mtablelayoutPresentAddress;
@@ -161,11 +133,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     public static TextView mtextViewDate;
 
+    String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
+                        "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
+                        "XX ", "DD ", "UK ", "UA ", "OD "};
 
+    String qualificatinCode[] = {"0 ", "1 ","2 ","3 ", "4 ","6 ", "7 ", "10","11", "12",
+            "13","14","30","31","32","33","34","35","39","50","51",
+            "52", "53", "54","55","56","57", "58","59", "70", "80", "81","82","90"};
+    String rtoCode []=  { "OD01 ",  "OD02 ", " OD02K","OD03 ",    "OD04 ", "OD05 ",  "OD06 ", "OD07 ", "OD08 ", "OD09 ",  "OD09B", "OD10 ",  "OD11 ", "OD11R",
+            "OD12 ",  "OD13 ","OD13 ",     " OD15 ","OD16 ",  "OD17 ","OD18 ",
+            " OD19","OD20 ",     "OD21 ",  "OD22 ","OD23 ","OD24 ", "OD25 ", "OD12 ",
+            "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ","OD31 ",  "OD32 ", "OD33 ",
+            "OD34 ", "OD35 "};
 
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
-    private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH;
+    private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
+    private Spinner mspinnerCitizenship, mspinnerCountry;
 
     private ImageView mimageViewDatePicker;
 
@@ -194,7 +178,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-
+    private String mFinalString1="mFinalString1";
 
 
     public PersonalDetails() {
@@ -237,19 +221,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 Context.MODE_PRIVATE);
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
-
-
         hidePermanent();
         hidePresent();
 
         setListner();
-        getPreferenceData();
-
+//        getPreferenceData();
         final Handler handlerTemp = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                saveSharedPreference();
+//                saveSharedPreference();
 //                showToast("saved preference");
             }
         };
@@ -280,10 +261,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public void onClickPersonalDetails(View view) {
         switch (view.getId()) {
             case R.id.buttonNextPersonalDetail:
-                saveSharedPreference();
-                getFieldData();
-                if(textFieldValidation()) {
-//                    sendPostRequest(view);
+
+//                getFieldData();
+                if(validate()) {
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
@@ -291,6 +271,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("4", "1")).commit();
                         }
                     };
+                    String s = detailString();
+                    saveSharedPreference();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 }
                 break;
@@ -333,6 +315,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void saveSharedPreference() {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(mFinalString1, detailString());
+        editor.commit();
+     }
 
 
     private void showToast(String s) {
@@ -344,6 +331,20 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 onClickPersonalDetails(view);
+            }
+        });
+
+        checkboxSameAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkboxSameAddress.isChecked())
+                {
+                    checkPresentAddress();
+                }
+                else
+                {
+                    uncheckPresentAddress();
+                }
             }
         });
         buttonNextPersonalDetails.setOnClickListener(new View.OnClickListener() {
@@ -392,6 +393,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
+
+
     private void initailizeFelids(View rootView) {
 
         imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanent);
@@ -402,6 +405,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
         meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
         meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
+
+        meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmail);
+        mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePicker);
+        mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
+        meditViewPlaceOfBirth= (EditText) rootView.findViewById(R.id.editTextPlaceofBirth);
+        meditViewYear = (EditText) rootView.findViewById(R.id.editTextYear);
+        meditViewMonth = (EditText) rootView.findViewById(R.id.editTextMonth);
+
         meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
         meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
         meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastName);
@@ -418,6 +429,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditTextPermanentYear = (EditText) rootView.findViewById(R.id.editTextPermanentYear);
         meditTextPermanentPinCode = (EditText) rootView.findViewById(R.id.editTextPermanentPinCode);
         meditTextPermanentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPermanentMoblieNo);
+
+        checkboxSameAddress= (CheckBox) rootView.findViewById(R.id.checkboxSameAddress);
 
         meditTextPresentFlatNum = (EditText) rootView.findViewById(R.id.editTextPresentFlatNum);
         meditTextPresentHouseName = (EditText) rootView.findViewById(R.id.editTextPresentHouseName);
@@ -436,20 +449,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //        meditViewFee.setText("250");
 
         mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTO);
+        mspinnerCountry = (Spinner) rootView.findViewById(R.id.spinnerCountry);
         mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipType);
         mspinnerQualification = (Spinner) rootView.findViewById(R.id.spinnerQualification);
         mspinnerGender = (Spinner) rootView.findViewById(R.id.spinnerGender);
         mspinnerIdmark = (Spinner) rootView.findViewById(R.id.spinnerIdmark);
         mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroup);
         mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
+        mspinnerPermanentState = (Spinner) rootView.findViewById(R.id.spinnerPermanentState);
+        mspinnerPresentState = (Spinner) rootView.findViewById(R.id.spinnerPresentState);
+        mspinnerCitizenship = (Spinner) rootView.findViewById(R.id.spinnerCitizenship);
 
-        mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePicker);
 
-        mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
-        mlinearlayoutPersonalDetail =(LinearLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
-        mlinearlayoutPremanentAddress=(LinearLayout) rootView.findViewById(R.id.linearlayoutPermanant);
-        mlinearlayoutPresentAddress =(LinearLayout) rootView.findViewById(R.id.linearlayoutPresentAddress);
-        mlinearlayoutOtherInfo =(LinearLayout) rootView.findViewById(R.id.linearlayoutOtherInfo);
+
+        mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
+        mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanant);
+        mlinearlayoutPresentAddress =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPresentAddress);
+        mlinearlayoutOtherInfo =(RelativeLayout) rootView.findViewById(R.id.linearlayoutOtherInfo);
 
 
         mtablelayoutPersonalDetail = (TableLayout)rootView.findViewById(R.id.tablelayoutPersonalDetail);
@@ -461,16 +477,13 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
         buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
-
-
-
-
     }
 
     private void clearFelids(View rootView) {
         meditViewApplicantFirstName.setText("");
         meditViewApplicantMiddleName.setText("");
         meditViewApplicantLastName.setText("");
+
         meditViewApplicantRelationsName.setText("");
         meditViewApplicantRelationsMiddleName.setText("");
         meditViewApplicantRelationsLastName.setText("");
@@ -509,9 +522,407 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerIdmark.setSelection(0);
         mspinnerBloodGroup.setSelection(0);
         mspinnerRH.setSelection(0);
+        mspinnerPermanentState.setSelection(0);
 
 
         mtextViewDate.setText("");
+    }
+
+
+    private boolean validate() {
+        if( mspinnerRTO.getSelectedItemPosition()==0)
+        {
+            showToast("Select RTO");
+            return false;
+        }
+
+        else if(meditViewApplicantFirstName.getText().length()==0)
+        {
+            showToast("Enter applicant first name");
+            return false;
+        }
+        else if(meditViewApplicantLastName.getText().length()==0)
+        {
+            showToast("Enter applicant first name");
+            return false;
+        }
+        else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
+        {
+            showToast("Only aplhabets  allowed in Name ");
+            return false;
+        }
+        else if(mtextViewDate.getText().length()==0)
+        {
+            showToast("Select DOB");
+            return false;
+        }
+        else if(mspinnerGender.getSelectedItemPosition()==0)
+        {
+            showToast("Select Gender");
+            return false;
+        }
+
+//        else if(validation.hasText(meditViewPlaceOfBirth) && !validation.isPhoneNumber(meditViewPlaceOfBirth,true))
+//        {
+//                showToast("only digit in phone number");
+//                return false;
+//        }
+        else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,true))
+        {
+            showToast("year & month only digit ");
+            return false;
+        }
+        else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,true))
+        {
+            showToast("year & month only digit ");
+            return false;
+        }
+        else if(mspinnerCountry.getSelectedItemPosition()==0)
+        {
+            showToast("Select Country of Birth");
+            return false;
+        }
+        else if(meditViewEmail.getText().length()==0)
+        {
+            showToast("Enter email");
+            return false;
+        }
+        else if(!validation.isEmailAddress(meditViewEmail,true))
+        {
+                showToast("Email not correct");
+                return false;
+
+        }
+        else if(mspinnerRelationshipType.getSelectedItemPosition()==0)
+        {
+            showToast("Select RelationType");
+            return false;
+        }
+        else if(mspinnerGender.getSelectedItemPosition()<=1 && mspinnerRelationshipType.getSelectedItemPosition()>1)
+        {
+            showToast("RelationType and Gender Does not match");
+            return false;
+        }
+        else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
+        {
+            showToast("RelationType and Gender Does not match");
+            return false;
+        }
+        else if(meditViewApplicantRelationsName.getText().length()==0)
+        {
+            showToast("Enter applicant first name");
+            return false;
+        }
+        else if(meditViewApplicantRelationsLastName.getText().length()==0)
+        {
+            showToast("Enter applicant first name");
+            return false;
+        }
+        else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
+        {
+                showToast("Only aplhabets  allowed in Relations Name ");
+                return false;
+        }
+        else if(meditTextPermanentFlatNum.getText().length()==0)
+        {
+            showToast("Flat number cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentHouseName.getText().length()==0)
+        {
+            showToast("House name cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentHouseNum.getText().length()==0)
+        {
+            showToast("House number cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentStreet.getText().length()==0)
+        {
+            showToast("Street cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentLocality.getText().length()==0)
+        {
+            showToast("Locality cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentvillage.getText().length()==0)
+        {
+            showToast("Permanent village cannot be empty");
+            return false;
+        }
+        else if( meditTextPermanentTaluka.getText().length()==0)
+        {
+            showToast("Permanent Taluka cannot be empty");
+            return false;
+        }
+        else if(meditTextPermanentDistrict.getText().length()==0)
+        {
+            showToast("Permanent District cannot be empty");
+            return false;
+        }
+        else if(mspinnerPermanentState.getSelectedItemPosition()==0)
+        {
+            showToast("Select Permanent State");
+            return false;
+        }
+
+        else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
+        {
+            showToast("Years cannot be empty");
+            return false;
+        }
+        else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
+        {
+                showToast("only digit in Years");
+                return false;
+        }
+        else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
+        {
+            showToast("only digit in Months");
+            return false;
+        }
+        else if(meditTextPermanentPinCode.getText().length()<6)
+        {
+            showToast("Invalid Pincode ");
+            return false;
+        }
+        else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
+        {
+            showToast("only digit in Pincode");
+            return false;
+        }
+        else if(meditTextPermanentMoblieNo.getText().length()!=10)
+        {
+            showToast("Invalid Moblie Number ");
+            return false;
+        }
+        else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
+        {
+            showToast("only digit in Mobile number");
+            return false;
+        }
+        else if(meditTextPresentFlatNum.getText().length()==0)
+        {
+            showToast("Flat number cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentHouseName.getText().length()==0)
+        {
+            showToast("House name cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentHouseNum.getText().length()==0)
+        {
+            showToast("House number cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentStreet.getText().length()==0)
+        {
+            showToast("Street cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentLocality.getText().length()==0)
+        {
+            showToast("Locality cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentvillage.getText().length()==0)
+        {
+            showToast("Present village cannot be empty");
+            return false;
+        }
+        else if( meditTextPresentTaluka.getText().length()==0)
+        {
+            showToast("Present Taluka cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentDistrict.getText().length()==0)
+        {
+            showToast("Present District cannot be empty");
+            return false;
+        }
+        else if(mspinnerPresentState.getSelectedItemPosition()==0)
+        {
+            showToast("Select  Present village ");
+            return false;
+        }
+        else if(meditTextPresentvillage.getText().length()==0)
+        {
+            showToast("Present village cannot be empty");
+            return false;
+        }
+        else if(meditTextPresentYear.getText().length()==0)
+        {
+            showToast("Years cannot be empty");
+            return false;
+        }
+        else if(validation.hasText(meditTextPresentYear) && !validation.isPhoneNumber(meditTextPresentYear,true))
+        {
+            showToast("only digit in Years");
+            return false;
+        }
+        else if(validation.hasText(meditTextPresentMonth) && !validation.isPhoneNumber(meditTextPresentMonth,true))
+        {
+            showToast("only digit in Months");
+            return false;
+        }
+        else if(meditTextPresentPinCode.getText().length()<6)
+        {
+            showToast("Invalid Present Pincode ");
+            return false;
+        }
+        else if(!validation.isPhoneNumber(meditTextPresentPinCode,true))
+        {
+            showToast("Digits only in Pincode ");
+            return false;
+        }
+        else if(meditTextPresentMoblieNo.getText().length()!=10)
+        {
+            showToast("Invalid  Present Moblie Number ");
+            return false;
+        }
+        else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
+        {
+            showToast("Digits only in mobile number ");
+            return false;
+        }
+        else if(mspinnerCitizenship.getSelectedItemPosition()==0)
+        {
+            showToast("Select Citizenship");
+        }
+        else if(mspinnerQualification.getSelectedItemPosition()==0)
+        {
+            showToast("Select Qualification");
+            return false;
+        }
+        else if(mspinnerIdmark.getSelectedItemPosition()==0)
+        {
+            showToast("Select Id Mark");
+            return false;
+        }
+        else if(mspinnerBloodGroup.getSelectedItemPosition()==0)
+        {
+            showToast("Select BloodGroup");
+            return false;
+        }
+        else if(mspinnerRH.getSelectedItemPosition()==0)
+        {
+            showToast("Select Rh of Blood Group");
+            return false;
+        }
+        return true;
+    }
+
+    private void checkPresentAddress() {
+
+        meditTextPresentFlatNum.setText(meditTextPermanentFlatNum.getText().toString());
+        meditTextPresentHouseName.setText(meditTextPermanentHouseName.getText().toString());
+        meditTextPresentHouseNum.setText(meditTextPermanentHouseNum.getText().toString());
+        meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
+        meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
+        meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
+        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
+        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
+        meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
+        meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
+        meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
+        meditTextPresentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString());
+
+        mspinnerPresentState.setSelection(mspinnerPermanentState.getSelectedItemPosition());
+
+        meditTextPresentFlatNum.setEnabled(false);
+        meditTextPresentHouseName.setEnabled(false);
+        meditTextPresentHouseNum.setEnabled(false);
+        meditTextPresentStreet.setEnabled(false);
+        meditTextPresentLocality.setEnabled(false);
+        meditTextPresentvillage.setEnabled(false);
+        meditTextPresentTaluka.setEnabled(false);
+        meditTextPresentDistrict.setEnabled(false);
+        meditTextPresentMonth.setEnabled(false);
+        meditTextPresentYear.setEnabled(false);
+        meditTextPresentPinCode.setEnabled(false);
+        meditTextPresentMoblieNo.setEnabled(false);
+
+        mspinnerPresentState.setEnabled(false);
+    }
+
+    private void uncheckPresentAddress() {
+        meditTextPresentFlatNum.setEnabled(true);
+        meditTextPresentHouseName.setEnabled(true);
+        meditTextPresentHouseNum.setEnabled(true);
+        meditTextPresentStreet.setEnabled(true);
+        meditTextPresentLocality.setEnabled(true);
+        meditTextPresentvillage.setEnabled(true);
+        meditTextPresentTaluka.setEnabled(true);
+        meditTextPresentDistrict.setEnabled(true);
+        meditTextPresentMonth.setEnabled(true);
+        meditTextPresentYear.setEnabled(true);
+        meditTextPresentPinCode.setEnabled(true);
+        meditTextPresentMoblieNo.setEnabled(true);
+
+        mspinnerPresentState.setEnabled(true);
+    }
+
+    private String detailString()
+    {
+        String s= "ref_num=42"+"&first_name="+meditViewApplicantFirstName.getText()+"statecode="+"&"+
+                "rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
+                "&applicant_first_name="+meditViewApplicantFirstName.getText().toString()+
+                "&applicant_middle_name="+meditViewApplicantMiddleName.getText().toString()+
+                "&applicant_last_name="+meditViewApplicantLastName.getText().toString()+
+
+                "&dob="+mtextViewDate.getText().toString()+
+                "&gender="+mspinnerGender.getSelectedItem().toString()+
+                "&relation="+mspinnerRelationshipType.getSelectedItem().toString()+
+                "&p_first_name="+meditViewApplicantRelationsName.getText().toString()+
+                "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString()+
+                "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString()+
+                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
+                "&identification_mark="+mspinnerIdmark.getSelectedItem().toString()+
+                "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItem().toString()+
+
+                "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
+                "&p_street_locality="+meditTextPermanentLocality.getText().toString()+
+                "&p_village_city="+meditTextPermanentvillage.getText().toString()+
+                "&p_district="+meditTextPermanentDistrict.getText().toString()+
+                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
+                "&p_pin="+meditTextPermanentPinCode.getText().toString()+
+                "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString()+
+                "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString()+
+                "&p_years"+meditTextPermanentYear.getText().toString()+
+                "&p_months="+meditTextPermanentMonth.getText().toString()+
+
+                "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
+                "&t_street_locality="+meditTextPresentStreet.getText().toString()+
+                "&t_village_city="+meditTextPresentvillage.getText().toString()+
+                "&t_district="+meditTextPresentDistrict.getText().toString()+
+                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
+                "&t_pin="+meditTextPresentPinCode+
+                "&t_phone_no="+meditTextPresentMoblieNo.getText().toString()+
+                "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString()+
+                "&t_years="+meditTextPresentYear.getText().toString()+
+                "&t_months="+meditTextPresentMonth.getText().toString()+
+
+                "& birth_place="+meditViewPlaceOfBirth.getText().toString()+
+                "&year="+meditViewYear.getText().toString()+
+                "&birth_country="+mspinnerCountry.getSelectedItem().toString()+
+                "&email_id="+meditViewEmail.getText().toString()+
+                "&identification_marks="+mspinnerIdmark.getSelectedItem().toString()+
+
+                "&covs=3,4"+
+                "&rcnumber="+
+                "&parentleterforbelow18age=n"+
+                "&allnecessarycertificates=y"+
+                "&exemptedmedicaltest=n"+
+                "&exemptedpreliminarytest=n"+
+                "&convicted=n"+
+                "&attdlnumber="+
+                "&attdtofconviction="+
+                "&attreason=";
+            return s;
     }
 
     private String createJsonString()
@@ -594,39 +1005,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         return "";
     }
-    private void saveSharedPreference() {
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-//        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
-//        editor.putString(meditViewApplicantMiddleNameString, meditViewApplicantMiddleName.getText().toString());
-//        editor.putString(meditViewApplicantLastNameString, meditViewApplicantLastName.getText().toString());
-//        editor.putString(meditViewApplicantRelationsNameString, meditViewApplicantRelationsName.getText().toString());
-//        editor.putString(meditViewEmailString, meditViewEmail.getText().toString());
-//        editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
-//        editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
-//        editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
-////        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
-//
-//        editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
-//        editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
-//        editor.putString(mspinnerGenderString, mspinnerGender.getSelectedItem().toString());
-//        editor.putString(mspinnerIdmarkString, mspinnerIdmark.getSelectedItem().toString());
-//        editor.putString(mspinnerBloodGroupString, mspinnerBloodGroup.getSelectedItem().toString());
-//        editor.putString(mspinnerRHString, mspinnerRH.getSelectedItem().toString());
-//        editor.putString(mtextViewDateString, mtextViewDate.getText().toString());
-//
-//        editor.putInt(mspinnerRTOInt,mspinnerRTO.getSelectedItemPosition());
-//        editor.putInt(mspinnerRelationshipTypeInt, mspinnerRelationshipType.getSelectedItemPosition());
-//        editor.putInt(mspinnerQualificationInt, mspinnerQualification.getSelectedItemPosition());
-//        editor.putInt(mspinnerGenderInt, mspinnerGender.getSelectedItemPosition());
-//        editor.putInt(mspinnerIdmarkInt, mspinnerIdmark.getSelectedItemPosition());
-//        editor.putInt(mspinnerBloodGroupInt, mspinnerBloodGroup.getSelectedItemPosition());
-//        editor.putInt(mspinnerRHInt, mspinnerRH.getSelectedItemPosition());
-//        editor.putString(mtextViewDateInt,mtextViewDate.getSelectedItemPosition());
 
-
-
-        editor.commit();
-    }
 
     private void getFieldData() {
         usr_fname = meditViewApplicantFirstName.getText().toString() + " " + meditViewApplicantMiddleName.getText().toString();
@@ -648,7 +1027,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         usr_idmark = mspinnerIdmark.getSelectedItem().toString();
         usr_blood_gr = mspinnerBloodGroup.getSelectedItem().toString();
         usr_blood_rh = mspinnerRH.getSelectedItem().toString();
-        usr_apply_class = getVehicleClass();
+//        usr_apply_class = getVehicleClass();
         usr_dob = mtextViewDate.getText().toString();
 
         usr_status = "1";
@@ -660,91 +1039,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         int_blood_gr = mspinnerBloodGroup.getSelectedItemPosition();
         int_blood_rh = mspinnerRH.getSelectedItemPosition();
 
-
-
-
-
     }
 
-    private void getPreferenceData()
-    {
-        if(sharedpreferences.contains(meditViewApplicantFirstNameString)) {
-            meditViewApplicantFirstName.setText(sharedpreferences.getString(meditViewApplicantFirstNameString, ""));
-        }
-        if(sharedpreferences.contains(meditViewApplicantMiddleNameString)) {
-            meditViewApplicantMiddleName.setText(sharedpreferences.getString(meditViewApplicantMiddleNameString, ""));
-        }
-        if(sharedpreferences.contains(meditViewApplicantLastNameString)) {
-            meditViewApplicantLastName.setText(sharedpreferences.getString(meditViewApplicantLastNameString, ""));
-        }
-        if(sharedpreferences.contains(meditViewApplicantRelationsNameString)) {
-            meditViewApplicantRelationsName.setText(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
-        }
-        /*if(sharedpreferences.contains(meditViewEmailString)) {
-            meditViewEmail.setText(sharedpreferences.getString(meditViewEmailString, ""));
-        }
-        if(sharedpreferences.contains(meditViewMobileNoString)) {
-            meditViewMobileNo.setText(sharedpreferences.getString(meditViewMobileNoString, ""));
-        }
-        if(sharedpreferences.contains(meditViewPincodeString)) {
-            meditViewPincode.setText(sharedpreferences.getString(meditViewPincodeString, ""));
-        }
-        if(sharedpreferences.contains(meditViewAddressString)) {
-            meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
-        }
-        if(sharedpreferences.contains(meditViewFeeString)) {
-            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
-        }*/
 
-        if(sharedpreferences.contains(mspinnerRTOInt)){
-            mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerRelationshipTypeInt)){
-            mspinnerRelationshipType.setSelection(sharedpreferences.getInt(mspinnerRelationshipTypeInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerQualificationInt)){
-            mspinnerQualification.setSelection(sharedpreferences.getInt(mspinnerQualificationInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerGenderInt)){
-            mspinnerGender.setSelection(sharedpreferences.getInt(mspinnerGenderInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerBloodGroupInt)){
-            mspinnerBloodGroup.setSelection(sharedpreferences.getInt(mspinnerBloodGroupInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerRHInt)){
-            mspinnerRH.setSelection(sharedpreferences.getInt(mspinnerRHInt,1));
-        }
-        if(sharedpreferences.contains(mspinnerIdmarkInt)){
-            mspinnerIdmark.setSelection(sharedpreferences.getInt(mspinnerIdmarkInt,1));
-        }
 
-    }
 
-    private String getVehicleClass() {
-        StringBuilder brVehicleClass = new StringBuilder();
-        if (sharedpreferences.contains(CheckBoxApplicationType1) && sharedpreferences.getBoolean(CheckBoxApplicationType1, true)) {
-            brVehicleClass.append(vehicleClass[0]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType2) && sharedpreferences.getBoolean(CheckBoxApplicationType2, true)) {
-            brVehicleClass.append(vehicleClass[1]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType3) && sharedpreferences.getBoolean(CheckBoxApplicationType3, true)) {
-            brVehicleClass.append(vehicleClass[2]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType4) && sharedpreferences.getBoolean(CheckBoxApplicationType4, true)) {
-            brVehicleClass.append(vehicleClass[3]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType5) && sharedpreferences.getBoolean(CheckBoxApplicationType5, true)) {
-            brVehicleClass.append(vehicleClass[4]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType6) && sharedpreferences.getBoolean(CheckBoxApplicationType6, true)) {
-            brVehicleClass.append(vehicleClass[5]).append(" ");
-        }
-        if (sharedpreferences.contains(CheckBoxApplicationType7) && sharedpreferences.getBoolean(CheckBoxApplicationType7, true)) {
-            brVehicleClass.append(vehicleClass[6]).append(" ");
-        }
-        return brVehicleClass.toString();
-    }
 
     private boolean textFieldValidation()
     {
@@ -963,3 +1262,158 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 }
+/*
+Check Box.
+    private static final String CheckBoxApplicationType1 = "CheckBoxApplicationType1";
+    private static final String CheckBoxApplicationType2 = "CheckBoxApplicationType2";
+    private static final String CheckBoxApplicationType3 = "CheckBoxApplicationType3";
+    private static final String CheckBoxApplicationType4 = "CheckBoxApplicationType4";
+    private static final String CheckBoxApplicationType5 = "CheckBoxApplicationType5";
+    private static final String CheckBoxApplicationType6 = "CheckBoxApplicationType6";
+    private static final String CheckBoxApplicationType7 = "CheckBoxApplicationType7";
+
+    private static final String meditViewApplicantFirstNameString = "meditViewApplicantFirstName";
+    private static final String meditViewApplicantMiddleNameString = "meditViewApplicantMiddleName";
+    private static final String meditViewApplicantLastNameString = "meditViewApplicantLastName";
+    private static final String meditViewApplicantRelationsNameString = "meditViewApplicantRelationsName";
+    private static final String meditViewEmailString = "meditViewEmail";
+    private static final String meditViewMobileNoString = "meditViewMobileNo";
+    private static final String meditViewPincodeString = "meditViewPincode";
+    private static final String meditViewAddressString = "meditViewAddress";
+    private static final String meditViewFeeString = "meditViewFee";
+
+
+    private static final String mspinnerRTOString = "mspinnerRTO";
+    private static final String mspinnerRTOInt = "mspinnerRTOInt";
+
+    private static final String mspinnerRelationshipTypeString = "mspinnerRelationshipType";
+    private static final String mspinnerRelationshipTypeInt = "mspinnerRelationshipTypeInt";
+
+    private static final String mspinnerQualificationString = "mspinnerQualification";
+    private static final String mspinnerQualificationInt = "mspinnerQualificationInt";
+
+    private static final String mspinnerGenderString = "mspinnerGender";
+    private static final String mspinnerGenderInt = "mspinnerGenderInt";
+
+    private static final String mspinnerIdmarkString = "mspinnerIdmark";
+    private static final String mspinnerIdmarkInt = "mspinnerIdmarkInt";
+
+    private static final String mspinnerBloodGroupString = "mspinnerBloodGroup";
+    private static final String mspinnerBloodGroupInt = "mspinnerBloodGroupInt";
+
+    private static final String mspinnerRHString = "mspinnerRH";
+    private static final String mspinnerRHInt = "mspinnerRHInt";
+*/
+//    private void saveSharedPreference() {
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
+//        editor.putString(meditViewApplicantMiddleNameString, meditViewApplicantMiddleName.getText().toString());
+//        editor.putString(meditViewApplicantLastNameString, meditViewApplicantLastName.getText().toString());
+//        editor.putString(meditViewApplicantRelationsNameString, meditViewApplicantRelationsName.getText().toString());
+//        editor.putString(meditViewEmailString, meditViewEmail.getText().toString());
+//        editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
+//        editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
+//        editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
+//        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
+//
+//        editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
+//        editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
+//        editor.putString(mspinnerGenderString, mspinnerGender.getSelectedItem().toString());
+//        editor.putString(mspinnerIdmarkString, mspinnerIdmark.getSelectedItem().toString());
+//        editor.putString(mspinnerBloodGroupString, mspinnerBloodGroup.getSelectedItem().toString());
+//        editor.putString(mspinnerRHString, mspinnerRH.getSelectedItem().toString());
+//        editor.putString(mtextViewDateString, mtextViewDate.getText().toString());
+//
+//        editor.putInt(mspinnerRTOInt,mspinnerRTO.getSelectedItemPosition());
+//        editor.putInt(mspinnerRelationshipTypeInt, mspinnerRelationshipType.getSelectedItemPosition());
+//        editor.putInt(mspinnerQualificationInt, mspinnerQualification.getSelectedItemPosition());
+//        editor.putInt(mspinnerGenderInt, mspinnerGender.getSelectedItemPosition());
+//        editor.putInt(mspinnerIdmarkInt, mspinnerIdmark.getSelectedItemPosition());
+//        editor.putInt(mspinnerBloodGroupInt, mspinnerBloodGroup.getSelectedItemPosition());
+//        editor.putInt(mspinnerRHInt, mspinnerRH.getSelectedItemPosition());
+//        editor.putString(mtextViewDateInt,mtextViewDate.getSelectedItemPosition());
+//
+//
+//
+//        editor.commit();
+//    }
+
+//    private void getPreferenceData()
+//    {
+//        if(sharedpreferences.contains(meditViewApplicantFirstNameString)) {
+//            meditViewApplicantFirstName.setText(sharedpreferences.getString(meditViewApplicantFirstNameString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewApplicantMiddleNameString)) {
+//            meditViewApplicantMiddleName.setText(sharedpreferences.getString(meditViewApplicantMiddleNameString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewApplicantLastNameString)) {
+//            meditViewApplicantLastName.setText(sharedpreferences.getString(meditViewApplicantLastNameString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewApplicantRelationsNameString)) {
+//            meditViewApplicantRelationsName.setText(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
+//        }
+//        /*if(sharedpreferences.contains(meditViewEmailString)) {
+//            meditViewEmail.setText(sharedpreferences.getString(meditViewEmailString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewMobileNoString)) {
+//            meditViewMobileNo.setText(sharedpreferences.getString(meditViewMobileNoString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewPincodeString)) {
+//            meditViewPincode.setText(sharedpreferences.getString(meditViewPincodeString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewAddressString)) {
+//            meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
+//        }
+//        if(sharedpreferences.contains(meditViewFeeString)) {
+//            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
+//        }*/
+//
+//        if(sharedpreferences.contains(mspinnerRTOInt)){
+//            mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerRelationshipTypeInt)){
+//            mspinnerRelationshipType.setSelection(sharedpreferences.getInt(mspinnerRelationshipTypeInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerQualificationInt)){
+//            mspinnerQualification.setSelection(sharedpreferences.getInt(mspinnerQualificationInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerGenderInt)){
+//            mspinnerGender.setSelection(sharedpreferences.getInt(mspinnerGenderInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerBloodGroupInt)){
+//            mspinnerBloodGroup.setSelection(sharedpreferences.getInt(mspinnerBloodGroupInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerRHInt)){
+//            mspinnerRH.setSelection(sharedpreferences.getInt(mspinnerRHInt,1));
+//        }
+//        if(sharedpreferences.contains(mspinnerIdmarkInt)){
+//            mspinnerIdmark.setSelection(sharedpreferences.getInt(mspinnerIdmarkInt,1));
+//        }
+//
+//    }
+
+//    private String getVehicleClass() {
+//        StringBuilder brVehicleClass = new StringBuilder();
+//        if (sharedpreferences.contains(CheckBoxApplicationType1) && sharedpreferences.getBoolean(CheckBoxApplicationType1, true)) {
+//            brVehicleClass.append(vehicleClass[0]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType2) && sharedpreferences.getBoolean(CheckBoxApplicationType2, true)) {
+//            brVehicleClass.append(vehicleClass[1]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType3) && sharedpreferences.getBoolean(CheckBoxApplicationType3, true)) {
+//            brVehicleClass.append(vehicleClass[2]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType4) && sharedpreferences.getBoolean(CheckBoxApplicationType4, true)) {
+//            brVehicleClass.append(vehicleClass[3]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType5) && sharedpreferences.getBoolean(CheckBoxApplicationType5, true)) {
+//            brVehicleClass.append(vehicleClass[4]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType6) && sharedpreferences.getBoolean(CheckBoxApplicationType6, true)) {
+//            brVehicleClass.append(vehicleClass[5]).append(" ");
+//        }
+//        if (sharedpreferences.contains(CheckBoxApplicationType7) && sharedpreferences.getBoolean(CheckBoxApplicationType7, true)) {
+//            brVehicleClass.append(vehicleClass[6]).append(" ");
+//        }
+//        return brVehicleClass.toString();
+//    }

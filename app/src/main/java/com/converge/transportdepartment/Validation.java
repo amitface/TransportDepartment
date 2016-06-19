@@ -14,12 +14,12 @@ public class Validation {
     // Regular Expression
     // you can change the expression based on your need
     private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private static final String PHONE_REGEX = "\\d{3}-\\d{7}";
+    private static final String PHONE_REGEX = "[0-9]+";
 
     // Error Messages
     private static final String REQUIRED_MSG = "required";
     private static final String EMAIL_MSG = "invalid email";
-    private static final String PHONE_MSG = "###-#######";
+    private static final String PHONE_MSG = "0123456789";
 
     // call this method when you need to check email validation
     public static boolean isEmailAddress(EditText editText, boolean required) {
@@ -45,7 +45,7 @@ public class Validation {
         if (required && !Pattern.matches(regex, text)) {
             editText.setError(errMsg);
             return false;
-        };
+        }
 
         return true;
     }
@@ -65,4 +65,17 @@ public class Validation {
 
         return true;
     }
+
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

@@ -102,6 +102,10 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         getActivity().registerReceiver(onNotificationClick,
                 new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        getActivity().registerReceiver(onCompleteDownload,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        getActivity().registerReceiver(onNotificationClickDownload,
+                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
     }
 
@@ -110,6 +114,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         super.onPause();
         getActivity().unregisterReceiver(onComplete);
         getActivity().unregisterReceiver(onNotificationClick);
+        getActivity().unregisterReceiver(onCompleteDownload);
+        getActivity().unregisterReceiver(onNotificationClickDownload);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,8 +135,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     public void onClick(View view) {
 //                new GetClass(getActivity()).execute();
 //                startDownload(view);
-                        showToast("Downloading Receipt");
+                        showToast("Downloading Receipt & Form");
                         downloadPdf();
+                        downloadPdfForm();
                     }
                 });
             }
@@ -191,7 +198,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdf() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("referenceId",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -211,8 +218,29 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         lastDownload = mgr.enqueue(request);
     }
 
+    public void downloadPdfForm() {
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Application_Form.php?referenceId="+sharedpreferences.getString("ref_num",""));
+        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+        //Restrict the types of networks over which this download may proceed.
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        //Set whether this download may proceed over a roaming connection.
+        request.setAllowedOverRoaming(false);
+        //Set the title of this download, to be displayed in notifications (if enabled).
+        request.setTitle("Downloading");
+        //Set a description of this download, to be displayed in notifications (if enabled)
+        request.setDescription("Downloading File");
+        //Set the local destination for the downloaded file to a path within the application's external files directory
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Form" + System.currentTimeMillis() + ".pdf");
+
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        //Enqueue a new download and same the referenceId
+        lastDownload = mgr.enqueue(request);
+    }
+
     public void startDownload(View v) {
-        Uri uri=Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId=MPO91000000001");
+        Uri uri=Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
 
         Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -321,7 +349,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
 //                final TextView outputView = (TextView) findViewById(R.id.showOutput);
                 URL url = new URL("\n" +
-                        "http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("referenceId",""));
+                        "http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
 //                String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
 //                String fileName = strings[1];  // -> maven.pdf
                 String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
@@ -408,6 +436,19 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     };
 
     BroadcastReceiver onNotificationClick=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
+            Toast.makeText(ctxt, "Ummmm...hi!", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    BroadcastReceiver onCompleteDownload=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
+//            getActivity().findViewById(R.id.start).setEnabled(true);
+            Toast.makeText(getActivity(),"complete",Toast.LENGTH_LONG).show();
+        }
+    };
+
+    BroadcastReceiver onNotificationClickDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
             Toast.makeText(ctxt, "Ummmm...hi!", Toast.LENGTH_LONG).show();
         }

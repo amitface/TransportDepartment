@@ -8,10 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -183,21 +179,21 @@ public class ConfirmAndPay extends Fragment {
     private void setText()
     {
 
-        brName.append("Applicant Name : ").append(sharedpreferences.getString(meditViewApplicantFirstNameString, "")).append(" ").
-                append(sharedpreferences.getString(meditViewApplicantMiddleNameString, "")).append(" ").append(sharedpreferences.getString(meditViewApplicantLastNameString, ""));
-        brRelation.append("RelationType : ").append(sharedpreferences.getString(mspinnerRelationshipTypeString,""));
-        brRelationName.append("Relation's Name : ").append(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
-        brEmail.append("Email : ").append(sharedpreferences.getString(meditViewEmailString, ""));
-        brMobileNo.append("Moblie No. : ").append(sharedpreferences.getString(meditViewMobileNoString, ""));
-        brQualification.append("Qualification : ").append(sharedpreferences.getString(mspinnerQualificationString,""));
-        brPincode.append("Pincode : ").append(sharedpreferences.getString(meditViewPincodeString,""));
-        brAddress.append("Address : ").append(sharedpreferences.getString(meditViewAddressString,""));
-        brFee.append("Fee : Rs 400");
-        brGender.append("Gender : ").append(sharedpreferences.getString(mspinnerGenderString,""));
-        brIdMark.append("Id Mark : ").append(sharedpreferences.getString(mspinnerIdmarkString,""));
-//        brDOB.append("DOB : ").append(sharedpreferences.getString(mtextViewDOB))
-        brBloodGroup.append("Blood Group : ").append(sharedpreferences.getString(mspinnerBloodGroupString,"")).append(sharedpreferences.getString(mspinnerRHString,""));
-//        brCity.append("City : ").append(sharedpreferences.getString(mt))
+//        brName.append("Applicant Name : ").append(sharedpreferences.getString(meditViewApplicantFirstNameString, "")).append(" ").
+//                append(sharedpreferences.getString(meditViewApplicantMiddleNameString, "")).append(" ").append(sharedpreferences.getString(meditViewApplicantLastNameString, ""));
+//        brRelation.append("RelationType : ").append(sharedpreferences.getString(mspinnerRelationshipTypeString,""));
+//        brRelationName.append("Relation's Name : ").append(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
+//        brEmail.append("Email : ").append(sharedpreferences.getString(meditViewEmailString, ""));
+//        brMobileNo.append("Moblie No. : ").append(sharedpreferences.getString(meditViewMobileNoString, ""));
+//        brQualification.append("Qualification : ").append(sharedpreferences.getString(mspinnerQualificationString,""));
+//        brPincode.append("Pincode : ").append(sharedpreferences.getString(meditViewPincodeString,""));
+//        brAddress.append("Address : ").append(sharedpreferences.getString(meditViewAddressString,""));
+//        brFee.append("Fee : Rs 400");
+//        brGender.append("Gender : ").append(sharedpreferences.getString(mspinnerGenderString,""));
+//        brIdMark.append("Id Mark : ").append(sharedpreferences.getString(mspinnerIdmarkString,""));
+////        brDOB.append("DOB : ").append(sharedpreferences.getString(mtextViewDOB))
+//        brBloodGroup.append("Blood Group : ").append(sharedpreferences.getString(mspinnerBloodGroupString,"")).append(sharedpreferences.getString(mspinnerRHString,""));
+////        brCity.append("City : ").append(sharedpreferences.getString(mt))
 
 
 
@@ -208,18 +204,18 @@ public class ConfirmAndPay extends Fragment {
 
     private void getPreferenceData()
     {
-        textViewCPApplicantName.setText(brName.toString());
-        textViewCPRelation.setText(brRelation.toString());
-        textViewCPRelationName.setText(brRelationName.toString());
-        textViewCPEmail.setText(brEmail.toString());
-
-        textViewCPMobileNo.setText(brMobileNo.toString());
-        textViewCPQualification.setText(brQualification.toString());
-        textViewCPPincode.setText(brPincode.toString());
-        textViewCPAddress.setText(brAddress.toString());
-        textViewCPIdMark.setText(brIdMark.toString());
-        textViewCPBloodGroup.setText(brBloodGroup.toString());
-        textViewCPGender.setText(brGender.toString());
+//        textViewCPApplicantName.setText(brName.toString());
+//        textViewCPRelation.setText(brRelation.toString());
+//        textViewCPRelationName.setText(brRelationName.toString());
+//        textViewCPEmail.setText(brEmail.toString());
+//
+//        textViewCPMobileNo.setText(brMobileNo.toString());
+//        textViewCPQualification.setText(brQualification.toString());
+//        textViewCPPincode.setText(brPincode.toString());
+//        textViewCPAddress.setText(brAddress.toString());
+//        textViewCPIdMark.setText(brIdMark.toString());
+//        textViewCPBloodGroup.setText(brBloodGroup.toString());
+//        textViewCPGender.setText(brGender.toString());
 
 
 

@@ -31,6 +31,7 @@
             android:textAlignment="center"
             android:shrinkColumns="*"
             android:stretchColumns="*"
+            android:visibility="visible"
             android:padding="6dip">
 
 
@@ -43,11 +44,11 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Id Proof "/>
+                    android:text="Id Proof *"/>
             </TableRow>
             <TableRow>
                 <Spinner
-                    android:id="@+id/spinnerIdcard"
+                    android:id="@+id/spinnerIdcard1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
@@ -64,7 +65,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-                    android:text="Document Number"/>
+                    android:text="Document Number*"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,44 +73,70 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Issuing Authority"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:layout_gravity="start"
-                    android:layout_margin="2dp"
-
-                    android:text="Date of Issue"/>
+                    android:text="Issuing Authority*"/>
 
             </TableRow>
             <TableRow  >
                 <EditText
-                    android:id="@+id/editTextDocumentNum"
+                    android:id="@+id/editTextDocumentNum1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
+                    android:maxLength="20"
                     android:background="@drawable/edit_text_personal_details"
                     />
                 <EditText
-                    android:id="@+id/editTextIssuingAuthority"
+                    android:id="@+id/editTextIssuingAuthority1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
+                    android:maxLength="20"
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_span="1"
 
                     />
-                <EditText
-                    android:id="@+id/editTextDateofIssue"
+                </TableRow>
+            <TableRow>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="wrap_content"
                     android:textSize="12dp"
+                    android:layout_gravity="start"
                     android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    />
+
+                    android:text="Date of Issue*"/>
 
             </TableRow>
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_span="2">
+                <ImageView
+                    android:id="@+id/imageViewDatePicker1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/calender"
+                    android:layout_gravity="start"
+
+                    />
+                <TextView
+                    android:id="@+id/editTextDateofIssue1"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingTop="10dp"
+
+                    android:layout_gravity="center_vertical|start"
+
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imageViewDatePicker1"
+                    android:layout_toEndOf="@+id/imageViewDatePicker1" />
+                </RelativeLayout>
+            </TableRow>
+
         </TableLayout>
         <TableLayout
             android:id="@+id/table2"
@@ -133,7 +160,7 @@
             </TableRow>
             <TableRow>
                 <Spinner
-                    android:id="@+id/spinnerIdcard"
+                    android:id="@+id/spinnerIdcard2"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
@@ -159,6 +186,30 @@
                     android:layout_margin="2dp"
 
                     android:text="Issuing Authority"/>
+
+
+            </TableRow>
+            <TableRow  >
+                <EditText
+                    android:id="@+id/editTextDocumentNum2"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:maxLength="20"
+                    android:background="@drawable/edit_text_personal_details"
+                    />
+                <EditText
+                    android:id="@+id/editTextIssuingAuthority2"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:maxLength="20"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1"
+
+                    />
+                </TableRow>
+            <TableRow>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,45 +218,46 @@
                     android:layout_margin="2dp"
 
                     android:text="Date of Issue"/>
-
             </TableRow>
-            <TableRow  >
-                <EditText
-                    android:id="@+id/editTextDocumentNum"
+            <TableRow>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    />
-                <EditText
-                    android:id="@+id/editTextIssuingAuthority"
-                    android:layout_width="match_parent"
+                    android:layout_span="2">
+                <ImageView
+                    android:id="@+id/imageViewDatePicker2"
+                    android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="1"
+                    android:src="@drawable/calender"
+                    android:layout_gravity="start"
 
                     />
-                <EditText
-                    android:id="@+id/editTextDateofIssue"
+                <TextView
+                    android:id="@+id/editTextDateofIssue2"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:textSize="12dp"
-                    android:layout_margin="2dp"
+                    android:paddingTop="10dp"
+
+                    android:layout_gravity="center_vertical|start"
                     android:background="@drawable/edit_text_personal_details"
-                    />
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imageViewDatePicker2"
+                    android:layout_toEndOf="@+id/imageViewDatePicker2" />
+                </RelativeLayout>
 
             </TableRow>
         
     </TableLayout>
-    <TableLayout
+        <TableLayout
         android:id="@+id/table3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:padding="6dip">
         <!--PhotoId -->
         <TableRow
@@ -220,7 +272,7 @@
         </TableRow>
         <TableRow>
             <Spinner
-                android:id="@+id/spinnerIdcard"
+                android:id="@+id/spinnerIdcard3"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:paddingLeft="4dp"
@@ -246,47 +298,70 @@
                 android:layout_margin="2dp"
 
                 android:text="Issuing Authority"/>
-            <TextView
+
+
+        </TableRow>
+        <TableRow  >
+            <EditText
+                android:id="@+id/editTextDocumentNum3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_margin="2dp"
+                android:maxLength="20"
+                android:background="@drawable/edit_text_personal_details"
+                />
+            <EditText
+                android:id="@+id/editTextIssuingAuthority3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_margin="2dp"
+                android:maxLength="20"
+                android:background="@drawable/edit_text_personal_details"
+                android:layout_span="1"
+
+                />
+            </TableRow>
+            <TableRow>
+                <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:layout_gravity="start"
                 android:layout_margin="2dp"
                 android:text="Date of Issue"/>
-
-        </TableRow>
-        <TableRow  >
-            <EditText
-                android:id="@+id/editTextDocumentNum"
+            </TableRow>
+            <TableRow>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="2dp"
+                android:layout_span="2">
+            <ImageView
+                android:id="@+id/imageViewDatePicker3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/calender"
+                android:layout_gravity="start"
+                />
+            <TextView
+                android:id="@+id/editTextDateofIssue3"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_margin="2dp"
+                android:paddingTop="10dp"
+                android:layout_gravity="center_vertical|start"
                 android:background="@drawable/edit_text_personal_details"
-                />
-            <EditText
-                android:id="@+id/editTextIssuingAuthority"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/edit_text_personal_details"
-                android:layout_span="1"
-
-                />
-            <EditText
-                android:id="@+id/editTextDateofIssue"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:textSize="12dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/edit_text_personal_details"
-                />
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageViewDatePicker3"
+                android:layout_toEndOf="@+id/imageViewDatePicker3" />
+            </RelativeLayout>
 
         </TableRow>
 
     </TableLayout>
         <TableLayout
             android:id="@+id/table4"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -306,7 +381,7 @@
             </TableRow>
             <TableRow>
                 <Spinner
-                    android:id="@+id/spinnerIdcard"
+                    android:id="@+id/spinnerIdcard4"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
@@ -332,49 +407,64 @@
                     android:layout_margin="2dp"
 
                     android:text="Issuing Authority"/>
+
+            </TableRow>
+            <TableRow  >
+                <EditText
+                    android:id="@+id/editTextDocumentNum4"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:maxLength="20"
+                    android:background="@drawable/edit_text_personal_details"
+                    />
+                <EditText
+                    android:id="@+id/editTextIssuingAuthority4"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:maxLength="20"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_span="1"
+
+                    />
+                </TableRow>
+            <TableRow>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-
                     android:text="Date of Issue"/>
-
             </TableRow>
-            <TableRow  >
-                <EditText
-                    android:id="@+id/editTextDocumentNum"
+            <TableRow>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_span="2">
+                <ImageView
+                    android:id="@+id/imageViewDatePicker4"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/calender"
+                    android:layout_gravity="start"
+                    />
+                <TextView
+                    android:id="@+id/editTextDateofIssue4"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_margin="2dp"
+                    android:paddingTop="10dp"
+                    android:layout_gravity="center_vertical|start"
                     android:background="@drawable/edit_text_personal_details"
-                    />
-                <EditText
-                    android:id="@+id/editTextIssuingAuthority"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:layout_span="1"
-
-                    />
-                <EditText
-                    android:id="@+id/editTextDateofIssue"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:textSize="12dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/edit_text_personal_details"
-                    />
-
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imageViewDatePicker4"
+                    android:layout_toEndOf="@+id/imageViewDatePicker4" />
+                </RelativeLayout>
             </TableRow>
-
         </TableLayout>
-
-   
-
-
 </LinearLayout>
     </ScrollView>
 
@@ -439,7 +529,7 @@
                 android:textColor="@android:color/background_light"
                 />
             <Button
-                android:id="@+id/buttonNextIdProofNext"
+                android:id="@+id/buttonNextIdProof"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

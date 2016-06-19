@@ -1,4 +1,4 @@
-package com.converge.transportdepartment;
+package com.converge.transportdepartment.DatePicker;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -7,12 +7,14 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.IdProof;
+
 import java.util.Calendar;
 
 /**
  * Created by root on 1/6/16.
  */
-public   class DatePickerFragment extends DialogFragment
+public   class DatePickerFragment3 extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
         StringBuilder br;
        Calendar c;
@@ -33,16 +35,11 @@ public   class DatePickerFragment extends DialogFragment
 
 
 
-            if(c.get(Calendar.YEAR)-year<0 || c.get(Calendar.YEAR)-year<16 )
-            {
-                showToast("age should be greater 16");
-                return;
-            }
 
             br = new StringBuilder();
             br.append(Integer.toString(day)).append("/").append(Integer.toString(month)).append("/").append(Integer.toString(year));
 
-            PersonalDetails.mtextViewDate.setText(br.toString());
+            IdProof.editTextDateofIssue3.setText(br.toString());
         }
 
         private void showToast(String s)

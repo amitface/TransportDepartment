@@ -2,16 +2,14 @@ package com.converge.transportdepartment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -118,7 +116,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_select_application_type, container, false);
-        Button buttonSelectionApplicationNext = (Button) fragmentView.findViewById(R.id.buttonSelectApplication);
+        Button buttonSelectionApplicationNext = (Button) fragmentView.findViewById(R.id.buttonNextSelectApplication);
 
         //Initialize Hash Map
         intializeHashMap();
@@ -132,11 +130,19 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         /*onClickListener */
         checkboxSetListener();
 
-        Button buttonSave =(Button) fragmentView.findViewById(R.id.buttonClearSelectApplication);
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        Button buttonClear =(Button) fragmentView.findViewById(R.id.buttonClearSelectApplication);
+        buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickCheckBox(view);
+            }
+        });
+
+        Button buttonNext = (Button) fragmentView.findViewById(R.id.buttonNextSelectApplication);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickCheckBox(v);
             }
         });
         return fragmentView;
@@ -151,17 +157,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
             mListener.onFragmentInteraction(id);
         }
     }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+
 
     @Override
     public void onDetach() {
@@ -170,27 +166,29 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     }
 
 
-//    public void onClickApplicationType(View view) {
-//       switch (view.getId())
-//       {
-//           case R.id.buttonSelectApplication:
-//
-//               break;
-//           default:break;
-//       }
-//    }
-
     public void onClickCheckBox(View view)
     {
         // Is the view now checked?
         boolean checked= false;
-        if(view.getId()!= R.id.buttonClearSelectApplication){
+
+        if(view.getId()!= R.id.buttonClearSelectApplication && view.getId()!=R.id.buttonNextSelectApplication){
             checked = ((CheckBox) view).isChecked();
         }
 
-
         // Check which checkbox was clicked
         switch(view.getId()) {
+            case R.id.buttonNextSelectApplication:
+                if(valdate())
+                {
+                    vibrate();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("1", "1")).commit();
+                }
+                else
+                Toast.makeText(getActivity(),"Select at least one class",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.buttonClearSelectApplication:
+                clear(view);
+                break;
             case R.id.checkbox_application_type_1:
                 if (checked)
                     // Put some meat on the sandwich
@@ -238,7 +236,6 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                 else
                     // I'm lactose intolerant
                     mCheckBox.put(5,checked);
-
                 break;
             case R.id.checkbox_application_type_7:
                 if (checked)
@@ -385,13 +382,61 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
                 break;
 
-            case R.id.buttonClearSelectApplication:
-                clear(view);
-                break;
+
             default:break;
             // TODO: Veggie sandwich
         }
         Save(view);
+    }
+
+    private boolean valdate() {
+
+            if(checkBox1.isChecked())
+            return  true;
+            else if(checkBox2.isChecked())
+            return  true;
+            else if(checkBox3.isChecked())
+            return  true;
+            else if(checkBox4.isChecked())
+            return  true;
+            else if(checkBox5.isChecked())
+            return  true;
+            else if( checkBox6.isChecked())
+            return  true;
+            else if(checkBox7.isChecked())
+            return  true;
+            else if(checkBox8.isChecked())
+            return  true;
+            else if(checkBox9.isChecked())
+            return  true;
+            else if(checkBox10.isChecked())
+            return  true;
+            else if(checkBox11.isChecked())
+            return  true;
+            else if(checkBox12.isChecked())
+            return  true;
+            else if(checkBox13.isChecked())
+            return  true;
+            else if(checkBox14.isChecked())
+            return  true;
+            else if(checkBox15.isChecked())
+            return  true;
+            else if(checkBox16.isChecked())
+            return  true;
+            else if(checkBox17.isChecked())
+            return  true;
+            else if(checkBox18.isChecked())
+            return  true;
+            else if(checkBox19.isChecked())
+            return  true;
+            else if(checkBox20.isChecked())
+            return  true;
+            else if(checkBox21.isChecked())
+            return  true;
+            else if(checkBox22.isChecked())
+            return  true;
+
+        return false;
     }
 
 
@@ -733,5 +778,14 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                 onClickCheckBox(view);
             }
         });
+    }
+
+    private void vibrate()
+    {
+        // Get instance of Vibrator from current Context
+        Vibrator mVibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+        // Vibrate for 300 milliseconds
+        mVibrator.vibrate(20);
     }
 }

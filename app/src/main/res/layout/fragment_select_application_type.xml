@@ -573,7 +573,7 @@
                 android:textColor="@android:color/background_light"
                 android:onClick="onClickCheckBox"/>
             <Button
-                android:id="@+id/buttonSelectApplication"
+                android:id="@+id/buttonNextSelectApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -581,7 +581,7 @@
                 android:text="Next"
                 android:layout_margin="2dp"
                 android:textColor="@android:color/background_light"
-                android:onClick="onClick"/>
+                />
         </TableRow>
     </TableLayout>
 
