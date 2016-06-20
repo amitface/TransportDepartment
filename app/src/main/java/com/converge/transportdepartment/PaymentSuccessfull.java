@@ -198,7 +198,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdf() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -219,7 +219,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdfForm() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Application_Form.php?referenceId="+sharedpreferences.getString("ref_num",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.

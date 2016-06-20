@@ -1,6 +1,7 @@
 package com.converge.transportdepartment;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -18,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+
 public class Home extends AppCompatActivity
         implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener,PersonalDetails.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
 
@@ -28,7 +31,7 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        createDB();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -253,6 +256,25 @@ public class Home extends AppCompatActivity
     public void onFragmentInteraction(View view) {
 
     }
+
+    private  void createDB()
+    {
+        DBAdapter db = new DBAdapter(this);
+
+        //---get all contacts---
+        db.open();
+        Cursor c = db.getAllDetails();
+        if (c.moveToFirst())
+        {
+            for(int i=0;i<48;i++)
+            {
+                System.out.println(i+" = "+c.getString(i));
+            }
+
+        }
+        db.close();
+    }
+
 }
 
 

@@ -1,9 +1,6 @@
 package com.converge.transportdepartment;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
@@ -89,7 +86,7 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                 IdProof.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
-//        mTabHost.getTabWidget().setEnabled(false);
+        mTabHost.getTabWidget().setEnabled(false);
 
         mTabHost.setCurrentTab(Integer.parseInt(mParam1));
 

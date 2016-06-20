@@ -3,6 +3,7 @@ package com.converge.transportdepartment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Random;
 
 
 /**
@@ -58,7 +63,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     //Temporary data
     public ProgressDialog progress;
-
+    HashMap<String, String> hashMap = new HashMap<String, String>();
     Validation validation = new Validation();
 
     // TODO: Rename and change types of parameters
@@ -363,7 +368,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonClearPersonalDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickPersonalDetails(view);
+//                onClickPersonalDetails(view);
+                saveSession();
             }
         });
 
@@ -477,6 +483,179 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
         buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
+        retrivesession();
+    }
+
+    private void retrivesession() {
+        DBAdapter db = new DBAdapter(getActivity());
+
+        //---get all contacts---
+        db.open();
+        Cursor c = db.getAllDetails();
+        if(c.moveToFirst()) {
+            if(c.getString(1).length()>0)
+                mspinnerRTO.setSelection(Integer.parseInt(c.getString(1)));
+
+            meditViewApplicantFirstName.setText(c.getString(2));
+            meditViewApplicantMiddleName.setText(c.getString(3));
+            meditViewApplicantLastName.setText(c.getString(4));
+
+            mtextViewDate.setText(c.getString(5));
+            if(c.getString(6).length()>0)
+                mspinnerGender.setSelection(Integer.parseInt(c.getString(6)));
+
+            meditViewPlaceOfBirth.setText(c.getString(7));
+            meditViewYear.setText(c.getString(8));
+            meditViewMonth.setText(c.getString(9));
+
+            if(c.getString(10).length()>0)
+                mspinnerCountry.setSelection(Integer.parseInt(c.getString(10)));
+
+            meditViewEmail.setText(c.getString(11));
+
+            if(c.getString(12).length()>0)
+                mspinnerRelationshipType.setSelection(Integer.parseInt(c.getString(12)));
+
+            meditViewApplicantRelationsName.setText(c.getString(13));
+            meditViewApplicantRelationsMiddleName.setText(c.getString(14));
+            meditViewApplicantRelationsLastName.setText(c.getString(15));
+
+            meditTextPermanentFlatNum.setText(c.getString(16));
+            meditTextPermanentHouseName.setText(c.getString(17));
+            meditTextPermanentHouseNum.setText(c.getString(18));
+            meditTextPermanentStreet.setText(c.getString(19));
+            meditTextPermanentLocality.setText(c.getString(20));
+            meditTextPermanentvillage.setText(c.getString(21));
+            meditTextPermanentTaluka.setText(c.getString(22));
+            meditTextPermanentDistrict.setText(c.getString(23));
+            if(c.getString(24).length()>0)
+                mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
+
+            meditTextPermanentMonth.setText(c.getString(25));
+            meditTextPermanentYear.setText(c.getString(26));
+            meditTextPermanentPinCode.setText(c.getString(27));
+            meditTextPermanentMoblieNo.setText(c.getString(28));
+
+            meditTextPresentFlatNum.setText(c.getString(29));
+            meditTextPresentHouseName.setText(c.getString(30));
+            meditTextPresentHouseNum.setText(c.getString(31));
+            meditTextPresentStreet.setText(c.getString(32));
+            meditTextPresentLocality.setText(c.getString(33));
+            meditTextPresentvillage.setText(c.getString(34));
+            meditTextPresentTaluka.setText(c.getString(35));
+            meditTextPresentDistrict.setText(c.getString(36));
+            if(c.getString(37).length()>0)
+                mspinnerPresentState .setSelection(Integer.parseInt(c.getString(37)));
+            meditTextPresentMonth.setText(c.getString(38));
+            meditTextPresentYear.setText(c.getString(39));
+            meditTextPresentPinCode.setText(c.getString(40));
+            meditTextPresentMoblieNo.setText(c.getString(41));
+//
+//
+            if(c.getString(42).length()>0)
+                mspinnerCitizenship.setSelection(Integer.parseInt(c.getString(42)));
+
+
+            if(c.getString(43).length()>0)
+            mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
+
+            if(c.getString(44).length()>0)
+            mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
+            if(c.getString(45).length()>0)
+            mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(45)));
+
+
+            if(c.getString(46).length()>0)
+            mspinnerRH.setSelection(Integer.parseInt(c.getString(46)));
+        }
+        db.close();
+
+    }
+
+    private void saveSession()
+    {
+
+        DBAdapter db = new DBAdapter(getActivity());
+
+        //---get all contacts---
+        db.open();
+//        hashMap.put("statecode","");
+        hashMap.put("rtocode",Integer.toString(mspinnerRTO.getSelectedItemPosition()));
+//        hashMap.put("licence_type","L");
+        hashMap.put("first_name",meditViewApplicantFirstName.getText().toString());
+        hashMap.put("middle_name",meditViewApplicantMiddleName.getText().toString());
+        hashMap.put("last_name",meditViewApplicantLastName.getText().toString());
+
+        hashMap.put("dob",mtextViewDate.getText().toString());
+        hashMap.put("gender",Integer.toString(mspinnerGender.getSelectedItemPosition()));
+
+        hashMap.put("birth_place",meditViewPlaceOfBirth.getText().toString());
+        hashMap.put("year",meditViewYear.getText().toString());
+        hashMap.put("month",meditViewMonth.getText().toString());
+        hashMap.put("birth_country",Integer.toString(mspinnerCountry.getSelectedItemPosition()));
+        hashMap.put("email_id",meditViewEmail.getText().toString());
+
+        hashMap.put("relation",Integer.toString(mspinnerRelationshipType.getSelectedItemPosition()));
+        hashMap.put("p_first_name",meditViewApplicantRelationsName.getText().toString());
+        hashMap.put("p_middle_name",meditViewApplicantMiddleName.getText().toString());
+        hashMap.put("p_last_name",meditViewApplicantRelationsLastName.getText().toString());
+
+
+
+//        hashMap.put("permanent_address","");
+        hashMap.put("p_flat_no",meditTextPermanentFlatNum.getText().toString());
+        hashMap.put("p_flat_house_name",meditTextPermanentHouseName.getText().toString());
+        hashMap.put("p_house_no",meditTextPermanentHouseNum.getText().toString());
+        hashMap.put("p_street",meditTextPermanentStreet.getText().toString());
+        hashMap.put("p_locality",meditTextPermanentLocality.getText().toString());
+        hashMap.put("p_village_city",meditTextPermanentvillage.getText().toString());
+        hashMap.put("p_taluka",meditTextPermanentTaluka.getText().toString());
+        hashMap.put("p_district",meditTextPermanentDistrict.getText().toString());
+        hashMap.put("p_state",Integer.toString(mspinnerPermanentState.getSelectedItemPosition()));
+
+        hashMap.put("p_years",meditTextPermanentYear.getText().toString());
+        hashMap.put("p_months",meditTextPermanentMonth.getText().toString());
+        hashMap.put("p_pin",meditTextPermanentPinCode.getText().toString());
+        hashMap.put("p_mobile_no",meditTextPermanentMoblieNo.getText().toString());
+//        hashMap.put("p_phone_no","");
+
+
+        hashMap.put("t_flat_no",meditTextPresentFlatNum.getText().toString());
+        hashMap.put("t_flat_house_name",meditTextPresentHouseName.getText().toString());
+        hashMap.put("t_house_no",meditTextPresentHouseNum.getText().toString());
+        hashMap.put("t_street",meditTextPermanentStreet.getText().toString());
+        hashMap.put("t_locality",meditTextPermanentLocality.getText().toString());
+        hashMap.put("t_village_city",meditTextPresentvillage.getText().toString());
+        hashMap.put("t_taluka",meditTextPresentTaluka.getText().toString());
+        hashMap.put("t_district",meditTextPresentDistrict.getText().toString());
+
+        hashMap.put("t_state",Integer.toString(mspinnerPresentState.getSelectedItemPosition()));
+
+        hashMap.put("t_years",meditTextPresentYear.getText().toString());
+        hashMap.put("t_months",meditTextPresentMonth.getText().toString());
+        hashMap.put("t_pin",meditTextPresentPinCode.getText().toString());
+        hashMap.put("t_moblie_no",meditTextPresentMoblieNo.getText().toString());
+
+
+        hashMap.put("citizenship_status",Integer.toString(mspinnerCitizenship.getSelectedItemPosition()));
+        hashMap.put("edu_qualification",Integer.toString(mspinnerQualification.getSelectedItemPosition()));
+        hashMap.put("identification_marks",Integer.toString(mspinnerIdmark.getSelectedItemPosition()));
+        hashMap.put("blood_group",Integer.toString(mspinnerBloodGroup.getSelectedItemPosition()));
+        hashMap.put("blood_group_rh",Integer.toString(mspinnerRH.getSelectedItemPosition()));
+
+//        hashMap.put("migration","");
+
+//        hashMap.put("covs","3,4");
+//        hashMap.put("rcnumber","");
+//        hashMap.put("parentletterforbelow18age","");
+//        hashMap.put("allnecessarycertificates","y");
+//        hashMap.put("exemptedmedicaltest","");
+//        hashMap.put("exemptedpreliminarytest","");
+//        hashMap.put("convicted","n");
+//        hashMap.put("attdlnumber","");
+//        hashMap.put("attdtofconviction","");
+//        hashMap.put("attreason","");
+       db.updateData(hashMap);
     }
 
     private void clearFelids(View rootView) {
@@ -514,7 +693,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditTextPresentPinCode.setText("");
         meditTextPresentMoblieNo.setText("");
 
-
         mspinnerRTO.setSelection(0);
         mspinnerRelationshipType.setSelection(0);
         mspinnerQualification.setSelection(0);
@@ -523,7 +701,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerBloodGroup.setSelection(0);
         mspinnerRH.setSelection(0);
         mspinnerPermanentState.setSelection(0);
-
 
         mtextViewDate.setText("");
     }
@@ -868,8 +1045,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private String detailString()
     {
-        String s= "ref_num=42"+"&first_name="+meditViewApplicantFirstName.getText()+"statecode="+"&"+
-                "rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
+        Random r = new Random();
+        int i1 = r.nextInt(100000000 - 90000000) + 9000;
+        String s= "ref_num="+i1+
+                "&first_name="+meditViewApplicantFirstName.getText()+
+                "&statecode="+
+                "&tocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
                 "&applicant_first_name="+meditViewApplicantFirstName.getText().toString()+
                 "&applicant_middle_name="+meditViewApplicantMiddleName.getText().toString()+
                 "&applicant_last_name="+meditViewApplicantLastName.getText().toString()+

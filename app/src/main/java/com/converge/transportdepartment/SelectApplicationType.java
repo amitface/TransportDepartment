@@ -181,6 +181,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                 if(valdate())
                 {
                     vibrate();
+                    Save(view);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("1", "1")).commit();
                 }
                 else
@@ -386,7 +387,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
             default:break;
             // TODO: Veggie sandwich
         }
-        Save(view);
+
     }
 
     private boolean valdate() {

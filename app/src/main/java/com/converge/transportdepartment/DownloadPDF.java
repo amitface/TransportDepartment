@@ -166,7 +166,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     }
 
     public void downloadPdf() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/learningLicense/LL_Application_Form.php?referenceId="+sharedpreferences.getString("referenceId",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.

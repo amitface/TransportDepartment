@@ -35,7 +35,7 @@ public   class DatePickerFragment extends DialogFragment
 
             if(c.get(Calendar.YEAR)-year<0 || c.get(Calendar.YEAR)-year<16 )
             {
-                showToast("age should be greater 16");
+                showToast("age should be greater than 16");
                 return;
             }
 

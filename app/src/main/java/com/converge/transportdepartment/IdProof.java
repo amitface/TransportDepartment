@@ -371,7 +371,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             try {
 
 
-                URL url = new URL("http://103.27.233.206/learningLicense/user_registration.php");
+                URL url = new URL("http://103.27.233.206/M-Parivahan/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                  String urlString =s1+s2;
@@ -408,7 +408,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 String detail[] =responseDetail.split(":");
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("receiptNum",detail[1].substring(1, 3));
+                editor.putString("receiptNum",detail[1].substring(1, 8));
                 editor.commit();
 
             } catch (MalformedURLException e) {
