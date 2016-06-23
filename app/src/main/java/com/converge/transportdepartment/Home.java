@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,12 +27,13 @@ public class Home extends AppCompatActivity
 
     private FragmentTabHost mTabHost;
     private LicenseApplication.OnFragmentInteractionListener mLicenseApplication;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        createDB();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,7 +55,9 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         addDynamicFragment();
+        createDB();
     }
 
     @Override
@@ -259,14 +263,16 @@ public class Home extends AppCompatActivity
 
     private  void createDB()
     {
-        DBAdapter db = new DBAdapter(this);
 
+        DBAdapter db = new DBAdapter(this);
         //---get all contacts---
         db.open();
         Cursor c = db.getAllDetails();
+
         if (c.moveToFirst())
         {
-            for(int i=0;i<48;i++)
+//            System.out.println(c.getInt(0));
+            for(int i=0;i<47;i++)
             {
                 System.out.println(i+" = "+c.getString(i));
             }
@@ -275,6 +281,25 @@ public class Home extends AppCompatActivity
         db.close();
     }
 
+    private void showProgress()
+    {
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Downloading");
+        progressDialog.setMessage("please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
+    private void hideProgress()
+    {
+        progressDialog.hide();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        progressDialog.hide();
+    }
 }
 
 

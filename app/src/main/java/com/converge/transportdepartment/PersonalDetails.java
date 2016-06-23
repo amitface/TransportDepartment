@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
     private static Handler handler;
+    private static boolean aBooleanstop=false;
 
     ImageView imageViewPermanent ;
     ImageView imageViewPresent ;
@@ -137,6 +139,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private TableLayout mtablelayoutOtherInfo;
 
     public static TextView mtextViewDate;
+    Thread th;
 
     String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
                         "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
@@ -228,38 +231,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //        sendPostRequest(rootView);
         hidePermanent();
         hidePresent();
-
         setListner();
-//        getPreferenceData();
-        final Handler handlerTemp = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-//                saveSharedPreference();
-//                showToast("saved preference");
-            }
-        };
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    try
-                    {
-                        for(int i=0;i<2;)
-                        {
-                            Thread.sleep(10000);
-                            Message msgObj = handlerTemp.obtainMessage();
-                            Bundle b = new Bundle();
-                            b.putInt("num", 1);
-                            msgObj.setData(b);
-                            handlerTemp.sendMessage(msgObj);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        showToast(e.toString());
-                    }
-            }
-        }).start();
         return rootView;
     }
 
@@ -269,16 +241,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
 //                getFieldData();
                 if(validate()) {
-                    handler = new Handler() {
-                        @Override
-                        public void handleMessage(Message msg) {
-                            super.handleMessage(msg);
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("4", "1")).commit();
-                        }
-                    };
+                    aBooleanstop=true;
+                    saveSession();
                     String s = detailString();
                     saveSharedPreference();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 }
                 break;
             case R.id.buttonBackPersonalDetail:
@@ -368,8 +335,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonClearPersonalDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                onClickPersonalDetails(view);
-                saveSession();
+                onClickPersonalDetails(view);
+
             }
         });
 
@@ -575,10 +542,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private void saveSession()
     {
 
-        DBAdapter db = new DBAdapter(getActivity());
-
-        //---get all contacts---
-        db.open();
 //        hashMap.put("statecode","");
         hashMap.put("rtocode",Integer.toString(mspinnerRTO.getSelectedItemPosition()));
 //        hashMap.put("licence_type","L");
@@ -655,7 +618,24 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //        hashMap.put("attdlnumber","");
 //        hashMap.put("attdtofconviction","");
 //        hashMap.put("attreason","");
-       db.updateData(hashMap);
+        try{
+
+
+        DBAdapter db = new DBAdapter(getActivity());
+
+        //---get all contacts---
+        db.open();
+        if(db.updateData(hashMap))
+        {
+            System.out.println("date Saved----------");
+        }
+            else {
+            System.out.println("date cannot be Saved----------");
+        }
+        }catch (Exception e)
+        {
+            System.out.println("ErrorSaving");
+        }
     }
 
     private void clearFelids(View rootView) {
@@ -720,7 +700,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditViewApplicantLastName.getText().length()==0)
         {
-            showToast("Enter applicant first name");
+            showToast("Enter applicant last name");
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
@@ -792,7 +772,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditViewApplicantRelationsLastName.getText().length()==0)
         {
-            showToast("Enter applicant first name");
+            showToast("Enter applicant Last name");
             return false;
         }
         else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
@@ -800,41 +780,42 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 showToast("Only aplhabets  allowed in Relations Name ");
                 return false;
         }
-        else if(meditTextPermanentFlatNum.getText().length()==0)
+        else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 && meditTextPermanentTaluka.getText().length()==0)
         {
-            showToast("Flat number cannot be empty");
+            showToast("At least one field required in Permanant Address");
+//            showToast("Flat number cannot be empty");
             return false;
         }
-        else if(meditTextPermanentHouseName.getText().length()==0)
-        {
-            showToast("House name cannot be empty");
-            return false;
-        }
-        else if(meditTextPermanentHouseNum.getText().length()==0)
-        {
-            showToast("House number cannot be empty");
-            return false;
-        }
-        else if(meditTextPermanentStreet.getText().length()==0)
-        {
-            showToast("Street cannot be empty");
-            return false;
-        }
-        else if(meditTextPermanentLocality.getText().length()==0)
-        {
-            showToast("Locality cannot be empty");
-            return false;
-        }
-        else if(meditTextPermanentvillage.getText().length()==0)
-        {
-            showToast("Permanent village cannot be empty");
-            return false;
-        }
-        else if( meditTextPermanentTaluka.getText().length()==0)
-        {
-            showToast("Permanent Taluka cannot be empty");
-            return false;
-        }
+//        else if(meditTextPermanentHouseName.getText().length()==0)
+//        {
+//            showToast("House name cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPermanentHouseNum.getText().length()==0)
+//        {
+//            showToast("House number cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPermanentStreet.getText().length()==0)
+//        {
+//            showToast("Street cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPermanentLocality.getText().length()==0)
+//        {
+//            showToast("Locality cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPermanentvillage.getText().length()==0)
+//        {
+//            showToast("Permanent village cannot be empty");
+//            return false;
+//        }
+//        else if( meditTextPermanentTaluka.getText().length()==0)
+//        {
+//            showToast("Permanent Taluka cannot be empty");
+//            return false;
+//        }
         else if(meditTextPermanentDistrict.getText().length()==0)
         {
             showToast("Permanent District cannot be empty");
@@ -881,41 +862,43 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("only digit in Mobile number");
             return false;
         }
-        else if(meditTextPresentFlatNum.getText().length()==0)
+
+        else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
-            showToast("Flat number cannot be empty");
+            showToast("At least one field required in Present Address");
+//            showToast("Flat number cannot be empty");
             return false;
         }
-        else if(meditTextPresentHouseName.getText().length()==0)
-        {
-            showToast("House name cannot be empty");
-            return false;
-        }
-        else if(meditTextPresentHouseNum.getText().length()==0)
-        {
-            showToast("House number cannot be empty");
-            return false;
-        }
-        else if(meditTextPresentStreet.getText().length()==0)
-        {
-            showToast("Street cannot be empty");
-            return false;
-        }
-        else if(meditTextPresentLocality.getText().length()==0)
-        {
-            showToast("Locality cannot be empty");
-            return false;
-        }
-        else if(meditTextPresentvillage.getText().length()==0)
-        {
-            showToast("Present village cannot be empty");
-            return false;
-        }
-        else if( meditTextPresentTaluka.getText().length()==0)
-        {
-            showToast("Present Taluka cannot be empty");
-            return false;
-        }
+//        else if(meditTextPresentHouseName.getText().length()==0)
+//        {
+//            showToast("House name cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPresentHouseNum.getText().length()==0)
+//        {
+//            showToast("House number cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPresentStreet.getText().length()==0)
+//        {
+//            showToast("Street cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPresentLocality.getText().length()==0)
+//        {
+//            showToast("Locality cannot be empty");
+//            return false;
+//        }
+//        else if(meditTextPresentvillage.getText().length()==0)
+//        {
+//            showToast("Present village cannot be empty");
+//            return false;
+//        }
+//        else if( meditTextPresentTaluka.getText().length()==0)
+//        {
+//            showToast("Present Taluka cannot be empty");
+//            return false;
+//        }
         else if(meditTextPresentDistrict.getText().length()==0)
         {
             showToast("Present District cannot be empty");
@@ -923,14 +906,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
-            showToast("Select  Present village ");
+            showToast("Select  Present State ");
             return false;
         }
-        else if(meditTextPresentvillage.getText().length()==0)
-        {
-            showToast("Present village cannot be empty");
-            return false;
-        }
+//        else if(meditTextPresentvillage.getText().length()==0)
+//        {
+//            showToast("Present village cannot be empty");
+//            return false;
+//        }
         else if(meditTextPresentYear.getText().length()==0)
         {
             showToast("Years cannot be empty");
@@ -969,6 +952,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(mspinnerCitizenship.getSelectedItemPosition()==0)
         {
             showToast("Select Citizenship");
+            return false;
         }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
         {
@@ -1049,11 +1033,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         int i1 = r.nextInt(100000000 - 90000000) + 9000;
         String s= "ref_num="+i1+
                 "&first_name="+meditViewApplicantFirstName.getText()+
-                "&statecode="+
-                "&tocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
-                "&applicant_first_name="+meditViewApplicantFirstName.getText().toString()+
-                "&applicant_middle_name="+meditViewApplicantMiddleName.getText().toString()+
-                "&applicant_last_name="+meditViewApplicantLastName.getText().toString()+
+                "&statecode=Odisha"+
+//                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
+                "&rtocode="+mspinnerRTO.getSelectedItem().toString()+
+                "&first_name="+meditViewApplicantFirstName.getText().toString()+
+                "&middle_name="+meditViewApplicantMiddleName.getText().toString()+
+                "&last_name="+meditViewApplicantLastName.getText().toString()+
 
                 "&dob="+mtextViewDate.getText().toString()+
                 "&gender="+mspinnerGender.getSelectedItem().toString()+
@@ -1061,39 +1046,53 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&p_first_name="+meditViewApplicantRelationsName.getText().toString()+
                 "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString()+
                 "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString()+
-                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
+//                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
+                "&edu_qualification="+mspinnerQualification.getSelectedItem().toString()+
                 "&identification_mark="+mspinnerIdmark.getSelectedItem().toString()+
                 "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItem().toString()+
 
                 "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
-                "&p_street_locality="+meditTextPermanentLocality.getText().toString()+
+                "&p_house_name="+meditTextPermanentHouseName.getText().toString()+
+                "&p_house_no="+meditTextPermanentHouseNum.getText().toString()+
+
+
+                "&p_street_locality="+meditTextPermanentStreet.getText().toString()+
+                "&p_locality="+meditTextPermanentLocality.getText().toString()+
                 "&p_village_city="+meditTextPermanentvillage.getText().toString()+
+                "&p_taluka="+meditTextPermanentTaluka.getText().toString()+
                 "&p_district="+meditTextPermanentDistrict.getText().toString()+
-                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
+//                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
+                "&p_state="+mspinnerPermanentState.getSelectedItem().toString()+
                 "&p_pin="+meditTextPermanentPinCode.getText().toString()+
                 "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString()+
                 "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString()+
-                "&p_years"+meditTextPermanentYear.getText().toString()+
+                "&p_years="+meditTextPermanentYear.getText().toString()+
                 "&p_months="+meditTextPermanentMonth.getText().toString()+
 
                 "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
+                "&t_house_name="+meditTextPresentHouseName.getText().toString()+
+                "&t_house_no="+meditTextPresentHouseNum.getText().toString()+
+
                 "&t_street_locality="+meditTextPresentStreet.getText().toString()+
+                "&t_locality="+meditTextPresentLocality.getText().toString()+
                 "&t_village_city="+meditTextPresentvillage.getText().toString()+
+                "&t_taluka="+meditTextPresentTaluka.getText().toString()+
                 "&t_district="+meditTextPresentDistrict.getText().toString()+
-                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
-                "&t_pin="+meditTextPresentPinCode+
+//                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
+                "&t_state="+mspinnerPresentState.getSelectedItem().toString()+
+                "&t_pin="+meditTextPresentPinCode.getText().toString()+
                 "&t_phone_no="+meditTextPresentMoblieNo.getText().toString()+
                 "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString()+
                 "&t_years="+meditTextPresentYear.getText().toString()+
                 "&t_months="+meditTextPresentMonth.getText().toString()+
+
+                "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString()+
 
                 "& birth_place="+meditViewPlaceOfBirth.getText().toString()+
                 "&year="+meditViewYear.getText().toString()+
                 "&birth_country="+mspinnerCountry.getSelectedItem().toString()+
                 "&email_id="+meditViewEmail.getText().toString()+
                 "&identification_marks="+mspinnerIdmark.getSelectedItem().toString()+
-
-                "&covs=3,4"+
                 "&rcnumber="+
                 "&parentleterforbelow18age=n"+
                 "&allnecessarycertificates=y"+
@@ -1328,6 +1327,24 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         present=true;
         imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
     }
+
+    @Override
+     public void onPause ()
+    {
+        super.onPause();
+        Log.d("onPause :"," saving session");
+        saveSession();
+        Log.d("Session :"," saved session");
+    }
+    @Override
+    public void onResume ()
+    {
+        super.onResume();
+        Log.d("onResume :"," retrieving  session");
+        retrivesession();
+        Log.d("Session :"," session retrieved");
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

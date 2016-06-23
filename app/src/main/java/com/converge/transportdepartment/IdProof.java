@@ -63,7 +63,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private String mFinalString1="mFinalString1";
 
     String s1,s2;
-    String idCode[]={"B", "C", "D ", "F ","H "," I ","L ","T ","V ","Z ","E ", "A ", "1 ",
+    String idCode[]={"","B", "C", "D ", "F ","H "," I ","L ","T ","V ","Z ","E ", "A ", "1 ",
             "2 ", "3 ", "P ", "4 ", "5 ", "6 ", "7 "};
 
     ImageView img2,img1,imageViewDatePicker1,imageViewDatePicker2,imageViewDatePicker3,imageViewDatePicker4;
@@ -71,7 +71,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
     public static final String mypreference = "mypref";
     private static int count=0;
     private SharedPreferences sharedpreferences;
-    private String mFinalString2="mFinalString2";
+    private final String mFinalString2="mFinalString2";
+    private final String mFinalStringCov="mFinalStringCov";
+    private String s3;
 
     public IdProof() {
         // Required empty public constructor
@@ -121,11 +123,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
             }
         });
 
-
         initalize(view);
         setListner(view);
-
-
 
             return view;
     }
@@ -216,6 +215,12 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     saveSharedPreference();
                     if(sharedpreferences.contains(mFinalString1)) {
                         s1=sharedpreferences.getString(mFinalString1,"");
+                        if(sharedpreferences.contains(mFinalStringCov))
+                        {
+                            s3="&covs="+sharedpreferences.getString(mFinalStringCov,"");
+                        }else
+                        s3= "&covs=3,4";
+
                         s2=detailString();
                     }
                     sendPostRequest();
@@ -325,23 +330,40 @@ public class IdProof extends Fragment implements View.OnClickListener{
     }
     private String detailString()
     {
+        String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
+
+        String proof2=new String();
+        if(spinnerIdcard2.getSelectedItemPosition()!=0)
+        proof2 =idCode[spinnerIdcard2.getSelectedItemPosition()];
+
+        String proof3=new String();
+        if(spinnerIdcard3.getSelectedItemPosition()!=0)
+            proof3 =idCode[spinnerIdcard3.getSelectedItemPosition()];
+
+        String proof4=new String();
+        if(spinnerIdcard4.getSelectedItemPosition()!=0)
+            proof4 =idCode[spinnerIdcard4.getSelectedItemPosition()];
         String idProof=
-                "proofcode%5B%5D="+idCode[spinnerIdcard1.getSelectedItemPosition()-1]+
-                "&proofcode%5B%5D="+idCode[spinnerIdcard2.getSelectedItemPosition()]+
-                "&proofcode%5B%5D="+idCode[spinnerIdcard3.getSelectedItemPosition()]+
-                "&proofcode%5B%5D="+idCode[spinnerIdcard4.getSelectedItemPosition()]+
-                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum1+
-                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum2+
-                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum3+
-                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum4+
-                "&issuing_authority%5B%5D="+editTextIssuingAuthority1+
-                "&issuing_authority%5B%5D="+editTextIssuingAuthority2+
-                "&issuing_authority%5B%5D="+editTextIssuingAuthority3+
-                "&issuing_authority%5B%5D="+editTextIssuingAuthority4+
-                "&date_of_issue%5B%5D="+editTextDateofIssue1+
-                "&date_of_issue%5B%5D="+editTextDateofIssue2+
-                "&date_of_issue%5B%5D="+editTextDateofIssue3+
-                "&date_of_issue%5B%5D="+editTextDateofIssue4;
+//                "&proofcode%5B%5D="+idCode[spinnerIdcard1.getSelectedItemPosition()]+
+//                "&proofcode%5B%5D="+idCode[spinnerIdcard2.getSelectedItemPosition()]+
+//                "&proofcode%5B%5D="+idCode[spinnerIdcard3.getSelectedItemPosition()]+
+//                "&proofcode%5B%5D="+idCode[spinnerIdcard4.getSelectedItemPosition()]+
+                "&proofcode%5B%5D="+proof1+
+                "&proofcode%5B%5D="+proof2+
+                "&proofcode%5B%5D="+proof3+
+                "&proofcode%5B%5D="+proof4+
+                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum1.getText().toString()+
+                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum2.getText().toString()+
+                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum3.getText().toString()+
+                "&licence_certificate_badge_no%5B%5D="+editTextDocumentNum4.getText().toString()+
+                "&issuing_authority%5B%5D="+editTextIssuingAuthority1.getText().toString()+
+                "&issuing_authority%5B%5D="+editTextIssuingAuthority2.getText().toString()+
+                "&issuing_authority%5B%5D="+editTextIssuingAuthority3.getText().toString()+
+                "&issuing_authority%5B%5D="+editTextIssuingAuthority4.getText().toString()+
+                "&date_of_issue%5B%5D="+editTextDateofIssue1.getText().toString()+
+                "&date_of_issue%5B%5D="+editTextDateofIssue2.getText().toString()+
+                "&date_of_issue%5B%5D="+editTextDateofIssue3.getText().toString()+
+                "&date_of_issue%5B%5D="+editTextDateofIssue4.getText().toString();
         return idProof;
     }
 
@@ -371,10 +393,10 @@ public class IdProof extends Fragment implements View.OnClickListener{
             try {
 
 
-                URL url = new URL("http://103.27.233.206/M-Parivahan/user_registration.php");
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                 String urlString =s1+s2;
+                 String urlString =s1+s3+s2;
 
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");

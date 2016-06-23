@@ -1,9 +1,11 @@
 package com.converge.transportdepartment;
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -17,11 +19,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,6 +35,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Date;
 
 
 /**
@@ -52,11 +59,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     private String mParam1;
     private String mParam2;
 
+    ProgressDialog progressDialog;
+
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
 
     private OnFragmentInteractionListener mListener;
     private long lastDownload = -1L;
+    private static String emailToSend;
 
     public PaymentSuccessfull() {
         // Required empty public constructor
@@ -100,12 +110,12 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
         getActivity().registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        getActivity().registerReceiver(onNotificationClick,
-                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-        getActivity().registerReceiver(onCompleteDownload,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        getActivity().registerReceiver(onNotificationClickDownload,
-                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+////        getActivity().registerReceiver(onNotificationClick,
+////                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+//        getActivity().registerReceiver(onCompleteDownload,
+//                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+////        getActivity().registerReceiver(onNotificationClickDownload,
+////                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
     }
 
@@ -113,9 +123,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(onComplete);
-        getActivity().unregisterReceiver(onNotificationClick);
-        getActivity().unregisterReceiver(onCompleteDownload);
-        getActivity().unregisterReceiver(onNotificationClickDownload);
+//        getActivity().unregisterReceiver(onNotificationClick);
+//        getActivity().unregisterReceiver(onCompleteDownload);
+//        getActivity().unregisterReceiver(onNotificationClickDownload);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,18 +136,55 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-        Button buttonDownload = (Button) view.findViewById(R.id.buttonDownload);
+        TextView textView1 = (TextView) view.findViewById(R.id.textView10);
+        TextView textView2 = (TextView) view.findViewById(R.id.textView11);
+
+        final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
+        textView1.setText("Please note Reference Number");
+        textView2.setText(sharedpreferences.getString("receiptNum",""));
+
+
+        ImageView buttonEmail = (ImageView) view.findViewById(R.id.buttonEmail);
+//        ImageView openForm =  (ImageView) view.findViewById(R.id.openForm);
+//        ImageView openReceipt =  (ImageView) view.findViewById(R.id.openReceipt);
+
+        ImageView buttonDownload = (ImageView) view.findViewById(R.id.buttonDownload);
+        ImageView saveReceipt = (ImageView) view.findViewById(R.id.saveReceipt);
         try {
 
             if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
+//                openForm.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        new DownloadFile(getActivity()).execute();
+//                    }
+//                });
                 buttonDownload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                new GetClass(getActivity()).execute();
-//                startDownload(view);
-                        showToast("Downloading Receipt & Form");
+                       new DownloadFile(getActivity()).execute();
+//                        downloadPdf();
+//                        downloadPdfForm();
+                    }
+                });
+                buttonEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        emailToSend=editText.getText().toString();
+                        new SendMail(getActivity()).execute();
+                    }
+                });
+//                openReceipt.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        new DownloadReceipt(getActivity()).execute();
+//                    }
+//                });
+                saveReceipt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        new DownloadReceipt(getActivity()).execute();
                         downloadPdf();
-                        downloadPdfForm();
                     }
                 });
             }
@@ -150,6 +197,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             showToast("error");
         }
 
+
+
         return view;
     }
 
@@ -160,6 +209,19 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 //        }
 //    }
 
+        private void showProgress()
+        {
+            progressDialog=new ProgressDialog(getActivity());
+            progressDialog.setTitle("Downloading");
+            progressDialog.setMessage("please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.show();
+        }
+    private void hideProgress()
+    {
+        progressDialog.hide();
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -198,6 +260,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdf() {
+//        showProgress();
         Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
@@ -219,7 +282,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdfForm() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -231,7 +294,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         //Set a description of this download, to be displayed in notifications (if enabled)
         request.setDescription("Downloading File");
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Form" + System.currentTimeMillis() + ".pdf");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Form" + System.currentTimeMillis() + ".html");
 
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -287,7 +350,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     private void showToast(String s) {
-        Toast.makeText(getActivity(),s,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
     }
 
     public void viewLog(View v) {
@@ -327,12 +390,113 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
 
-    private class GetClass extends AsyncTask<String, Void, Void> {
+    private class SendMail extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+
+        public SendMail(Context c) {
+            this.context = c;
+        }
+        protected void onPreExecute() {
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Sending mail");
+            progressSendMail.setCancelable(false);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            try{
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("Dowloading");
+                    }//public void run() {
+                });
+
+                int  MEGABYTE = 1024 * 1024;
+                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
+                String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                        "&email="+emailToSend;
+
+                HttpURLConnection connection = (HttpURLConnection) email.openConnection();
+
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+
+                dStream.writeBytes(s);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+
+                if(responseCode==200 || responseCode==201) {
+                    for (int i = 1; i < 101; i++) {
+                        publishProgress(i);
+                    }
+                }
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return 0L;
+        }
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+        protected void onPostExecute(Long result) {
+
+            progressSendMail.dismiss();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("Email sent");
+                    }//public void run() {
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("failure");
+                    }//public void run() {
+                });
+
+            }
+        }
+    }
+
+
+    private class DownloadFile extends AsyncTask<Void, Integer, Long> {
 
         private final Context context;
         private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
 
-        public GetClass(Context c) {
+        public DownloadFile(Context c) {
             this.context = c;
         }
 
@@ -340,54 +504,219 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             progress = new ProgressDialog(this.context);
             progress.setMessage("Downloading");
             progress.setCancelable(false);
-            progress.show();
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setProgress(0);
+//            progress.show();
+
         }
 
         @Override
-        protected Void doInBackground(String... params) {
-            try {
+        protected Long doInBackground(Void... params)
+        {
+            Long l=0L;
+            try
+                {
+                        URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId=" + sharedpreferences.getString("receiptNum", ""));
 
-//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
-                URL url = new URL("\n" +
-                        "http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
-//                String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-//                String fileName = strings[1];  // -> maven.pdf
-                String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                File folder = new File(extStorageDirectory, "testthreepdf");
-                folder.mkdir();
+                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                        File folder = new File(extStorageDirectory, "M-Parivahan");
+                        folder.mkdir();
 
-                File pdfFile = new File(folder, "Receipt.pdf");
+                        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
-                try{
-                    pdfFile.createNewFile();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-                FileDownloader.downloadFile(url.toString(), pdfFile);
-                return null;
+                        String hjkl = currentDateTimeString.replaceAll(" ", "_");
+                        String hiop = hjkl.replaceAll(":", "-");
 
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
+                        File pdfFile = new File(folder, "Form_" + hiop+".html" +
+                                "");
+
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        //urlConnection.setRequestMethod("GET");
+                        //urlConnection.setDoOutput(true);
+                        urlConnection.connect();
+
+                        InputStream inputStream = urlConnection.getInputStream();
+                        FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
+                        int totalSize = urlConnection.getContentLength();
+                        publishProgress(70);
+                        byte[] buffer = new byte[MEGABYTE];
+                        int bufferLength = 0;
+                        while ((bufferLength = inputStream.read(buffer)) > 0) {
+                            fileOutputStream.write(buffer, 0, bufferLength);
+                        }
+
+                        for (int i = 1; i < 101; i++) {
+                            publishProgress(i);
+                        }
+
+                        fileOutputStream.close();
+                        l = 1L;
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+            return l;
         }
 
+    protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+        progress.setProgress(percent[0]);
+    }
         protected void onPostExecute(Long result) {
            
             progress.dismiss();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+//                        showToast("success");
+//                        showToast("Check M-Parivahan folder in directory for HTML");
+//                        showToast("Back press to go home");
+                        alertDialogPostReport();
+                    }//public void run() {
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("failure");
+                    }//public void run() {
+                });
+
+            }
         }
 
     }
 
 
+    private class DownloadReceipt extends AsyncTask<Void, Integer, Long> {
 
-    public static class FileDownloader {
+        private final Context context;
+        private ProgressDialog progress;
         private static final int  MEGABYTE = 1024 * 1024;
 
+        public DownloadReceipt(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Downloading");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setProgress(0);
+            progress.show();
+
+        }
+
+        @Override
+        protected Long doInBackground(Void... params)
+        {
+            Long l=0L;
+            try
+            {
+                URL url = new URL("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId=" + sharedpreferences.getString("receiptNum", ""));
+
+                String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                File folder = new File(extStorageDirectory, "M-Parivahan");
+                folder.mkdir();
+
+                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+                String hjkl = currentDateTimeString.replaceAll(" ", "_");
+                String hiop = hjkl.replaceAll(":", "-");
+
+                File pdfFile = new File(folder, "Receipt_" + hiop+".pdf");
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                urlConnection.setDoOutput(true);
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
+                int totalSize = urlConnection.getContentLength();
+                publishProgress(70);
+                byte[] buffer = new byte[MEGABYTE];
+                int bufferLength = 0;
+                while ((bufferLength = inputStream.read(buffer)) > 0) {
+                    fileOutputStream.write(buffer, 0, bufferLength);
+                }
+
+                for (int i = 1; i < 101; i++) {
+                    publishProgress(i);
+                }
+
+                fileOutputStream.close();
+                l = 1L;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+        protected void onPostExecute(Long result) {
+
+            progress.dismiss();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+//                        showToast("success");
+//                        showToast("Check M-Parivahan folder in directory for HTML");
+//                        showToast("Back press to go home");
+                        alertDialogPostReport();
+                    }//public void run() {
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("failure");
+                    }//public void run() {
+                });
+
+            }
+        }
+
+    }
+
+    public static class FileDownloader {
+
+        private static final int  MEGABYTE = 1024 * 1024;
         public  static void downloadFile(String fileUrl, File directory){
             try {
 
@@ -431,70 +760,56 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     BroadcastReceiver onComplete=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
 //            getActivity().findViewById(R.id.start).setEnabled(true);
-            showToast("complete");
+//            hideProgress();
+
+//            alertDialogPostReport();
+//            showToast("press back button to go home");
+            alertDialogPostReport();
         }
     };
 
     BroadcastReceiver onNotificationClick=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-            Toast.makeText(ctxt, "Ummmm...hi!", Toast.LENGTH_LONG).show();
+//            Toast.makeText(ctxt, "Check Notification!", Toast.LENGTH_SHORT).show();
         }
     };
 
     BroadcastReceiver onCompleteDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
 //            getActivity().findViewById(R.id.start).setEnabled(true);
-            Toast.makeText(getActivity(),"complete",Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(),"complete",Toast.LENGTH_SHORT).show();
         }
     };
 
     BroadcastReceiver onNotificationClickDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-            Toast.makeText(ctxt, "Ummmm...hi!", Toast.LENGTH_LONG).show();
+//            Toast.makeText(ctxt, "Check Notification!", Toast.LENGTH_SHORT).show();
+
         }
     };
 
+    public void alertDialogPostReport()
+    {
+            final CharSequence[] items = {" PDF Successfully downloaded check M-Parivahan folder in Directory. Press ok to go Home.  Press stay for further activity."
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle("Steps to follow ");
+            builder.setItems(items, null);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
+                }
+            });
+            builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+//                    if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
+                }
+            });
+            builder.show();
+
+    }
 }
 
-
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                String urlParameters = " ";
-//
-////                "fName=" + URLEncoder.encode("Amit", "UTF-8") +
-////                                "&lName=" + URLEncoder.encode("???", "UTF-8")
-////                connection.setRequestMethod("GET");
-////                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-////                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-////                connection.setDoOutput(true);
-//                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-//                dStream.writeBytes(urlParameters);
-//                dStream.flush();
-//                dStream.close();
-//                int responseCode = connection.getResponseCode();
-//
-//
-//                final StringBuilder output = new StringBuilder("Request URL " + url);
-//                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-//                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
-//                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                String line = "";
-//                StringBuilder responseOutput = new StringBuilder();
-//                System.out.println("output===============" + br);
-//                while ((line = br.readLine()) != null) {
-//                    responseOutput.append(line);
-//                }
-//                br.close();
-//
-//                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//
-//                getActivity().runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-////                        outputView.setText(output);
-////                        Toast.makeText(getActivity(),output.toString(),Toast.LENGTH_LONG).show();
-//                        Log.d("Rsponse   ", output.toString());
-//                        progress.dismiss();
-//                    }
-//                });

@@ -29,11 +29,13 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
     public static final String PREFS_NAME = "MyTransportFile";
     SharedPreferences sharedpreferences;
+    private final String mFinalStringCov="mFinalStringCov";
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static Map<Integer,Boolean> mCheckBox = new HashMap<>(21);
+    private String covCode[]={"3",   "5" ,"8", "9",   "4","7",     "6", "10",   "12","13", "2","53",  "53",  "54", "16", "15", "17","58","59", "59",  "65"};
 
 
     //Check Box Buttons
@@ -443,30 +445,44 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
     public void Save(View view) {
         SharedPreferences.Editor editor = sharedpreferences.edit();
+        StringBuffer br= new StringBuffer();
 
-        editor.putBoolean(CheckBoxApplicationType1,mCheckBox.get(0));
-        editor.putBoolean(CheckBoxApplicationType2,mCheckBox.get(1));
-        editor.putBoolean(CheckBoxApplicationType3,mCheckBox.get(2));
-        editor.putBoolean(CheckBoxApplicationType4,mCheckBox.get(3));
-        editor.putBoolean(CheckBoxApplicationType5,mCheckBox.get(4));
-        editor.putBoolean(CheckBoxApplicationType6,mCheckBox.get(5));
-        editor.putBoolean(CheckBoxApplicationType7,mCheckBox.get(6));
-        editor.putBoolean(CheckBoxApplicationType8,mCheckBox.get(7));
-        editor.putBoolean(CheckBoxApplicationType9,mCheckBox.get(8));
-        editor.putBoolean(CheckBoxApplicationType10,mCheckBox.get(9));
-        editor.putBoolean(CheckBoxApplicationType11,mCheckBox.get(10));
-        editor.putBoolean(CheckBoxApplicationType12,mCheckBox.get(11));
-        editor.putBoolean(CheckBoxApplicationType13,mCheckBox.get(12));
-        editor.putBoolean(CheckBoxApplicationType14,mCheckBox.get(13));
-        editor.putBoolean(CheckBoxApplicationType15,mCheckBox.get(14));
-        editor.putBoolean(CheckBoxApplicationType16,mCheckBox.get(15));
-        editor.putBoolean(CheckBoxApplicationType17,mCheckBox.get(16));
-        editor.putBoolean(CheckBoxApplicationType18,mCheckBox.get(17));
-        editor.putBoolean(CheckBoxApplicationType19,mCheckBox.get(18));
-        editor.putBoolean(CheckBoxApplicationType20,mCheckBox.get(19));
-        editor.putBoolean(CheckBoxApplicationType21,mCheckBox.get(20));
-        editor.putBoolean(CheckBoxApplicationType22,mCheckBox.get(21));
+        for(int i=0;i<21;i++)
+        {
+            if(mCheckBox.get(i))
+            {
+                br.append(covCode[i]).append(",");
+            }
+        }
+
+
+        editor.putString(mFinalStringCov,br.substring(0,br.length()-1).toString());
+
+
         editor.commit();
+//        editor.putBoolean(CheckBoxApplicationType1,mCheckBox.get(0));
+//        editor.putBoolean(CheckBoxApplicationType2,mCheckBox.get(1));
+//        editor.putBoolean(CheckBoxApplicationType3,mCheckBox.get(2));
+//        editor.putBoolean(CheckBoxApplicationType4,mCheckBox.get(3));
+//        editor.putBoolean(CheckBoxApplicationType5,mCheckBox.get(4));
+//        editor.putBoolean(CheckBoxApplicationType6,mCheckBox.get(5));
+//        editor.putBoolean(CheckBoxApplicationType7,mCheckBox.get(6));
+//        editor.putBoolean(CheckBoxApplicationType8,mCheckBox.get(7));
+//        editor.putBoolean(CheckBoxApplicationType9,mCheckBox.get(8));
+//        editor.putBoolean(CheckBoxApplicationType10,mCheckBox.get(9));
+//        editor.putBoolean(CheckBoxApplicationType11,mCheckBox.get(10));
+//        editor.putBoolean(CheckBoxApplicationType12,mCheckBox.get(11));
+//        editor.putBoolean(CheckBoxApplicationType13,mCheckBox.get(12));
+//        editor.putBoolean(CheckBoxApplicationType14,mCheckBox.get(13));
+//        editor.putBoolean(CheckBoxApplicationType15,mCheckBox.get(14));
+//        editor.putBoolean(CheckBoxApplicationType16,mCheckBox.get(15));
+//        editor.putBoolean(CheckBoxApplicationType17,mCheckBox.get(16));
+//        editor.putBoolean(CheckBoxApplicationType18,mCheckBox.get(17));
+//        editor.putBoolean(CheckBoxApplicationType19,mCheckBox.get(18));
+//        editor.putBoolean(CheckBoxApplicationType20,mCheckBox.get(19));
+//        editor.putBoolean(CheckBoxApplicationType21,mCheckBox.get(20));
+//        editor.putBoolean(CheckBoxApplicationType22,mCheckBox.get(21));
+
 
     }
 
@@ -790,3 +806,5 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         mVibrator.vibrate(20);
     }
 }
+
+

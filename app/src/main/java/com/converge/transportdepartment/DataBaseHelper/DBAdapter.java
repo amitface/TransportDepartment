@@ -1,5 +1,6 @@
 package com.converge.transportdepartment.DataBaseHelper;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,14 +16,14 @@ import java.util.HashMap;
  */
 
 public class DBAdapter {
-    static final String KEY_ROWID = "_id";
+    static final String KEY_ROWID = "id";
     static final String KEY_NAME = "name";
     static final String KEY_EMAIL = "email";
     static final String TAG = "DBAdapter";
     static final String DATABASE_NAME = "LLodisha";
     static final String DATABASE_TABLE = "user_detail";
     static final int DATABASE_VERSION = 1;
-    static final String DATABASE_CREATE ="CREATE TABLE user_detail (_id INTEGER PRIMARY KEY  NOT NULL  UNIQUE ," +
+    static final String DATABASE_CREATE ="CREATE TABLE user_detail (id INTEGER PRIMARY KEY  NOT NULL  UNIQUE ," +
             " refno TEXT," +
 //            " licence_type TEXT," +
 //            " statecode TEXT," +
@@ -106,7 +107,7 @@ public class DBAdapter {
 //            " 'y','n','n','n',NULL," +
 //            "NULL,NULL);";
 
-    static final String DATABASE_INSERT ="INSERT INTO user_detail VALUES('1','1'," +
+    static final String DATABASE_INSERT ="INSERT INTO user_detail VALUES(1,'1'," +
             "'','','','','','','','','',''," +
             "'','','','','','','','','',''," +
             "'','','','','','','','','',''," +
@@ -114,7 +115,8 @@ public class DBAdapter {
             "'','','','','','');";
 
 
-    static String [] dataFeilds={" refno ",
+    static String [] dataFeilds={
+            " refno ",
             " rtocode ",
             " first_name ",
             " middle_name ",
@@ -162,7 +164,7 @@ public class DBAdapter {
             " t_taluka ",
             " t_district ",
 
-            " t_state , t_pin ",
+            " t_state ",
 
             " t_years ",
             " t_months ",
@@ -252,10 +254,10 @@ public class DBAdapter {
 
 
 
-    final Context context;
+    final   Context context;
     DatabaseHelper DBHelper;
     SQLiteDatabase db;
-
+    private static ProgressDialog progressDialog;
 
 
     public DBAdapter(Context ctx)
@@ -280,12 +282,15 @@ public class DBAdapter {
         @Override
         public void onCreate(SQLiteDatabase db)
         {
+
             try {
                 db.execSQL(DATABASE_CREATE);
                 db.execSQL(DATABASE_INSERT);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
         }
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -417,6 +422,7 @@ public class DBAdapter {
 //         args.put(attreason,hashMap.get("attreason"));
         return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + 1, null) > 0;
     }
+
 }
 
 

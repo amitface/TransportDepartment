@@ -390,6 +390,7 @@
 
             </TableRow>
             <TableRow
+                android:visibility="gone"
                 android:layout_margin="1dp">
                 <CheckBox
                     android:id="@+id/checkbox_application_type_16"
@@ -505,6 +506,7 @@
 
             </TableRow>
             <TableRow
+                android:visibility="gone"
                 android:layout_margin="1dp">
                 <CheckBox
                     android:id="@+id/checkbox_application_type_21"
