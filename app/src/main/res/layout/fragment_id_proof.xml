@@ -13,6 +13,7 @@
         android:fadeScrollbars="false"
         android:layout_weight=".8">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,7 +24,54 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
 
-            android:text="At Least one Photo and one Address proof Required*"/>
+            android:text="Select Schedule*"/>
+        <TableLayout
+            android:id="@+id/tableS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:visibility="visible"
+            android:padding="6dip">
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="start"
+                android:layout_span="3"
+                android:text="Date*"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="start"
+                android:layout_span="3"
+                android:text="Time*"/>
+        </TableRow>
+        <TableRow>
+            <Spinner
+                android:id="@+id/spinnerSDate"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:padding="4dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/gradient_spinner"
+                android:layout_span="3"
+                android:entries="@array/SDate"/>
+
+            <Spinner
+                android:id="@+id/spinnerSTime"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:padding="4dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/gradient_spinner"
+                android:layout_span="3"
+                android:entries="@array/STime"/>
+        </TableRow>
+    </TableLayout>
         <TableLayout
             android:id="@+id/table1"
             android:layout_width="match_parent"
@@ -34,6 +82,12 @@
             android:visibility="visible"
             android:padding="6dip">
 
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+
+                android:text="At Least one Photo and one Address proof Required*"/>
 
             <!--PhotoId -->
             <TableRow
@@ -468,29 +522,29 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="5dp"
+
+        android:padding="2dp"
         android:layout_weight=".1">
 
         <TableRow>
 
             <ImageView  android:id="@+id/buttonAdd"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:src="@drawable/image_add"
                 android:layout_margin="2dp"
-                android:padding="10dp" />
+                android:padding="3dp" />
             <ImageView  android:id="@+id/buttonRemove"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:src="@drawable/image_remove"
                 android:layout_margin="2dp"
-                android:padding="10dp" />
+                android:padding="3dp" />
 
         </TableRow>
     </TableLayout>

@@ -1,6 +1,7 @@
 package com.converge.transportdepartment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -224,6 +225,15 @@ public class IdProof extends Fragment implements View.OnClickListener{
                         s2=detailString();
                     }
                     sendPostRequest();
+                    ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("M-Parivahan");
+                    progressDialog.setMessage("Sending mail");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setProgress(0);
+                    progressDialog.show();
+
+                    progressDialog.hide();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("4", "1")).commit();
                 }
                 break;
@@ -379,13 +389,19 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private class PostClass extends AsyncTask<String, Void, Void> {
 
         private final Context context;
+        private ProgressDialog progressDialog;
 
         public PostClass(Context c) {
             this.context = c;
         }
 
         protected void onPreExecute() {
-
+            progressDialog = new ProgressDialog(this.context);
+            progressDialog.setMessage("Please wait ...");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+//            progressDialog.show();
         }
 
         @Override
@@ -401,6 +417,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setConnectTimeout(20000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
@@ -429,9 +446,55 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 System.out.println(responseDetail+"\n");
                 String detail[] =responseDetail.split(":");
 
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("receiptNum",detail[1].substring(1, 8));
-                editor.commit();
+//                SharedPreferences.Editor editor = sharedpreferences.edit();
+//                editor.putString("receiptNum",detail[1].substring(1, 8));
+//                editor.commit();
+
+                if(Integer.parseInt(detail[1].substring(1, 8))>0)
+                {
+
+                    int  MEGABYTE = 1024 * 1024;
+//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
+                    URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
+                    String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                            "&email=amit.choudhary@cnvg.in";
+
+                    HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();
+
+                    connection1.setRequestMethod("POST");
+                    connection1.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                    connection1.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                    connection1.setConnectTimeout(25000);
+                    connection1.setDoInput(true);
+                    connection1.setDoOutput(true);
+                    DataOutputStream dStream1 = new DataOutputStream(connection1.getOutputStream());
+
+                    dStream1.writeBytes(s);
+                    dStream1.flush();
+                    dStream1.close();
+                     responseCode = connection1.getResponseCode();
+//                    BufferedReader br1 = new BufferedReader(new InputStreamReader(connection1.getInputStream()));
+//                    StringBuilder responseOutput2 = new StringBuilder();
+//                    System.out.println("output===============" + br1);
+//                    while ((line = br1.readLine()) != null) {
+//                        responseOutput2.append(line);
+//                    }
+//                    br.close();
+//                    System.out.println("email Response "+responseOutput2.toString());
+                }
+                else
+                {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Your code to run in GUI thread here
+
+//                        showToast("Email sent");
+
+                        }//public void run() {
+                    });
+                }
+//                return Integer.parseInt(detail[1].substring(1, 8));
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -439,8 +502,43 @@ public class IdProof extends Fragment implements View.OnClickListener{
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            }catch (Exception e)
+            {
+                e.printStackTrace();
             }
+            finally {
+                progressDialog.hide();
+            }
+
             return null;
+        }
+
+        protected void onPostExecute(Long result) {
+
+            progressDialog.dismiss();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+
+//                        showToast("Email sent");
+
+                    }//public void run() {
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+                        showToast("failure");
+                    }//public void run() {
+                });
+
+            }
         }
 
     }

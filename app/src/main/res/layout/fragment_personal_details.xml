@@ -1255,6 +1255,32 @@
                     android:spinnerMode="dialog" />
             </TableRow>
 
+                 <!--Id mark 2 -->
+                 <TableRow
+                     android:layout_marginTop="10dp"
+                     android:layout_gravity="center">
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="12dp"
+                         android:layout_gravity="start"
+                         android:layout_span="3"
+
+                         android:text="Id Mark"/>
+                 </TableRow>
+                 <TableRow
+                     android:layout_gravity="center">
+                     <Spinner
+                         android:id="@+id/spinnerIdmark2"
+                         android:layout_width="match_parent"
+                         android:layout_height="36dp"
+                         android:paddingLeft="4dp"
+                         android:layout_marginRight="2dp"
+                         android:layout_span="3"
+                         android:entries="@array/idMark"
+                         android:background="@drawable/gradient_spinner"
+                         android:spinnerMode="dialog" />
+                 </TableRow>
                 <!-- BloodGroup Rh-->
                 <TableRow
                     android:layout_marginTop="8dp"

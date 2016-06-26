@@ -599,5 +599,26 @@
        <item> Zimbabwe </item>
 
     </string-array>
+
+    <string-array name="SDate">
+        <item>dd/mm/yy</item>
+        <item>28/6/2016</item>
+        <item>29/6/2016</item>
+        <item>30/6/2016</item>
+        <item>31/6/2016</item>
+        <item>01/7/2016</item>
+        <item>02/7/2016</item>
+        <item>03/7/2016</item>
+    </string-array>
+    <string-array name="STime">
+        <item>Start to End</item>
+        <item>11:00 to 11:40</item>
+        <item>11:50 to 12:30</item>
+        <item>12:40 to 13:20</item>
+        <item>13:30 to 14:10</item>
+        <item>14:20 to 15:00</item>
+        <item>15:10 to 15:50</item>
+        <item>16:00 to 16:40</item>
+    </string-array>
 </resources>
 

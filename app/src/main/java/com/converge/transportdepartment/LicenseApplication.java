@@ -78,8 +78,8 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
 
         mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Class of Vehicle"),
                 SelectApplicationType.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
-               SelectSchedule.class, null);
+//        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
+//               SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
                PersonalDetails.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),

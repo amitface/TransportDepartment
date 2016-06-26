@@ -94,7 +94,7 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.buttonReadNext:
                 vibrate();
-                fragment = LicenseApplication.newInstance("1","2");
+                fragment = LicenseApplication.newInstance("1","1");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
             case R.id.textViewDownloadApplication:
@@ -163,7 +163,7 @@ public class Home extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        try{
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -179,10 +179,7 @@ public class Home extends AppCompatActivity
             else
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
 
-        }catch (Exception e)
-        {
 
-        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -109,7 +109,12 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Save();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -183,7 +188,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                 if(valdate())
                 {
                     vibrate();
-                    Save(view);
+                    Save();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("1", "1")).commit();
                 }
                 else
@@ -443,7 +448,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     }
 
 
-    public void Save(View view) {
+    public void Save() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         StringBuffer br= new StringBuffer();
 
@@ -460,30 +465,6 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
 
         editor.commit();
-//        editor.putBoolean(CheckBoxApplicationType1,mCheckBox.get(0));
-//        editor.putBoolean(CheckBoxApplicationType2,mCheckBox.get(1));
-//        editor.putBoolean(CheckBoxApplicationType3,mCheckBox.get(2));
-//        editor.putBoolean(CheckBoxApplicationType4,mCheckBox.get(3));
-//        editor.putBoolean(CheckBoxApplicationType5,mCheckBox.get(4));
-//        editor.putBoolean(CheckBoxApplicationType6,mCheckBox.get(5));
-//        editor.putBoolean(CheckBoxApplicationType7,mCheckBox.get(6));
-//        editor.putBoolean(CheckBoxApplicationType8,mCheckBox.get(7));
-//        editor.putBoolean(CheckBoxApplicationType9,mCheckBox.get(8));
-//        editor.putBoolean(CheckBoxApplicationType10,mCheckBox.get(9));
-//        editor.putBoolean(CheckBoxApplicationType11,mCheckBox.get(10));
-//        editor.putBoolean(CheckBoxApplicationType12,mCheckBox.get(11));
-//        editor.putBoolean(CheckBoxApplicationType13,mCheckBox.get(12));
-//        editor.putBoolean(CheckBoxApplicationType14,mCheckBox.get(13));
-//        editor.putBoolean(CheckBoxApplicationType15,mCheckBox.get(14));
-//        editor.putBoolean(CheckBoxApplicationType16,mCheckBox.get(15));
-//        editor.putBoolean(CheckBoxApplicationType17,mCheckBox.get(16));
-//        editor.putBoolean(CheckBoxApplicationType18,mCheckBox.get(17));
-//        editor.putBoolean(CheckBoxApplicationType19,mCheckBox.get(18));
-//        editor.putBoolean(CheckBoxApplicationType20,mCheckBox.get(19));
-//        editor.putBoolean(CheckBoxApplicationType21,mCheckBox.get(20));
-//        editor.putBoolean(CheckBoxApplicationType22,mCheckBox.get(21));
-
-
     }
 
     public void clear(View view) {
@@ -533,7 +514,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         mCheckBox.put(20,false);
         mCheckBox.put(21,false);
         mCheckBox.put(22,false);
-        Save(view);
+        Save();
         Toast.makeText(getActivity(),"clear",Toast.LENGTH_LONG).show();
 
     }

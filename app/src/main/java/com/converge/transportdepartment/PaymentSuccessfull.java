@@ -26,12 +26,14 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,6 +65,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
+
+    private final String mFinalStringCov="mFinalStringCov";
 
     private OnFragmentInteractionListener mListener;
     private long lastDownload = -1L;
@@ -137,12 +141,18 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 Context.MODE_PRIVATE);
 
         TextView textView1 = (TextView) view.findViewById(R.id.textView10);
-        TextView textView2 = (TextView) view.findViewById(R.id.textView11);
+        TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
+        TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
+        TextView textReceipt  = (TextView) view.findViewById(R.id.textViewReceipt);
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         textView1.setText("Please note Reference Number");
         textView2.setText(sharedpreferences.getString("receiptNum",""));
+        textReceipt.setText("R"+sharedpreferences.getString("receiptNum",""));
+        int fee= totalFee();
+        textFee.setText("Payment Successful for amount Rs. "+fee);
 
+        new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
 
         ImageView buttonEmail = (ImageView) view.findViewById(R.id.buttonEmail);
 //        ImageView openForm =  (ImageView) view.findViewById(R.id.openForm);
@@ -162,9 +172,12 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 buttonDownload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       new DownloadFile(getActivity()).execute();
+//                       new DownloadFile(getActivity()).execute();
 //                        downloadPdf();
-//                        downloadPdfForm();
+                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                        File folder = new File(extStorageDirectory, "M-Parivahan");
+                        folder.mkdir();
+                        downloadPdfForm();
                     }
                 });
                 buttonEmail.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +197,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
 //                        new DownloadReceipt(getActivity()).execute();
+                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                        File folder = new File(extStorageDirectory, "M-Parivahan");
+                        folder.mkdir();
                         downloadPdf();
                     }
                 });
@@ -200,6 +216,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
 
         return view;
+    }
+
+    private int totalFee() {
+        String s= sharedpreferences.getString("mFinalStringCov","");
+        String arr[]=s.split(",");
+        int len =arr.length;
+        len = len*30+40;
+        return len;
     }
 
 //    // TODO: Rename method, update argument and hook method into UI event
@@ -261,19 +285,21 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void downloadPdf() {
 //        showProgress();
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+//        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+sharedpreferences.getString("receiptNum","")+"LL_Cash_Receipt.pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         //Set whether this download may proceed over a roaming connection.
-        request.setAllowedOverRoaming(false);
+        request.setAllowedOverRoaming(true);
         //Set the title of this download, to be displayed in notifications (if enabled).
-        request.setTitle("Downloading");
+        request.setTitle("Receipt");
         //Set a description of this download, to be displayed in notifications (if enabled)
-        request.setDescription("Downloading File");
+        request.setDescription("Downloading");
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Receipt" + System.currentTimeMillis() + ".pdf");
+        request.setDestinationInExternalPublicDir("M-Parivahan", "Receipt" + System.currentTimeMillis() + ".pdf");
+
 
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -282,19 +308,20 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     public void downloadPdfForm() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+//        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+sharedpreferences.getString("receiptNum","")+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         //Set whether this download may proceed over a roaming connection.
-        request.setAllowedOverRoaming(false);
+        request.setAllowedOverRoaming(true);
         //Set the title of this download, to be displayed in notifications (if enabled).
-        request.setTitle("Downloading");
+        request.setTitle("Form");
         //Set a description of this download, to be displayed in notifications (if enabled)
-        request.setDescription("Downloading File");
+        request.setDescription("Downloading");
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Form" + System.currentTimeMillis() + ".html");
+        request.setDestinationInExternalPublicDir("M-Parivahan", "Form_" + System.currentTimeMillis() + ".pdf");
 
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -402,7 +429,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         protected void onPreExecute() {
             progressSendMail = new ProgressDialog(this.context);
             progressSendMail.setMessage("Sending mail");
-            progressSendMail.setCancelable(false);
+            progressSendMail.setCancelable(true);
             progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressSendMail.setProgress(0);
             progressSendMail.show();
@@ -415,12 +442,13 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         //Your code to run in GUI thread here
-                        showToast("Dowloading");
+//                        showToast("Dowloading");
                     }//public void run() {
                 });
 
                 int  MEGABYTE = 1024 * 1024;
-                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
+//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
+                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
                 String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
                         "&email="+emailToSend;
 
@@ -429,6 +457,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setConnectTimeout(25000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
@@ -437,12 +466,46 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 dStream.flush();
                 dStream.close();
                 int responseCode = connection.getResponseCode();
+                String response = connection.getResponseMessage();
 
-                if(responseCode==200 || responseCode==201) {
-                    for (int i = 1; i < 101; i++) {
-                        publishProgress(i);
-                    }
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
                 }
+                br.close();
+
+//                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+//                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
+//                String responseDetail= responseOutput.toString();
+//                System.out.println(responseDetail+"\n");
+//                String detail[] =responseDetail.split(":");
+
+//                if(responseCode==200 || responseCode==201) {
+//                    for (int i = 1; i < 101; i++) {
+//                        publishProgress(i);
+//                    }
+//                }
+//                if(Integer.parseInt(detail[1].substring(1, 8))>0) {
+//                    for (int i = 1; i < 101; i++) {
+//                        publishProgress(i);
+//                    }
+//                }
+//                else
+//                {
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            alertDialogPostReport("Error");
+//                        }
+//                    });
+//                    return 0L;
+//                }
+
+
+
                 return 1L;
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -471,7 +534,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         //Your code to run in GUI thread here
-                        showToast("Email sent");
+
+//                        showToast("Email sent");
+                       alertDialogPostReport("1. Email sent successfully please check mail");
                     }//public void run() {
                 });
             }
@@ -583,7 +648,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 //                        showToast("success");
 //                        showToast("Check M-Parivahan folder in directory for HTML");
 //                        showToast("Back press to go home");
-                        alertDialogPostReport();
+                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
                     }//public void run() {
                 });
             }
@@ -695,7 +760,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 //                        showToast("success");
 //                        showToast("Check M-Parivahan folder in directory for HTML");
 //                        showToast("Back press to go home");
-                        alertDialogPostReport();
+                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
                     }//public void run() {
                 });
             }
@@ -764,7 +829,13 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
 //            alertDialogPostReport();
 //            showToast("press back button to go home");
-            alertDialogPostReport();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
+                }
+            });
+
         }
     };
 
@@ -788,13 +859,13 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
     };
 
-    public void alertDialogPostReport()
+    public void alertDialogPostReport(String s)
     {
-            final CharSequence[] items = {" PDF Successfully downloaded check M-Parivahan folder in Directory. Press ok to go Home.  Press stay for further activity."
+            final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle("Steps to follow ");
+        builder.setTitle("M-Parivahan ");
             builder.setItems(items, null);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

@@ -157,7 +157,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
-    private Spinner mspinnerCitizenship, mspinnerCountry;
+    private Spinner mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
 
     private ImageView mimageViewDatePicker;
 
@@ -187,6 +187,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
     private String mFinalString1="mFinalString1";
+
 
 
     public PersonalDetails() {
@@ -238,18 +239,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public void onClickPersonalDetails(View view) {
         switch (view.getId()) {
             case R.id.buttonNextPersonalDetail:
-
 //                getFieldData();
                 if(validate()) {
                     aBooleanstop=true;
                     saveSession();
                     String s = detailString();
                     saveSharedPreference();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2", "1")).commit();
                 }
                 break;
             case R.id.buttonBackPersonalDetail:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("1", "1")).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("0", "1")).commit();
                 break;
             case R.id.buttonClearPersonalDetail:
                 clearFelids(view);
@@ -427,6 +427,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerQualification = (Spinner) rootView.findViewById(R.id.spinnerQualification);
         mspinnerGender = (Spinner) rootView.findViewById(R.id.spinnerGender);
         mspinnerIdmark = (Spinner) rootView.findViewById(R.id.spinnerIdmark);
+        mspinnerIdmark2 = (Spinner) rootView.findViewById(R.id.spinnerIdmark2);
         mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroup);
         mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
         mspinnerPermanentState = (Spinner) rootView.findViewById(R.id.spinnerPermanentState);
@@ -678,6 +679,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerQualification.setSelection(0);
         mspinnerGender.setSelection(0);
         mspinnerIdmark.setSelection(0);
+        mspinnerIdmark2.setSelection(0);
         mspinnerBloodGroup.setSelection(0);
         mspinnerRH.setSelection(0);
         mspinnerPermanentState.setSelection(0);
@@ -1029,70 +1031,74 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private String detailString()
     {
-        Random r = new Random();
-        int i1 = r.nextInt(100000000 - 90000000) + 9000;
-        String s= "ref_num="+i1+
-                "&first_name="+meditViewApplicantFirstName.getText()+
-                "&statecode=Odisha"+
+        Random rand = new Random();
+        int num = rand.nextInt(9000000) + 1000000;
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("receiptNum",Integer.toString(num));
+        editor.commit();
+        String s= "ref_num="+num+
+//                "&first_name="+meditViewApplicantFirstName.getText()+
+                "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
-                "&rtocode="+mspinnerRTO.getSelectedItem().toString()+
-                "&first_name="+meditViewApplicantFirstName.getText().toString()+
-                "&middle_name="+meditViewApplicantMiddleName.getText().toString()+
-                "&last_name="+meditViewApplicantLastName.getText().toString()+
+                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
+                "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
+                "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
+                "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
 
-                "&dob="+mtextViewDate.getText().toString()+
-                "&gender="+mspinnerGender.getSelectedItem().toString()+
-                "&relation="+mspinnerRelationshipType.getSelectedItem().toString()+
-                "&p_first_name="+meditViewApplicantRelationsName.getText().toString()+
-                "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString()+
-                "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString()+
+                "&dob="+mtextViewDate.getText().toString().toUpperCase()+
+                "&gender="+mspinnerGender.getSelectedItem().toString().toUpperCase()+
+                "&relation="+mspinnerRelationshipType.getSelectedItem().toString().toUpperCase()+
+                "&p_first_name="+meditViewApplicantRelationsName.getText().toString().toUpperCase()+
+                "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase()+
+                "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString().toUpperCase()+
 //                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
-                "&edu_qualification="+mspinnerQualification.getSelectedItem().toString()+
-                "&identification_mark="+mspinnerIdmark.getSelectedItem().toString()+
-                "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItem().toString()+
+                "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
+                "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+","+Integer.toString(mspinnerRH.getSelectedItemPosition())+
 
-                "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
-                "&p_house_name="+meditTextPermanentHouseName.getText().toString()+
-                "&p_house_no="+meditTextPermanentHouseNum.getText().toString()+
+                "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
+                "&p_house_no="+meditTextPermanentHouseNum.getText().toString().toUpperCase()+
 
 
-                "&p_street_locality="+meditTextPermanentStreet.getText().toString()+
-                "&p_locality="+meditTextPermanentLocality.getText().toString()+
-                "&p_village_city="+meditTextPermanentvillage.getText().toString()+
-                "&p_taluka="+meditTextPermanentTaluka.getText().toString()+
-                "&p_district="+meditTextPermanentDistrict.getText().toString()+
+                "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
+                "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
+                "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
+                "&p_taluka="+meditTextPermanentTaluka.getText().toString().toUpperCase()+
+                "&p_district="+meditTextPermanentDistrict.getText().toString().toUpperCase()+
 //                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
-                "&p_state="+mspinnerPermanentState.getSelectedItem().toString()+
-                "&p_pin="+meditTextPermanentPinCode.getText().toString()+
-                "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString()+
-                "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString()+
-                "&p_years="+meditTextPermanentYear.getText().toString()+
-                "&p_months="+meditTextPermanentMonth.getText().toString()+
+                "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
+                "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
+                "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                "&p_years="+meditTextPermanentYear.getText().toString().toUpperCase()+
+                "&p_months="+meditTextPermanentMonth.getText().toString().toUpperCase()+
 
-                "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString()+
-                "&t_house_name="+meditTextPresentHouseName.getText().toString()+
-                "&t_house_no="+meditTextPresentHouseNum.getText().toString()+
+                "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                "&t_house_name="+meditTextPresentHouseName.getText().toString().toUpperCase()+
+                "&t_house_no="+meditTextPresentHouseNum.getText().toString().toUpperCase()+
 
-                "&t_street_locality="+meditTextPresentStreet.getText().toString()+
-                "&t_locality="+meditTextPresentLocality.getText().toString()+
-                "&t_village_city="+meditTextPresentvillage.getText().toString()+
-                "&t_taluka="+meditTextPresentTaluka.getText().toString()+
-                "&t_district="+meditTextPresentDistrict.getText().toString()+
+                "&t_street_locality="+meditTextPresentStreet.getText().toString().toUpperCase()+
+                "&t_locality="+meditTextPresentLocality.getText().toString().toUpperCase()+
+                "&t_village_city="+meditTextPresentvillage.getText().toString().toUpperCase()+
+                "&t_taluka="+meditTextPresentTaluka.getText().toString().toUpperCase()+
+                "&t_district="+meditTextPresentDistrict.getText().toString().toUpperCase()+
 //                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
-                "&t_state="+mspinnerPresentState.getSelectedItem().toString()+
-                "&t_pin="+meditTextPresentPinCode.getText().toString()+
-                "&t_phone_no="+meditTextPresentMoblieNo.getText().toString()+
-                "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString()+
-                "&t_years="+meditTextPresentYear.getText().toString()+
-                "&t_months="+meditTextPresentMonth.getText().toString()+
+                "&t_state="+mspinnerPresentState.getSelectedItem().toString().toUpperCase()+
+                "&t_pin="+meditTextPresentPinCode.getText().toString().toUpperCase()+
+                "&t_phone_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                "&t_years="+meditTextPresentYear.getText().toString().toUpperCase()+
+                "&t_months="+meditTextPresentMonth.getText().toString().toUpperCase()+
 
-                "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString()+
+                "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString().toUpperCase()+
 
-                "& birth_place="+meditViewPlaceOfBirth.getText().toString()+
-                "&year="+meditViewYear.getText().toString()+
-                "&birth_country="+mspinnerCountry.getSelectedItem().toString()+
-                "&email_id="+meditViewEmail.getText().toString()+
-                "&identification_marks="+mspinnerIdmark.getSelectedItem().toString()+
+                "& birth_place="+meditViewPlaceOfBirth.getText().toString().toUpperCase()+
+                "&year="+meditViewYear.getText().toString().toUpperCase()+
+                "&birth_country="+mspinnerCountry.getSelectedItem().toString().toUpperCase()+
+                "&email_id="+meditViewEmail.getText().toString().toUpperCase()+
+                "&identification_marks="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                "&identification_marks2="+mspinnerIdmark2.getSelectedItem().toString().toUpperCase()+
                 "&rcnumber="+
                 "&parentleterforbelow18age=n"+
                 "&allnecessarycertificates=y"+
@@ -1460,158 +1466,3 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 }
-/*
-Check Box.
-    private static final String CheckBoxApplicationType1 = "CheckBoxApplicationType1";
-    private static final String CheckBoxApplicationType2 = "CheckBoxApplicationType2";
-    private static final String CheckBoxApplicationType3 = "CheckBoxApplicationType3";
-    private static final String CheckBoxApplicationType4 = "CheckBoxApplicationType4";
-    private static final String CheckBoxApplicationType5 = "CheckBoxApplicationType5";
-    private static final String CheckBoxApplicationType6 = "CheckBoxApplicationType6";
-    private static final String CheckBoxApplicationType7 = "CheckBoxApplicationType7";
-
-    private static final String meditViewApplicantFirstNameString = "meditViewApplicantFirstName";
-    private static final String meditViewApplicantMiddleNameString = "meditViewApplicantMiddleName";
-    private static final String meditViewApplicantLastNameString = "meditViewApplicantLastName";
-    private static final String meditViewApplicantRelationsNameString = "meditViewApplicantRelationsName";
-    private static final String meditViewEmailString = "meditViewEmail";
-    private static final String meditViewMobileNoString = "meditViewMobileNo";
-    private static final String meditViewPincodeString = "meditViewPincode";
-    private static final String meditViewAddressString = "meditViewAddress";
-    private static final String meditViewFeeString = "meditViewFee";
-
-
-    private static final String mspinnerRTOString = "mspinnerRTO";
-    private static final String mspinnerRTOInt = "mspinnerRTOInt";
-
-    private static final String mspinnerRelationshipTypeString = "mspinnerRelationshipType";
-    private static final String mspinnerRelationshipTypeInt = "mspinnerRelationshipTypeInt";
-
-    private static final String mspinnerQualificationString = "mspinnerQualification";
-    private static final String mspinnerQualificationInt = "mspinnerQualificationInt";
-
-    private static final String mspinnerGenderString = "mspinnerGender";
-    private static final String mspinnerGenderInt = "mspinnerGenderInt";
-
-    private static final String mspinnerIdmarkString = "mspinnerIdmark";
-    private static final String mspinnerIdmarkInt = "mspinnerIdmarkInt";
-
-    private static final String mspinnerBloodGroupString = "mspinnerBloodGroup";
-    private static final String mspinnerBloodGroupInt = "mspinnerBloodGroupInt";
-
-    private static final String mspinnerRHString = "mspinnerRH";
-    private static final String mspinnerRHInt = "mspinnerRHInt";
-*/
-//    private void saveSharedPreference() {
-//        SharedPreferences.Editor editor = sharedpreferences.edit();
-//        editor.putString(meditViewApplicantFirstNameString, meditViewApplicantFirstName.getText().toString());
-//        editor.putString(meditViewApplicantMiddleNameString, meditViewApplicantMiddleName.getText().toString());
-//        editor.putString(meditViewApplicantLastNameString, meditViewApplicantLastName.getText().toString());
-//        editor.putString(meditViewApplicantRelationsNameString, meditViewApplicantRelationsName.getText().toString());
-//        editor.putString(meditViewEmailString, meditViewEmail.getText().toString());
-//        editor.putString(meditViewMobileNoString, meditViewMobileNo.getText().toString());
-//        editor.putString(meditViewPincodeString, meditViewPincode.getText().toString());
-//        editor.putString(meditViewAddressString, meditViewAddress.getText().toString());
-//        editor.putString(meditViewFeeString, meditViewFee.getText().toString());
-//
-//        editor.putString(mspinnerRelationshipTypeString, mspinnerRelationshipType.getSelectedItem().toString());
-//        editor.putString(mspinnerQualificationString, mspinnerQualification.getSelectedItem().toString());
-//        editor.putString(mspinnerGenderString, mspinnerGender.getSelectedItem().toString());
-//        editor.putString(mspinnerIdmarkString, mspinnerIdmark.getSelectedItem().toString());
-//        editor.putString(mspinnerBloodGroupString, mspinnerBloodGroup.getSelectedItem().toString());
-//        editor.putString(mspinnerRHString, mspinnerRH.getSelectedItem().toString());
-//        editor.putString(mtextViewDateString, mtextViewDate.getText().toString());
-//
-//        editor.putInt(mspinnerRTOInt,mspinnerRTO.getSelectedItemPosition());
-//        editor.putInt(mspinnerRelationshipTypeInt, mspinnerRelationshipType.getSelectedItemPosition());
-//        editor.putInt(mspinnerQualificationInt, mspinnerQualification.getSelectedItemPosition());
-//        editor.putInt(mspinnerGenderInt, mspinnerGender.getSelectedItemPosition());
-//        editor.putInt(mspinnerIdmarkInt, mspinnerIdmark.getSelectedItemPosition());
-//        editor.putInt(mspinnerBloodGroupInt, mspinnerBloodGroup.getSelectedItemPosition());
-//        editor.putInt(mspinnerRHInt, mspinnerRH.getSelectedItemPosition());
-//        editor.putString(mtextViewDateInt,mtextViewDate.getSelectedItemPosition());
-//
-//
-//
-//        editor.commit();
-//    }
-
-//    private void getPreferenceData()
-//    {
-//        if(sharedpreferences.contains(meditViewApplicantFirstNameString)) {
-//            meditViewApplicantFirstName.setText(sharedpreferences.getString(meditViewApplicantFirstNameString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewApplicantMiddleNameString)) {
-//            meditViewApplicantMiddleName.setText(sharedpreferences.getString(meditViewApplicantMiddleNameString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewApplicantLastNameString)) {
-//            meditViewApplicantLastName.setText(sharedpreferences.getString(meditViewApplicantLastNameString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewApplicantRelationsNameString)) {
-//            meditViewApplicantRelationsName.setText(sharedpreferences.getString(meditViewApplicantRelationsNameString, ""));
-//        }
-//        /*if(sharedpreferences.contains(meditViewEmailString)) {
-//            meditViewEmail.setText(sharedpreferences.getString(meditViewEmailString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewMobileNoString)) {
-//            meditViewMobileNo.setText(sharedpreferences.getString(meditViewMobileNoString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewPincodeString)) {
-//            meditViewPincode.setText(sharedpreferences.getString(meditViewPincodeString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewAddressString)) {
-//            meditViewAddress.setText(sharedpreferences.getString(meditViewAddressString, ""));
-//        }
-//        if(sharedpreferences.contains(meditViewFeeString)) {
-//            meditViewFee.setText(sharedpreferences.getString(meditViewFeeString, ""));
-//        }*/
-//
-//        if(sharedpreferences.contains(mspinnerRTOInt)){
-//            mspinnerRTO.setSelection(sharedpreferences.getInt(mspinnerRTOInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerRelationshipTypeInt)){
-//            mspinnerRelationshipType.setSelection(sharedpreferences.getInt(mspinnerRelationshipTypeInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerQualificationInt)){
-//            mspinnerQualification.setSelection(sharedpreferences.getInt(mspinnerQualificationInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerGenderInt)){
-//            mspinnerGender.setSelection(sharedpreferences.getInt(mspinnerGenderInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerBloodGroupInt)){
-//            mspinnerBloodGroup.setSelection(sharedpreferences.getInt(mspinnerBloodGroupInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerRHInt)){
-//            mspinnerRH.setSelection(sharedpreferences.getInt(mspinnerRHInt,1));
-//        }
-//        if(sharedpreferences.contains(mspinnerIdmarkInt)){
-//            mspinnerIdmark.setSelection(sharedpreferences.getInt(mspinnerIdmarkInt,1));
-//        }
-//
-//    }
-
-//    private String getVehicleClass() {
-//        StringBuilder brVehicleClass = new StringBuilder();
-//        if (sharedpreferences.contains(CheckBoxApplicationType1) && sharedpreferences.getBoolean(CheckBoxApplicationType1, true)) {
-//            brVehicleClass.append(vehicleClass[0]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType2) && sharedpreferences.getBoolean(CheckBoxApplicationType2, true)) {
-//            brVehicleClass.append(vehicleClass[1]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType3) && sharedpreferences.getBoolean(CheckBoxApplicationType3, true)) {
-//            brVehicleClass.append(vehicleClass[2]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType4) && sharedpreferences.getBoolean(CheckBoxApplicationType4, true)) {
-//            brVehicleClass.append(vehicleClass[3]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType5) && sharedpreferences.getBoolean(CheckBoxApplicationType5, true)) {
-//            brVehicleClass.append(vehicleClass[4]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType6) && sharedpreferences.getBoolean(CheckBoxApplicationType6, true)) {
-//            brVehicleClass.append(vehicleClass[5]).append(" ");
-//        }
-//        if (sharedpreferences.contains(CheckBoxApplicationType7) && sharedpreferences.getBoolean(CheckBoxApplicationType7, true)) {
-//            brVehicleClass.append(vehicleClass[6]).append(" ");
-//        }
-//        return brVehicleClass.toString();
-//    }
