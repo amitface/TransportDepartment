@@ -152,7 +152,10 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         int fee= totalFee();
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
-        new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+        if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
+        {
+            new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+        }
 
         ImageView buttonEmail = (ImageView) view.findViewById(R.id.buttonEmail);
 //        ImageView openForm =  (ImageView) view.findViewById(R.id.openForm);
@@ -160,9 +163,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
         ImageView buttonDownload = (ImageView) view.findViewById(R.id.buttonDownload);
         ImageView saveReceipt = (ImageView) view.findViewById(R.id.saveReceipt);
-        try {
 
-            if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
 //                openForm.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
@@ -174,6 +175,12 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     public void onClick(View view) {
 //                       new DownloadFile(getActivity()).execute();
 //                        downloadPdf();
+                        if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
+                        {
+
+                            new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+                        }
+
                         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
                         File folder = new File(extStorageDirectory, "M-Parivahan");
                         folder.mkdir();
@@ -197,21 +204,17 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
 //                        new DownloadReceipt(getActivity()).execute();
+                        if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
+                        {
+                            new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+                        }
                         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
                         File folder = new File(extStorageDirectory, "M-Parivahan");
                         folder.mkdir();
                         downloadPdf();
                     }
                 });
-            }
-            else
-            {
-                new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
-            }
-        }catch (Exception e)
-        {
-            showToast("error");
-        }
+
 
 
 

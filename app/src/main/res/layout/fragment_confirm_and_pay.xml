@@ -10,291 +10,1455 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:fadeScrollbars="false"
         android:layout_weight=".9">
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:shrinkColumns="*"
-        android:stretchColumns="*"
-        android:padding="2dp">
-        <!--Application Schedule Details-->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:padding="10dp"
-            android:text="Application Schedule Detail"
-            android:background="@color/colorPrimaryTransportDepartment"
-            />
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPReferenceId"
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Reference id:46474658972"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                android:padding="4dp"
 
-            <TextView
-                android:id="@+id/textViewCPAppointmentPlace"
-                android:layout_width="wrap_content"
+                android:text="Select Schedule*"/>
+            <TableLayout
+                android:id="@+id/tableS"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Appointment Place: Jhasuguda"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Application Date: 28/5/15"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:visibility="visible"
+                android:padding="6dip">
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text="Date*"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text="Time*"/>
+                </TableRow>
+                <TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerSDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:padding="4dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_span="3"
+                        android:entries="@array/SDate"/>
 
+                    <Spinner
+                        android:id="@+id/spinnerSTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:padding="4dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_span="3"
+                        android:entries="@array/STime"/>
+                </TableRow>
+            </TableLayout>
             <TextView
-                android:id="@+id/textViewCPTime"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Application Time: 11 to 11:30"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPApplicationType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Application Type: LL"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                android:textSize="12dp"
+                android:layout_gravity="start"
+                android:layout_margin="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text=" RTO*"/>
+            <Spinner
+                android:id="@+id/spinnerRTOC"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:paddingLeft="4dp"
+                android:layout_marginRight="2dp"
+                android:entries="@array/RTO"
+                android:background="@drawable/gradient_spinner"
+                android:spinnerMode="dialog"
+                android:layout_span="3" />
 
-            <TextView
-                android:id="@+id/textViewCPTransactionType"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/linearlayoutPersonalDetailC"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Transaction Type: Fresh"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:padding="2dp"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:padding="4dp"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:text="Personal Detail"/>
+                <ImageView
+                    android:id="@+id/imagePersonalC"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/iocn_m"
 
-        <!--Personal Information-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:padding="10dp"
-            android:text="Personal Information"
-            android:background="@color/colorPrimaryTransportDepartment"
-            />
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPApplicantName"
-                android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="6dp" />
+            </RelativeLayout>
+            <TableLayout
+                android:id="@+id/tablelayoutPersonalDetailC"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Applicant Name : Rajesh Sharma"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:visibility="visible"
+                android:padding="6dip">
 
-            <TextView
-                android:id="@+id/textViewCPEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email ID :Rajeshs@gamil.com"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-            </TableRow>
-            <TableRow>
-            <TextView
-                android:id="@+id/textViewCPRelation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Relation Type : S/o"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                <TableRow
+                    android:layout_marginTop="6dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Applicant Name*"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Midddle Name"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Last Name"/>
 
-            <TextView
-                android:id="@+id/textViewCPQualification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Qualification : Higher"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPRelationName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Father's Name : Jitendra Sharma"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/editTextViewApplicantFirstNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="17"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextViewApplicantMiddleNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextViewApplicantLastNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="17"
+                        android:background="@drawable/edit_text_personal_details"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/textViewCPDOB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DOB : 19/05/1994"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Current Address : Jharsuguda Odisha"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                <!--DOB Gender-->
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="2"
+                        android:text="Date of Birth*"/>
 
-            <TextView
-                android:id="@+id/textViewCPBloodGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Group : A +ve"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Gender : Male"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
 
-            <TextView
-                android:id="@+id/textViewCPIdMark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Id Mark : Scar on Face"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="City : Jharsuguda"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:text="Gender"/>
 
-            <TextView
-                android:id="@+id/textViewCPIdMark2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Id Mark : Jharsuguda Odisha"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewCPPincode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Pin Code : 450544"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                </TableRow>
+                <TableRow>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="2dp"
+                        android:layout_span="2">
+                        <ImageView
+                            android:id="@+id/imageViewDatePickerC"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/calender"
+                            android:layout_gravity="start"
 
-            <TextView
-                android:id="@+id/textViewCPMobileNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Moblie No : 99777 83744"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
+                            />
+                        <TextView
+                            android:id="@+id/textViewDateC"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:paddingTop="10dp"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
 
-        <!--Personal Information-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:padding="10dp"
-            android:text="Personal Information"
-            android:background="@color/colorPrimaryTransportDepartment"
-            />
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Application Fee : 140 Rs"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                            android:background="@drawable/edit_text_personal_details"
+                            />
+                    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transaction ID :9MP09KTI26542 "
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerGenderC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Gender"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
 
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Concessioner Charges : 85 RS"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Class : Motot Cycle without Gear"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="Transaction Amount :112 Rs"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
+                <!--Place of Birth-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:text="Place of Birth*"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/editTextPlaceofBirthC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:maxLength="50"
+                        android:background="@drawable/edit_text_personal_details"/>
+                </TableRow>
+                <!--Migration time-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+
+
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/editTextMonthC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Year"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextYearC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Month"
+                        android:maxLength="2"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_personal_details"/>
+                </TableRow>
+
+                <!--Country-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:text="Country by Birth*"/>
+                </TableRow>
+                <TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerCountryC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Country"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+                <!--EmailId-->
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text="Email*"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="8dp">
+                    <EditText
+                        android:id="@+id/editTextEmailC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="50"
+                        android:layout_span="3"
+                        android:background="@drawable/edit_text_personal_details"
+                        />
+                </TableRow>
+
+                <!--RTO Relationship Type Fathers Name-->
+                <TableRow
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Relationship Type*"/>
+                </TableRow>
+                <TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerRelationshipTypeC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:entries="@array/RelationType"
+                        android:paddingLeft="4dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Relation's Name*"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text=" Middle Name"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Last Name"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/editTextRelationsNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="17"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+                    <EditText
+                        android:id="@+id/editTextRelationsMiddleNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="6"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+                    <EditText
+                        android:id="@+id/editTextRelationsLastNameC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:layout_margin="2dp"
+                        android:inputType="textPersonName"
+                        android:maxLength="17"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+                </TableRow>
+            </TableLayout>
+            <!--Permanant Address-->
+            <RelativeLayout
+                android:id="@+id/linearlayoutPermanantC"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Amount : 340 Rs"
-                android:textSize="10sp"
-                android:layout_margin="3dp"
-                android:padding="2dp"/>
-        </TableRow>
-    </TableLayout>
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start|center_vertical"
+
+                    android:textColor="@android:color/white"
+                    android:text="Permanent Address"/>
+                <ImageView
+                    android:id="@+id/imagePermanentC"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/iocn_m"
+
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:textSize="12sp"
+                android:layout_margin="2dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="start|center_vertical"
+
+                android:text="At least one feild required in Permanent Address"/>
+            <TableLayout
+                android:id="@+id/tablelayoutPermanenetAddressC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:visibility="gone"
+                android:padding="6dip">
+
+
+                <TableRow
+                    android:id="@+id/tableRowAddress1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="1"
+                        android:text="Flat Number"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Flat / House Name"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress2" >
+                    <EditText
+                        android:id="@+id/editTextPermanentFlatNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:imeOptions="actionNext"
+                        android:layout_span="1" />
+                    <EditText
+                        android:id="@+id/editTextPermanentHouseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="2" />
+
+                </TableRow>
+                <!--Second 2-->
+
+
+                <TableRow
+                    android:id="@+id/tableRowAddress3">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="1"
+                        android:text="House Number/Plot No"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Street"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress4">
+                    <EditText
+                        android:id="@+id/editTextPermanentHouseNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+
+                    <EditText
+                        android:id="@+id/editTextPermanentStreet"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="2" />
+
+                </TableRow>
+
+                <!--Third 1-->
+                <TableRow
+                    android:id="@+id/tableRowAddress5">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text=" Locality"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress6">
+                    <EditText
+                        android:id="@+id/editTextPermanentLocality"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+
+                <!--fourth 1-->
+                <TableRow
+                    android:id="@+id/tableRowAddress7">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Village / Town / City"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress8">
+
+
+                    <EditText
+                        android:id="@+id/editTextPermanentvillage"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+                <!--fifth 1-->
+
+                <TableRow
+                    android:id="@+id/tableRowAddress9">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Taluka / Mandal"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress10" >
+
+
+                    <EditText
+                        android:id="@+id/editTextPermanentTaluka"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow><!--District-->
+
+                <TableRow
+                    android:id="@+id/tableRowAddress11">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text=" District*"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress12">
+
+
+                    <EditText
+                        android:id="@+id/editTextPermanentDistrict"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+                <!--State-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tableRowAddress13"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:text="State*"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress14">
+                    <Spinner
+                        android:id="@+id/spinnerPermanentState"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/states"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+
+
+                <!--Duration of stay-->
+                <TableRow
+                    android:id="@+id/tableRowAddress15"
+                    android:layout_marginTop="8dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Duration of Stay*"/>
+
+
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress16">
+                    <EditText
+                        android:id="@+id/editTextPermanentYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Year*"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextPermanentMonth"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Month*"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:background="@drawable/edit_text_personal_details"/>
+                </TableRow>
+                <!--  PinCode mobile-->
+                <TableRow
+                    android:id="@+id/tableRowAddress17"
+                    android:layout_marginTop="10dp"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Pin Code*"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:text="Moblie No*"/>
+
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowAddress18"
+                    >
+
+                    <EditText
+                        android:id="@+id/editTextPermanentPinCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:maxLength="6"
+                        android:inputType="phone"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextPermanentMoblieNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:maxLength="10"
+                        android:inputType="phone" />
+
+                </TableRow>
+            </TableLayout>
+            <!--Check Box for Permanent address-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkboxSameAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_margin="2dp"
+                    android:text="Present address same as Premanant"/>
+            </LinearLayout>
+            <!--Present  Address-->
+            <RelativeLayout
+                android:id="@+id/linearlayoutPresentAddressC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:orientation="horizontal">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:padding="4dp"
+                    android:textColor="@android:color/white"
+                    android:text="Present Address"/>
+                <ImageView
+                    android:padding="3dp"
+                    android:id="@+id/imagePresentC"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+
+                    android:src="@drawable/iocn_m"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:textSize="12sp"
+                android:layout_margin="2dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="start|center_vertical"
+                android:text="At least one feild required in Present Address"/>
+            <TableLayout
+                android:id="@+id/tablelayoutPresentAddressC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:visibility="gone"
+                android:padding="6dip">
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="1"
+                        android:text="Flat Number"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Flat / House Name"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress2" >
+
+
+                    <EditText
+                        android:id="@+id/editTextPresentFlatNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+                    <EditText
+                        android:id="@+id/editTextPresentHouseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="2" />
+
+                </TableRow>
+                <!--Second 2-->
+
+
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress3">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="1"
+                        android:text="House Number/Plot No"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Street"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress4" >
+
+
+                    <EditText
+                        android:id="@+id/editTextPresentHouseNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1" />
+
+                    <EditText
+                        android:id="@+id/editTextPresentStreet"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="2" />
+
+                </TableRow>
+
+                <!--Third 1-->
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress5">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text=" Locality"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress6">
+                    <EditText
+                        android:id="@+id/editTextPresentLocality"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+
+                <!--fourth 1-->
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress7">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Village / Town / City"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress8">
+                    <EditText
+                        android:id="@+id/editTextPresentvillage"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+                <!--fifth 1-->
+
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress9">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text="Taluka / Mandal"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress10">
+
+
+                    <EditText
+                        android:id="@+id/editTextPresentTaluka"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow><!--District-->
+
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress11">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:text=" District*"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress12">
+
+
+                    <EditText
+                        android:id="@+id/editTextPresentDistrict"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="3" />
+
+
+
+                </TableRow>
+
+                <!--State-->
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress13"
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:text="State*"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress14">
+                    <Spinner
+                        android:id="@+id/spinnerPresentState"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/states"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+
+
+                <!--Duration of stay-->
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress15"
+                    android:layout_marginTop="8dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Duration of Stay*"/>
+
+
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress16">
+                    <EditText
+                        android:id="@+id/editTextPresentYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Year*"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextPresentMonth"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_span="1"
+                        android:hint="Month*"
+                        android:layout_margin="2dp"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_personal_details"/>
+                </TableRow>
+                <!-- PinCode mobile-->
+                <TableRow
+                    android:id="@+id/tableRowPresentAddress17"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Pin Code*"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:text="Moblie No*"/>
+
+
+                </TableRow>
+                <TableRow
+
+                    android:id="@+id/tableRowPresentAddress18">
+
+                    <EditText
+                        android:id="@+id/editTextPresentPinCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:maxLength="6"
+                        android:inputType="phone"
+                        android:background="@drawable/edit_text_personal_details"/>
+                    <EditText
+                        android:id="@+id/editTextPresentMoblieNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:layout_span="1"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:maxLength="10"
+                        android:inputType="phone" />
+
+                </TableRow>
+
+
+            </TableLayout>
+            <!--Other Info-->
+            <RelativeLayout
+                android:id="@+id/linearlayoutOtherInfoC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_margin="2dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:padding="4dp"
+                    android:textColor="@android:color/white"
+                    android:text="Other Info"
+                    android:id="@+id/textView13" />
+                <ImageView
+
+                    android:padding="3dp"
+                    android:id="@+id/imageOtherC"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:src="@drawable/iocn_m"
+                    android:layout_alignTop="@+id/textView13"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            <TableLayout
+                android:id="@+id/tablelayoutOtherInfoC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:padding="6dip">
+
+                <!--Citizenship status-->
+                <TableRow
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text="Citizenship status by*"/>
+                </TableRow>
+                <TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerCitizenshipC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Citizenship"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dropdown" />
+                </TableRow>
+
+                <!--Qualification-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+                        android:text="Educational Qualification*"/>
+
+
+
+                </TableRow>
+                <TableRow>
+                    <Spinner
+                        android:id="@+id/spinnerQualificationC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Qualification"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+
+
+                <!--Id mark -->
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+
+                        android:text="Id Mark"/>
+                </TableRow>
+                <TableRow
+                    android:layout_gravity="center">
+                    <Spinner
+                        android:id="@+id/spinnerIdmarkC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:entries="@array/idMark"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+
+                <!--Id mark 2 -->
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="3"
+
+                        android:text="Id Mark"/>
+                </TableRow>
+                <TableRow
+                    android:layout_gravity="center">
+                    <Spinner
+                        android:id="@+id/spinnerIdmark2C"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_span="3"
+                        android:entries="@array/idMark"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                </TableRow>
+                <!-- BloodGroup Rh-->
+                <TableRow
+                    android:layout_marginTop="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+
+                        android:layout_span="1"
+                        android:text="Blood Group"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="start"
+                        android:layout_span="1"
+                        android:text="RH*"/>
+                </TableRow>
+                <TableRow >
+                    <Spinner
+                        android:id="@+id/spinnerBloodGroupC"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Blood"
+                        android:layout_marginRight="2dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:spinnerMode="dialog" />
+                    <Spinner
+                        android:id="@+id/spinnerRH"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:entries="@array/Rh"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginRight="2dp"
+                        />
+
+                </TableRow>
+                <!--PhotoId -->
+                <TableRow    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_span="2"
+                        android:text="Id Proof 4"/>
+                </TableRow>
+                <TableRow    android:visibility="gone"  >
+                    <Spinner
+                        android:id="@+id/spinnerIdcard"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingLeft="4dp"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_span="3"
+                        android:entries="@array/IdProof"/>
+                </TableRow>
+                <!--Photo Id Detail-->
+                <TableRow
+                    android:visibility="gone"
+                    android:layout_marginTop="6dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+                        android:text="Document Number"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Issuing Authority"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="2dp"
+
+                        android:text="Date of Issue"/>
+
+                </TableRow>
+                <TableRow
+                    android:visibility="gone">
+                    <EditText
+                        android:id="@+id/editTextDocumentNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        />
+                    <EditText
+                        android:id="@+id/editTextIssuingAuthority"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:layout_span="1"
+
+                        />
+                    <EditText
+                        android:id="@+id/editTextDateofIssue"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:textSize="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_text_personal_details"
+                        />
+
+                </TableRow>
+
+
+
+            </TableLayout>
+        </LinearLayout>
     </ScrollView>
+
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
         android:layout_gravity="bottom"

@@ -460,7 +460,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
             }
         }
 
-
+        if(br.length()!=0)
         editor.putString(mFinalStringCov,br.substring(0,br.length()-1).toString());
 
 
