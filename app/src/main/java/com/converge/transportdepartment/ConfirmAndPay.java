@@ -61,7 +61,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     private static boolean permanent = false;
     private static boolean present = false;
-    private static boolean personalDetail = true;
+    private static boolean personalDetail = false;
     private static boolean otherInfo = true;
 
     //Temporary data
@@ -221,8 +221,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_confirm_and_pay, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        TextView textfee= (TextView)view.findViewById(R.id.textfee);
+        TextView textTotal=(TextView)view.findViewById(R.id.textTotal);
+        textfee.setText("Application Fee : Rs. "+(totalFee()-20));
+        textTotal.setText("Total Fee : Rs. "+totalFee());
+
         initailizeFelids(view);
 //        sendPostRequest(rootView);
+        hidePersonalDetail();
         hidePermanent();
         hidePresent();
         setListner();
@@ -231,6 +237,13 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
 
+    private int totalFee() {
+        String s= sharedpreferences.getString("mFinalStringCov","");
+        String arr[]=s.split(",");
+        int len =arr.length;
+        len = len*30+20;
+        return len;
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -252,11 +265,13 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 //                getFieldData();
                 if(validate()) {
                     sendPostRequest();
-                    saveSharedPreference();
+//                    saveSharedPreference();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
                 }
                 break;
-
+            case R.id.buttonBackConfirmAndPay:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3","1")).commit();
+                break;
             case R.id.imageViewDatePickerC:
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
@@ -346,8 +361,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     private void initailizeFelids(View rootView) {
 
-        mspinnerSDate=(Spinner) rootView.findViewById(R.id.spinnerSDate);
-        mspinnerSTime=(Spinner) rootView.findViewById(R.id.spinnerSTime);
+//        mspinnerSDate=(Spinner) rootView.findViewById(R.id.spinnerSDate);
+//        mspinnerSTime=(Spinner) rootView.findViewById(R.id.spinnerSTime);
 
         imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanentC);
         imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresentC);
@@ -587,16 +602,16 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
 
     private boolean validate() {
-        if(mspinnerSDate.getSelectedItemPosition()==0)
-        {
-            showToast("Enter Date");
-            return false;
-        }
-        else if(mspinnerSTime.getSelectedItemPosition()==0)
-        {
-            showToast("Enter Time");
-            return false;
-        }
+//        if(mspinnerSDate.getSelectedItemPosition()==0)
+//        {
+//            showToast("Enter Date");
+//            return false;
+//        }
+//        else if(mspinnerSTime.getSelectedItemPosition()==0)
+//        {
+//            showToast("Enter Time");
+//            return false;
+//        }
         return true;
     }
 
@@ -750,7 +765,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlString =sharedpreferences.getString(mFinalString1,"")+sharedpreferences.getString(mFinalString2,"")+(sharedpreferences.contains(mFinalStringCov));
+                String urlString =sharedpreferences.getString(mFinalString1,"")+sharedpreferences.getString(mFinalString2,"")+"&covs="+(sharedpreferences.getString(mFinalStringCov,""));
 
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");

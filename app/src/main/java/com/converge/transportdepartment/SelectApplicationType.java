@@ -113,13 +113,11 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     public void onPause()
     {
         super.onPause();
-        Save();
+//        Save();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_select_application_type, container, false);
@@ -463,7 +461,6 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         if(br.length()!=0)
         editor.putString(mFinalStringCov,br.substring(0,br.length()-1).toString());
 
-
         editor.commit();
     }
 
@@ -573,74 +570,14 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     }
 
     private void getSharedPreferenceData() {
-        if(sharedpreferences.contains(CheckBoxApplicationType1)) {
-            checkBox1.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType1, true));
+        if(sharedpreferences.contains(mFinalStringCov))
+        {
+            String temp = sharedpreferences.getString(mFinalStringCov,"");
+            String []arr=temp.split(",");
         }
-        if(sharedpreferences.contains(CheckBoxApplicationType2)) {
-            checkBox2.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType2, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType3)) {
-            checkBox3.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType3, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType4)) {
-            checkBox4.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType4, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType5)) {
-            checkBox5.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType5, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType6)) {
-            checkBox6.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType6, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType7)) {
-            checkBox7.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType7, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType8)) {
-            checkBox8.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType8, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType9)) {
-            checkBox9.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType9, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType10)) {
-            checkBox10.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType10, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType11)) {
-            checkBox11.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType11, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType12)) {
-            checkBox12.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType12, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType13)) {
-            checkBox13.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType13, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType14)) {
-            checkBox14.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType14, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType15)) {
-            checkBox15.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType15, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType16)) {
-            checkBox16.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType16, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType17)) {
-            checkBox17.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType17, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType18)) {
-            checkBox18.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType18, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType19)) {
-            checkBox19.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType19, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType20)) {
-            checkBox20.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType20, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType21)) {
-            checkBox21.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType21, true));
-        }
-        if(sharedpreferences.contains(CheckBoxApplicationType21)) {
-            checkBox22.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType22, true));
-        }
-
     }
+
+
 
     private void checkboxSetListener() {
         checkBox1.setOnClickListener(new View.OnClickListener() {
@@ -789,3 +726,69 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 }
 
 
+//        if(sharedpreferences.contains(CheckBoxApplicationType1)) {
+//            checkBox1.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType1, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType2)) {
+//            checkBox2.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType2, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType3)) {
+//            checkBox3.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType3, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType4)) {
+//            checkBox4.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType4, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType5)) {
+//            checkBox5.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType5, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType6)) {
+//            checkBox6.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType6, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType7)) {
+//            checkBox7.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType7, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType8)) {
+//            checkBox8.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType8, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType9)) {
+//            checkBox9.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType9, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType10)) {
+//            checkBox10.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType10, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType11)) {
+//            checkBox11.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType11, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType12)) {
+//            checkBox12.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType12, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType13)) {
+//            checkBox13.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType13, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType14)) {
+//            checkBox14.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType14, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType15)) {
+//            checkBox15.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType15, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType16)) {
+//            checkBox16.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType16, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType17)) {
+//            checkBox17.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType17, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType18)) {
+//            checkBox18.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType18, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType19)) {
+//            checkBox19.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType19, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType20)) {
+//            checkBox20.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType20, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType21)) {
+//            checkBox21.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType21, true));
+//        }
+//        if(sharedpreferences.contains(CheckBoxApplicationType21)) {
+//            checkBox22.setChecked(sharedpreferences.getBoolean(CheckBoxApplicationType22, true));
+//        }

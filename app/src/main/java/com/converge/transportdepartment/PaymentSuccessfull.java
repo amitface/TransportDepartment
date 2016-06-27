@@ -225,7 +225,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
         int len =arr.length;
-        len = len*30+40;
+        len = len*30+20;
         return len;
     }
 

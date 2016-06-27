@@ -510,7 +510,7 @@
         <TableRow>
 
             <Button
-                android:id="@+id/buttonBackPersonalDetail"
+                android:id="@+id/buttonBackIdProof"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -520,7 +520,7 @@
                 android:textColor="@android:color/background_light"
                 />
             <Button
-                android:id="@+id/buttonClearPersonalDetail"
+                android:id="@+id/buttonClearIdProof"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

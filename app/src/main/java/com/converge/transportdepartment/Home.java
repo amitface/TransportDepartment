@@ -115,34 +115,34 @@ public class Home extends AppCompatActivity
                 break;
 
             /*Select Applicaiton Type */
-            case R.id.buttonNextSelectApplication:
-                vibrate();
-                replaceFragment(LicenseApplication.newInstance("1","1"));
-                break;
+//            case R.id.buttonNextSelectApplication:
+//                vibrate();
+//                replaceFragment(LicenseApplication.newInstance("1","1"));
+//                break;
 
             /*Select Schedule */
-            case R.id.buttonSelectSchedule:
-                replaceFragment(LicenseApplication.newInstance("2","1"));
-                break;
-            case R.id.buttonBackSelectSchedule:
-                replaceFragment(LicenseApplication.newInstance("0","1"));
-                break;
+//            case R.id.buttonSelectSchedule:
+//                replaceFragment(LicenseApplication.newInstance("2","1"));
+//                break;
+//            case R.id.buttonBackSelectSchedule:
+//                replaceFragment(LicenseApplication.newInstance("0","1"));
+//                break;
 
             /*Personal Details */
-            case R.id.buttonBackPersonalDetail:
-                replaceFragment(LicenseApplication.newInstance("1","1"));
-                break;
-            case R.id.buttonNextPersonalDetail:
-                replaceFragment(LicenseApplication.newInstance("3","1"));
-                break;
+//            case R.id.buttonBackPersonalDetail:
+//                replaceFragment(LicenseApplication.newInstance("1","1"));
+//                break;
+//            case R.id.buttonNextPersonalDetail:
+//                replaceFragment(LicenseApplication.newInstance("3","1"));
+//                break;
 
             /*Confirm And Pay */
-            case R.id.buttonBackConfirmAndPay:
-                replaceFragment(LicenseApplication.newInstance("2","1"));
-                break;
-            case R.id.button_confirm_and_pay:
-                replaceFragment(PayablePayment.newInstance("1","2"));
-                break;
+//            case R.id.buttonBackConfirmAndPay:
+//                replaceFragment(LicenseApplication.newInstance("2","1"));
+//                break;
+//            case R.id.button_confirm_and_pay:
+//                replaceFragment(PayablePayment.newInstance("1","2"));
+//                break;
 
             /*Pay Now */
             case R.id.buttonPayNow:

@@ -100,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:button="@drawable/checkbox"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:checked="false" />
                 <CheckBox
                     android:id="@+id/checkbox_schedule2"
                     android:onClick="onClickCheckboxSchedule"
@@ -146,7 +147,8 @@
                     android:layout_width="wrap_content"
                     android:button="@drawable/checkbox"
 
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:checked="false" />
                 <CheckBox
                     android:id="@+id/checkbox_schedule6"
                     android:onClick="onClickCheckboxSchedule"
@@ -375,10 +377,10 @@
                 android:text="Back"
                 android:layout_margin="2dp"
                 android:textColor="@android:color/background_light"
-                android:onClick="onClick"/>
+                />
 
             <Button
-                android:id="@+id/buttonSelectSchedule"
+                android:id="@+id/buttonNextSelectSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -386,7 +388,7 @@
                 android:text="Next"
                 android:layout_margin="2dp"
                 android:textColor="@android:color/background_light"
-                android:onClick="onClick"/>
+                />
         </TableRow>
     </TableLayout>
 

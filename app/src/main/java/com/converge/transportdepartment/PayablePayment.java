@@ -1,12 +1,14 @@
 package com.converge.transportdepartment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -28,6 +30,13 @@ public class PayablePayment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public static final String PREFS_NAME = "MyTransportFile";
+    public static final String mypreference = "mypref";
+    private SharedPreferences sharedpreferences;
+    private String mFinalString1="mFinalString1";
+    private final String mFinalString2="mFinalString2";
+    private final String mFinalStringCov="mFinalStringCov";
 
     public PayablePayment() {
         // Required empty public constructor
@@ -64,8 +73,26 @@ public class PayablePayment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payable_payment, container, false);
+
+        sharedpreferences = getActivity().getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
+        TextView textView = (TextView) view.findViewById(R.id.textPayment);
+        textView.setText("Payable Amount : Rs. "+totalFee());
+
+        return  view;
     }
+
+
+    private int totalFee() {
+        String s= sharedpreferences.getString("mFinalStringCov","");
+        String arr[]=s.split(",");
+        int len =arr.length;
+        len = len*30+20;
+        return len;
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

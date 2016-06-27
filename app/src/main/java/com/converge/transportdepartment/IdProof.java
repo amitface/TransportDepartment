@@ -17,10 +17,13 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment1;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment2;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment3;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment4;
+
+import java.util.HashMap;
 
 
 /**
@@ -54,8 +57,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private String mFinalString1="mFinalString1";
 
     String s1,s2;
-    String idCode[]={"","B", "C", "D ", "F ","H "," I ","L ","T ","V ","Z ","E ", "A ", "1 ",
-            "2 ", "3 ", "P ", "4 ", "5 ", "6 ", "7 "};
+    String idCode[]={"","B", "C", "D", "F","H","I","L","T","V","Z","E", "A", "1",
+            "2", "3", "P", "4", "5", "6", "7"};
 
     ImageView img2,img1,imageViewDatePicker1,imageViewDatePicker2,imageViewDatePicker3,imageViewDatePicker4;
 
@@ -63,8 +66,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private static int count=0;
     private SharedPreferences sharedpreferences;
     private final String mFinalString2="mFinalString2";
-    private final String mFinalStringCov="mFinalStringCov";
+
     private String s3;
+    private HashMap<String,String> hashMap;
 
     public IdProof() {
         // Required empty public constructor
@@ -107,12 +111,10 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 Context.MODE_PRIVATE);
         View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
         Button button = (Button)view.findViewById(R.id.buttonNextIdProof);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
+        Button buttonback = (Button)view.findViewById(R.id.buttonBackIdProof);
+
+        buttonback.setOnClickListener(this);
+        button.setOnClickListener(this);
 
         initalize(view);
         setListner(view);
@@ -121,45 +123,13 @@ public class IdProof extends Fragment implements View.OnClickListener{
     }
 
     private void setListner(View view) {
-        imageViewDatePicker1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
-        imageViewDatePicker2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
-        imageViewDatePicker3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
-        imageViewDatePicker4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
+        imageViewDatePicker1.setOnClickListener(this);
+        imageViewDatePicker2.setOnClickListener(this);
+        imageViewDatePicker3.setOnClickListener(this);
+        imageViewDatePicker4.setOnClickListener(this);
 
-        img1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
-
-
-        img2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickIdProof(v);
-            }
-        });
+        img1.setOnClickListener(this);
+        img2.setOnClickListener(this);
 
 
     }
@@ -198,6 +168,33 @@ public class IdProof extends Fragment implements View.OnClickListener{
     }
 
     public void onClickIdProof(View view) {
+
+    }
+
+    private boolean validate() {
+        if(spinnerIdcard1.getSelectedItemPosition()==0)
+        {
+            showToast("Enter Id proof");
+            return false;
+        }else if(editTextDocumentNum1.getText().length()==0)
+        {
+            showToast("Enter Document Number");
+            return false;
+        }else if(editTextIssuingAuthority1.getText().length()==0)
+        {
+            showToast("Enter Issuing Authority");
+            return false;
+        }else if(editTextDateofIssue1.getText().length()==0)
+        {
+            showToast("Enter Date of Issue");
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public void onClick(View view) {
         DialogFragment newFragment;
         switch (view.getId()) {
             case R.id.buttonNextIdProof:
@@ -206,11 +203,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     saveSharedPreference();
                     if(sharedpreferences.contains(mFinalString1)) {
                         s1=sharedpreferences.getString(mFinalString1,"");
-                        if(sharedpreferences.contains(mFinalStringCov))
-                        {
-                            s3="&covs="+sharedpreferences.getString(mFinalStringCov,"");
-                        }else
-                        s3= "&covs=3,4";
+
 
                         s2=detailString();
                     }
@@ -218,6 +211,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 }
+                break;
+            case R.id.buttonBackIdProof:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("1", "1")).commit();
                 break;
             case R.id.imageViewDatePicker1:
                 newFragment = new DatePickerFragment1();
@@ -286,34 +282,10 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                 break;
         }
-    }
-
-    private boolean validate() {
-        if(spinnerIdcard1.getSelectedItemPosition()==0)
-        {
-            showToast("Enter Id proof");
-            return false;
-        }else if(editTextDocumentNum1.getText().length()==0)
-        {
-            showToast("Enter Document Number");
-            return false;
-        }else if(editTextIssuingAuthority1.getText().length()==0)
-        {
-            showToast("Enter Issuing Authority");
-            return false;
-        }else if(editTextDateofIssue1.getText().length()==0)
-        {
-            showToast("Enter Date of Issue");
-            return false;
-        }
-        return true;
-    }
-
-
-    @Override
-    public void onClick(View v) {
 
     }
+
+
 
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -364,4 +336,31 @@ public class IdProof extends Fragment implements View.OnClickListener{
         Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
     }
 
+
+    private void saveSession()
+    {
+
+//        hashMap.put("migration","");
+
+        try{
+            DBAdapter db = new DBAdapter(getActivity());
+
+            //---get all contacts---
+            db.open();
+            if(db.updateData(hashMap))
+            {
+                System.out.println("date Saved----------");
+            }
+            else {
+                System.out.println("date cannot be Saved----------");
+            }
+        }catch (Exception e)
+        {
+            System.out.println("ErrorSaving");
+        }
+    }
+    private void Retrive()
+    {
+
+    }
 }
