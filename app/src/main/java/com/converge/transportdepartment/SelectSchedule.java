@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,8 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -70,7 +72,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             R.id.checkbox_schedule16,R.id.checkbox_schedule17,R.id.checkbox_schedule18,R.id.checkbox_schedule19,R.id.checkbox_schedule20,R.id.checkbox_schedule21,R.id.checkbox_schedule22,R.id.checkbox_schedule23,
             R.id.checkbox_schedule24};
     private OnFragmentInteractionListener mListener;
-    private String CheckBoxSchedule="currentCheckBox";
+    private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
 
     public SelectSchedule() {
@@ -111,7 +113,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentSchedule =  inflater.inflate(R.layout.fragment_select_schedule, container, false);
-
+        hideKeyboard(getContext());
         if(sharedpreferences.contains(CheckBoxSchedule) && sharedpreferences.getInt(CheckBoxSchedule,0)!=0) {
           CheckBox checkboxLocal =  (CheckBox) fragmentSchedule.findViewById(arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1]);
             lastCheckBoxId = arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1];
@@ -181,8 +183,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         checkBox24.setOnClickListener(this);
 
 
-        Button buttonBack = (Button) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
-        Button buttonNext = (Button) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
+        ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
+        ImageView buttonNext = (ImageView) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
         buttonBack.setOnClickListener(this);
         buttonNext.setOnClickListener(this);
      }
@@ -204,6 +206,18 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 //                    + " must implement OnFragmentInteractionListener");
 //        }
 //    }
+
+    public static void hideKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
     @Override
     public void onDetach() {
@@ -646,7 +660,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 break;
 
 
-            default:break;
+            default:
+                break;
         }
     }
 

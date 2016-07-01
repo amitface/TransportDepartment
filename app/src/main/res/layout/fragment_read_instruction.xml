@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_home"
     tools:context="com.converge.transportdepartment.ReadInstructionFragment"
     android:weightSum="1">
 
@@ -14,9 +15,11 @@
 
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_home_activity"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo_home"
+            android:layout_weight=".4"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"/>
 
     <LinearLayout
@@ -25,7 +28,7 @@
         android:elevation="16dp"
         android:padding="16dp"
         android:orientation="vertical"
-        android:layout_weight="0.15">
+        android:layout_weight="0.4">
 
         <TextView
             android:layout_width="wrap_content"
@@ -134,25 +137,27 @@
         </TableRow>
         </TableLayout>
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_gravity="bottom">
-        <Button
+        <ImageView
             android:id="@+id/buttonReadBack"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Back"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back"
+            android:padding="2dp"
             android:textColor="@android:color/background_light"
             android:background="@color/colorPrimaryTransportDepartment"
             android:layout_alignParentLeft="true"
             android:onClick="onClick"/>
-        <Button
+        <ImageView
             android:id="@+id/buttonReadNext"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            android:src="@drawable/next"
             android:layout_alignParentRight="true"
             android:textColor="@android:color/background_light"
             android:background="@color/colorPrimaryTransportDepartment"
@@ -160,177 +165,31 @@
             android:onClick="onClick"/>
     </RelativeLayout>
 
+
 </LinearLayout>
 
-<!--Choose the type of application for which you are applying-->
-<!--Select appointment schedule-->
-<!--Enter personal details of Applicant-->
-<!--Pay the fee-->
-<!--Download Recipt-->
-<!--<LinearLayout-->
-
-
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-
-<!--tools:showIn="@layout/app_bar_home"-->
-<!--android:weightSum="1">-->
-
-<!--<TableLayout-->
+<!--<RelativeLayout-->
 <!--android:layout_width="match_parent"-->
 <!--android:layout_height="wrap_content"-->
-
-    <!--&gt;-->
-<!--<TableRow-->
-    <!--android:layout_margin="3dp">-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Apply for Learning Licence"-->
-        <!--android:textColor="@android:color/background_light"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom" android:background="@color/colorPrimaryTransportDepartment"-->
-        <!--android:gravity="center_vertical" />-->
-    <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:src="@drawable/navgation_link"-->
-        <!--android:background="#AC5400"-->
-        <!--android:layout_weight=".10"/>-->
-<!--</TableRow>-->
-<!--<TableRow-->
-    <!--android:layout_margin="3dp">-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Check Status of Learning License Application"-->
-        <!--android:textColor="@android:color/background_light"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom" android:background="@color/colorPrimaryTransportDepartment"-->
-        <!--android:gravity="center_vertical" />-->
-    <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:src="@drawable/navgation_link"-->
-        <!--android:background="#AC5400"-->
-        <!--android:layout_weight=".10"/>-->
-<!--</TableRow>-->
-<!--<TableRow-->
-    <!--android:layout_margin="3dp">-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Read Instructions"-->
-        <!--android:textColor="@android:color/background_light"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom" android:background="@color/colorPrimaryTransportDepartment"-->
-        <!--android:gravity="center_vertical" />-->
-    <!--<ImageView-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:src="@drawable/navgation_link"-->
-        <!--android:background="#AC5400"-->
-        <!--android:layout_weight=".10"/>-->
-<!--</TableRow>-->
-<!--<TableRow-->
-    <!--android:layout_margin="3dp">-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Download Application form for Learning license"-->
-        <!--android:textColor="@android:color/background_light"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom" android:background="@color/colorPrimaryTransportDepartment"-->
-        <!--android:gravity="center_vertical" />-->
-    <!--<ImageView-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:src="@drawable/navgation_link"-->
-        <!--android:background="#AC5400"-->
-        <!--android:layout_weight=".10"/>-->
-<!--</TableRow>-->
-
-
-<!--</TableLayout>-->
-
-<!--<TableLayout-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_marginTop="20dp">-->
-
-<!--<TableRow-->
-    <!--android:layout_margin="3dp">-->
-    <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:src="@drawable/checkbox_home_activity"-->
-        <!--android:layout_weight=".10"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Please take the appointment for  District RTO where he/she resides."-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:textSize="12sp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:gravity="center_vertical" />-->
-
-<!--</TableRow>-->
-<!--<TableRow-->
-    <!--android:layout_margin="2dp">-->
-    <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:src="@drawable/checkbox_home_activity"-->
-        <!--android:layout_weight=".10"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Please choose an appointment slot as per your preference"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:textSize="12sp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:gravity="center_vertical" />-->
-
-<!--</TableRow>-->
-<!--<TableRow-->
-    <!--android:layout_margin="2dp">-->
-    <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:src="@drawable/checkbox_home_activity"-->
-        <!--android:layout_weight=".10"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="After fee Payment download application form"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:id="@+id/textView1"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:textSize="12sp"-->
-        <!--android:layout_weight=".90"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:gravity="center_vertical" />-->
-
-<!--</TableRow>-->
-<!--</TableLayout>-->
+<!--android:padding="16dp"-->
+<!--android:layout_gravity="bottom">-->
+<!--<ImageView-->
+    <!--android:id="@+id/buttonReadBack"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:src="@drawable/back"-->
+    <!--android:textColor="@android:color/background_light"-->
+    <!--android:background="@color/colorPrimaryTransportDepartment"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:onClick="onClick"/>-->
+<!--<ImageView-->
+    <!--android:id="@+id/buttonReadNext"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:src="@drawable/next"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:textColor="@android:color/background_light"-->
+    <!--android:background="@color/colorPrimaryTransportDepartment"-->
+    <!--android:text="Next"-->
+    <!--android:onClick="onClick"/>-->
+<!--</RelativeLayout>-->

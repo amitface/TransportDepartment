@@ -3,13 +3,14 @@ package com.converge.transportdepartment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -37,11 +38,12 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private Spinner spinnerIdcard1, spinnerIdcard2,spinnerIdcard3,spinnerIdcard4;
+    private Spinner spinnerIdcard1, spinnerIdcard2, spinnerIdcard3, spinnerIdcard4;
     private EditText editTextDocumentNum1,editTextIssuingAuthority1;
     private EditText editTextDocumentNum2,editTextIssuingAuthority2;
     private EditText editTextDocumentNum3,editTextIssuingAuthority3;
@@ -68,7 +70,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private final String mFinalString2="mFinalString2";
 
     private String s3;
-    private HashMap<String,String> hashMap;
+    private HashMap<String,String> hashMap = new HashMap<String, String>();;
 
     public IdProof() {
         // Required empty public constructor
@@ -110,11 +112,14 @@ public class IdProof extends Fragment implements View.OnClickListener{
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
-        Button button = (Button)view.findViewById(R.id.buttonNextIdProof);
-        Button buttonback = (Button)view.findViewById(R.id.buttonBackIdProof);
+        ImageView button = (ImageView)view.findViewById(R.id.buttonNextIdProof);
+        ImageView buttonback = (ImageView)view.findViewById(R.id.buttonBackIdProof);
+        ImageView buttonClear = (ImageView)view.findViewById(R.id.buttonClearIdProof);
+
 
         buttonback.setOnClickListener(this);
         button.setOnClickListener(this);
+        buttonClear.setOnClickListener(this);
 
         initalize(view);
         setListner(view);
@@ -122,6 +127,24 @@ public class IdProof extends Fragment implements View.OnClickListener{
             return view;
     }
 
+    @Override
+    public void onPause ()
+    {
+        super.onPause();
+        Log.d("onPause :"," saving session");
+        saveSession();
+        Log.d("Session :"," saved session");
+    }
+
+
+    @Override
+    public void onResume ()
+    {
+        super.onResume();
+        Log.d("onResume :"," retrieving  session Id proof");
+        retrivesession();
+        Log.d("Session :"," Id proof session retrieved");
+    }
     private void setListner(View view) {
         imageViewDatePicker1.setOnClickListener(this);
         imageViewDatePicker2.setOnClickListener(this);
@@ -165,6 +188,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
         imageViewDatePicker2 = (ImageView) view.findViewById(R.id.imageViewDatePicker2);
         imageViewDatePicker3 = (ImageView) view.findViewById(R.id.imageViewDatePicker3);
         imageViewDatePicker4 = (ImageView) view.findViewById(R.id.imageViewDatePicker4);
+        retrivesession();
+
     }
 
     public void onClickIdProof(View view) {
@@ -198,14 +223,11 @@ public class IdProof extends Fragment implements View.OnClickListener{
         DialogFragment newFragment;
         switch (view.getId()) {
             case R.id.buttonNextIdProof:
-                if(validate())
-                {
+                if (validate()) {
                     saveSharedPreference();
-                    if(sharedpreferences.contains(mFinalString1)) {
-                        s1=sharedpreferences.getString(mFinalString1,"");
-
-
-                        s2=detailString();
+                    if (sharedpreferences.contains(mFinalString1)) {
+                        s1 = sharedpreferences.getString(mFinalString1, "");
+                        s2 = detailString();
                     }
 //                    sendPostRequest();
 
@@ -214,6 +236,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 break;
             case R.id.buttonBackIdProof:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("1", "1")).commit();
+                break;
+            case R.id.buttonClearIdProof:
+                clearALL();
                 break;
             case R.id.imageViewDatePicker1:
                 newFragment = new DatePickerFragment1();
@@ -239,59 +264,100 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.buttonAdd:
-                if(count==0)
-                {
+                if (count == 0) {
                     count++;
                     tableLayout2.setVisibility(View.VISIBLE);
-                }
-                else if(count==1)
-                {
+                } else if (count == 1) {
                     count++;
                     tableLayout3.setVisibility(View.VISIBLE);
-                }
-                else if(count==2)
-                {
+                } else if (count == 2) {
                     count++;
                     tableLayout4.setVisibility(View.VISIBLE);
-                }
-                else if(count==3)
-                {
+                } else if (count == 3) {
                     showToast("Cannot Add More");
                 }
                 break;
             case R.id.buttonRemove:
-                if(count==0)
-                {
+                if (count == 0) {
                     showToast("Cannot Remove More");
-                }
-                else if(count==1)
-                {
+                } else if (count == 1) {
                     count--;
                     tableLayout2.setVisibility(View.INVISIBLE);
-                }
-                else if(count==2)
-                {
+                    clearIdproof(1);
+                } else if (count == 2) {
                     count--;
                     tableLayout3.setVisibility(View.INVISIBLE);
-                }
-                else if(count==3)
-                {
+                    clearIdproof(2);
+                } else if (count == 3) {
                     count--;
                     tableLayout4.setVisibility(View.GONE);
+                    clearIdproof(3);
                 }
-
                 break;
         }
-
     }
 
+    private void clearIdproof(int i) {
+        if(i==0)
+        {
+            spinnerIdcard1.setSelection(0);
+            editTextDocumentNum1.setText("");
+            editTextIssuingAuthority1.setText("");
+            editTextDateofIssue1.setText("");
+        }
+        else if(i==1)
+        {
+            spinnerIdcard2.setSelection(0);
+            editTextDocumentNum2.setText("");
+            editTextIssuingAuthority2.setText("");
+            editTextDateofIssue2.setText("");
+        }
+        else if(i==2)
+        {
+            spinnerIdcard3.setSelection(0);
+            editTextDocumentNum3.setText("");
+            editTextIssuingAuthority3.setText("");
+            editTextDateofIssue3.setText("");
+        }
+        else if(i==3)
+        {
+            spinnerIdcard4.setSelection(0);
+            editTextIssuingAuthority4.setText("");
+            editTextDocumentNum4.setText("");
+            editTextDateofIssue4.setText("");
+        }
+    }
 
+    private void clearALL() {
+
+            spinnerIdcard1.setSelection(0);
+            editTextDocumentNum1.setText("");
+            editTextIssuingAuthority1.setText("");
+            editTextDateofIssue1.setText("");
+
+            spinnerIdcard2.setSelection(0);
+            editTextDocumentNum2.setText("");
+            editTextIssuingAuthority2.setText("");
+            editTextDateofIssue2.setText("");
+
+            spinnerIdcard3.setSelection(0);
+            editTextDocumentNum3.setText("");
+            editTextIssuingAuthority3.setText("");
+            editTextDateofIssue3.setText("");
+
+            spinnerIdcard4.setSelection(0);
+            editTextIssuingAuthority4.setText("");
+            editTextDocumentNum4.setText("");
+            editTextDateofIssue4.setText("");
+
+    }
 
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString2, detailString());
         editor.commit();
     }
+
     private String detailString()
     {
         String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
@@ -336,18 +402,85 @@ public class IdProof extends Fragment implements View.OnClickListener{
         Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
     }
 
+    private void retrivesession() {
+        DBAdapter db = new DBAdapter(getActivity());
 
-    private void saveSession()
-    {
+        //---get all contacts---
+        db.open();
+        Cursor c = db.getAllDetailsIdProof();
+        if(c.moveToFirst()) {
+            if(Integer.parseInt(c.getString(1))!=0)
+                spinnerIdcard1.setSelection(Integer.parseInt(c.getString(1)));
 
-//        hashMap.put("migration","");
+            editTextDocumentNum1.setText(c.getString(2));
+            editTextIssuingAuthority1.setText(c.getString(3));
+            editTextDateofIssue1.setText(c.getString(4));
 
+            if(Integer.parseInt(c.getString(5))!=0) {
+                count=1;
+                tableLayout2.setVisibility(View.VISIBLE);
+                spinnerIdcard2.setSelection(Integer.parseInt(c.getString(5)));
+            }
+
+            editTextDocumentNum2.setText(c.getString(6));
+            editTextIssuingAuthority2.setText(c.getString(7));
+            editTextDateofIssue2.setText(c.getString(8));
+
+            if(Integer.parseInt(c.getString(9))!=0)
+            {
+                count=2;
+                tableLayout3.setVisibility(View.VISIBLE);
+                spinnerIdcard3.setSelection(Integer.parseInt(c.getString(9)));
+            }
+
+
+            editTextDocumentNum3.setText(c.getString(10));
+            editTextIssuingAuthority3.setText(c.getString(11));
+            editTextDateofIssue3.setText(c.getString(12));
+
+            if(Integer.parseInt(c.getString(13))!=0)
+            {
+                count=3;
+                spinnerIdcard4.setSelection(Integer.parseInt(c.getString(13)));
+                tableLayout4.setVisibility(View.VISIBLE);
+            }
+
+
+            editTextDocumentNum4.setText(c.getString(14));
+            editTextIssuingAuthority4.setText(c.getString(15));
+            editTextDateofIssue4.setText(c.getString(16));
+
+        }
+        db.close();
+
+    }
+
+    private void saveSession() {
+        hashMap.put("name1",Integer.toString(spinnerIdcard1.getSelectedItemPosition()));
+        hashMap.put("doc_num1",editTextDocumentNum1.getText().toString());
+        hashMap.put("authority1",editTextIssuingAuthority1.getText().toString());
+        hashMap.put("do_issue1",editTextDateofIssue1.getText().toString());
+
+        hashMap.put("name2",Integer.toString(spinnerIdcard2.getSelectedItemPosition()));
+        hashMap.put("doc_num2",editTextDocumentNum2.getText().toString());
+        hashMap.put("authority2",editTextIssuingAuthority2.getText().toString());
+        hashMap.put("do_issue2",editTextDateofIssue2.getText().toString());
+
+        hashMap.put("name3",Integer.toString(spinnerIdcard3.getSelectedItemPosition()));
+        hashMap.put("doc_num3",editTextDocumentNum3.getText().toString());
+        hashMap.put("authority3",editTextIssuingAuthority3.getText().toString());
+        hashMap.put("do_issue3",editTextDateofIssue3.getText().toString());
+
+        hashMap.put("name4",Integer.toString(spinnerIdcard4.getSelectedItemPosition()));
+        hashMap.put("doc_num4",editTextDocumentNum4.getText().toString());
+        hashMap.put("authority4",editTextIssuingAuthority4.getText().toString());
+        hashMap.put("do_issue4",editTextDateofIssue4.getText().toString());
         try{
             DBAdapter db = new DBAdapter(getActivity());
 
             //---get all contacts---
             db.open();
-            if(db.updateData(hashMap))
+            if(db.updateDataIdProof(hashMap))
             {
                 System.out.println("date Saved----------");
             }
@@ -356,11 +489,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
             }
         }catch (Exception e)
         {
-            System.out.println("ErrorSaving");
+            System.out.println("ErrorSaving Id proof");
         }
-    }
-    private void Retrive()
-    {
 
     }
+
 }

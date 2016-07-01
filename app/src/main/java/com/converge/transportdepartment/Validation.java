@@ -46,7 +46,6 @@ public class Validation {
             editText.setError(errMsg);
             return false;
         }
-
         return true;
     }
 

@@ -22,7 +22,8 @@ public class DBAdapter {
     static final String TAG = "DBAdapter";
     static final String DATABASE_NAME = "LLodisha";
     static final String DATABASE_TABLE = "user_detail";
-    static final int DATABASE_VERSION = 1;
+    static final String DATABASE_TABLE_Id_Proof = "user_id_proof";
+    static final int DATABASE_VERSION = 2;
     static final String DATABASE_CREATE ="CREATE TABLE user_detail (id INTEGER PRIMARY KEY  NOT NULL  UNIQUE ," +
             " refno TEXT," +
 //            " licence_type TEXT," +
@@ -107,6 +108,17 @@ public class DBAdapter {
 //            " 'y','n','n','n',NULL," +
 //            "NULL,NULL);";
 
+    static final String DATABASE_ID_TABLE = "CREATE  TABLE user_id_proof (id  PRIMARY KEY  NOT NULL , name1 CHAR, doc_num1 TEXT, authority1 TEXT, do_issue1 TEXT," +
+            " name2 CHAR, doc_num2 TEXT, authority2 TEXT, do_issue2 TEXT," +
+            " name3 CHAR, doc_num3 TEXT, authority3 TEXT, do_issue3 TEXT," +
+            " name4 CHAR, doc_num4 TEXT, authority4 TEXT, do_issue4 TEXT)";
+
+    static final String DATABASE_INSERT_ID_TABLE ="INSERT INTO user_id_proof VALUES(1,"+
+            "'0','','',''," +
+            "'0','','',''," +
+            "'0','','',''," +
+            "'0','','','');";
+
     static final String DATABASE_INSERT ="INSERT INTO user_detail VALUES(1,'1'," +
             "'','','','','','','','','',''," +
             "'','','','','','','','','',''," +
@@ -114,6 +126,10 @@ public class DBAdapter {
             "'','','','','','','','','',''," +
             "'','','','','','');";
 
+    static String [] dataFeildIdProof = {"id", "name1", "doc_num1", "authority1" ,"do_issue1",
+            "name2","doc_num2 ","authority2 ","do_issue2",
+            "name3","doc_num3 ","authority3 ","do_issue3",
+            "name4","doc_num4 ","authority4 ","do_issue4"};
 
     static String [] dataFeilds={
             " refno ",
@@ -176,10 +192,16 @@ public class DBAdapter {
             " identification_marks ",
             " blood_group ",
             " blood_group_rh "};
+    //Id proof
+    static final String id_name="name";
 
-//    static final String DATABASE_CREATE =
-//    "create table contacts (_id integer primary key autoincrement ,name text not '', email text not null);";
-//                                "middle_name",
+    static final String doc_num="doc_num";
+
+    static final String authority="authority";
+
+    static final String do_issue="do_issue";
+
+    //Personal Info
     static final String refno="refno";
     static final String statecode="statecode";
     static final String rtocode="rtocode";
@@ -269,8 +291,6 @@ public class DBAdapter {
 
 
 
-
-
     private static class DatabaseHelper extends SQLiteOpenHelper
     {
 
@@ -285,7 +305,10 @@ public class DBAdapter {
 
             try {
                 db.execSQL(DATABASE_CREATE);
+                db.execSQL(DATABASE_ID_TABLE);
+
                 db.execSQL(DATABASE_INSERT);
+                db.execSQL(DATABASE_INSERT_ID_TABLE);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -297,7 +320,8 @@ public class DBAdapter {
         {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
             + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS contacts");
+            db.execSQL("DROP TABLE IF EXISTS "+DATABASE_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS "+DATABASE_TABLE_Id_Proof);
             onCreate(db);
         }
     }
@@ -332,6 +356,10 @@ public class DBAdapter {
     {
         return db.query(DATABASE_TABLE, dataFeilds , null, null, null, null, null);
     }
+
+    public Cursor getAllDetailsIdProof() {
+        return db.query(DATABASE_TABLE_Id_Proof, dataFeildIdProof , null, null, null, null, null);
+    }
     //---retrieves a particular contact---
     public Cursor getContact(long rowId) throws SQLException
     {
@@ -343,6 +371,33 @@ public class DBAdapter {
         }
         return mCursor;
     }
+
+    public boolean updateDataIdProof(HashMap<String, String> hashMap) {
+        ContentValues args = new ContentValues();
+
+        args.put(id_name+"1", hashMap.get("name1"));
+        args.put(id_name+"2", hashMap.get("name2"));
+        args.put(id_name+"3", hashMap.get("name3"));
+        args.put(id_name+"4", hashMap.get("name4"));
+
+        args.put(doc_num+"1", hashMap.get("doc_num1"));
+        args.put(doc_num+"2", hashMap.get("doc_num2"));
+        args.put(doc_num+"3", hashMap.get("doc_num3"));
+        args.put(doc_num+"4", hashMap.get("doc_num4"));
+
+        args.put(authority+"1", hashMap.get("authority1"));
+        args.put(authority+"2", hashMap.get("authority2"));
+        args.put(authority+"3", hashMap.get("authority3"));
+        args.put(authority+"4", hashMap.get("authority4"));
+
+        args.put(do_issue+"1", hashMap.get("do_issue1"));
+        args.put(do_issue+"2", hashMap.get("do_issue2"));
+        args.put(do_issue+"3", hashMap.get("do_issue3"));
+        args.put(do_issue+"4", hashMap.get("do_issue4"));
+        return db.update(DATABASE_TABLE_Id_Proof, args, KEY_ROWID + "=" + 1, null) > 0;
+    }
+
+
     //---updates a contact---
     public boolean updateData(HashMap<String, String> hashMap)
     {

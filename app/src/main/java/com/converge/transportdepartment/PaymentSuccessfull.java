@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 import java.io.BufferedReader;
@@ -39,6 +40,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 /**
@@ -63,14 +65,21 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     ProgressDialog progressDialog;
 
+    private String mFinalString1="mFinalString1";
+    private final String mFinalString2="mFinalString2";
+    private final String mFinalStringCov="mFinalStringCov";
+
+    private static final String CheckBoxSchedule = "currentCheckBox";
+
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
 
-    private final String mFinalStringCov="mFinalStringCov";
+
 
     private OnFragmentInteractionListener mListener;
     private long lastDownload = -1L;
     private static String emailToSend;
+    private HashMap<String,String> hashMap=new HashMap<>();
 
     public PaymentSuccessfull() {
         // Required empty public constructor
@@ -102,6 +111,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @Override
     public void onResume() {
@@ -140,15 +150,15 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-        TextView textView1 = (TextView) view.findViewById(R.id.textView10);
+//        TextView textView1 = (TextView) view.findViewById(R.id.textView10);
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
         TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
         TextView textReceipt  = (TextView) view.findViewById(R.id.textViewReceipt);
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
-        textView1.setText("Please note Reference Number");
-        textView2.setText(sharedpreferences.getString("receiptNum",""));
-        textReceipt.setText("R"+sharedpreferences.getString("receiptNum",""));
+//        textView1.setText("Please note Reference Number");
+        textView2.setText("Application Form : "+sharedpreferences.getString("receiptNum",""));
+        textReceipt.setText("Receipt No.      : R"+sharedpreferences.getString("receiptNum",""));
         int fee= totalFee();
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
@@ -190,8 +200,10 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 buttonEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        emailToSend=editText.getText().toString();
-                        new SendMail(getActivity()).execute();
+                        if(Validation.isEmailAddress(editText,true)) {
+                            emailToSend = editText.getText().toString();
+                            new SendMail(getActivity()).execute();
+                        }
                     }
                 });
 //                openReceipt.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +228,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 });
 
 
-
+        deleteSession();
 
         return view;
     }
@@ -225,8 +237,23 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
         int len =arr.length;
-        len = len*30+20;
+        if(arr[0].length()>0)
+            len = len*30+20;
+        else
+            len=0;
         return len;
+    }
+
+    private void deleteSession()
+    {
+        saveSessionPersonalDetails();
+        saveSessionIdProof();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(mFinalString1,"");
+        editor.putString(mFinalString2,"");
+        editor.putString(mFinalStringCov,"");
+        editor.putInt(CheckBoxSchedule,0);
+        editor.commit();
     }
 
 //    // TODO: Rename method, update argument and hook method into UI event
@@ -258,6 +285,122 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    private void saveSessionPersonalDetails()
+    {
+        hashMap.put("rtocode","");
+        hashMap.put("first_name","");
+        hashMap.put("middle_name","");
+        hashMap.put("last_name","");
+
+        hashMap.put("dob","");
+        hashMap.put("gender","");
+
+        hashMap.put("birth_place","");
+        hashMap.put("year","");
+        hashMap.put("month","");
+        hashMap.put("birth_country","");
+        hashMap.put("email_id","");
+
+        hashMap.put("relation","");
+        hashMap.put("p_first_name","");
+        hashMap.put("p_middle_name","");
+        hashMap.put("p_last_name","");
+//        hashMap.put("permanent_address","");
+        hashMap.put("p_flat_no","");
+        hashMap.put("p_flat_house_name","");
+        hashMap.put("p_house_no","");
+        hashMap.put("p_street","");
+        hashMap.put("p_locality","");
+        hashMap.put("p_village_city","");
+        hashMap.put("p_taluka","");
+        hashMap.put("p_district","");
+        hashMap.put("p_state","");
+
+        hashMap.put("p_years","");
+        hashMap.put("p_months","");
+        hashMap.put("p_pin","");
+        hashMap.put("p_mobile_no","");
+
+        hashMap.put("t_flat_no","");
+        hashMap.put("t_flat_house_name","");
+        hashMap.put("t_house_no","");
+        hashMap.put("t_street","");
+        hashMap.put("t_locality","");
+        hashMap.put("t_village_city","");
+        hashMap.put("t_taluka","");
+        hashMap.put("t_district","");
+
+        hashMap.put("t_state","");
+
+        hashMap.put("t_years","");
+        hashMap.put("t_months","");
+        hashMap.put("t_pin","");
+        hashMap.put("t_moblie_no","");
+
+
+        hashMap.put("citizenship_status","");
+        hashMap.put("edu_qualification","");
+        hashMap.put("identification_marks","");
+        hashMap.put("blood_group","");
+        hashMap.put("blood_group_rh","");
+
+        try{
+            DBAdapter db = new DBAdapter(getActivity());
+
+            //---get all contacts---
+            db.open();
+            if(db.updateData(hashMap))
+            {
+                System.out.println("date Saved----------");
+            }
+            else {
+                System.out.println("date cannot be Saved----------");
+            }
+        }catch (Exception e)
+        {
+            System.out.println("ErrorSaving");
+        }
+    }
+
+    private void saveSessionIdProof() {
+        hashMap.put("name1","0");
+        hashMap.put("doc_num1","");
+        hashMap.put("authority1","");
+        hashMap.put("do_issue1","");
+
+        hashMap.put("name2","0");
+        hashMap.put("doc_num2","");
+        hashMap.put("authority2","");
+        hashMap.put("do_issue2","");
+
+        hashMap.put("name3","0");
+        hashMap.put("doc_num3","");
+        hashMap.put("authority3","");
+        hashMap.put("do_issue3","");
+
+        hashMap.put("name4","0");
+        hashMap.put("doc_num4","");
+        hashMap.put("authority4","");
+        hashMap.put("do_issue4","");
+        try{
+            DBAdapter db = new DBAdapter(getActivity());
+
+            //---get all contacts---
+            db.open();
+            if(db.updateDataIdProof(hashMap))
+            {
+                System.out.println("date Saved----------");
+            }
+            else {
+                System.out.println("date cannot be Saved----------");
+            }
+        }catch (Exception e)
+        {
+            System.out.println("ErrorSaving Id proof");
+        }
+
     }
 
     @Override
@@ -308,6 +451,12 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         //Enqueue a new download and same the referenceId
         lastDownload = mgr.enqueue(request);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialogPostReport("Documents (PDF) for  Fee Receipt   can be accessed from your Mobile Device from this location – M-Parivahan");
+            }
+        });
     }
 
     public void downloadPdfForm() {
@@ -329,7 +478,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         //Enqueue a new download and same the referenceId
+
         lastDownload = mgr.enqueue(request);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialogPostReport("Documents (PDF) for Application Form  can be accessed from your Mobile Device from this location – M-Parivahan");
+            }
+        });
     }
 
     public void startDownload(View v) {
@@ -418,7 +574,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
         return(msg);
     }
-
 
     private class SendMail extends AsyncTask<Void, Integer, Long>
     {
@@ -539,7 +694,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         //Your code to run in GUI thread here
 
 //                        showToast("Email sent");
-                       alertDialogPostReport("1. Email sent successfully please check mail");
+                       alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
                     }//public void run() {
                 });
             }
@@ -556,7 +711,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             }
         }
     }
-
 
     private class DownloadFile extends AsyncTask<Void, Integer, Long> {
 
@@ -669,7 +823,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
 
     }
-
 
     private class DownloadReceipt extends AsyncTask<Void, Integer, Long> {
 
@@ -832,12 +985,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
 //            alertDialogPostReport();
 //            showToast("press back button to go home");
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
-                }
-            });
+
 
         }
     };

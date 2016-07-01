@@ -10,19 +10,18 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Please click on time of particular date to book slot."
-        android:id="@+id/textView6"
-        android:layout_weight=".2"
-        android:padding="4dp"
-        android:textSize="24dp"/>
+        android:textSize="16sp"
+        android:gravity="start|center"
+        android:layout_weight=".1"
+         />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_weight=".7"
+        android:layout_weight=".8"
         android:paddingTop="5dp">
 
         <TableLayout
@@ -368,31 +367,31 @@
 
         <TableRow>
 
-            <Button
+            <ImageView
                 android:id="@+id/buttonBackSelectSchedule"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Back"
+                android:src="@drawable/back"
                 android:layout_margin="2dp"
+                android:padding="2dp"
                 android:textColor="@android:color/background_light"
                 />
 
-            <Button
+            <ImageView
                 android:id="@+id/buttonNextSelectSchedule"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Next"
+                android:src="@drawable/next"
                 android:layout_margin="2dp"
+                android:padding="2dp"
                 android:textColor="@android:color/background_light"
                 />
         </TableRow>
     </TableLayout>
-
-
 </LinearLayout>
 
 <!--Please click on time of particular bate to book slot.-->

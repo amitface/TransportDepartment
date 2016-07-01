@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -163,7 +165,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     private ImageView mimageViewDatePicker;
 
-    private Button buttonNext, buttonClearPersonalDetails, buttonBackConfirmAndPay;
+    private ImageView buttonNext;
+    private Button buttonClearPersonalDetails;
+    private ImageView buttonBackConfirmAndPay;
 
 
     private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
@@ -219,6 +223,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_and_pay, container, false);
+        hideKeyboard(getContext());
+
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         TextView textfee= (TextView)view.findViewById(R.id.textfee);
@@ -236,12 +242,26 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    public static void hideKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
     private int totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
         int len =arr.length;
+        if(arr[0].length()>0)
         len = len*30+20;
+        else
+        len=0;
         return len;
     }
     // TODO: Rename method, update argument and hook method into UI event
@@ -334,19 +354,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private void setListner() {
         mimageViewDatePicker.setOnClickListener(this);
 
-        checkboxSameAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkboxSameAddress.isChecked())
-                {
-                    checkPresentAddress();
-                }
-                else
-                {
-                    uncheckPresentAddress();
-                }
-            }
-        });
+
         buttonNext.setOnClickListener(this);
         buttonBackConfirmAndPay.setOnClickListener(this);
 //        buttonClearPersonalDetails.setOnClickListener(this);
@@ -397,7 +405,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentPinCode = (EditText) rootView.findViewById(R.id.editTextPermanentPinCode);
         meditTextPermanentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPermanentMoblieNo);
 
-        checkboxSameAddress= (CheckBox) rootView.findViewById(R.id.checkboxSameAddress);
+
 
         meditTextPresentFlatNum = (EditText) rootView.findViewById(R.id.editTextPresentFlatNum);
         meditTextPresentHouseName = (EditText) rootView.findViewById(R.id.editTextPresentHouseName);
@@ -442,9 +450,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         mtablelayoutOtherInfo = (TableLayout)rootView.findViewById(R.id.tablelayoutOtherInfoC);
 
 
-        buttonNext = (Button) rootView.findViewById(R.id.button_confirm_and_pay);
+        buttonNext = (ImageView) rootView.findViewById(R.id.button_confirm_and_pay);
 //        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
-        buttonBackConfirmAndPay = (Button) rootView.findViewById(R.id.buttonBackConfirmAndPay);
+        buttonBackConfirmAndPay = (ImageView) rootView.findViewById(R.id.buttonBackConfirmAndPay);
 
         retrivesession();
 
@@ -481,7 +489,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentPinCode.setEnabled(false);
         meditTextPermanentMoblieNo.setEnabled(false);
 
-        checkboxSameAddress.setEnabled(false);
+
 
         meditTextPresentFlatNum.setEnabled(false);
         meditTextPresentHouseName.setEnabled(false);

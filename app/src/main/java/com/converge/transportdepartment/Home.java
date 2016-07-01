@@ -1,7 +1,9 @@
 package com.converge.transportdepartment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,7 +96,7 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.buttonReadNext:
                 vibrate();
-                fragment = LicenseApplication.newInstance("1","1");
+                fragment = LicenseApplication.newInstance("0","1");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment).commit();
                 break;
             case R.id.textViewDownloadApplication:
@@ -212,7 +214,7 @@ public class Home extends AppCompatActivity
             vibrate();
             replaceFragment(DownloadPDF.newInstance("1","1"));
         } else if (id == R.id.nav_exit) {
-                finish();
+            alertDialogPostReport();
         }
 
 //
@@ -229,7 +231,7 @@ public class Home extends AppCompatActivity
         // Get instance of Vibrator from current Context
         Vibrator mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-// Vibrate for 300 milliseconds
+        // Vibrate for 300 milliseconds
         mVibrator.vibrate(20);
     }
 
@@ -276,6 +278,28 @@ public class Home extends AppCompatActivity
 
         }
         db.close();
+    }
+
+    public void alertDialogPostReport()
+    {
+        final String[] items = {"Are you sure you want leave?" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+               finish();
+            }
+        });
+        builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+//                    if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
+            }
+        });
+        builder.show();
+
     }
 
     private void showProgress()

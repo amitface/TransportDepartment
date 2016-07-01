@@ -72,10 +72,9 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                              Bundle savedInstanceState) {
 
         onAttachFragment(getParentFragment());
-
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
-
+        mTabHost.setPadding(10,0,0,0);
         mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Class of Vehicle"),
                 SelectApplicationType.class, null);
 //
@@ -83,7 +82,9 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                PersonalDetails.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),
                 IdProof.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
+//        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
+//               SelectSchedule.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("",getResources().getDrawable(R.drawable.app_schedule_selected,null)),
                SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
@@ -98,14 +99,14 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             final TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
 
-            mTabHost.getTabWidget().getChildAt(i).setPadding(6,0,0,0);
+            mTabHost.getTabWidget().getChildAt(i).setPadding(16,0,0,0);
 
             if (tv == null)
                 continue;
             else
             {
                 tv.setTextSize(8);
-                tv.setPadding(6,0,0,0);
+                tv.setPadding(0,0,0,0);
             }
 
 

@@ -3,10 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="6dp"
     android:weightSum="1"
     tools:context="com.converge.transportdepartment.IdProof">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/IdproofHeading"
+        android:textSize="16sp"
+        android:gravity="start|center"
+        android:layout_weight=".1"
+        android:id="@+id/textView4" />
+    <!--<TextView android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="4dp"-->
+
+    <!--android:text="@string/IdproofHeading"/>-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,11 +47,7 @@
             android:padding="6dip">
 
 
-            <TextView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
 
-                android:text="At Least one Photo and one Address proof Required*"/>
 
             <!--PhotoId -->
             <TableRow
@@ -68,6 +79,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
+
                     android:text="Document Number*"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -86,6 +98,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     />
                 <EditText
@@ -94,6 +107,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_span="1"
 
@@ -116,6 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
+
                     android:layout_span="2">
                 <ImageView
                     android:id="@+id/imageViewDatePicker1"
@@ -197,6 +212,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     />
                 <EditText
@@ -205,6 +221,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_span="1"
 
@@ -309,6 +326,7 @@
                 android:layout_height="36dp"
                 android:layout_margin="2dp"
                 android:maxLength="20"
+                android:paddingLeft="5dp"
                 android:background="@drawable/edit_text_personal_details"
                 />
             <EditText
@@ -317,6 +335,7 @@
                 android:layout_height="36dp"
                 android:layout_margin="2dp"
                 android:maxLength="20"
+                android:paddingLeft="5dp"
                 android:background="@drawable/edit_text_personal_details"
                 android:layout_span="1"
 
@@ -417,6 +436,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     />
                 <EditText
@@ -425,6 +445,7 @@
                     android:layout_height="36dp"
                     android:layout_margin="2dp"
                     android:maxLength="20"
+                    android:paddingLeft="5dp"
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_span="1"
 
@@ -476,20 +497,20 @@
         android:stretchColumns="*"
 
         android:padding="2dp"
-        android:layout_weight=".2">
+        android:layout_weight=".1">
 
         <TableRow>
 
             <ImageView  android:id="@+id/buttonAdd"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:src="@drawable/image_add"
                 android:layout_margin="2dp"
                 android:padding="3dp" />
             <ImageView  android:id="@+id/buttonRemove"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:src="@drawable/image_remove"
                 android:layout_margin="2dp"
@@ -509,33 +530,36 @@
 
         <TableRow>
 
-            <Button
+            <ImageView
                 android:id="@+id/buttonBackIdProof"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Back"
+                android:src="@drawable/back"
                 android:layout_margin="2dp"
+                android:padding="2dp"
                 android:textColor="@android:color/background_light"
                 />
-            <Button
+            <ImageView
                 android:id="@+id/buttonClearIdProof"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Clear"
+                android:src="@drawable/clear"
                 android:layout_margin="2dp"
+                android:padding="2dp"
                 android:textColor="@android:color/background_light"
                 />
-            <Button
+            <ImageView
                 android:id="@+id/buttonNextIdProof"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:padding="2dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Next"
+                android:src="@drawable/next"
                 android:layout_margin="2dp"
                 android:onClick="IdProof"
                 android:textColor="@android:color/background_light"

@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 
@@ -76,6 +78,9 @@ public class PayablePayment extends Fragment {
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        hideKeyboard(getContext());
+//        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         TextView textView = (TextView) view.findViewById(R.id.textPayment);
@@ -89,10 +94,24 @@ public class PayablePayment extends Fragment {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
         int len =arr.length;
-        len = len*30+20;
+        if(arr[0].length()>0)
+            len = len*30+20;
+        else
+            len=0;
         return len;
     }
 
+    public static void hideKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

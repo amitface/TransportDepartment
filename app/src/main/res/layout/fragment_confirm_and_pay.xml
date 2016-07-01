@@ -36,23 +36,26 @@
                 android:text="Fee Information"
                 android:background="@color/colorPrimaryTransportDepartment"
                 />
-            <TableRow>
+            <TableRow
+                android:layout_marginTop="5dp">
                 <TextView
                     android:id="@+id/textfee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="Application Fee : Rs. 0"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+                    android:background="@drawable/edit_text_personal_details"
+
+                    android:padding="5dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Postal fee: Rs.0"
                     android:textSize="10sp"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+                    android:background="@drawable/edit_text_personal_details"
+
+                    android:padding="5dp"/>
             </TableRow>
 
 
@@ -62,16 +65,18 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="PaperDoc fee+tax : Rs. 20"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+                    android:background="@drawable/edit_text_personal_details"
+
+                    android:padding="5dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Smart Card fee : Rs.0"
                     android:textSize="10sp"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+                    android:background="@drawable/edit_text_personal_details"
+
+                    android:padding="5dp"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -80,17 +85,19 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="Smartchip fee+tax : Rs. 0"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+                    android:background="@drawable/edit_text_personal_details"
+
+                    android:padding="5dp"/>
 
                 <TextView
                     android:id="@+id/textTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total Amount :Rs 290"
+                    android:background="@drawable/edit_text_personal_details"
                     android:textSize="10sp"
-                    android:layout_margin="3dp"
-                    android:padding="2dp"/>
+
+                    android:padding="5dp"/>
             </TableRow>
             </TableLayout>
             <TextView
@@ -102,26 +109,27 @@
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:layout_margin="2dp"
                 android:padding="8dp"
-                android:text=" RTO*"/>
+                android:text=" RTO"
+                android:layout_marginTop="3dp" />
             <Spinner
                 android:id="@+id/spinnerRTOC"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="26dp"
                 android:paddingLeft="4dp"
                 android:layout_marginRight="2dp"
                 android:entries="@array/RTO"
-                android:background="@drawable/gradient_spinner"
+                android:background="@drawable/edit_text_personal_details"
                 android:spinnerMode="dialog"
-                android:layout_span="3" />
+                android:layout_span="3"
+                android:layout_marginTop="5dp" />
 
             <RelativeLayout
                 android:id="@+id/linearlayoutPersonalDetailC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:padding="2dp"
                 android:layout_marginTop="10dp"
-                >
+                android:padding="2dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,7 +149,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="6dp" />
+                    />
             </RelativeLayout>
             <TableLayout
                 android:id="@+id/tablelayoutPersonalDetailC"
@@ -161,7 +169,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Applicant Name*"/>
+                        android:text="Applicant Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -188,6 +196,7 @@
                         android:maxLength="17"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextViewApplicantMiddleNameC"
@@ -198,6 +207,7 @@
                         android:maxLength="6"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextViewApplicantLastNameC"
@@ -206,6 +216,7 @@
                         android:layout_margin="2dp"
                         android:inputType="textPersonName"
                         android:maxLength="17"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
 
@@ -217,7 +228,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="2"
-                        android:text="Date of Birth*"/>
+                        android:text="Date of Birth"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -264,7 +275,7 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Gender"
                         android:layout_margin="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
 
                 </TableRow>
@@ -280,7 +291,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="Place of Birth*"/>
+                        android:text="Place of Birth"/>
                 </TableRow>
                 <TableRow>
                     <EditText
@@ -290,6 +301,7 @@
                         android:layout_span="3"
                         android:layout_margin="2dp"
                         android:maxLength="50"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
                 <!--Migration time-->
@@ -318,6 +330,7 @@
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="4"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextYearC"
@@ -328,6 +341,7 @@
                         android:maxLength="2"
                         android:layout_margin="2dp"
                         android:inputType="number"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
 
@@ -342,7 +356,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="Country by Birth*"/>
+                        android:text="Country by Birth"/>
                 </TableRow>
                 <TableRow>
                     <Spinner
@@ -354,7 +368,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
                 <!--EmailId-->
@@ -366,7 +380,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Email*"/>
+                        android:text="Email"/>
                 </TableRow>
 
                 <TableRow
@@ -378,6 +392,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="50"
                         android:layout_span="3"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
                         />
                 </TableRow>
@@ -393,7 +408,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Relationship Type*"/>
+                        android:text="Relationship Type"/>
                 </TableRow>
                 <TableRow>
                     <Spinner
@@ -403,7 +418,7 @@
                         android:entries="@array/RelationType"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
 
                 </TableRow>
@@ -417,7 +432,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Relation's Name*"/>
+                        android:text="Relation's Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -442,10 +457,11 @@
                         android:id="@+id/editTextRelationsNameC"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
-                        android:paddingLeft="4dp"
+
                         android:layout_margin="2dp"
                         android:inputType="textPersonName"
                         android:maxLength="17"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
                     <EditText
@@ -457,6 +473,7 @@
                         android:inputType="textPersonName"
                         android:maxLength="6"
                         android:background="@drawable/edit_text_personal_details"
+
                         android:layout_span="1" />
                     <EditText
                         android:id="@+id/editTextRelationsLastNameC"
@@ -477,7 +494,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:layout_marginTop="10dp"
-                >
+                android:padding="2dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -499,16 +516,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:textSize="12sp"
-                android:layout_margin="2dp"
-                android:gravity="center_horizontal"
-                android:layout_gravity="start|center_vertical"
 
-                android:text="At least one feild required in Permanent Address"/>
             <TableLayout
                 android:id="@+id/tablelayoutPermanenetAddressC"
                 android:layout_width="match_parent"
@@ -547,6 +555,7 @@
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:imeOptions="actionNext"
+                        android:paddingLeft="5dp"
                         android:layout_span="1" />
                     <EditText
                         android:id="@+id/editTextPermanentHouseName"
@@ -555,6 +564,7 @@
                         android:layout_margin="2dp"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="2" />
 
                 </TableRow>
@@ -587,6 +597,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="1" />
 
                     <EditText
@@ -595,6 +606,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="2" />
 
                 </TableRow>
@@ -620,6 +632,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -649,6 +662,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -678,6 +692,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -693,7 +708,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text=" District*"/>
+                        android:text=" District"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress12">
@@ -705,6 +720,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -723,7 +739,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="State*"/>
+                        android:text="State"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress14">
@@ -736,7 +752,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
 
@@ -753,7 +769,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Duration of Stay*"/>
+                        android:text="Duration of Stay"/>
 
 
 
@@ -765,20 +781,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_span="1"
-                        android:hint="Year*"
+                        android:hint="Year"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="3"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPermanentMonth"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_span="1"
-                        android:hint="Month*"
+                        android:hint="Month"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="2"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
                 <!--  PinCode mobile-->
@@ -796,7 +814,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
 
-                        android:text="Pin Code*"/>
+                        android:text="Pin Code"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -804,7 +822,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
-                        android:text="Moblie No*"/>
+                        android:text="Moblie No"/>
 
 
                 </TableRow>
@@ -820,6 +838,7 @@
                         android:layout_span="1"
                         android:maxLength="6"
                         android:inputType="phone"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPermanentMoblieNo"
@@ -829,33 +848,19 @@
                         android:layout_span="1"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
+                        android:paddingLeft="5dp"
                         android:inputType="phone" />
 
                 </TableRow>
             </TableLayout>
             <!--Check Box for Permanent address-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:id="@+id/checkboxSameAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_margin="2dp"
-                    android:text="Present address same as Premanant"/>
-            </LinearLayout>
             <!--Present  Address-->
             <RelativeLayout
                 android:id="@+id/linearlayoutPresentAddressC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="2dp"
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:orientation="horizontal">
                 <TextView
@@ -869,7 +874,6 @@
                     android:textColor="@android:color/white"
                     android:text="Present Address"/>
                 <ImageView
-                    android:padding="3dp"
                     android:id="@+id/imagePresentC"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
@@ -880,15 +884,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:textSize="12sp"
-                android:layout_margin="2dp"
-                android:gravity="center_horizontal"
-                android:layout_gravity="start|center_vertical"
-                android:text="At least one feild required in Present Address"/>
+
             <TableLayout
                 android:id="@+id/tablelayoutPresentAddressC"
                 android:layout_width="match_parent"
@@ -926,6 +922,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="1" />
                     <EditText
                         android:id="@+id/editTextPresentHouseName"
@@ -933,6 +930,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="2" />
 
                 </TableRow>
@@ -967,6 +965,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="1" />
 
                     <EditText
@@ -975,6 +974,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="2" />
 
                 </TableRow>
@@ -1000,6 +1000,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -1027,6 +1028,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -1056,6 +1058,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
 
 
@@ -1071,11 +1074,10 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text=" District*"/>
+                        android:text=" District"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress12">
-
 
                     <EditText
                         android:id="@+id/editTextPresentDistrict"
@@ -1083,12 +1085,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:paddingLeft="5dp"
                         android:layout_span="3" />
-
-
-
                 </TableRow>
-
                 <!--State-->
                 <TableRow
                     android:id="@+id/tableRowPresentAddress13"
@@ -1101,7 +1100,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="State*"/>
+                        android:text="State"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress14">
@@ -1114,7 +1113,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
 
@@ -1124,16 +1123,13 @@
                     android:id="@+id/tableRowPresentAddress15"
                     android:layout_marginTop="8dp"
                     >
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Duration of Stay*"/>
-
-
+                        android:text="Duration of Stay"/>
 
                 </TableRow>
                 <TableRow
@@ -1143,18 +1139,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_span="1"
-                        android:hint="Year*"
+                        android:hint="Year"
                         android:layout_margin="2dp"
                         android:inputType="number"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPresentMonth"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_span="1"
-                        android:hint="Month*"
+                        android:hint="Month"
                         android:layout_margin="2dp"
                         android:inputType="number"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
                 <!-- PinCode mobile-->
@@ -1168,8 +1166,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-
-                        android:text="Pin Code*"/>
+                        android:text="Pin Code"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1177,12 +1174,9 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
-                        android:text="Moblie No*"/>
-
-
+                        android:text="Moblie No"/>
                 </TableRow>
                 <TableRow
-
                     android:id="@+id/tableRowPresentAddress18">
 
                     <EditText
@@ -1193,6 +1187,7 @@
                         android:layout_span="1"
                         android:maxLength="6"
                         android:inputType="phone"
+                        android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPresentMoblieNo"
@@ -1202,8 +1197,8 @@
                         android:layout_span="1"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
+                        android:paddingLeft="5dp"
                         android:inputType="phone" />
-
                 </TableRow>
 
 
@@ -1215,6 +1210,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:layout_marginTop="10dp"
+                android:padding="2dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -1228,7 +1224,6 @@
                     android:id="@+id/textView13" />
                 <ImageView
 
-                    android:padding="3dp"
                     android:id="@+id/imageOtherC"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
@@ -1246,7 +1241,6 @@
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
                 android:padding="6dip">
-
                 <!--Citizenship status-->
                 <TableRow
                     android:layout_marginTop="10dp">
@@ -1257,7 +1251,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Citizenship status by*"/>
+                        android:text="Citizenship status by"/>
                 </TableRow>
                 <TableRow>
                     <Spinner
@@ -1268,7 +1262,7 @@
                         android:entries="@array/Citizenship"
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dropdown" />
                 </TableRow>
 
@@ -1282,7 +1276,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Educational Qualification*"/>
+                        android:text="Educational Qualification"/>
 
 
 
@@ -1296,10 +1290,9 @@
                         android:entries="@array/Qualification"
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
-
 
                 <!--Id mark -->
                 <TableRow
@@ -1324,7 +1317,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:entries="@array/idMark"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
 
@@ -1351,7 +1344,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:entries="@array/idMark"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
                 <!-- BloodGroup Rh-->
@@ -1373,7 +1366,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="RH*"/>
+                        android:text="RH"/>
                 </TableRow>
                 <TableRow >
                     <Spinner
@@ -1383,7 +1376,7 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Blood"
                         android:layout_marginRight="2dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                     <Spinner
                         android:id="@+id/spinnerRH"
@@ -1391,7 +1384,7 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:entries="@array/Rh"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:layout_marginRight="2dp"
                         />
 
@@ -1413,7 +1406,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
-                        android:background="@drawable/gradient_spinner"
+                        android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3"
                         android:entries="@array/IdProof"/>
                 </TableRow>
@@ -1492,24 +1485,29 @@
 
         <TableRow>
 
-            <Button
+            <ImageView
                 android:id="@+id/buttonBackConfirmAndPay"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:text="Back"
+                android:src="@drawable/back"
                 android:layout_margin="2dp"
+                android:padding="2dp"
+                android:layout_span="3"
                 android:textColor="@android:color/background_light"
                 android:onClick="onClick"/>
-            <Button
+            <ImageView
                 android:id="@+id/button_confirm_and_pay"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Proceed to Pay"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center_vertical"
                 android:layout_margin="2dp"
+                android:padding="2dp"
+                android:layout_span="4"
+                android:src="@drawable/proceed_to_pay"
                 android:textColor="@android:color/background_light"
                 android:onClick="onClick"/>
         </TableRow>

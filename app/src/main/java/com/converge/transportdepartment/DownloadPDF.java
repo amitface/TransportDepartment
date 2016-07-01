@@ -8,12 +8,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
@@ -42,6 +42,10 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     private DownloadManager mgr;
     private SharedPreferences sharedpreferences;
     private static final String mypreference= "mypref";
+    private int ref;
+    private String s;
+    private TextView textDownload;
+    public static TextView editDownloadPdfDate;
 
     public DownloadPDF() {
         // Required empty public constructor
@@ -83,19 +87,38 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        final Button buttonDownloadPdf = (Button) view.findViewById(R.id.buttonDownloadFormPdf);
+        Button buttonDownloadPdf = (Button) view.findViewById(R.id.buttonDownloadFormPdf);
+        textDownload = (TextView) view.findViewById(R.id.editDownloadPdf);
+
+
 
         if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
             buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
-                    downloadPdf();
+                    s=getLength();
+                    if(s.length()==7) {
+                        ref = Integer.parseInt(s);
+                        Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
+                        downloadPdfForm(ref);
+                    }
+//                    else if(s.length()==0)
+//                    {
+//                        Toast.makeText(getActivity(), "Service not available", Toast.LENGTH_SHORT).show();
+//                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Reference number wrong", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }else
         new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
         return view;
+    }
+
+    private String getLength() {
+       return   textDownload.getText().toString();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -153,8 +176,8 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
         getActivity().registerReceiver(onCompleteDownload,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        getActivity().registerReceiver(onNotificationClickDownload,
-                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+//        getActivity().registerReceiver(onNotificationClickDownload,
+//                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
     }
 
@@ -162,11 +185,12 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(onCompleteDownload);
-        getActivity().unregisterReceiver(onNotificationClickDownload);
+//        getActivity().unregisterReceiver(onNotificationClickDownload);
     }
 
-    public void downloadPdf() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+    public void downloadPdfForm(int n) {
+//        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+n+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -178,7 +202,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         //Set a description of this download, to be displayed in notifications (if enabled)
         request.setDescription("Downloading File");
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Form" + System.currentTimeMillis() + ".pdf");
+        request.setDestinationInExternalPublicDir("M-Parivahan", "Form_" + System.currentTimeMillis() + ".pdf");
 
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

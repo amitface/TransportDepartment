@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -161,7 +160,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private ImageView mimageViewDatePicker;
 
-    private Button buttonNextPersonalDetails, buttonClearPersonalDetails, buttonBackPersonalDetails;
+    private ImageView buttonNextPersonalDetails;
+    private ImageView buttonClearPersonalDetails;
+    private ImageView buttonBackPersonalDetails;
 
 
     private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
@@ -448,9 +449,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mtablelayoutOtherInfo = (TableLayout)rootView.findViewById(R.id.tablelayoutOtherInfo);
 
 
-        buttonNextPersonalDetails = (Button) rootView.findViewById(R.id.buttonNextPersonalDetail);
-        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
-        buttonBackPersonalDetails = (Button) rootView.findViewById(R.id.buttonBackPersonalDetail);
+        buttonNextPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonNextPersonalDetail);
+        buttonClearPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonClearPersonalDetail);
+        buttonBackPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonBackPersonalDetail);
         retrivesession();
     }
 

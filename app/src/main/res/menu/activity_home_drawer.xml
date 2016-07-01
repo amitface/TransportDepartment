@@ -4,27 +4,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-
+            android:icon="@drawable/home_nav"
             android:title="Home"/>
         <item
             android:id="@+id/nav_apply_license"
-
-            android:title="Apply for Learning Licence" />
+            android:icon="@drawable/apply_nav"
+            android:title="Apply for LL" />
         <item
             android:id="@+id/nav_check_status"
-            android:title="Check Status of Learning Licence Application" />
+            android:icon="@drawable/check_nav"
+            android:title="Check Status of LL" />
         <item
             android:id="@+id/nav_read_instruction"
-
+            android:icon="@drawable/read_nav"
             android:title="Read Instructions" />
         <item
             android:id="@+id/nav_download"
-
-            android:title="Download Application form " />
+            android:icon="@drawable/download_nav"
+            android:title="Download Form " />
         <item
             android:id="@+id/nav_exit"
-
+            android:icon="@drawable/exit_nav"
             android:title="Exit" />
+
     </group>
 
     <!--<item android:title="Communicate">-->
