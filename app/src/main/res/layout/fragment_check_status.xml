@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:layout_marginTop="20dp"
-        android:id="@+id/button"
+        android:id="@+id/buttonCheckStatus"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryTransportDepartment"
         android:layout_gravity="center_horizontal" />

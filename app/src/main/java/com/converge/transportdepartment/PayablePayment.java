@@ -1,9 +1,11 @@
 package com.converge.transportdepartment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.converge.transportdepartment.Fragments.NetbankingFragment;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -21,7 +38,7 @@ import android.widget.TextView;
  * Use the {@link PayablePayment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PayablePayment extends Fragment {
+public class PayablePayment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,9 +100,12 @@ public class PayablePayment extends Fragment {
 //        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
-        TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText("Payable Amount : Rs. "+totalFee());
+//        TextView textView = (TextView) view.findViewById(R.id.textPayment);
+//        textView.setText("Payable Amount : Rs. "+totalFee());
 
+        TextView textPayNow = (TextView) view.findViewById(R.id.buttonPayNow);
+        textPayNow.setOnClickListener(this);
+//        PayRequest(view);
         return  view;
     }
 
@@ -137,6 +157,11 @@ public class PayablePayment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        PayRequest(v);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -150,5 +175,155 @@ public class PayablePayment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void PayRequest(View View) {
+        new sendPayRequest(getActivity()).execute();
+    }
+
+    private class sendPayRequest extends AsyncTask<Void, Integer, Integer> {
+
+        private final Context context;
+        private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public sendPayRequest(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Please wait...");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params)
+        {
+            int l=0;
+            try
+            {
+                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+
+                JSONObject jsonObject = new JSONObject();
+
+                JSONObject jsonData = new JSONObject();
+                JSONObject jsonlist = new JSONObject();
+                JSONObject jsonlist1 = new JSONObject();
+                JSONObject jsonlist2 = new JSONObject();
+                JSONObject jsonlist3 = new JSONObject();
+
+                jsonlist1.put("amount","1");
+                jsonlist1.put("code","11");
+                jsonlist1.put("hoa","1234456778898");
+
+
+                jsonlist2.put("amount","1");
+                jsonlist2.put("code","11");
+                jsonlist2.put("hoa","11455656");
+
+
+                jsonlist3.put("amount","1");
+                jsonlist3.put("code","11");
+                jsonlist3.put("hoa","1998878776676");
+
+                JSONArray arraylist = new JSONArray();
+                arraylist.put(jsonlist1);
+                arraylist.put(jsonlist2);
+                arraylist.put(jsonlist3);
+
+                jsonlist.put("list",arraylist);
+
+                jsonData.put("ref","12345678");
+                jsonData.put("data",jsonlist);
+
+                String json =jsonData.toString();
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
+//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+
+                JSONObject  jsonObject1= new JSONObject(responseOutput.toString());
+                if(jsonObject1.get("status").equals("Success"))
+                    return 1;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+        @Override
+        protected void onPostExecute(Integer result) {
+
+            progress.dismiss();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        startActivity(new Intent(getActivity(),TestDebitPaymentActivity.class));
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1")).commit();
+                    }
+                });
+
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Payable payment failure",Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }

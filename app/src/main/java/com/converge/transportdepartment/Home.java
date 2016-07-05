@@ -109,11 +109,13 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.textViewCheckStatus:
                 vibrate();
-                replaceFragment(CheckStatus.newInstance("1","1"));
+//                replaceFragment(CheckStatus.newInstance("1","1"));
+                replaceFragment(PayablePayment.newInstance("1","1"));
                 break;
             case R.id.imageViewCheckStatus:
                 vibrate();
-                replaceFragment(CheckStatus.newInstance("1","1"));
+//                replaceFragment(CheckStatus.newInstance("1","1"));
+                replaceFragment(PayablePayment.newInstance("1","1"));
                 break;
 
             /*Select Applicaiton Type */

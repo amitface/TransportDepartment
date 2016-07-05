@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -31,7 +34,7 @@ import java.net.URL;
  * Use the {@link CheckStatus#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CheckStatus extends Fragment {
+public class CheckStatus extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -344,8 +347,41 @@ public class CheckStatus extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_check_status, container, false);
-        //Method to Send data to api.
-//        sendPostRequest(view);
+//        {"access_key":"L8YKJ41HP65M1DIOBVLY","signup-id":"e9d6i0fazk-signup","signup-secret":"9903a947ac90c8ae5406dbbd60febe53","signin-id":"e9d6i0fazk-signin","signin-secret":"15502bc50389b1e7b18809abe6e586e8","vanity":"e9d6i0fazk"}
+
+
+//        CitrusClient citrusClient = CitrusClient.getInstance(getActivity()); //pass Activity Context
+//        citrusClient.init("signup-id", "e9d6i0fazk-signup", "test-signin",
+//                "52f7e15efd4208cf5345dd554443fd99", "prepaid", Environment.SANDBOX);
+//
+//        CitrusClient.getInstance(getActivity()).getMerchantPaymentOptions(new
+//
+//                                                                                  Callback<MerchantPaymentOption>() {
+//
+//                                                                                      @Override
+//
+//                                                                                      public void success(MerchantPaymentOption mMerchantPaymentOption)
+//
+//                                                                                      {
+//
+//                                                                                          ArrayList<NetbankingOption> mNetbankingOptionsList =
+//
+//                                                                                                  mMerchantPaymentOption.getNetbankingOptionList();//this will give you only bank list that you can show.
+//
+//
+//                                                                                      }
+//
+//                                                                                      @Override
+//
+//                                                                                      public void error(CitrusError error) {
+//
+//                                                                                      }
+//
+//                                                                                  });
+//        //Method to Send data to api.
+////        sendPostRequest(view);
+//        Button buttonCheckStatus = (Button) view.findViewById(R.id.buttonCheckStatus);
+//        buttonCheckStatus.setOnClickListener(this);
         return view;
     }
 
@@ -379,6 +415,11 @@ public class CheckStatus extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        payment(v);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -397,6 +438,14 @@ public class CheckStatus extends Fragment {
 
     public void sendPostRequest(View View) {
         new PostClass(getActivity()).execute();
+    }
+
+    public void PayRequest(View View) {
+        new sendPayRequest(getActivity()).execute();
+    }
+
+    public void payment(View View) {
+        new sendPayRequest(getActivity()).execute();
     }
 
     //Class to Post Data in Background
@@ -483,5 +532,139 @@ public class CheckStatus extends Fragment {
 
             return null;
         }
+    }
+
+
+    private class sendPayRequest extends AsyncTask<Void, Integer, Long> {
+
+        private final Context context;
+        private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public sendPayRequest(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Downloading");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
+
+        }
+
+        @Override
+        protected Long doInBackground(Void... params)
+        {
+            Long l=0L;
+            try
+            {
+                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+
+                JSONObject jsonObject = new JSONObject();
+
+                JSONObject jsonData = new JSONObject();
+                JSONObject jsonlist = new JSONObject();
+                JSONObject jsonlist1 = new JSONObject();
+                JSONObject jsonlist2 = new JSONObject();
+                JSONObject jsonlist3 = new JSONObject();
+
+                jsonlist1.put("amount","1");
+                jsonlist1.put("code","11");
+                jsonlist1.put("hoa","1234456778898");
+
+
+                jsonlist2.put("amount","1");
+                jsonlist2.put("code","11");
+                jsonlist2.put("hoa","11455656");
+
+
+                jsonlist3.put("amount","1");
+                jsonlist3.put("code","11");
+                jsonlist3.put("hoa","1998878776676");
+
+                JSONArray arraylist = new JSONArray();
+                arraylist.put(jsonlist1);
+                arraylist.put(jsonlist2);
+                arraylist.put(jsonlist3);
+
+                jsonlist.put("list",arraylist);
+
+                jsonData.put("ref","123456789");
+                jsonData.put("data",jsonlist);
+
+                String json =jsonData.toString();
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
+//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+          progress.setProgress(percent[0]);
+        }
+        protected void onPostExecute(Long result) {
+
+            progress.dismiss();
+            if(result==1)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
     }
 }

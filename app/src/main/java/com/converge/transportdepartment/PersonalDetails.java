@@ -1123,7 +1123,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         applicant.put("statecode","");
         applicant.put("rtocode","");
 
-        js.put("pplicant_first_name","");
+        js.put("applicant_first_name","");
         js.put("applicant_middle_name","");
         js.put("applicant_last_name","");
         applicant.put("applicant",js);
@@ -1297,11 +1297,13 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         personalDetail = true;
         imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
     }
+
     private void hideOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.GONE);
         otherInfo = false;
         imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
     }
+
     private void showOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
         otherInfo = true;
@@ -1322,12 +1324,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
 
     }
+
    private void hidePresent()
    {
        mtablelayoutPresentAddress.setVisibility(View.GONE);
        present=false;
        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
    }
+
     private void showPresent()
     {
         mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
@@ -1343,6 +1347,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         saveSession();
         Log.d("Session :"," saved session");
     }
+
     @Override
     public void onResume ()
     {
