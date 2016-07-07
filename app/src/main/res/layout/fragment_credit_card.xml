@@ -39,7 +39,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                 android:textSize="12sp"/>
 
             <com.citrus.widgets.CardNumberEditText
-                android:id="@+id/cardHolderNumber"
+                android:id="@+id/cardHolderNumberCredit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_textfield_activated_holo_light"
@@ -74,7 +74,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/cardHolderName"
+                android:id="@+id/cardHolderNameCredit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_textfield_activated_holo_light"
@@ -97,7 +97,8 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,7 +109,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/cardHolderNickName"
+                android:id="@+id/cardHolderNickNameCredit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_textfield_activated_holo_light"
@@ -147,9 +148,9 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                     android:textSize="12sp"/>
 
                 <com.citrus.widgets.ExpiryDate
-                    android:id="@+id/cardExpiry"
+                    android:id="@+id/cardExpiryCredit"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/apptheme_textfield_activated_holo_light"
                     android:ems="4"
                     android:gravity="left"
@@ -182,9 +183,9 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                     android:textSize="12sp"/>
 
                 <EditText
-                    android:id="@+id/cardCvv"
+                    android:id="@+id/cardCvvCredit"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/apptheme_textfield_activated_holo_light"
                     android:ems="4"
                     android:gravity="left"
@@ -210,7 +211,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
             android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/load"
+            android:id="@+id/textCreditload"
             style="@style/FooterStyle"
             android:layout_alignParentBottom="true"
             android:text="Pay"/>

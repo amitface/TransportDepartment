@@ -1,18 +1,21 @@
 package com.converge.transportdepartment.Fragments;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrus.sdk.Callback;
 import com.citrus.sdk.CitrusClient;
-import com.citrus.sdk.CitrusUser;
-import com.citrus.sdk.Environment;
 import com.citrus.sdk.TransactionResponse;
 import com.citrus.sdk.classes.Amount;
 import com.citrus.sdk.classes.CitrusException;
@@ -21,7 +24,12 @@ import com.citrus.sdk.classes.Year;
 import com.citrus.sdk.payment.DebitCardOption;
 import com.citrus.sdk.payment.PaymentType;
 import com.citrus.sdk.response.CitrusError;
+import com.citrus.widgets.CardNumberEditText;
+import com.citrus.widgets.ExpiryDate;
+import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.Constants;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +46,17 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
     private CitrusClient citrusClient;
+    private Constants constants;
+
+    private EditText editCardHolderName;
+    private EditText editCardNumber;
+    private EditText editCVV;
+    private EditText editExpiryDate;
+
+    public static final String PREFS_NAME = "MyTransportFile";
+    public static final String mypreference = "mypref";
+    private SharedPreferences sharedpreferences;
+
 
     public DebitCardFragment() {
         // Required empty public constructor
@@ -75,46 +94,100 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_debit_card, container, false);
+        sharedpreferences = getActivity().getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
         TextView pay = (TextView) view.findViewById(R.id.textDebitload);
+
+        editCardNumber = (CardNumberEditText) view
+                .findViewById(R.id.cardHolderNumber);
+        editExpiryDate = (ExpiryDate) view.findViewById(R.id.cardExpiry);
+        editCardHolderName = (EditText) view.findViewById(R.id.cardHolderName);
+//        cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
+        editCVV = (EditText) view.findViewById(R.id.cardCvv);
+
+
         pay.setOnClickListener(this);
         return  view;
     }
 
-
+    private void goPaymentSuccessful()
+    {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
+    }
     private  void makePayment()
     {
-        citrusClient = CitrusClient.getInstance(getActivity()); //pass Activity Context
-        citrusClient.init("e9d6i0fazk-signup", "9903a947ac90c8ae5406dbbd60febe53", "e9d6i0fazk-signin", "15502bc50389b1e7b18809abe6e586e8", "e9d6i0fazk", Environment.SANDBOX);
-        citrusClient.enableAutoOtpReading(true);
-        DebitCardOption debitCardOption = new DebitCardOption("RAMKRISHNA RANDWA", "5596010020362354", "664", Month.getMonth("11"), Year.getYear("22"));
-        Amount amount = new Amount("5");
 
-        // Init PaymentType
-        PaymentType.PGPayment pgPayment = null;
-        try {
-            pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, new CitrusUser("amit.choudhary@cnvg.com","9981950533"));
-        } catch (CitrusException e) {
-            e.printStackTrace();
-        }
+        String cardHolderName = editCardHolderName.getText().toString();
+        String cardNumber = editCardNumber.getText().toString();
+        String cardCVV = editCVV.getText().toString();
 
-        citrusClient.simpliPay(pgPayment, new Callback<TransactionResponse>()
+        String md []=editExpiryDate.getText().toString().split("/");
+        if(cardHolderName.length()<5 || cardCVV.length()!=3 || cardNumber.length()<10 || editExpiryDate.length()==0)
         {
+            Toast.makeText(getActivity(),"Enter all fields correctly",Toast.LENGTH_LONG).show();
+            return;
+        }
+        citrusClient = CitrusClient.getInstance(getActivity());
+        DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
+        Amount amount = new Amount("1");
+        PaymentType paymentType;
+
+        Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
-                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
+//                    }
+//                });
+                alertDialogPostReport();
             }
 
             @Override
             public void error(CitrusError error) {
-
                 Toast.makeText(getActivity(),"Payment Failed"+error.getTransactionResponse().toString(),Toast.LENGTH_LONG).show();
             }
-        });
+        };
+        // Init PaymentType
+                PaymentType pgPayment;
+                try {
+//                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, new CitrusUser("amit.choudhary@cnvg.com","9981950533"));
+//                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, null);
+                 pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+sharedpreferences.getString("receiptNum",""), debitCardOption, null);
+
+//                paymentType = new PaymentType.PGPayment(amount, Constants.BILL_URL, debitCardOption, null);
+                citrusClient.simpliPay(pgPayment, callback);
+
+        } catch (CitrusException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View v) {
         makePayment();
+    }
+
+    public void alertDialogPostReport()
+    {
+        final String[] items = {"Payment Successful."
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1", "1"), "PaymentSuccessfull").commit();
+            }
+        });
+
+        builder.show();
+
     }
 }

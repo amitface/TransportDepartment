@@ -101,7 +101,8 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:paddingRight="15dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,7 +154,7 @@
                     <com.citrus.widgets.ExpiryDate
                         android:id="@+id/cardExpiry"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/apptheme_textfield_activated_holo_light"
                         android:ems="4"
                         android:gravity="left"
@@ -166,8 +167,7 @@
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/darker_gray"
                         android:textCursorDrawable="@null"
-                        android:textSize="16sp"
-                        android:text=""/>
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,7 +188,7 @@
                     <EditText
                         android:id="@+id/cardCvv"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/apptheme_textfield_activated_holo_light"
                         android:ems="4"
                         android:gravity="left"
@@ -200,8 +200,7 @@
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/darker_gray"
                         android:textCursorDrawable="@null"
-                        android:textSize="16sp"
-                        android:text=""/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -22,7 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.classes.CitrusConfig;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.Constants;
 
 public class Home extends AppCompatActivity
         implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener,PersonalDetails.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
@@ -30,6 +33,10 @@ public class Home extends AppCompatActivity
     private FragmentTabHost mTabHost;
     private LicenseApplication.OnFragmentInteractionListener mLicenseApplication;
     private ProgressDialog progressDialog;
+    // Citrus client
+    private Context mContext = this;
+    private CitrusClient citrusClient = null;
+    private CitrusConfig citrusConfig = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +65,23 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        citrusClient = CitrusClient.getInstance(mContext);
+        citrusClient.enableLog(Constants.enableLogging);
+
+        initCitrusClient();
+
+        citrusClient.enableAutoOtpReading(true);
+        citrusConfig = CitrusConfig.getInstance();
+        citrusConfig.setColorPrimary(Constants.colorPrimary);
+        citrusConfig.setColorPrimaryDark(Constants.colorPrimaryDark);
+        citrusConfig.setTextColorPrimary(Constants.textColor);
+        citrusConfig.enableOneTapPayment(Constants.ENABLE_ONE_TAP_PAYMENT);
         addDynamicFragment();
         createDB();
+    }
+
+    private void initCitrusClient() {
+        citrusClient.init(Constants.SIGNUP_ID, Constants.SIGNUP_SECRET, Constants.SIGNIN_ID, Constants.SIGNIN_SECRET, Constants.VANITY, Constants.environment);
     }
 
     @Override
@@ -109,13 +131,13 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.textViewCheckStatus:
                 vibrate();
-//                replaceFragment(CheckStatus.newInstance("1","1"));
-                replaceFragment(PayablePayment.newInstance("1","1"));
+                replaceFragment(CheckStatus.newInstance("1","1"));
+//                replaceFragment(PayablePayment.newInstance("1","1"));
                 break;
             case R.id.imageViewCheckStatus:
                 vibrate();
-//                replaceFragment(CheckStatus.newInstance("1","1"));
-                replaceFragment(PayablePayment.newInstance("1","1"));
+                replaceFragment(CheckStatus.newInstance("1","1"));
+//                replaceFragment(PayablePayment.newInstance("1","1"));
                 break;
 
             /*Select Applicaiton Type */
@@ -168,8 +190,6 @@ public class Home extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -179,6 +199,22 @@ public class Home extends AppCompatActivity
         } else if(getSupportFragmentManager().findFragmentByTag("HomeFragment")!= null && getSupportFragmentManager().findFragmentByTag("HomeFragment").isVisible())
          {
             super.onBackPressed();
+        }
+        else if(getSupportFragmentManager().findFragmentByTag("CreditCard")!= null && getSupportFragmentManager().findFragmentByTag("CreditCard").isVisible())
+        {
+            replaceFragment(PayablePayment.newInstance("1","1"));
+        }
+        else if(getSupportFragmentManager().findFragmentByTag("DebitCard")!= null && getSupportFragmentManager().findFragmentByTag("DebitCard").isVisible())
+        {
+            replaceFragment(PayablePayment.newInstance("1","1"));
+        }
+        else if(getSupportFragmentManager().findFragmentByTag("NetBanking")!= null && getSupportFragmentManager().findFragmentByTag("NetBanking").isVisible())
+        {
+            replaceFragment(PayablePayment.newInstance("1","1"));
+        }
+        else if(getSupportFragmentManager().findFragmentByTag("Wallet")!= null && getSupportFragmentManager().findFragmentByTag("Wallet").isVisible())
+        {
+            replaceFragment(PayablePayment.newInstance("1","1"));
         }
             else
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,HomeFragment.newInstance("1","2"),"HomeFragment").commit();
@@ -218,7 +254,6 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_exit) {
             alertDialogPostReport();
         }
-
 //
 // else if (id == R.id.nav_send) {
 //}
