@@ -35,7 +35,7 @@ public class DatePickerFragmentDownload extends DialogFragment
         // Do something with the date chosen by the user
 
         br = new StringBuilder();
-        br.append(Integer.toString(day)).append("/").append(Integer.toString(month)).append("/").append(Integer.toString(year));
+        br.append(Integer.toString(day)).append("/").append(Integer.toString(month+1)).append("/").append(Integer.toString(year));
 
         DownloadPDF.editDownloadPdfDate.setText(br.toString());
 

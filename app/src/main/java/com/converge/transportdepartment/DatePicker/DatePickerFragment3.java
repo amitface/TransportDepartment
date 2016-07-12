@@ -37,7 +37,7 @@ public   class DatePickerFragment3 extends DialogFragment
 
 
             br = new StringBuilder();
-            br.append(Integer.toString(day)).append("/").append(Integer.toString(month)).append("/").append(Integer.toString(year));
+            br.append(Integer.toString(day)).append("/").append(Integer.toString(month+1)).append("/").append(Integer.toString(year));
 
             IdProof.editTextDateofIssue3.setText(br.toString());
         }
