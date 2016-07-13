@@ -35,10 +35,6 @@ dependencies {
 // Other retrofit dependencies.( This is mandatory for retrofit 1.9 and retrofit 2.0)
 
 
-    
-
-
-
     compile 'com.google.android.gms:play-services-ads:9.0.2'
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
