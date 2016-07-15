@@ -82,10 +82,10 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                PersonalDetails.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),
                 IdProof.class, null);
-//        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
-//               SelectSchedule.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("",getResources().getDrawable(R.drawable.app_schedule_selected,null)),
+        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
                SelectSchedule.class, null);
+//        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("",getResources().getDrawable(R.drawable.app_schedule_selected,null)),
+//               SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
         mTabHost.getTabWidget().setEnabled(false);

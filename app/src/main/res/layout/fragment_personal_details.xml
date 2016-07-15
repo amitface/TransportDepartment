@@ -115,18 +115,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
-                        android:maxLength="17"
+                        android:inputType="textPersonName|textCapCharacters"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:maxLength="17"
                         android:paddingLeft="5dp"
+
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextViewApplicantMiddleName"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapCharacters"
                         android:maxLength="6"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
@@ -137,7 +138,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="17"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -224,9 +227,66 @@
                         android:layout_span="3"
                         android:layout_margin="2dp"
                         android:maxLength="50"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp" />
                 </TableRow>
+                 <!--Country-->
+                 <TableRow
+                     android:layout_marginTop="8dp"
+                     >
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="12dp"
+                         android:layout_gravity="start"
+                         android:layout_span="3"
+                         android:layout_margin="2dp"
+                         android:paddingLeft="5dp"
+                         android:text="Country by Birth*"/>
+                 </TableRow>
+                 <TableRow>
+                     <Spinner
+                         android:id="@+id/spinnerCountry"
+                         android:layout_width="match_parent"
+                         android:layout_height="36dp"
+                         android:paddingLeft="4dp"
+                         android:entries="@array/Country"
+                         android:layout_marginRight="2dp"
+                         android:layout_span="3"
+                         android:layout_margin="2dp"
+
+                         android:background="@drawable/gradient_spinner"
+                         android:spinnerMode="dialog" />
+                 </TableRow>
+                 <!--Citizenship status-->
+                 <TableRow
+                     android:layout_marginTop="10dp">
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="12sp"
+                         android:layout_margin="2dp"
+                         android:layout_gravity="start"
+                         android:layout_span="3"
+
+                         android:text="Citizenship status by*"/>
+                 </TableRow>
+                 <TableRow>
+                     <Spinner
+                         android:id="@+id/spinnerCitizenship"
+                         android:layout_width="match_parent"
+                         android:layout_height="36dp"
+                         android:paddingLeft="4dp"
+                         android:entries="@array/Citizenship"
+                         android:layout_marginRight="2dp"
+                         android:layout_span="3"
+
+                         android:background="@drawable/gradient_spinner"
+                         android:spinnerMode="dropdown" />
+                 </TableRow>
                 <!--Migration time-->
                 <TableRow
                     android:layout_marginTop="8dp"
@@ -240,10 +300,8 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
                         android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
-
-
-
                 </TableRow>
+
                 <TableRow>
                     <EditText
                         android:id="@+id/editTextMonth"
@@ -252,7 +310,9 @@
                         android:layout_span="1"
                         android:hint="Year"
                         android:layout_margin="2dp"
-                        android:inputType="number"
+                        android:inputType="number|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="4"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -264,39 +324,14 @@
                         android:hint="Month"
                         android:maxLength="2"
                         android:layout_margin="2dp"
-                        android:inputType="number"
+                        android:inputType="number|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
 
-                <!--Country-->
-                <TableRow
-                    android:layout_marginTop="8dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_span="3"
-                        android:layout_margin="2dp"
-                        android:paddingLeft="5dp"
-                        android:text="Country by Birth*"/>
-                </TableRow>
-                <TableRow>
-                    <Spinner
-                        android:id="@+id/spinnerCountry"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:paddingLeft="4dp"
-                        android:entries="@array/Country"
-                        android:layout_marginRight="2dp"
-                        android:layout_span="3"
-                        android:layout_margin="2dp"
 
-                        android:background="@drawable/gradient_spinner"
-                        android:spinnerMode="dialog" />
-                </TableRow>
                 <!--EmailId-->
                 <TableRow>
                     <TextView
@@ -316,7 +351,9 @@
                         android:id="@+id/editTextEmail"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textEmailAddress|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="50"
                         android:layout_span="3"
                         android:paddingLeft="5dp"
@@ -388,7 +425,10 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
+
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="17"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
@@ -398,7 +438,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="6"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
@@ -408,7 +450,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="17"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
@@ -431,7 +475,7 @@
                     android:layout_margin="2dp"
                     android:layout_gravity="start|center_vertical"
                     android:textColor="@android:color/white"
-                    android:text="Permanent Address"/>
+                    android:text="Present Address"/>
                 <ImageView
                     android:id="@+id/imagePermanent"
                     android:layout_width="70dp"
@@ -453,7 +497,7 @@
                 android:gravity="center_horizontal"
                 android:layout_gravity="start|center_vertical"
 
-                android:text="At least one feild required in Permanent Address"/>
+                android:text="At least one feild required in Present Address"/>
              <TableLayout
                 android:id="@+id/tablelayoutPermanenetAddress"
                 android:layout_width="match_parent"
@@ -492,6 +536,8 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:layout_span="1" />
                     <EditText
@@ -500,6 +546,8 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="2" />
@@ -536,6 +584,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
 
@@ -545,6 +596,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="2" />
 
@@ -572,6 +626,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -603,6 +660,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -634,6 +694,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -663,11 +726,11 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
-
-
-
                 </TableRow>
 
                 <!--State-->
@@ -745,9 +808,6 @@
                     android:id="@+id/tableRowAddress17"
                     android:layout_marginTop="10dp"
                     >
-
-
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -810,7 +870,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
-                        android:text="Present address same as Premanant"/>
+                        android:text="Permanent address same as Present"/>
                 </LinearLayout>
              <!--Present  Address-->
              <RelativeLayout
@@ -831,7 +891,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Present Address"/>
+                    android:text="Permanent Address"/>
                 <ImageView
                     android:padding="3dp"
                     android:id="@+id/imagePresent"
@@ -839,7 +899,6 @@
                     android:layout_height="30dp"
                     android:paddingLeft="5dp"
                     android:layout_gravity="end|center_vertical"
-
                     android:src="@drawable/iocn_m"
                     android:layout_marginRight="6dp"
                     android:layout_alignParentTop="true"
@@ -855,7 +914,7 @@
                 android:gravity="center_horizontal"
                 android:paddingLeft="5dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="At least one feild required in Present Address"/>
+                android:text="At least one field required in Permanent Address"/>
              <TableLayout
                 android:id="@+id/tablelayoutPresentAddress"
                 android:layout_width="match_parent"
@@ -886,13 +945,15 @@
                 <TableRow
                     android:id="@+id/tableRowPresentAddress2" >
 
-
                     <EditText
                         android:id="@+id/editTextPresentFlatNum"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
                     <EditText
@@ -901,6 +962,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="2" />
 
@@ -929,13 +993,15 @@
                 <TableRow
                     android:id="@+id/tableRowPresentAddress4" >
 
-
                     <EditText
                         android:id="@+id/editTextPresentHouseNum"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
 
@@ -945,9 +1011,11 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="2" />
-
                 </TableRow>
 
                 <!--Third 1-->
@@ -971,6 +1039,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -999,6 +1070,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -1029,6 +1103,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -1057,6 +1134,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
+                        android:inputType="textPersonName|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -1120,8 +1200,10 @@
                         android:layout_span="1"
                         android:hint="Year*"
                         android:layout_margin="2dp"
-                        android:inputType="number"
                         android:paddingLeft="5dp"
+                        android:inputType="number|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPresentMonth"
@@ -1130,7 +1212,9 @@
                         android:layout_span="1"
                         android:hint="Month*"
                         android:layout_margin="2dp"
-                        android:inputType="number"
+                        android:inputType="number|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
                 <!-- PinCode mobile-->
@@ -1171,6 +1255,8 @@
                         android:paddingLeft="5dp"
                         android:maxLength="6"
                         android:inputType="phone"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
                         android:id="@+id/editTextPresentMoblieNo"
@@ -1181,6 +1267,9 @@
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
+
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:inputType="phone" />
 
                 </TableRow>
@@ -1229,33 +1318,6 @@
                 android:stretchColumns="*"
                 android:padding="6dip">
 
-                 <!--Citizenship status-->
-                 <TableRow
-                     android:layout_marginTop="10dp">
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:textSize="12sp"
-                         android:layout_margin="2dp"
-                         android:layout_gravity="start"
-                         android:layout_span="3"
-
-                         android:text="Citizenship status by*"/>
-                 </TableRow>
-                 <TableRow>
-                     <Spinner
-                         android:id="@+id/spinnerCitizenship"
-                         android:layout_width="match_parent"
-                         android:layout_height="36dp"
-                         android:paddingLeft="4dp"
-                         android:entries="@array/Citizenship"
-                         android:layout_marginRight="2dp"
-                         android:layout_span="3"
-
-                         android:background="@drawable/gradient_spinner"
-                         android:spinnerMode="dropdown" />
-                 </TableRow>
-
                 <!--Qualification-->
                 <TableRow
                 android:layout_marginTop="8dp"
@@ -1296,7 +1358,7 @@
                     android:layout_gravity="start"
                     android:layout_span="3"
 
-                    android:text="Id Mark"/>
+                    android:text="Id Mark 1"/>
             </TableRow>
             <TableRow
                 android:layout_gravity="center">
@@ -1323,7 +1385,7 @@
                          android:layout_gravity="start"
                          android:layout_span="3"
 
-                         android:text="Id Mark"/>
+                         android:text="Id Mark 2"/>
                  </TableRow>
                  <TableRow
                      android:layout_gravity="center">
@@ -1437,6 +1499,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         />
                     <EditText
@@ -1444,6 +1509,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1"
 
@@ -1454,13 +1522,12 @@
                         android:layout_height="36dp"
                         android:textSize="12dp"
                         android:layout_margin="2dp"
+                        android:inputType="text|textCapCharacters"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         />
-
                 </TableRow>
-
-
-
             </TableLayout>
         </LinearLayout>
     </ScrollView>

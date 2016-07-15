@@ -1,26 +1,21 @@
-package com.converge.transportdepartment;
+package com.converge.transportdepartment.Fragments;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.converge.transportdepartment.Fragments.CreditCardFragment;
-import com.converge.transportdepartment.Fragments.DebitCardFragment;
-import com.converge.transportdepartment.Fragments.NetbankingFragment;
-import com.converge.transportdepartment.Fragments.WalletFragment;
+import com.converge.transportdepartment.PaymentSuccessfull;
+import com.converge.transportdepartment.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,16 +29,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PayablePayment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PayablePayment#newInstance} factory method to
+ * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PayablePayment extends Fragment implements View.OnClickListener{
+public class WalletFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,24 +44,16 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private EditText editUserName;
+    private EditText editPassword;
+    private Button btnWallet;
 
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-    private String mFinalString1="mFinalString1";
-    private final String mFinalString2="mFinalString2";
-    private final String mFinalStringCov="mFinalStringCov";
 
-    private RadioGroup radioGroup;
-    private RadioButton radioButton1;
-    private RadioButton radioButton2;
-    private RadioButton radioButton3;
-    private RadioButton radioButton4;
 
-    private int pgoption ;
-
-    public PayablePayment() {
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -80,11 +63,11 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PayablePayment.
+     * @return A new instance of fragment WalletFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PayablePayment newInstance(String param1, String param2) {
-        PayablePayment fragment = new PayablePayment();
+    public static WalletFragment newInstance(String param1, String param2) {
+        WalletFragment fragment = new WalletFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -105,156 +88,36 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        View view = inflater.inflate(R.layout.fragment_wallet, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        hideKeyboard(getContext());
 
-        View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
-        pgoption=0;
-        TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText("Payable Amount : Rs. "+totalFee());
-        radioGroup = (RadioGroup) view.findViewById(R.id.radioPaymentOption);
+        editUserName = (EditText) view.findViewById(R.id.editWalletUser);
+        editPassword = (EditText) view.findViewById(R.id.editWalletPassword);
+        btnWallet = (Button) view.findViewById(R.id.btnWallet);
 
-        radioButton1 = (RadioButton) view.findViewById(R.id.radioCreditCard);
-        radioButton2 = (RadioButton) view.findViewById(R.id.radioDebitCard);
-        radioButton3 = (RadioButton) view.findViewById(R.id.radioNetBank);
-        radioButton4 = (RadioButton) view.findViewById(R.id.radioWalletAccounts);
+        btnWallet.setOnClickListener(this);
 
-        TextView textPayNow = (TextView) view.findViewById(R.id.buttonPayNow);
-        textPayNow.setText("Pay Rs : 1");
-        textPayNow.setOnClickListener(this);
-//        PayRequest(view);
-        return  view;
+        return view;
     }
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId())
-        {
-            case R.id.buttonPayNow:
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                if(selectedId==R.id.radioWalletAccounts)
-                {
-                    pgoption=4;
-                    callFragment();
-                }
-                else{
-                    if(selectedId==R.id.radioCreditCard)
-                    {
-                        pgoption=1;
-                    }else if(selectedId==R.id.radioDebitCard)
-                    {
-                        pgoption=2;
-                    }else if(selectedId==R.id.radioNetBank)
-                    {
-                        pgoption=3;
-                    }else
-                    {
-                        Toast.makeText(getActivity(),"Please select any one option",Toast.LENGTH_LONG).show();
-                        break;
-                    }
-                    PayRequest(v);
-                }
-
-                break;
-        }
-
-    }
-
-    private void callFragment() {
-        if(pgoption==1)
-        {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, CreditCardFragment.newInstance("1","1"),"CreditCard").commit();
-        }else if(pgoption ==2)
-        {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, DebitCardFragment.newInstance("1","1"),"DebitCard").commit();
-        }else if(pgoption==3)
-        {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1"),"NetBanking").commit();
-        }else if(pgoption==4)
-        {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
-        }
-
-    }
-    private int totalFee() {
-        String s= sharedpreferences.getString("mFinalStringCov","");
-        String arr[]=s.split(",");
-        int len =arr.length;
-        if(arr[0].length()>0)
-            len = len*30+20;
-        else
-            len=0;
-        return len;
-    }
-
-    public static void hideKeyboard(Context ctx) {
-        InputMethodManager inputManager = (InputMethodManager) ctx
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        // check if no view has focus:
-        View v = ((Activity) ctx).getCurrentFocus();
-        if (v == null)
-            return;
-
-        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        PayWalletRequest();
     }
 
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void PayWalletRequest() {
+        new sendWalletRequest(getActivity()).execute();
     }
 
-
-    public void PayRequest(View View) {
-        new sendPayRequest(getActivity()).execute();
-    }
-
-    private class sendPayRequest extends AsyncTask<Void, Integer, Integer> {
+    private class sendWalletRequest extends AsyncTask<Void, Integer, Integer> {
 
         private final Context context;
         private ProgressDialog progress;
         private static final int  MEGABYTE = 1024 * 1024;
 
-        public sendPayRequest(Context c) {
+        public sendWalletRequest(Context c) {
             this.context = c;
         }
 
@@ -274,7 +137,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             int l=0;
             try
             {
-                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+//                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/wallet/transaction");
 
                 JSONObject jsonObject = new JSONObject();
 
@@ -305,7 +169,9 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
-                jsonData.put("ref","45670123");
+                jsonData.put("ref",sharedpreferences.getString("receiptNum","").toString());
+                jsonData.put("usr","priyanka");
+                jsonData.put("pass","aes");
                 jsonData.put("data",jsonlist);
 
                 String json =jsonData.toString();
@@ -379,14 +245,19 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        callFragment();
+//                        startActivity(new Intent(getActivity(),TestDebitPaymentActivity.class));
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1")).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, DebitCardFragment.newInstance("1","1")).commit();
                     }
                 });
+
             }
             else
             {
                 Toast.makeText(getActivity(),"Payable payment failure",Toast.LENGTH_LONG).show();
             }
         }
+
     }
 }

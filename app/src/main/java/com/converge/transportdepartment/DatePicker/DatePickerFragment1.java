@@ -34,7 +34,7 @@ public   class DatePickerFragment1 extends DialogFragment
             // Do something with the date chosen by the user
 
             br = new StringBuilder();
-            br.append(Integer.toString(day)).append("/").append(Integer.toString(month)).append("/").append(Integer.toString(year));
+            br.append(Integer.toString(day)).append("/").append(Integer.toString(month+1)).append("/").append(Integer.toString(year));
 
             IdProof.editTextDateofIssue1.setText(br.toString());
 

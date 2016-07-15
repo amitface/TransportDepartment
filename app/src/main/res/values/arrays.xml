@@ -20,47 +20,51 @@
     
     <string-array name="RTO">
 
-
         <item>--- Select---</item>
-        <item >BALASORE RTO</item>
-        <item>BHUBANESWAR-I RTO</item>
-        <item>KHURDA ASST.RTO </item>
-        <item>BOLANGIR RTO </item>
-        <item>CHANDIKHOL RTO </item>
-        <item>CUTTACK RTO </item>
-        <item>DHENKANAL RTO </item>
-        <item>COLLECTORIATE BUILDING,MUNGER</item>
-        <item>KALAHANDI RTO </item>
-        <item>KEONJHAR RTO </item>
-        <item>BARBIL ADDL.RTO </item>
-        <item>KORAPUT RTO RTO</item>
-        <item>MAYURBHANJ RTO </item>
-        <item>RAIRANGPUR ASST.RTO</item>
-        <item>GANJAM</item>
-        <item>PHULBANI RTO </item>
-        <item>PURI RTO</item>
-        <item>PURI RTO </item>
-        <item>SAMBALPUR RTO </item>
-        <item>SUNDERGARH RTO</item>
-        <item>BARAGARH RTO </item>
-        <item>RAYAGADA RTO </item>
         <item>ANGUL RTO </item>
-        <item>GAJAPATI RTO</item>
-        <item>JAGATSINGHPUR RTO </item>
+        <item>BALASORE RTO</item>
+        <item>BARAGARH RTO </item>
+        <item>BARBIL ADDL.RTO </item>
         <item>BHADRAK ADDL.RTO </item>
+        <item>BHANJANAGAR RTO </item>
+        <item>BHUBANESWAR-I RTO</item>
+        <item>BHUBANESWAR-II RTO PATIA</item>
+
+        <item>BOLANGIR RTO </item>
+        <item>BOUDH RTO </item>
+
+
+        <item>CHANDIKHOL RTO </item>
+        <item>COLLECTORIATE BUILDING,MUNGER</item>
+        <item>CUTTACK RTO </item>
+        <item>DEOGARH RTO</item>
+        <item>DHENKANAL RTO </item>
+        <item>GAJAPATI RTO</item>
+        <item>GANJAM</item>
+        <item>JAGATSINGHPUR RTO </item>
+        <item>JAJPUR RTO COLLECTORATE</item>
         <item>JHARSUGUDA RTO </item>
+
+
+        <item>KALAHANDI RTO </item>
+        <item>KENDRAPARA RTO </item>
+        <item>KEONJHAR RTO </item>
+        <item>KHURDA ASST.RTO </item>
+        <item>KORAPUT RTO RTO</item>
+        <item>MALKANGIRI RTO </item>
+        <item>MAYURBHANJ RTO </item>
         <item>NAWARANGPUR RTO </item>
         <item>NAYAGARH ASST.RTO </item>
-        <item>PHULBANI RTO </item>
         <item>NUAPADA RTO </item>
-        <item>BOUDH RTO </item>
-        <item>DEOGARH RTO</item>
-        <item>KENDRAPARA RTO </item>
-        <item>MALKANGIRI RTO </item>
+
+        <item>PHULBANI RTO </item>
+        <item>PURI RTO</item>
+        <item>RAIRANGPUR ASST.RTO</item>
+        <item>RAYAGADA RTO </item>
+        <item>SAMBALPUR RTO </item>
         <item>SUBARNAPUR RTO </item>
-        <item>BHANJANAGAR RTO </item>
-        <item>BHUBANESWAR-II RTO PATIA</item>
-        <item>JAJPUR RTO COLLECTORATE</item>
+        <item>SUNDERGARH RTO</item>
+
         <item>TALCHER ADDL.RTO STADIUM</item>
     </string-array>
 
@@ -232,6 +236,7 @@
     <string-array name="states">
 
         <item>--State*--</item>
+        <item>Odisha</item>
         <item>Andaman and Nicobar</item>
         <item>Andhra Pradesh</item>
         <item>Arunachal Pradesh</item>
@@ -256,6 +261,7 @@
         <item>Madhya Pradesh</item>
         <item>Mizoram</item>
         <item>Nagaland</item>
+        <item>Odisha</item>
         <item>Punjab</item>
         <item>Pondicherry</item>
         <item>Rajasthan</item>
@@ -268,7 +274,6 @@
         <item>Daman and Diu</item>
         <item>Uttarakhand</item>
         <item>UA-Uttarakhand</item>
-        <item>Odisha</item>
     </string-array>
 
     <string-array name="idMark">
@@ -340,6 +345,7 @@
     <string-array name="Country">
 
         <item>Country</item>
+        <item>India    </item>
         <item> Afghanistan</item>
         <item>Albania   </item>
         <item>Algeria   </item>
@@ -442,6 +448,7 @@
 
        <item>Iceland  </item>
        <item>India    </item>
+
        <item>Indonesia</item>
        <item>Iran     </item>
        <item>Iraq     </item>
@@ -575,8 +582,6 @@
         <item>Turkmenistan         </item>
         <item>Tuvalu               </item>
 
-
-
        <item>Uganda                   </item>
        <item>Ukraine                  </item>
        <item>United Arab Emirates     </item>
@@ -585,19 +590,15 @@
        <item>Uzbekistan               </item>
 
 
-
        <item>Vanuatu      </item>
        <item>Venezuela    </item>
        <item>Vietnam      </item>
-
-
 
        <item> Yemen</item>
 
 
        <item> Zambia   </item>
        <item> Zimbabwe </item>
-
     </string-array>
 
     <string-array name="SDate">

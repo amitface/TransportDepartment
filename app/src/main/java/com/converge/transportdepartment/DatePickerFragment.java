@@ -38,15 +38,9 @@ public   class DatePickerFragment extends DialogFragment
                 showToast("age should be greater than 16");
                 return;
             }
-            String monthFormat,dayFormat;
-            if(Integer.toString(month+1).length()<2)
-            {
-                monthFormat="0"+Integer.toString(month+1);
-            }
-            else
-                monthFormat = Integer.toString(month+1);
+
             br = new StringBuilder();
-            br.append(Integer.toString(day)).append("/").append(monthFormat).append("/").append(Integer.toString(year));
+            br.append(Integer.toString(day)).append("/").append(Integer.toString(month+1)).append("/").append(Integer.toString(year));
 
             PersonalDetails.mtextViewDate.setText(br.toString());
         }

@@ -249,6 +249,20 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2", "1")).commit();
                 }
                 break;
+            case R.id.editTextYear:
+                if(!meditViewPlaceOfBirth.getText().toString().equals("INDIA"))
+                {
+                    meditViewMonth.setEnabled(true);
+                    meditViewYear.setEnabled(true);
+                }
+                break;
+            case R.id.editTextMonth:
+                if(!meditViewPlaceOfBirth.getText().toString().equals("INDIA"))
+                {
+                    meditViewMonth.setEnabled(true);
+                    meditViewYear.setEnabled(true);
+                }
+                break;
             case R.id.buttonBackPersonalDetail:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("0", "1")).commit();
                 break;
@@ -365,6 +379,19 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 onClickPersonalDetails(v);
             }
         });
+
+//        meditViewYear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickPersonalDetails(v);
+//            }
+//        });
+//        meditViewMonth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickPersonalDetails(v);
+//            }
+//        });
     }
 
 
@@ -386,6 +413,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewPlaceOfBirth= (EditText) rootView.findViewById(R.id.editTextPlaceofBirth);
         meditViewYear = (EditText) rootView.findViewById(R.id.editTextYear);
         meditViewMonth = (EditText) rootView.findViewById(R.id.editTextMonth);
+
+//        meditViewYear.setEnabled(false);
+//        meditViewMonth.setEnabled(false);
 
         meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsName);
         meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleName);
@@ -479,6 +509,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             if(c.getString(10).length()>0)
                 mspinnerCountry.setSelection(Integer.parseInt(c.getString(10)));
+            else
+                mspinnerCountry.setSelection(1);
 
             meditViewEmail.setText(c.getString(11));
 
@@ -499,6 +531,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             meditTextPermanentDistrict.setText(c.getString(23));
             if(c.getString(24).length()>0)
                 mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
+            else
+                mspinnerPermanentState .setSelection(1);
 
             meditTextPermanentMonth.setText(c.getString(25));
             meditTextPermanentYear.setText(c.getString(26));
@@ -514,7 +548,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             meditTextPresentTaluka.setText(c.getString(35));
             meditTextPresentDistrict.setText(c.getString(36));
             if(c.getString(37).length()>0)
-                mspinnerPresentState .setSelection(Integer.parseInt(c.getString(37)));
+                mspinnerPresentState.setSelection(Integer.parseInt(c.getString(37)));
+            else
+                mspinnerPresentState.setSelection(1);
             meditTextPresentMonth.setText(c.getString(38));
             meditTextPresentYear.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
@@ -683,7 +719,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerIdmark2.setSelection(0);
         mspinnerBloodGroup.setSelection(0);
         mspinnerRH.setSelection(0);
-        mspinnerPermanentState.setSelection(0);
+        mspinnerPermanentState.setSelection(1);
+        mspinnerPresentState.setSelection(1);
+        mspinnerCountry.setSelection(1);
 
         mtextViewDate.setText("");
     }
@@ -1228,10 +1266,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     }
 
-
-
-
-
     private boolean textFieldValidation()
     {
         if(usr_fname.length()<1 ||  usr_lname.length() <1 ||  usr_father_name.length() <1 || usr_email.length()<1 || usr_mobile.length()<1 ||
@@ -1262,26 +1296,42 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId())
+        {
+            case R.id.editTextYear:
+                if(!meditViewPlaceOfBirth.getText().toString().equals("INDIA"))
+                {
+                    meditViewMonth.setEnabled(true);
+                    meditViewYear.setEnabled(true);
+                }
+                break;
+            case R.id.editTextMonth:
+                if(!meditViewPlaceOfBirth.getText().toString().equals("INDIA"))
+                {
+                    meditViewMonth.setEnabled(true);
+                    meditViewYear.setEnabled(true);
+                }
+                break;
+        }
     }
 
     private void hidePersonalDetail()

@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_16_dp"
+    tools:context="com.converge.transportdepartment.Fragments.WalletFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/editWalletUser"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="5dp"
+        android:layout_margin="2dp"
+        android:background="@drawable/edit_text_personal_details"
+        android:hint="User Name"/>
+
+    <EditText
+        android:id="@+id/editWalletPassword"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="5dp"
+        android:background="@drawable/edit_text_personal_details"
+        android:layout_margin="2dp"
+        android:hint="Password"/>
+
+    <Button
+        android:id="@+id/btnWallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_margin="2dp"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:text="Pay Rs.1 "/>
+
+
+</LinearLayout>
