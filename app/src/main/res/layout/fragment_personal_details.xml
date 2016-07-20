@@ -497,7 +497,7 @@
                 android:gravity="center_horizontal"
                 android:layout_gravity="start|center_vertical"
 
-                android:text="At least one feild required in Present Address"/>
+                android:text="Atleast one field required in Present Address"/>
              <TableLayout
                 android:id="@+id/tablelayoutPermanenetAddress"
                 android:layout_width="match_parent"
@@ -870,7 +870,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
-                        android:text="Permanent address same as Present"/>
+                        android:text="Permanent address same as Present address."/>
                 </LinearLayout>
              <!--Present  Address-->
              <RelativeLayout
@@ -914,7 +914,7 @@
                 android:gravity="center_horizontal"
                 android:paddingLeft="5dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="At least one field required in Permanent Address"/>
+                android:text="Atleast one field required in Permanent Address"/>
              <TableLayout
                 android:id="@+id/tablelayoutPresentAddress"
                 android:layout_width="match_parent"

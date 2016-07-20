@@ -33,8 +33,25 @@ public   class DatePickerFragment1 extends DialogFragment
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
 
+            String monthFormat,dayFormat;
+
+            if(Integer.toString(month+1).length()<2)
+            {
+                monthFormat="0"+Integer.toString(month+1);
+            }
+            else
+                monthFormat = Integer.toString(month+1);
+
+            if(Integer.toString(day).length()<2)
+            {
+                dayFormat="0"+Integer.toString(day);
+            }
+            else
+                dayFormat = Integer.toString(day);
+
+
             br = new StringBuilder();
-            br.append(Integer.toString(day)).append("/").append(Integer.toString(month+1)).append("/").append(Integer.toString(year));
+            br.append(dayFormat).append("/").append(monthFormat).append("/").append(Integer.toString(year));
 
             IdProof.editTextDateofIssue1.setText(br.toString());
 

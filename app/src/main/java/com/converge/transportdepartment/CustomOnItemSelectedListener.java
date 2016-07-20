@@ -13,6 +13,14 @@ public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedL
         Toast.makeText(parent.getContext(),
                 "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
+        if(parent.getItemAtPosition(pos).toString().toUpperCase().equals("INDIA"))
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     @Override

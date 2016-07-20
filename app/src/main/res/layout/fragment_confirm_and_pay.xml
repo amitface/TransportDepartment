@@ -80,13 +80,11 @@
             </TableRow>
             <TableRow>
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="Smartchip fee+tax : Rs. 0"
                     android:background="@drawable/edit_text_personal_details"
-
                     android:padding="5dp"/>
 
                 <TextView
@@ -504,7 +502,7 @@
                     android:layout_gravity="start|center_vertical"
 
                     android:textColor="@android:color/white"
-                    android:text="Permanent Address"/>
+                    android:text="Present Address"/>
                 <ImageView
                     android:id="@+id/imagePermanentC"
                     android:layout_width="70dp"
@@ -872,7 +870,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Present Address"/>
+                    android:text="Premanent Address"/>
                 <ImageView
                     android:id="@+id/imagePresentC"
                     android:layout_width="70dp"

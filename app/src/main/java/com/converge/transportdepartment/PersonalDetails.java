@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -219,6 +220,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -465,7 +467,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerPresentState = (Spinner) rootView.findViewById(R.id.spinnerPresentState);
         mspinnerCitizenship = (Spinner) rootView.findViewById(R.id.spinnerCitizenship);
 
-
+        addListenerOnSpinnerItemSelection();
 
         mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
         mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanant);
@@ -823,7 +825,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 && meditTextPermanentTaluka.getText().length()==0)
         {
-            showToast("At least one field required in Permanant Address");
+            showToast("At least one field required in Present Address");
 //            showToast("Flat number cannot be empty");
             return false;
         }
@@ -859,12 +861,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //        }
         else if(meditTextPermanentDistrict.getText().length()==0)
         {
-            showToast("Permanent District cannot be empty");
+            showToast("Present District cannot be empty");
             return false;
         }
         else if(mspinnerPermanentState.getSelectedItemPosition()==0)
         {
-            showToast("Select Permanent State");
+            showToast("Select Present State");
             return false;
         }
 
@@ -890,7 +892,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit in Pincode");
+            showToast("only digit in Month");
             return false;
         }
         else if(meditTextPermanentMoblieNo.getText().length()!=10)
@@ -906,7 +908,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
-            showToast("At least one field required in Present Address");
+            showToast("At least one field required in Permanent Address");
 //            showToast("Flat number cannot be empty");
             return false;
         }
@@ -942,12 +944,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //        }
         else if(meditTextPresentDistrict.getText().length()==0)
         {
-            showToast("Present District cannot be empty");
+            showToast("Permanent District cannot be empty");
             return false;
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
-            showToast("Select  Present State ");
+            showToast("Select  Permanent State ");
             return false;
         }
 //        else if(meditTextPresentvillage.getText().length()==0)
@@ -982,7 +984,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid  Present Moblie Number ");
+            showToast("Invalid  Permanent Moblie Number ");
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
@@ -1423,7 +1425,28 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        mspinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        mspinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(adapterView.getItemAtPosition(i).toString().toUpperCase().equals("INDIA"))
+                {
+                        meditViewMonth.setText("");
+                        meditViewYear.setText("");
+                        meditViewYear.setEnabled(false);
+                        meditViewMonth.setEnabled(false);
+                }
+                else
+                {
+                    meditViewYear.setEnabled(true);
+                    meditViewMonth.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public void sendPostRequest(View View) {
