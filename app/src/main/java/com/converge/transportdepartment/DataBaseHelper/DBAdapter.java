@@ -293,8 +293,6 @@ public class DBAdapter {
 
     private static class DatabaseHelper extends SQLiteOpenHelper
     {
-
-
         DatabaseHelper(Context context)
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -313,7 +311,6 @@ public class DBAdapter {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

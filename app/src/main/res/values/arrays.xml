@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Gender">
-
         <item>--Select*--</item>
         <item>Male</item>
         <item>Female</item>
@@ -9,79 +8,19 @@
     </string-array>
 
     <string-array name="RelationType">
-
         <item>Select</item>
         <item>S/O </item>
         <item>W/O </item>
         <item>D/O </item>
-
-        
-    </string-array>
-    
-    <string-array name="RTO">
-
-        <item>--- Select---</item>
-        <item>ANGUL RTO </item>
-        <item>BALASORE RTO</item>
-        <item>BARAGARH RTO </item>
-        <item>BARBIL ADDL.RTO </item>
-        <item>BHADRAK ADDL.RTO </item>
-        <item>BHANJANAGAR RTO </item>
-        <item>BHUBANESWAR-I RTO</item>
-        <item>BHUBANESWAR-II RTO PATIA</item>
-
-        <item>BOLANGIR RTO </item>
-        <item>BOUDH RTO </item>
-
-
-        <item>CHANDIKHOL RTO </item>
-        <item>COLLECTORIATE BUILDING,MUNGER</item>
-        <item>CUTTACK RTO </item>
-        <item>DEOGARH RTO</item>
-        <item>DHENKANAL RTO </item>
-        <item>GAJAPATI RTO</item>
-        <item>GANJAM</item>
-        <item>JAGATSINGHPUR RTO </item>
-        <item>JAJPUR RTO COLLECTORATE</item>
-        <item>JHARSUGUDA RTO </item>
-
-
-        <item>KALAHANDI RTO </item>
-        <item>KENDRAPARA RTO </item>
-        <item>KEONJHAR RTO </item>
-        <item>KHURDA ASST.RTO </item>
-        <item>KORAPUT RTO RTO</item>
-        <item>MALKANGIRI RTO </item>
-        <item>MAYURBHANJ RTO </item>
-        <item>NAWARANGPUR RTO </item>
-        <item>NAYAGARH ASST.RTO </item>
-        <item>NUAPADA RTO </item>
-
-        <item>PHULBANI RTO </item>
-        <item>PURI RTO</item>
-        <item>RAIRANGPUR ASST.RTO</item>
-        <item>RAYAGADA RTO </item>
-        <item>SAMBALPUR RTO </item>
-        <item>SUBARNAPUR RTO </item>
-        <item>SUNDERGARH RTO</item>
-
-        <item>TALCHER ADDL.RTO STADIUM</item>
     </string-array>
 
-
-
-
-
-    
     <string-array name="Blood">
         <item>--select--</item>
-
         <item>A</item>
         <item>B</item>
         <item>AB</item>
         <item>O</item>
         <item>None</item>
-        
     </string-array>
 
     <string-array name="Rh">
@@ -149,88 +88,41 @@
     </string-array>
 
     <string-array name="Qualification">
-    <item>Select</item>
-    <!--<item>NOT SPECIFIED </item>-->
-    <!--<item>ILLITERATE </item>-->
-    <!--<item>PRIMARY </item>-->
-    <!--<item>SECONDARY </item>-->
-    <!--<item>HIGHER </item>-->
-    <!--<item>GRADUATE </item>-->
-    <!--<item>POST GRADUATE </item>-->
-    <!--<item>DIPLOMA </item>-->
-    <!--<item>ENGINEER </item>-->
-    <!--<item>HIGH SCHOOL </item>-->
-    <!--<item>MIDDLE </item>-->
-    <!--<item>DIPLOMA HOLDER </item>-->
-
+         <item>Select</item>
         <item> Illiterate</item>
-
         <item> Not specified </item>
-
         <item> Below 8 th </item>
-
         <item> 8th PASSED</item>
-
         <item>10th Class /SSC/ SSLC/CBSE (X)/ICSE (X)</item>
-
         <item> I T I </item>
-
         <item>Certificate course </item>
-
         <item> +2/Intermediate/ICSE (12th )/CBSE(12th)</item>
-
         <item> Diploma in Engineering (non Mechanical)</item>
-
         <item>Diploma in Mechanical Engineering </item>
-
         <item> Diploma in Other faculties </item>
-
         <item> DHMS</item>
-
         <item> B A / BBA / B. Com / B Sc </item>
-
         <item> Bachelor of Agriculture / Vet.Sciences </item>
-
         <item> B E ( other than Mechanical)</item>
-
         <item> B E (Mechanical)</item>
-
         <item> MBBS / BHMS / BAMS </item>
-
         <item> Bachelor of Education / Law </item>
-
         <item>Any Other Graduation Not specified above </item>
-
         <item> MA / MBA / M.Com / M.SC </item>
-
         <item>PG Diploma In Science/Arts/Commerce/Mgt </item>
-
         <item> PG Diploma In Engineering / Medicine</item>
-
         <item> M Sc (Agriculture / Vet. Sciences) </item>
-
         <item> M E ( other than Mechanical ) </item>
-
         <item> M E (Mechanical) </item>
-
         <item>MS / MD / MHMS / MAMS / MDS </item>
-
         <item> Master of Education / Law</item>
-
         <item> CA / ICWA / ICS – or equivalent </item>
-
         <item> Any Other PG/PG Diploma Not specified </item>
-
         <item> M Phil. (Sci/Arts/Com/ Edn/Law/ Mgt/etc)</item>
-
         <item> Ph.D. (Sci/Arts/Com/ Edn/Law/ Mgt/etc)</item>
-
         <item> Ph.D in Engineering </item>
-
         <item> Ph. D. in Medicine </item>
-
         <item> M. Ch. ( Surgery )/ D.M. ( Medicine )</item>
-
     </string-array>
 
     <string-array name="states">
@@ -300,45 +192,25 @@
 
     <string-array name="IdProof">
         <item>Select</item>
-
         <item>Psv Badge </item>
-
         <item> First Aid Certificate </item>
-
         <item> Driving Licence (DL) </item>
-
         <item>FIR(First Information Report) </item>
-
         <item> Hill Driving Training Certificate </item>
-
         <item> International Driving Permit (IDP) </item>
-
         <item> Learners Licence (LL) </item>
-
         <item> Driving Training Certificate </item>
-
         <item>Visa </item>
-
         <item> Hazardous Training Certificate </item>
-
         <item>Age-School/Educational Cert. </item>
-
         <item>Age-Passport </item>
-
         <item> Age-Birth Certificate </item>
-
         <item>Age-Affidavit by Magistrate/Notary Public </item>
-
         <item> Address-Voter- ID </item>
-
         <item>Address-Passport </item>
-
         <item> Address-LIC Policy </item>
-
         <item> Address-ID Card issued by Central/State Govt </item>
-
         <item> Address-PaySlip by Central/State Govt/Localbody </item>
-
         <item> Address-AADHAAR CARD </item>
     </string-array>
 
@@ -436,33 +308,22 @@
         <item>Guinea                    </item>
         <item>Guinea-Bissau             </item>
         <item>Guyana                    </item>
-
-
-
         <item>Haiti                   </item>
         <item>Holy See                </item>
         <item>Honduras                </item>
         <item>Hong Kong               </item>
         <item>Hungary                 </item>
-
-
        <item>Iceland  </item>
        <item>India    </item>
-
        <item>Indonesia</item>
        <item>Iran     </item>
        <item>Iraq     </item>
        <item>Ireland  </item>
        <item>Israel   </item>
        <item>Italy    </item>
-
-
         <item>Jamaica  </item>
         <item>Japan    </item>
         <item>Jordan   </item>
-
-
-
         <item>Kazakhstan    </item>
         <item>Kenya         </item>
         <item>Kiribati      </item>
@@ -471,8 +332,6 @@
         <item>Kosovo        </item>
         <item>Kuwait        </item>
         <item>Kyrgyzstan    </item>
-
-
        <item> Laos          </item>
        <item> Latvia        </item>
        <item> Lebanon       </item>
@@ -482,9 +341,6 @@
        <item> Liechtenstein </item>
        <item> Lithuania     </item>
        <item> Luxembourg    </item>
-
-
-
        <item> Macau              </item>
        <item> Macedonia          </item>
        <item> Madagascar         </item>
@@ -504,8 +360,6 @@
        <item> Montenegro         </item>
        <item> Morocco            </item>
        <item> Mozambique         </item>
-
-
        <item>Namibia                </item>
        <item>Nauru                  </item>
        <item>Nepal                  </item>
@@ -517,9 +371,6 @@
        <item>Nigeria                </item>
        <item>North Korea            </item>
        <item>Norway                 </item>
-
-
-
         <item>Pakistan                 </item>
         <item>Palau                    </item>
         <item>Palestinian Territories  </item>
@@ -530,14 +381,9 @@
         <item>Philippines              </item>
         <item>Poland                   </item>
         <item>Portugal                 </item>
-
-
-
        <item>Romania      </item>
        <item>Russia       </item>
        <item>Rwanda       </item>
-
-
        <item>Saint Kitts and Nevis           </item>
        <item>Saint Lucia                     </item>
        <item>Saint Vincent and the Grenadines</item>
@@ -566,9 +412,6 @@
        <item>Sweden                          </item>
        <item>Switzerland                     </item>
        <item>Syria                           </item>
-
-
-
         <item>Taiwan               </item>
         <item>Tajikistan           </item>
         <item>Tanzania             </item>
@@ -621,5 +464,815 @@
         <item>15:10 to 15:50</item>
         <item>16:00 to 16:40</item>
     </string-array>
+
+
+    <string-array name ="RtoMaster">
+        <item>Balasore</item>
+        <item>Bhubaneswar - I</item>
+        <item>Bolangir</item>
+        <item>Chandikhole</item>
+        <item>Cuttack</item>
+        <item>Dhenkanal</item>
+        <item>Chatarpur</item>
+        <item>Kalahandi</item>
+        <item>Keonjhar</item>
+        <item>Koraput</item>
+        <item>Mayurbhanj</item>
+        <item>Phulbani</item>
+        <item>Puri</item>
+        <item>Rourkela</item>
+        <item>Sambalpur</item>
+        <item>Sundargarh</item>
+        <item>Bargarh</item>
+        <item>Rayagada</item>
+        <item>Angul</item>
+        <item>Gajpati</item>
+        <item>Jagatsinghpur</item>
+        <item>Bhadrak</item>
+        <item>Jharusguda</item>
+        <item>Nawrangpur</item>
+        <item>Nayagarh</item>
+        <item>Nuapada</item>
+        <item>Boudh</item>
+        <item>Deogarh</item>
+        <item>Kendrapara</item>
+        <item>Malkanagiri</item>
+        <item>Sonepur</item>
+        <item>Bhanjanagar</item>
+        <item>Bhubaneswar - II</item>
+        <item>Jajpur</item>
+        <item>Talcher</item>
+        <item>Khurda</item>
+        <item>Barbil</item>
+        <item>Rayrangpur</item>
+    </string-array>
+
+
+    <string-array name="RTO">
+        <item>--- Select---</item>
+        <item>Angul</item>
+        <item>Badbil ARTO </item>
+        <item>Balasore</item>
+        <item>Bargarh</item>
+        <item>Bhadrak</item>
+        <item>Bhanjanagar</item>
+        <item>Bhubaneswar-1</item>
+        <item>Bhubaneswar-2</item>
+        <item>Bolangiri</item>
+        <item>Boudh</item>
+        <item>Chandikhole</item>
+        <item>Cuttack</item>
+        <item>Deogarh </item>
+        <item>Dhenkanal</item>
+        <item>Gajapati</item>
+        <item>Ganjam</item>
+        <item>Jagatsinghpur</item>
+        <item>Jajpur</item>
+        <item>Jharsuguda</item>
+        <item>Kalahandi</item>
+        <item>Kendrapara </item>
+        <item>Keonjhar</item>
+        <item>Koraput</item>
+        <item>Khurda ARTO</item>
+        <item>Malkanagiri </item>
+        <item>Mayurbhanj</item>
+        <item>Nabarangpur</item>
+        <item>Nayagarh</item>
+        <item>Nuapada</item>
+        <item>Phulbani</item>
+        <item>Puri</item>
+        <item>Rairangpur ARTO</item>
+        <item>Raygada</item>
+        <item>Rourkela</item>
+        <item>Sambalpur</item>
+        <item>Sundragarh</item>
+        <item>Sonepur</item>
+        <item>Talcher</item>
+    </string-array>
+
+    <string-array name="district">
+        <item>--Select District--</item>
+        <item>Angul</item>
+        <item>Keonjhar</item>
+        <item>Balasore</item>
+        <item>Bargarh</item>
+        <item>Bhadrak</item>
+        <item>Ganjam</item>
+        <item>Khurda</item>
+        <item>Khurda</item>
+        <item>Bolangir</item>
+        <item>Boudh</item>
+        <item>Jajpur</item>
+        <item>Cuttack</item>
+        <item>Deogarh</item>
+        <item>Dhenkanal</item>
+        <item>Gajapati</item>
+        <item>Ganjam</item>
+        <item>Jagatsinghpur</item>
+        <item>Jajpur</item>
+        <item>Jharsuguda</item>
+        <item>Kalahandi</item>
+        <item>Kendrapara</item>
+        <item>Keonjhar</item>
+        <item>Koraput</item>
+        <item>Khurda</item>
+        <item>Malkanagiri</item>
+        <item>Mayurbhanj</item>
+        <item>Nabarangpur</item>
+        <item>Nayagarh</item>
+        <item>Nuapada</item>
+        <item>Phulban</item>
+        <item>Puri</item>
+        <item>Mayurbhanj</item>
+        <item>Rayagada</item>
+        <item>Sundragarh</item>
+        <item>Sambalpur</item>
+        <item>Sundragarh</item>
+        <item>Sonepur</item>
+        <item>Angul</item>
+    </string-array>
+
+    <string-array name="theesil">
+        <item>Select Rto first</item>
+    </string-array>
+
+    <string-array name="theesil1">
+        <item>--Select Taluka--</item>
+        <item>Bikrampur</item>
+        <item>Chhendipada</item>
+        <item>Colliery</item>
+        <item>Handapa</item>
+        <item>Jarapada</item>
+        <item>Kaniha</item>
+        <item>Khamar</item>
+        <item>Kishorenagar</item>
+        <item>N.T.P.C</item>
+        <item>NALCO</item>
+        <item>Palalahada</item>
+        <item>Purunakot</item>
+        <item>Rengali</item>
+        <item>Samal Barrage	Badibahal</item>
+        <item>Talcher Sadar</item>
+        <item>Thakurgarh</item>
+        <item>Anugul</item>
+        <item>Athmallik</item>
+        <item>Banarpal</item>
+        <item>Bantala</item>
+    </string-array>
+
+    <string-array name="theesil2">
+        <item>--Select Taluka--</item>
+        <item>Anandapur</item>
+        <item>Barbil</item>
+        <item>Baria</item>
+        <item>Champua</item>
+        <item>Daitari</item>
+        <item>Ghasipura</item>
+        <item>Ghatgaon</item>
+        <item>Harichandanpur</item>
+        <item>Joda</item>
+        <item>Kanjipani</item>
+        <item>Kendujhar Sadar</item>
+        <item>Kendujhar Town</item>
+        <item>Nandipada</item>
+        <item>Nayakote</item>
+        <item>Pandapara</item>
+        <item>Patana</item>
+        <item>Soso</item>
+        <item>Telkoi</item>
+        <item>Turumunga</item>
+    </string-array>
+
+    <string-array name="theesil3">
+        <item>--Select Taluka--</item>
+        <item>Baleshwar</item>
+        <item>Baleshwar Sadar</item>
+        <item>Baliapal</item>
+        <item>Bampada</item>
+        <item>Basta</item>
+        <item>Berhampur</item>
+        <item>Bhograi</item>
+        <item>Chandipur</item>
+        <item>Jaleswar</item>
+        <item>Khaira</item>
+        <item>Nilagiri</item>
+        <item>Oupada</item>
+        <item>Raibania</item>
+        <item>Remuna</item>
+        <item>Rupsa</item>
+        <item>Similia</item>
+        <item>Singla</item>
+        <item>Soro</item>
+        <item>Kantamal</item>
+        <item>Manamunda</item>
+        <item>Puruna Katak</item>
+    </string-array>
+
+    <string-array name="theesil4">
+        <item>--Select Taluka--</item>
+        <item>Ambabhona</item>
+        <item>Attabira</item>
+        <item>Barapali</item>
+        <item>Bargarh</item>
+        <item>Bhatli</item>
+        <item>Bheden</item>
+        <item>Bijepur</item>
+        <item>Burden</item>
+        <item>Gaisilet</item>
+        <item>Jharbandha</item>
+        <item>Melchhamunda</item>
+        <item>Padmapur</item>
+        <item>Paikamal</item>
+        <item>Sohela</item>
+    </string-array>
+
+    <string-array name="theesil5">
+        <item>--Select Taluka--</item>
+        <item>Agarpada</item>
+        <item>Bansada</item>
+        <item>Bant</item>
+        <item>Basudebpur</item>
+        <item>Bhadrak Rural</item>
+        <item>Chandabali</item>
+        <item>Dhamanagar</item>
+        <item>Dhusuri</item>
+        <item>Naikanidihi</item>
+        <item>Tihidi</item>
+    </string-array>
+    <string-array name="theesil6">
+        <item>--Select Taluka--</item>
+        <item>Asika</item>
+        <item>Badagada</item>
+        <item>Bhanjanagar</item>
+        <item>Brahmapur PS</item>
+        <item>Brahmapur Sadar</item>
+        <item>Buguda</item>
+        <item>Chhatrapur</item>
+        <item>Digapahandi</item>
+        <item>Gangapur</item>
+        <item>Golanthara</item>
+        <item>Gopalpur</item>
+        <item>Hinjili</item>
+        <item>Jarada</item>
+        <item>Kabisuryanagar</item>
+        <item>Khalikote</item>
+        <item>Kodala</item>
+        <item>Nuagaon</item>
+        <item>Patapur</item>
+        <item>Purusottampur</item>
+        <item>Ramagiri</item>
+        <item>Rambha</item>
+        <item>Surada</item>
+        <item>Tarasingi</item>
+    </string-array>
+    <string-array name="theesil7">
+        <item>--Select Taluka--</item>
+        <item>Balianta</item>
+        <item>Balipatna</item>
+        <item>Balugaon</item>
+        <item>Banapur</item>
+        <item>Begunia</item>
+        <item>Bhubaneswar PS</item>
+        <item>Bolagad</item>
+        <item>Jankia</item>
+        <item>Khandagiri</item>
+        <item>Khordha</item>
+        <item>Lingaraj</item>
+        <item>Tangi</item>
+    </string-array>
+    <string-array name="theesil8">
+        <item>--Select Taluka--</item>
+        <item>Balianta</item>
+        <item>Balipatna</item>
+        <item>Balugaon</item>
+        <item>Banapur</item>
+        <item>Begunia</item>
+        <item>Bhubaneswar PS</item>
+        <item>Bolagad</item>
+        <item>Jankia</item>
+        <item>Khandagiri</item>
+        <item>Khordha</item>
+        <item>Lingaraj</item>
+        <item>Tangi</item>
+    </string-array>
+    <string-array name="theesil9">
+        <item>No Data</item>
+    </string-array>
+    <string-array name="theesil10">
+        <item>--Select Taluka--</item>
+        <item>Baudh Sadar</item>
+        <item>Baunsuni</item>
+        <item>Harbhanga</item>
+    </string-array>
+    <string-array name="theesil11">
+        <item>--Select Taluka--</item>
+        <item>Badachana</item>
+        <item>Balichandrapur</item>
+        <item>Binjharpur</item>
+        <item>Dharmasala</item>
+        <item>Duburi</item>
+        <item>Jajapur</item>
+        <item>Jajapur Road</item>
+        <item>Korai</item>
+        <item>Mangalpur</item>
+        <item>Sukinda</item>
+    </string-array>
+    <string-array name="theesil12">
+        <item>--Select Taluka--</item>
+        <item>Athagad</item>
+        <item>Badamba</item>
+        <item>Baidyeswar</item>
+        <item>Banki</item>
+        <item>Barang</item>
+        <item>Choudwar</item>
+        <item>Gobindpur</item>
+        <item>Gurudijhatia</item>
+        <item>Jagatpur</item>
+        <item>Kanpur</item>
+        <item>Kishannagar</item>
+        <item>Mahanga</item>
+        <item>Narasinghpur</item>
+        <item>Niali</item>
+        <item>Salepur</item>
+        <item>Tangi</item>
+        <item>Tigiria</item>
+    </string-array>
+    <string-array name="theesil13">
+        <item>--Select Taluka--</item>
+        <item>Barkot</item>
+        <item>Debagarh</item>
+        <item>Kundheigola</item>
+        <item>Reamal</item>
+    </string-array>
+    <string-array name="theesil14">
+        <item>--Select Taluka--</item>
+        <item>Balimi</item>
+        <item>Bhuban</item>
+        <item>Dhenkanal Sadar</item>
+        <item>Gandia</item>
+        <item>Hindol</item>
+        <item>Kamakshyanagar</item>
+        <item>Motunga</item>
+        <item>Parajang</item>
+        <item>Rasol</item>
+        <item>Tumusingha</item>
+    </string-array>
+    <string-array name="theesil15">
+        <item>--Select Taluka--</item>
+        <item>Adva</item>
+        <item>Garabandha</item>
+        <item>Kashinagara</item>
+        <item>Mohana</item>
+        <item>Parlakhemundi</item>
+        <item>R.Udaygiri</item>
+        <item>Ramagiri</item>
+        <item>Rayagada</item>
+        <item>Serango</item>
+    </string-array>
+    <string-array name="theesil16">
+        <item>--Select Taluka--</item>
+        <item>Asika</item>
+        <item>Badagada</item>
+        <item>Bhanjanagar</item>
+        <item>Brahmapur PS</item>
+        <item>Brahmapur Sadar</item>
+        <item>Buguda</item>
+        <item>Chhatrapur</item>
+        <item>Digapahandi</item>
+        <item>Gangapur</item>
+        <item>Golanthara</item>
+        <item>Gopalpur</item>
+        <item>Hinjili</item>
+        <item>Jarada</item>
+        <item>Kabisuryanagar</item>
+        <item>Khalikote</item>
+        <item>Kodala</item>
+        <item>Nuagaon</item>
+        <item>Patapur</item>
+        <item>Purusottampur</item>
+        <item>Ramagiri</item>
+        <item>Rambha</item>
+        <item>Surada</item>
+        <item>Tarasingi</item>
+    </string-array>
+    <string-array name="theesil17">
+        <item>--Select Taluka--</item>
+        <item>Balikuda</item>
+        <item>Ersama</item>
+        <item>Jagatsinghapur</item>
+        <item>Kujang</item>
+        <item>Naugaon</item>
+        <item>Paradip</item>
+        <item>Tirtol</item>
+    </string-array>
+    <string-array name="theesil18">
+        <item>--Select Taluka--</item>
+        <item>Badachana</item>
+        <item>Balichandrapur</item>
+        <item>Binjharpur</item>
+        <item>Dharmasala</item>
+        <item>Duburi</item>
+        <item>Jajapur</item>
+        <item>Jajapur Road</item>
+        <item>Korai</item>
+        <item>Mangalpur</item>
+        <item>Sukinda</item>
+    </string-array>
+    <string-array name="theesil19">
+        <item>--Select Taluka--</item>
+        <item>Banaharapali</item>
+        <item>Belpahar</item>
+        <item>Brajarajnagar</item>
+        <item>Jharsuguda</item>
+        <item>Kolabira</item>
+        <item>Laikera</item>
+        <item>Lakhanpur</item>
+        <item>Orient</item>
+        <item>Rengali</item>
+    </string-array>
+    <string-array name="theesil20">
+        <item>--Select Taluka--</item>
+        <item>Dharamgarh</item>
+        <item>Jayapatna</item>
+        <item>Junagarh</item>
+        <item>Kegaon</item>
+        <item>Kesinga</item>
+        <item>Kokasara</item>
+        <item>Lanjigarh</item>
+        <item>Madanpur Rampur</item>
+        <item>Narala</item>
+        <item>Sadar</item>
+        <item>Thuamul</item>
+    </string-array>
+    <string-array name="theesil21">
+        <item>--Select Taluka--</item>
+        <item>Aali</item>
+        <item>Kendrapara</item>
+        <item>Mahakalapada</item>
+        <item>Patkura</item>
+        <item>Pattamundai</item>
+        <item>Rajkanika</item>
+        <item>Rajnagar</item>
+    </string-array>
+
+    <string-array name="theesil22">
+        <item>--Select Taluka--</item>
+        <item>Anandapur</item>
+        <item>Barbil</item>
+        <item>Baria</item>
+        <item>Champua</item>
+        <item>Daitari</item>
+        <item>Ghasipura</item>
+        <item>Ghatgaon</item>
+        <item>Harichandanpur</item>
+        <item>Joda</item>
+        <item>Kanjipani</item>
+        <item>Kendujhar Sadar</item>
+        <item>Kendujhar Town</item>
+        <item>Nandipada</item>
+        <item>Nayakote</item>
+        <item>Pandapara</item>
+        <item>Patana</item>
+        <item>Soso</item>
+        <item>Telkoi</item>
+        <item>Turumunga</item>
+    </string-array>
+
+    <string-array name="theesil23">
+        <item>--Select Taluka--</item>
+        <item>Bhairabsingipur</item>
+        <item>Boipariguda</item>
+        <item>Boriguma</item>
+        <item>Damanjodi</item>
+        <item>Dasamantapur</item>
+        <item>Jeypur</item>
+        <item>Kakiriguma</item>
+        <item>Koraput</item>
+        <item>Koraput Town</item>
+        <item>Kotpad</item>
+        <item>Kundura</item>
+        <item>Lakshmipur</item>
+        <item>Nandapur</item>
+        <item>Narayanpatana</item>
+        <item>Padua</item>
+        <item>Pottangi</item>
+        <item>Similiguda</item>
+        <item>Sunabeda</item>
+    </string-array>
+    <string-array name="theesil24">
+        <item>--Select Taluka--</item>
+        <item>Balianta</item>
+        <item>Balipatna</item>
+        <item>Balugaon</item>
+        <item>Banapur</item>
+        <item>Begunia</item>
+        <item>Bhubaneswar PS</item>
+        <item>Bolagad</item>
+        <item>Jankia</item>
+        <item>Khandagiri</item>
+        <item>Khordha</item>
+        <item>Lingaraj</item>
+        <item>Tangi</item>
+    </string-array>
+    <string-array name="theesil25">
+        <item>--Select Taluka--</item>
+        <item>Chitrakonda</item>
+        <item>Kalimela</item>
+        <item>M.V. 79	</item>
+        <item>Malkangiri</item>
+        <item>Motu</item>
+        <item>Mudulipada</item>
+        <item>Orkel</item>
+    </string-array>
+    <string-array name="theesil26">
+        <item>--Select Taluka--</item>
+        <item>Badampahar</item>
+        <item>Bahalda</item>
+        <item>Baisinga</item>
+        <item>Bangiriposi</item>
+        <item>Baripada PS</item>
+        <item>Baripada Sadar</item>
+        <item>Baripada Town</item>
+        <item>Barsahi</item>
+        <item>Betanati</item>
+        <item>Bisoi</item>
+        <item>Chandua</item>
+        <item>Gorumahisani</item>
+        <item>Jashipur</item>
+        <item>Jharpokharia</item>
+        <item>Kaptipada</item>
+        <item>Karanjia</item>
+        <item>Khunta</item>
+        <item>Koliana</item>
+        <item>Mahuldiha</item>
+        <item>Muruda</item>
+        <item>Rairangpur</item>
+        <item>Rairangpur Town</item>
+        <item>Raruan</item>
+        <item>Rasagobindapur</item>
+        <item>Sharata</item>
+        <item>Suliapada</item>
+        <item>Thakurmunda</item>
+        <item>Tiringi</item>
+        <item>Udala</item>
+    </string-array>
+    <string-array name="theesil27">
+        <item>--Select Taluka--</item>
+        <item>Chandahandi</item>
+        <item>Dabugan</item>
+        <item>Jharigan</item>
+        <item>Khatiguda</item>
+        <item>Kodinga</item>
+        <item>Nabarangapur</item>
+        <item>Paparahandi</item>
+        <item>Raighar</item>
+        <item>Tentulikhunti</item>
+        <item>Umarkote</item>
+    </string-array>
+    <string-array name="theesil28">
+        <item>--Select Taluka--</item>
+        <item>Dasapalla</item>
+        <item>Fategarh</item>
+        <item>Gania</item>
+        <item>Khandapada</item>
+        <item>Nayagarh</item>
+        <item>Nuagaon</item>
+        <item>Odagaon</item>
+        <item>Ranapur</item>
+        <item>Sarankul</item>
+    </string-array>
+    <string-array name="theesil29">
+        <item>--Select Taluka--</item>
+        <item>Boden</item>
+        <item>Jonk</item>
+        <item>Khariar</item>
+        <item>Komana</item>
+        <item>Nuapada</item>
+        <item>Sinapali</item>
+    </string-array>
+    <string-array name="theesil30">
+        <item>No Data</item>
+    </string-array>
+    <string-array name="theesil31">
+        <item>--Select Taluka--</item>
+        <item>Brahmagiri</item>
+        <item>Chandanpur</item>
+        <item>Delanga</item>
+        <item>Gop</item>
+        <item>Kakatpur</item>
+        <item>Konark</item>
+        <item>Krushna Prasad</item>
+        <item>Nimapada</item>
+        <item>Pipili</item>
+        <item>Sadar</item>
+        <item>Satyabadi</item>
+    </string-array>
+    <string-array name="theesil32">
+        <item>--Select Taluka--</item>
+        <item>Badampahar</item>
+        <item>Bahalda</item>
+        <item>Baisinga</item>
+        <item>Bangiriposi</item>
+        <item>Baripada PS</item>
+        <item>Baripada Sadar</item>
+        <item>Baripada Town</item>
+        <item>Barsahi</item>
+        <item>Betanati</item>
+        <item>Bisoi</item>
+        <item>Chandua</item>
+        <item>Gorumahisani</item>
+        <item>Jashipur</item>
+        <item>Jharpokharia</item>
+        <item>Kaptipada</item>
+        <item>Karanjia</item>
+        <item>Khunta</item>
+        <item>Koliana</item>
+        <item>Mahuldiha</item>
+        <item>Muruda</item>
+        <item>Rairangpur</item>
+        <item>Rairangpur Town</item>
+        <item>Raruan</item>
+        <item>Rasagobindapur</item>
+        <item>Sharata</item>
+        <item>Suliapada</item>
+        <item>Thakurmunda</item>
+        <item>Tiringi</item>
+        <item>Udala</item>
+    </string-array>
+    <string-array name="theesil33">
+        <item>--Select Taluka--</item>
+        <item>Ambadala</item>
+        <item>Bishamakatak</item>
+        <item>Gudari</item>
+        <item>Gunupur</item>
+        <item>Kalyanasingpur</item>
+        <item>Kashipur</item>
+        <item>Muniguda</item>
+        <item>Padmapur</item>
+        <item>Puttasing</item>
+        <item>Rayagada</item>
+        <item>Tikiri</item>
+    </string-array>
+    <string-array name="theesil34">
+        <item>--Select Taluka--</item>
+        <item>Banei</item>
+        <item>Banki</item>
+        <item>Baragaon</item>
+        <item>Bhasma</item>
+        <item>Biramitrapur</item>
+        <item>Bisra</item>
+        <item>Bondamunda</item>
+        <item>Brahmani Tarang</item>
+        <item>Gurundia</item>
+        <item>Hatibari</item>
+        <item>Hemgir</item>
+        <item>Kamarposh</item>
+        <item>Kinjirkela</item>
+        <item>Koida</item>
+        <item>Kutra</item>
+        <item>Lahunipara</item>
+        <item>Lephripara</item>
+        <item>Mahulpada</item>
+        <item>Raghunathapali</item>
+        <item>Raiboga</item>
+        <item>Rajagangapur</item>
+        <item>Raurkela IT PS</item>
+        <item>aurkela PS</item>
+        <item>Sundargarh</item>
+        <item>Sundargarh Town</item>
+        <item>Talasara</item>
+        <item>Tangarapali</item>
+        <item>Tikaetpali</item>
+    </string-array>
+    <string-array name="theesil35">
+        <item>--Select Taluka--</item>
+        <item>Ainthapali</item>
+        <item>Burla</item>
+        <item>Charamal</item>
+        <item>Dhama</item>
+        <item>Dhanupali</item>
+        <item>Govindpur</item>
+        <item>Hirakud</item>
+        <item>Jamankira</item>
+        <item>Jujomura</item>
+        <item>Katarbaga</item>
+        <item>Kisinda</item>
+        <item>Kochinda</item>
+        <item>Mahulpalli</item>
+        <item>Rairakhol</item>
+        <item>Sadar</item>
+        <item>Sambalpur PS</item>
+        <item>Sasan</item>
+    </string-array>
+    <string-array name="theesil36">
+        <item>--Select Taluka--</item>
+        <item>Banei</item>
+        <item>Banki</item>
+        <item>Baragaon</item>
+        <item>Bhasma</item>
+        <item>Biramitrapur</item>
+        <item>Bisra</item>
+        <item>Bondamunda</item>
+        <item>Brahmani Tarang</item>
+        <item>Gurundia</item>
+        <item>Hatibari</item>
+        <item>Hemgir</item>
+        <item>Kamarposh</item>
+        <item>Kinjirkela</item>
+        <item>Koida</item>
+        <item>Kutra</item>
+        <item>Lahunipara</item>
+        <item>Lephripara</item>
+        <item>Mahulpada</item>
+        <item>Raghunathapali</item>
+        <item>Raiboga</item>
+        <item>Rajagangapur</item>
+        <item>Raurkela IT PS</item>
+        <item>aurkela PS</item>
+        <item>Sundargarh</item>
+        <item>Sundargarh Town</item>
+        <item>Talasara</item>
+        <item>Tangarapali</item>
+        <item>Tikaetpali</item>
+    </string-array>
+    <string-array name="theesil37">
+        <item>--Select Taluka--</item>
+        <item>Binika</item>
+        <item>Biramaharajpur</item>
+        <item>Dunguripali</item>
+        <item>Rampur</item>
+        <item>Sonapur</item>
+        <item>Tarbha</item>
+        <item>Ulunda</item>
+    </string-array>
+    <string-array name="theesil38">
+        <item>--Select Taluka--</item>
+        <item>Bikrampur</item>
+        <item>Chhendipada</item>
+        <item>Colliery</item>
+        <item>Handapa</item>
+        <item>Jarapada</item>
+        <item>Kaniha</item>
+        <item>Khamar</item>
+        <item>Kishorenagar</item>
+        <item>N.T.P.C</item>
+        <item>NALCO</item>
+        <item>Palalahada</item>
+        <item>Purunakot</item>
+        <item>Rengali</item>
+        <item>Samal Barrage	Badibahal</item>
+        <item>Talcher Sadar</item>
+        <item>Thakurgarh</item>
+        <item>Anugul</item>
+        <item>Athmallik</item>
+        <item>Banarpal</item>
+        <item>Bantala</item>
+    </string-array>
+
+    <string-array name="pincode">
+        <item>759</item>
+        <item>756</item>
+    </string-array>
 </resources>
 
+
+    <!--<item>ANGUL RTO </item>-->
+    <!--<item>Badbil RTO </item>-->
+    <!--<item>BALASORE RTO</item>-->
+    <!--<item>BARAGARH RTO </item>-->
+
+    <!--<item>BARBIL ADDL.RTO </item>-->
+    <!--<item>BHADRAK ADDL.RTO </item>-->
+    <!--<item>BHANJANAGAR RTO </item>-->
+    <!--<item>BHUBANESWAR-I RTO</item>-->
+    <!--<item>BHUBANESWAR-II RTO PATIA</item>-->
+    <!--<item>BOLANGIR RTO </item>-->
+    <!--<item>BOUDH RTO </item>-->
+    <!--<item>CHANDIKHOL RTO </item>-->
+    <!--<item>COLLECTORIATE BUILDING,MUNGER</item>-->
+    <!--<item>CUTTACK RTO </item>-->
+    <!--<item>DEOGARH RTO</item>-->
+    <!--<item>DHENKANAL RTO </item>-->
+    <!--<item>GAJAPATI RTO</item>-->
+    <!--<item>GANJAM</item>-->
+    <!--<item>JAGATSINGHPUR RTO </item>-->
+    <!--<item>JAJPUR RTO COLLECTORATE</item>-->
+    <!--<item>JHARSUGUDA RTO </item>-->
+    <!--<item>KALAHANDI RTO </item>-->
+    <!--<item>KENDRAPARA RTO </item>-->
+    <!--<item>KEONJHAR RTO </item>-->
+    <!--<item>KHURDA ASST.RTO </item>-->
+    <!--<item>KORAPUT RTO RTO</item>-->
+    <!--<item>MALKANGIRI RTO </item>-->
+    <!--<item>MAYURBHANJ RTO </item>-->
+    <!--<item>NAWARANGPUR RTO </item>-->
+    <!--<item>NAYAGARH ASST.RTO </item>-->
+    <!--<item>NUAPADA RTO </item>-->
+    <!--<item>PHULBANI RTO </item>-->
+    <!--<item>PURI RTO</item>-->
+    <!--<item>RAIRANGPUR ASST.RTO</item>-->
+    <!--<item>RAYAGADA RTO </item>-->
+    <!--<item>SAMBALPUR RTO </item>-->
+    <!--<item>SUBARNAPUR RTO </item>-->
+    <!--<item>SUNDERGARH RTO</item>-->
+    <!--<item>TALCHER ADDL.RTO STADIUM</item>      -->

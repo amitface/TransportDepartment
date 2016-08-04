@@ -1,9 +1,11 @@
 package com.converge.transportdepartment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +14,17 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -457,10 +469,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         switch(view.getId())
         {
             case R.id.buttonNextSelectSchedule:
-                if(currentChecked!=0)
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
-                else
-                    Toast.makeText(getActivity(),"Select atleast one time slot",Toast.LENGTH_SHORT).show();
+                getSlot();
+//                if(currentChecked!=0)
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+//                else
+//                    Toast.makeText(getActivity(),"Select atleast one time slot",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
@@ -678,5 +691,119 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void getSlot()
+    {
+        new scheduleSlot(getActivity()).execute();
+    }
+
+    private class scheduleSlot extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+
+
+
+        public scheduleSlot(Context c) {
+            this.context = c;
+        }
+        protected void onPreExecute() {
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Sending mail");
+            progressSendMail.setCancelable(true);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+
+                String s="ApplDetReq";
+
+
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/ApplcntDetails");
+
+                connection = (HttpURLConnection) url.openConnection();
+                //Creating json object.
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("agentID", "smartchip");
+                jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.accumulate("seckey","");
+
+                String json = jsonObject.toString();
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return 0L;
+        }
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+
+                    }//public void run() {
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+
+                    }//public void run() {
+                });
+            }
+        }
     }
 }

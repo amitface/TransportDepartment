@@ -460,13 +460,13 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     private void disableField(View rootView) {
 
-
         meditViewApplicantFirstName.setEnabled(false);
         meditViewApplicantMiddleName.setEnabled(false);
         meditViewApplicantLastName.setEnabled(false);
 
         meditViewEmail.setEnabled(false);
         mimageViewDatePicker.setEnabled(false);
+        mimageViewDatePicker.setVisibility(View.GONE);
         mtextViewDate.setEnabled(false);
         meditViewPlaceOfBirth.setEnabled(false);
         meditViewYear.setEnabled(false);
@@ -538,8 +538,15 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 mspinnerGender.setSelection(Integer.parseInt(c.getString(6)));
 
             meditViewPlaceOfBirth.setText(c.getString(7));
-            meditViewYear.setText(c.getString(8));
-            meditViewMonth.setText(c.getString(9));
+            if(c.getString(8).equals(""))
+                meditViewYear.setText("0");
+            else
+                meditViewYear.setText(c.getString(8));
+
+            if(c.getString(9).equals(""))
+                meditViewMonth.setText("0");
+            else
+                meditViewMonth.setText(c.getString(9));
 
             if(c.getString(10).length()>0)
                 mspinnerCountry.setSelection(Integer.parseInt(c.getString(10)));
@@ -561,6 +568,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPermanentvillage.setText(c.getString(21));
             meditTextPermanentTaluka.setText(c.getString(22));
             meditTextPermanentDistrict.setText(c.getString(23));
+
             if(c.getString(24).length()>0)
                 mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
 
@@ -577,8 +585,10 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPresentvillage.setText(c.getString(34));
             meditTextPresentTaluka.setText(c.getString(35));
             meditTextPresentDistrict.setText(c.getString(36));
+
             if(c.getString(37).length()>0)
                 mspinnerPresentState .setSelection(Integer.parseInt(c.getString(37)));
+
             meditTextPresentMonth.setText(c.getString(38));
             meditTextPresentYear.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
@@ -813,7 +823,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
                 if(Integer.parseInt(detail[1].substring(1, 8))>0)
                 {
-
                     int  MEGABYTE = 1024 * 1024;
 //                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
                     URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
@@ -848,14 +857,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //Your code to run in GUI thread here
-
 //                        showToast("Email sent");
-
                         }//public void run() {
                     });
                 }
-//                return Integer.parseInt(detail[1].substring(1, 8));
+
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -886,7 +892,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                         //Your code to run in GUI thread here
 
 //                        showToast("Email sent");
-
                     }//public void run() {
                 });
             }
@@ -899,7 +904,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                         showToast("failure");
                     }//public void run() {
                 });
-
             }
         }
 

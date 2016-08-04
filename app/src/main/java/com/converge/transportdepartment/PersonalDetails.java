@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -105,8 +106,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private EditText meditTextPermanentStreet;
     private EditText meditTextPermanentLocality;
     private EditText meditTextPermanentvillage;
-    private EditText meditTextPermanentTaluka;
-    private EditText meditTextPermanentDistrict;
     private EditText meditTextPermanentMonth;
     private EditText meditTextPermanentYear;
     private EditText meditTextPermanentPinCode;
@@ -154,10 +153,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ","OD31 ",  "OD32 ", "OD33 ",
             "OD34 ", "OD35 "};
 
+    int arrTaluka[]={R.array.theesil,R.array.theesil1,R.array.theesil2,R.array.theesil3,R.array.theesil4,R.array.theesil5,R.array.theesil6,
+            R.array.theesil7,R.array.theesil8,R.array.theesil9,R.array.theesil10,
+            R.array.theesil11,R.array.theesil12,R.array.theesil13,R.array.theesil14,R.array.theesil15,R.array.theesil16,R.array.theesil17,
+            R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
+            R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
+            R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
+
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
-    private Spinner mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
+    private Spinner mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2, mSPerDistrict,meditTextPermanentTaluka;
 
     private ImageView mimageViewDatePicker;
 
@@ -169,6 +175,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
     private String usr_email, usr_qualification, usr_dob, usr_gender;
     private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
+
 
     private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
     private int int_apply_class, int_dob ;
@@ -220,7 +227,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
     }
 
@@ -307,6 +313,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString1, detailString());
+        editor.putString("EmailZ",meditViewEmail.getText().toString());
         editor.commit();
      }
 
@@ -429,8 +436,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditTextPermanentStreet = (EditText) rootView.findViewById(R.id.editTextPermanentStreet);
         meditTextPermanentLocality = (EditText) rootView.findViewById(R.id.editTextPermanentLocality);
         meditTextPermanentvillage = (EditText) rootView.findViewById(R.id.editTextPermanentvillage);
-        meditTextPermanentTaluka = (EditText) rootView.findViewById(R.id.editTextPermanentTaluka);
-        meditTextPermanentDistrict = (EditText) rootView.findViewById(R.id.editTextPermanentDistrict);
+        meditTextPermanentTaluka = (Spinner) rootView.findViewById(R.id.editTextPermanentTaluka);
         meditTextPermanentMonth = (EditText) rootView.findViewById(R.id.editTextPermanentMonth);
         meditTextPermanentYear = (EditText) rootView.findViewById(R.id.editTextPermanentYear);
         meditTextPermanentPinCode = (EditText) rootView.findViewById(R.id.editTextPermanentPinCode);
@@ -463,11 +469,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerIdmark2 = (Spinner) rootView.findViewById(R.id.spinnerIdmark2);
         mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroup);
         mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
+        mSPerDistrict = (Spinner) rootView.findViewById(R.id.sPerDistrict);
         mspinnerPermanentState = (Spinner) rootView.findViewById(R.id.spinnerPermanentState);
         mspinnerPresentState = (Spinner) rootView.findViewById(R.id.spinnerPresentState);
         mspinnerCitizenship = (Spinner) rootView.findViewById(R.id.spinnerCitizenship);
 
         addListenerOnSpinnerItemSelection();
+        addListenerOnSpinnerRtoSelection();
+        addListenerOnSpinnerDistrictSelection();
 
         mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
         mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanant);
@@ -529,8 +538,19 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             meditTextPermanentStreet.setText(c.getString(19));
             meditTextPermanentLocality.setText(c.getString(20));
             meditTextPermanentvillage.setText(c.getString(21));
-            meditTextPermanentTaluka.setText(c.getString(22));
-            meditTextPermanentDistrict.setText(c.getString(23));
+
+            if(c.getString(22).length()>0)
+            {
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))]));
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                meditTextPermanentTaluka.setAdapter(spinnerArrayAdapter);
+                meditTextPermanentTaluka.setSelection(Integer.parseInt(c.getString(22)));
+            }
+
+
+            if(c.getString(23).length()>0)
+                mSPerDistrict.setSelection(Integer.parseInt(c.getString(23)));
+
             if(c.getString(24).length()>0)
                 mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
             else
@@ -553,6 +573,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 mspinnerPresentState.setSelection(Integer.parseInt(c.getString(37)));
             else
                 mspinnerPresentState.setSelection(1);
+
             meditTextPresentMonth.setText(c.getString(38));
             meditTextPresentYear.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
@@ -612,8 +633,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         hashMap.put("p_street",meditTextPermanentStreet.getText().toString());
         hashMap.put("p_locality",meditTextPermanentLocality.getText().toString());
         hashMap.put("p_village_city",meditTextPermanentvillage.getText().toString());
-        hashMap.put("p_taluka",meditTextPermanentTaluka.getText().toString());
-        hashMap.put("p_district",meditTextPermanentDistrict.getText().toString());
+        hashMap.put("p_taluka",Integer.toString(meditTextPermanentTaluka.getSelectedItemPosition()));
+        hashMap.put("p_district",Integer.toString(mSPerDistrict.getSelectedItemPosition()));
         hashMap.put("p_state",Integer.toString(mspinnerPermanentState.getSelectedItemPosition()));
 
         hashMap.put("p_years",meditTextPermanentYear.getText().toString());
@@ -693,8 +714,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditTextPermanentStreet.setText("");
         meditTextPermanentLocality.setText("");
         meditTextPermanentvillage.setText("");
-        meditTextPermanentTaluka.setText("");
-        meditTextPermanentDistrict.setText("");
+        meditTextPermanentTaluka.setSelection(0);
+        mSPerDistrict.setSelection(0);
         meditTextPermanentMonth.setText("");
         meditTextPermanentYear.setText("");
         meditTextPermanentPinCode.setText("");
@@ -730,12 +751,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
 
     private boolean validate() {
+        String s="000";
+        if(meditTextPermanentPinCode.getText().length()==6)
+        {
+            s = meditTextPermanentPinCode.getText().toString().substring(0,2);
+        }
+
         if( mspinnerRTO.getSelectedItemPosition()==0)
         {
             showToast("Select RTO");
             return false;
         }
-
         else if(meditViewApplicantFirstName.getText().length()==0)
         {
             showToast("Enter applicant first name");
@@ -823,7 +849,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 showToast("Only aplhabets  allowed in Relations Name ");
                 return false;
         }
-        else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 && meditTextPermanentTaluka.getText().length()==0)
+        else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
             showToast("At least one field required in Present Address");
 //            showToast("Flat number cannot be empty");
@@ -854,12 +880,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //            showToast("Permanent village cannot be empty");
 //            return false;
 //        }
-//        else if( meditTextPermanentTaluka.getText().length()==0)
-//        {
-//            showToast("Permanent Taluka cannot be empty");
-//            return false;
-//        }
-        else if(meditTextPermanentDistrict.getText().length()==0)
+        else if( meditTextPermanentTaluka.getSelectedItemPosition()==0)
+        {
+            showToast("Present Taluka cannot be empty");
+            return false;
+        }
+        else if(mSPerDistrict.getSelectedItemPosition()==0)
         {
             showToast("Present District cannot be empty");
             return false;
@@ -888,6 +914,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
             showToast("Invalid Pincode ");
+            return false;
+        }
+        else if(!(s.equals("77") || s.equals("76") || s.equals("75")))
+        {
+            showToast("Present Pincode not vaild");
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
@@ -1028,8 +1059,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
         meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
         meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
-        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
-        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
+        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getSelectedItem().toString());
+        meditTextPresentDistrict.setText(mSPerDistrict.getSelectedItem().toString());
         meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
         meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
         meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
@@ -1105,8 +1136,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
                 "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
                 "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
-                "&p_taluka="+meditTextPermanentTaluka.getText().toString().toUpperCase()+
-                "&p_district="+meditTextPermanentDistrict.getText().toString().toUpperCase()+
+                "&p_taluka="+meditTextPermanentTaluka.getSelectedItem().toString().toUpperCase()+
+                "&p_district="+mSPerDistrict.getSelectedItem().toString().toUpperCase()+
 //                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
                 "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
                 "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
@@ -1440,6 +1471,39 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     meditViewYear.setEnabled(true);
                     meditViewMonth.setEnabled(true);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public void addListenerOnSpinnerRtoSelection() {
+        mspinnerRTO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mSPerDistrict.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public void addListenerOnSpinnerDistrictSelection() {
+        mSPerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                mSPerDistrict.setSelection(i);
+//                mSPerDistrict.setEnabled(false);
+                // Application of the Array to the Spinner
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, getResources().getStringArray(arrTaluka[i]));
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                meditTextPermanentTaluka.setAdapter(spinnerArrayAdapter);
             }
 
             @Override

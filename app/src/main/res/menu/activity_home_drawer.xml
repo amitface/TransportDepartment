@@ -10,6 +10,10 @@
             android:id="@+id/nav_apply_license"
             android:icon="@drawable/apply_nav"
             android:title="Apply for LL" />
+        <!--<item-->
+            <!--android:id="@+id/nav_rto_locator"-->
+            <!--android:title="Rto Locator"-->
+            <!--/>-->
         <item
             android:id="@+id/nav_check_status"
             android:icon="@drawable/check_nav"
@@ -27,20 +31,8 @@
             android:icon="@drawable/exit_nav"
             android:title="Exit" />
 
-    </group>
 
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    </group>
 
 </menu>
     <!--android:icon="@drawable/ic_menu_home"-->
@@ -48,3 +40,21 @@
     <!--android:icon="@drawable/ic_menu_gallery"-->
     <!--android:icon="@drawable/ic_menu_slideshow"-->
     <!--android:icon="@drawable/ic_menu_manage"-->
+
+    <!--<item android:title="Communicate">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/nav_share"-->
+    <!--android:icon="@drawable/ic_menu_share"-->
+    <!--android:title="Share" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_send"-->
+    <!--android:icon="@drawable/ic_menu_send"-->
+    <!--android:title="Send" />-->
+    <!--</menu>-->
+    <!--</item>-->
+
+    <!--<item-->
+    <!--android:id="@+id/nav_manage"-->
+    <!--android:icon="@drawable/ic_menu_manage"-->
+    <!--android:title="Tools" />-->

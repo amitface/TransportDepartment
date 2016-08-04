@@ -1,6 +1,7 @@
 package com.converge.transportdepartment;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +9,18 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DatePicker.DatePickerFragmentDownload;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 /**
@@ -46,6 +51,10 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     private String s;
     private TextView textDownload;
     public static TextView editDownloadPdfDate;
+    private ProgressDialog progress;
+    private EditText fN,lN;
+    private ImageView im;
+    private Button buttonDownloadPdf;
 
     public DownloadPDF() {
         // Required empty public constructor
@@ -87,33 +96,40 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        Button buttonDownloadPdf = (Button) view.findViewById(R.id.buttonDownloadFormPdf);
+        buttonDownloadPdf = (Button) view.findViewById(R.id.buttonDownloadFormPdf);
+        fN = (EditText) view.findViewById(R.id.etFirstName);
+        lN = (EditText) view.findViewById(R.id.etLastName);
+
+        im= (ImageView) view.findViewById(R.id.imageViewDatePickerDownloadPdf);
+        im.setOnClickListener(this);
+
+        editDownloadPdfDate = (TextView) view.findViewById(R.id.tvDate);
         textDownload = (TextView) view.findViewById(R.id.editDownloadPdf);
 
 
 
         if(new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage()) {
-            buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    s=getLength();
-                    if(s.length()==7) {
-                        ref = Integer.parseInt(s);
-                        Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
-                        downloadPdfForm(ref);
-                    }
-//                    else if(s.length()==0)
-//                    {
-//                        Toast.makeText(getActivity(), "Service not available", Toast.LENGTH_SHORT).show();
-//                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(), "Reference number wrong", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+
         }else
         new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+
+        buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                s=getLength();
+                if(s.length()==7) {
+                    ref = Integer.parseInt(s);
+                    Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
+                    downloadPdfForm(ref);
+                }
+                else if(fN.getText().length()>=3 && lN.getText().length()>=3 && editDownloadPdfDate.getText().length()!=0) {
+                    download(view);
+                }else
+                {
+                    Toast.makeText(getActivity(), "Reference number wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 
@@ -147,7 +163,13 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId())
+        {
+            case R.id.imageViewDatePickerDownloadPdf:
+                DialogFragment newFragment = new DatePickerFragmentDownload();
+                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+                break;
+        }
     }
 
     /**
@@ -226,8 +248,45 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
 
     BroadcastReceiver onNotificationClickDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-            Toast.makeText(ctxt, "Ummmm...hi!", Toast.LENGTH_LONG).show();
+            Toast.makeText(ctxt, "Form!", Toast.LENGTH_LONG).show();
         }
     };
 
+    public void download(View view){
+        progress=new ProgressDialog(getActivity());
+        progress.setMessage("Downloading Form");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setIndeterminate(true);
+        progress.setProgress(0);
+        progress.show();
+
+        final int totalProgressTime = 100;
+        final Thread t = new Thread() {
+            @Override
+            public void run() {
+                int jumpTime = 0;
+
+                while(jumpTime < totalProgressTime) {
+                    try {
+                        sleep(200);
+                        jumpTime += 5;
+                        progress.setProgress(jumpTime);
+                    }
+                    catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.hide();
+                        Toast.makeText(getActivity(),"No Data Found",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        };
+        t.start();
+    }
 }

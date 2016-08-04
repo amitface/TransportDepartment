@@ -124,6 +124,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
         getActivity().registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
 ////        getActivity().registerReceiver(onNotificationClick,
 ////                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 //        getActivity().registerReceiver(onCompleteDownload,
@@ -156,6 +157,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         TextView textReceipt  = (TextView) view.findViewById(R.id.textViewReceipt);
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
+        editText.setText(sharedpreferences.getString("EmailZ",""));
 //        textView1.setText("Please note Reference Number");
         textView2.setText("Application Form : "+sharedpreferences.getString("receiptNum",""));
         textReceipt.setText("Receipt No.      : R"+sharedpreferences.getString("receiptNum",""));
@@ -203,6 +205,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         if(Validation.isEmailAddress(editText,true)) {
                             emailToSend = editText.getText().toString();
                             new SendMail(getActivity()).execute();
+                            alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
                         }
                     }
                 });
@@ -590,7 +593,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             progressSendMail.setCancelable(true);
             progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressSendMail.setProgress(0);
-            progressSendMail.show();
+//            progressSendMail.show();
         }
 
         @Override
@@ -685,7 +688,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
         protected void onPostExecute(Long result) {
 
-            progressSendMail.dismiss();
+//            progressSendMail.dismiss();
             if(result==1)
             {
                 getActivity().runOnUiThread(new Runnable() {
@@ -694,7 +697,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         //Your code to run in GUI thread here
 
 //                        showToast("Email sent");
-                       alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+//                       alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
                     }//public void run() {
                 });
             }

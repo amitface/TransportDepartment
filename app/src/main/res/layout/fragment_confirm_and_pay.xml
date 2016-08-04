@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    android:padding="5dp"
+    android:padding="2dp"
     tools:context="com.converge.transportdepartment.ConfirmAndPay">
 
     <!-- TODO: Update blank fragment layout -->
@@ -34,8 +34,8 @@
                 android:textColor="@android:color/white"
                 android:padding="5dp"
                 android:text="Fee Information"
-                android:background="@color/colorPrimaryTransportDepartment"
-                />
+                android:background="@color/colorPrimaryTransportDepartment"/>
+
             <TableRow
                 android:layout_marginTop="5dp">
                 <TextView
@@ -45,20 +45,15 @@
                     android:textSize="10sp"
                     android:text="Application Fee : Rs. 0"
                     android:background="@drawable/edit_text_personal_details"
-
                     android:padding="5dp"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Postal fee: Rs.0"
                     android:textSize="10sp"
                     android:background="@drawable/edit_text_personal_details"
-
                     android:padding="5dp"/>
             </TableRow>
-
-
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,18 +61,16 @@
                     android:textSize="10sp"
                     android:text="PaperDoc fee+tax : Rs. 20"
                     android:background="@drawable/edit_text_personal_details"
-
                     android:padding="5dp"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Smart Card fee : Rs.0"
                     android:textSize="10sp"
                     android:background="@drawable/edit_text_personal_details"
-
                     android:padding="5dp"/>
             </TableRow>
+
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,7 +79,6 @@
                     android:text="Smartchip fee+tax : Rs. 0"
                     android:background="@drawable/edit_text_personal_details"
                     android:padding="5dp"/>
-
                 <TextView
                     android:id="@+id/textTotal"
                     android:layout_width="wrap_content"
@@ -94,7 +86,6 @@
                     android:text="Total Amount :Rs 290"
                     android:background="@drawable/edit_text_personal_details"
                     android:textSize="10sp"
-
                     android:padding="5dp"/>
             </TableRow>
             </TableLayout>
@@ -120,6 +111,45 @@
                 android:spinnerMode="dialog"
                 android:layout_span="3"
                 android:layout_marginTop="5dp" />
+            <TableLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:visibility="visible"
+                android:padding="6dip">
+                <!--Appointment Information-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Appointment Schedule"
+                    android:textSize="12sp"
+                    android:padding="2dp"
+                    android:layout_marginTop="5dp"/>
+                <TableRow
+                    android:layout_marginTop="2dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="Appointment date : 5/8/16"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:padding="5dp"/>
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Appointment time : 11:30 to 11:50"
+                        android:textSize="10sp"
+                        android:background="@drawable/edit_text_personal_details"
+                        android:padding="5dp"/>
+                </TableRow>
+            </TableLayout>
 
             <RelativeLayout
                 android:id="@+id/linearlayoutPersonalDetailC"
@@ -136,10 +166,11 @@
                     android:textSize="12sp"
                     android:layout_margin="2dp"
                     android:layout_gravity="center_vertical|start"
+                    android:layout_centerVertical="true"
                     android:text="Personal Detail"/>
                 <ImageView
                     android:id="@+id/imagePersonalC"
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:src="@drawable/iocn_m"
 
@@ -156,7 +187,7 @@
                 android:textAlignment="center"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:padding="6dip">
 
                 <TableRow
@@ -182,7 +213,6 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:text="Last Name"/>
-
                 </TableRow>
                 <TableRow>
                     <EditText
@@ -190,6 +220,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="textPersonName"
                         android:maxLength="17"
                         android:singleLine="true"
@@ -201,6 +234,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="textPersonName"
                         android:maxLength="6"
                         android:singleLine="true"
@@ -212,6 +248,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="textPersonName"
                         android:maxLength="17"
                         android:paddingLeft="5dp"
@@ -232,7 +271,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
-
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
@@ -252,8 +290,7 @@
                             android:layout_height="36dp"
                             android:src="@drawable/calender"
                             android:layout_gravity="start"
-
-                            />
+                            android:visibility="gone"/>
                         <TextView
                             android:id="@+id/textViewDateC"
                             android:layout_width="match_parent"
@@ -261,9 +298,7 @@
                             android:paddingTop="10dp"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
-
-                            android:background="@drawable/edit_text_personal_details"
-                            />
+                            android:background="@drawable/edit_text_personal_details"/>
                     </RelativeLayout>
 
                     <Spinner
@@ -271,11 +306,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:entries="@array/Gender"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
-
                 </TableRow>
 
                 <!--Place of Birth-->
@@ -298,6 +335,9 @@
                         android:layout_height="36dp"
                         android:layout_span="3"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:maxLength="50"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -314,9 +354,24 @@
                         android:layout_span="3"
                         android:layout_margin="2dp"
                         android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
 
-
-
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="1"
+                        android:text="Year"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="1"
+                        android:text="Month"
+                        android:layout_margin="2dp"
+                        android:paddingLeft="5dp"/>
                 </TableRow>
                 <TableRow>
                     <EditText
@@ -325,6 +380,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Year"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="4"
@@ -336,6 +394,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Month"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:maxLength="2"
                         android:layout_margin="2dp"
                         android:inputType="number"
@@ -364,6 +425,9 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Country"
                         android:layout_marginRight="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_span="3"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
@@ -388,6 +452,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:inputType="textEmailAddress"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:maxLength="50"
                         android:layout_span="3"
                         android:paddingLeft="5dp"
@@ -414,6 +481,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:entries="@array/RelationType"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
@@ -455,7 +525,9 @@
                         android:id="@+id/editTextRelationsNameC"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
-
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="textPersonName"
                         android:maxLength="17"
@@ -468,6 +540,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="textPersonName"
                         android:maxLength="6"
                         android:background="@drawable/edit_text_personal_details"
@@ -479,6 +554,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="textPersonName"
                         android:maxLength="17"
                         android:background="@drawable/edit_text_personal_details"
@@ -500,17 +578,16 @@
                     android:textSize="12sp"
                     android:layout_margin="2dp"
                     android:layout_gravity="start|center_vertical"
-
+                    android:layout_centerVertical="true"
                     android:textColor="@android:color/white"
                     android:text="Present Address"/>
                 <ImageView
                     android:id="@+id/imagePermanentC"
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:src="@drawable/iocn_m"
 
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
@@ -524,8 +601,6 @@
                 android:stretchColumns="*"
                 android:visibility="gone"
                 android:padding="6dip">
-
-
                 <TableRow
                     android:id="@+id/tableRowAddress1">
                     <TextView
@@ -552,6 +627,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:imeOptions="actionNext"
                         android:paddingLeft="5dp"
                         android:layout_span="1" />
@@ -562,6 +640,9 @@
                         android:layout_margin="2dp"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="2" />
 
@@ -595,6 +676,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="1" />
 
@@ -604,6 +688,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="2" />
 
@@ -630,11 +717,11 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
-
-
-
                 </TableRow>
 
 
@@ -660,6 +747,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
 
@@ -690,6 +780,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
 
@@ -718,6 +811,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
 
@@ -748,6 +844,9 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/states"
                         android:layout_marginRight="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_span="3"
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
@@ -768,9 +867,6 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:text="Duration of Stay"/>
-
-
-
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress16">
@@ -780,6 +876,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Year"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="3"
@@ -791,6 +890,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Month"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:maxLength="2"
@@ -835,6 +937,9 @@
                         android:layout_margin="2dp"
                         android:layout_span="1"
                         android:maxLength="6"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:inputType="phone"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -844,6 +949,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:layout_span="1"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
                         android:paddingLeft="5dp"
@@ -870,15 +978,14 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Premanent Address"/>
+                    android:text="Permanent Address"/>
                 <ImageView
                     android:id="@+id/imagePresentC"
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end|center_vertical"
-
                     android:src="@drawable/iocn_m"
-                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
@@ -919,6 +1026,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="1" />
@@ -927,6 +1037,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="2" />
@@ -962,6 +1075,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="1" />
@@ -971,6 +1087,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="2" />
@@ -997,6 +1116,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
@@ -1025,6 +1147,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
@@ -1055,6 +1180,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
@@ -1082,6 +1210,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp"
                         android:layout_span="3" />
@@ -1111,6 +1242,9 @@
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:spinnerMode="dialog" />
                 </TableRow>
@@ -1138,6 +1272,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Year"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:paddingLeft="5dp"
@@ -1148,6 +1285,9 @@
                         android:layout_height="36dp"
                         android:layout_span="1"
                         android:hint="Month"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_margin="2dp"
                         android:inputType="number"
                         android:paddingLeft="5dp"
@@ -1183,6 +1323,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:layout_span="1"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:maxLength="6"
                         android:inputType="phone"
                         android:paddingLeft="5dp"
@@ -1193,6 +1336,9 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:layout_span="1"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
                         android:paddingLeft="5dp"
@@ -1223,7 +1369,7 @@
                 <ImageView
 
                     android:id="@+id/imageOtherC"
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end|center_vertical"
                     android:src="@drawable/iocn_m"
@@ -1257,6 +1403,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:entries="@array/Citizenship"
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
@@ -1266,8 +1415,7 @@
 
                 <!--Qualification-->
                 <TableRow
-                    android:layout_marginTop="8dp"
-                    >
+                    android:layout_marginTop="8dp">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1275,9 +1423,6 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:text="Educational Qualification"/>
-
-
-
                 </TableRow>
                 <TableRow>
                     <Spinner
@@ -1285,6 +1430,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:entries="@array/Qualification"
                         android:layout_marginRight="2dp"
                         android:layout_span="3"
@@ -1303,7 +1451,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
 
-                        android:text="Id Mark"/>
+                        android:text="Id Mark 1"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1313,6 +1461,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_marginRight="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_span="3"
                         android:entries="@array/idMark"
                         android:background="@drawable/edit_text_personal_details"
@@ -1329,8 +1480,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-
-                        android:text="Id Mark"/>
+                        android:text="Id Mark 2"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1340,6 +1490,9 @@
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
                         android:layout_marginRight="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:layout_span="3"
                         android:entries="@array/idMark"
                         android:background="@drawable/edit_text_personal_details"
@@ -1372,6 +1525,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:entries="@array/Blood"
                         android:layout_marginRight="2dp"
                         android:background="@drawable/edit_text_personal_details"
@@ -1381,6 +1537,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:entries="@array/Rh"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_marginRight="2dp"
@@ -1404,6 +1563,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:paddingLeft="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3"
                         android:entries="@array/IdProof"/>
@@ -1444,6 +1606,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         />
                     <EditText
@@ -1453,7 +1618,6 @@
                         android:layout_margin="2dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1"
-
                         />
                     <EditText
                         android:id="@+id/editTextDateofIssue"
@@ -1461,13 +1625,8 @@
                         android:layout_height="36dp"
                         android:textSize="12dp"
                         android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-
+                        android:background="@drawable/edit_text_personal_details"/>
                 </TableRow>
-
-
-
             </TableLayout>
         </LinearLayout>
     </ScrollView>
