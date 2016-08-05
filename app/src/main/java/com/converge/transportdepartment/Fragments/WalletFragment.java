@@ -169,6 +169,15 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
+                jsonData.put("vehicle_number","Rohit");
+
+                jsonData.put("applicant_name","Rohit");
+                jsonData.put("tax_type","6");
+                jsonData.put("rto_acc_no","0");
+                jsonData.put("rfu1","");
+                jsonData.put("rfu2","");
+                jsonData.put("rfu3","");
+
                 jsonData.put("ref",sharedpreferences.getString("receiptNum","").toString());
                 jsonData.put("usr","priyanka");
                 jsonData.put("pass","aes");

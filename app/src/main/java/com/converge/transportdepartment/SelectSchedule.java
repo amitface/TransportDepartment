@@ -25,6 +25,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -474,7 +476,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 //                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
 //                else
 //                    Toast.makeText(getActivity(),"Select atleast one time slot",Toast.LENGTH_SHORT).show();
-                break;
+//                break;
+
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
                 break;
@@ -720,89 +723,118 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         @Override
         protected Long doInBackground(Void... params) {
-            HttpURLConnection connection=null;
-            try{
+        HttpURLConnection connection=null;
+        try{
 
-                String s="ApplDetReq";
+//             URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
+//               URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+
+            connection = (HttpURLConnection) url.openConnection();
+            //Creating json object.
+
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject.put("Applno", 102532);
+            jsonObject.put("dob", "20/08/1984");
+            jsonObject.put("servType", "LL");
+            jsonObject.put("usrName", "smartchip");
+            jsonObject.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+            jsonObject.put("serviceName","LLSlotBook");
 
 
-                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/ApplcntDetails");
+            JSONObject jsonObject1 = new JSONObject();
 
-                connection = (HttpURLConnection) url.openConnection();
-                //Creating json object.
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("agentID", "smartchip");
-                jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
-                jsonObject.accumulate("seckey","");
+//            jsonObject1.put("dob", "20/02/1983");
+            jsonObject1.put("servtype", "LL");
+            jsonObject1.put("agentId", "smartchip");
+            jsonObject1.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+            jsonObject1.put("serviceName","LLSlotBook");
+            jsonObject1.put("rtocode","CG04");
 
-                String json = jsonObject.toString();
+            JSONObject jsonObject2 = new JSONObject();
 
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestMethod("POST");
-                connection.setConnectTimeout(10000);
-                connection.setReadTimeout(10000);
-                connection.setDoInput(true);
-                connection.setDoOutput(true);
+//            Calendar cal = new GregorianCalendar(2016,7,20);
+//            jsonObject2.put("applno", 101464);
+//            jsonObject2.put("servType", "LL");
+//            jsonObject2.put("agentId", "smartchip");
+//            jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+//            jsonObject2.put("serviceName","LLSlotBook");
+//            jsonObject2.put("rtocode","GJ01");
+//            jsonObject2.put("slotDate",cal.getTime());
+//            jsonObject2.put("slotNo",1);
 
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(json);
-                dStream.flush();
-                dStream.close();
-                int responseCode = connection.getResponseCode();
-                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+            Calendar cal = new GregorianCalendar(2016,7,20);
+            jsonObject2.put("applno", 102526);
+            jsonObject2.put("serviceType", "LL");
+            jsonObject2.put("agentId", "smartchip");
+            jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+            jsonObject2.put("serviceName","LLSlotBook");
+            jsonObject2.put("rtocode","GJ01");
+            jsonObject2.put("slotDate","1471631400000");
+            jsonObject2.put("slotNo",1);
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                br.close();
-                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+            String json = jsonObject2.toString();
+            System.out.println(json);
+//            String json = "{\"applno\":102526,\"rtocode\":\"GJ01\",\"slotDate\":1471631400000,\"serviceType\":\"LL\",\"slotNo\":1,\"agentId\":\"smartchip\",\"pwd\":\"3998151263B55EB10F7AE1A974FD036E\",\"serviceName\":\"LLSlotBook\"}";
+            connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+            connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(25000);
+            connection.setReadTimeout(25000);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
 
-                return 1L;
-            }catch (FileNotFoundException e) {
-                e.printStackTrace();
+            DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+            dStream.writeBytes(json);
+            dStream.flush();
+            dStream.close();
+            int responseCode = connection.getResponseCode();
+            System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            StringBuilder responseOutput = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                responseOutput.append(line);
             }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+            System.out.println(responseOutput.toString());
+            return 1L;
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return 0L;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return 0L;
+        } catch (IOException e) {
+            e.printStackTrace();
             return 0L;
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return 0L;
+        }
+
+    }
+
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
             progressSendMail.setProgress(percent[0]);
         }
+
         protected void onPostExecute(Long result) {
             progressSendMail.hide();
             if(result==1)
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
 
-                    }//public void run() {
-                });
             }
             else
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
 
-                    }//public void run() {
-                });
             }
         }
     }

@@ -157,7 +157,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                     }
                     PayRequest(v);
                 }
-
                 break;
         }
 
@@ -305,7 +304,16 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
-                jsonData.put("ref","45670123");
+                jsonData.put("vehicle_number","Rohit");
+
+                jsonData.put("applicant_name","Rohit");
+                jsonData.put("tax_type","6");
+                jsonData.put("rto_acc_no","0");
+                jsonData.put("rfu1","");
+                jsonData.put("rfu2","");
+                jsonData.put("rfu3","");
+
+                jsonData.put("ref",sharedpreferences.getString("receiptNum",""));
                 jsonData.put("data",jsonlist);
 
                 String json =jsonData.toString();
@@ -319,6 +327,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
                 connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
@@ -328,8 +337,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 dStream.close();
                 int responseCode = connection.getResponseCode();
                 System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
-
-//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
 
                 final StringBuilder output = new StringBuilder("Request URL " + url);
                 output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
@@ -353,7 +360,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -370,6 +376,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
             progress.setProgress(percent[0]);
         }
+
         @Override
         protected void onPostExecute(Integer result) {
 
