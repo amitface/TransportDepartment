@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -64,6 +66,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     private String mParam2;
 
     ProgressDialog progressDialog;
+
+    private String jsonString;
+    private static final String PGInfo="PgInfo";
 
     private String mFinalString1="mFinalString1";
     private final String mFinalString2="mFinalString2";
@@ -150,7 +155,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-
+        jsonString=sharedpreferences.getString(PGInfo,"");
+        sendMessage();
 //        TextView textView1 = (TextView) view.findViewById(R.id.textView10);
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
         TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
@@ -1019,7 +1025,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("M-Parivahan ");
+             builder.setTitle("M-Parivahan ");
             builder.setItems(items, null);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -1035,6 +1041,84 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             });
             builder.show();
 
+    }
+
+
+    public void sendMessage()
+    {
+        new sendMsg(getActivity()).execute();
+    }
+
+    private class sendMsg extends AsyncTask<Void, Integer, Integer> {
+
+        private final Context context;
+        private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public sendMsg(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params)
+        {
+            int l=0;
+            try
+            {
+                JSONObject jsonObjectData= new JSONObject(jsonString);
+                URL url = new URL(" http://103.27.233.206/sendsms/");
+                String s ="msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+sharedpreferences.getString("receiptNum","")+". Date of appointment 11/08/2016 and Time 11:15 AM &mobile="+jsonObjectData.get("moblie");
+                System.out.println(s);
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+//                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(s);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print(responseCode);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+
+
+        }
     }
 }
 

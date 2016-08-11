@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,10 +67,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private static final String PGInfo="PgInfo";
 
     private RadioGroup radioGroup;
-    private RadioButton radioButton1;
-    private RadioButton radioButton2;
-    private RadioButton radioButton3;
-    private RadioButton radioButton4;
+    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private RelativeLayout R1,R2;
+    private ImageView imagePersonal,imageAtRto;
+    private int marker =1;
 
     private String jsonString;
 
@@ -125,13 +127,22 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         radioButton3 = (RadioButton) view.findViewById(R.id.radioNetBank);
         radioButton4 = (RadioButton) view.findViewById(R.id.radioWalletAccounts);
 
+        R1 = (RelativeLayout)view.findViewById(R.id.paymentOptionsTextId);
+        R2 = (RelativeLayout)view.findViewById(R.id.payAtRto);
+
+        R1.setOnClickListener(this);
+        R2.setOnClickListener(this);
+
+        imagePersonal = (ImageView) view.findViewById(R.id.imagePersonal);
+        imageAtRto = (ImageView)view.findViewById(R.id.imageAtRto);
+
         TextView textPayNow = (TextView) view.findViewById(R.id.buttonPayNow);
-        textPayNow.setText("Pay Rs : 1 ");
+        textPayNow.setText("Next");
         textPayNow.setOnClickListener(this);
 
         jsonString=sharedpreferences.getString(PGInfo,"");
 //        PayRequest(view);
-        sendMessage();
+
         return  view;
     }
 
@@ -140,36 +151,67 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
         switch (v.getId())
         {
+            case R.id.paymentOptionsTextId:
+                showBox();
+                break;
+            case R.id.payAtRto:
+                showBox();
+                break;
+
             case R.id.buttonPayNow:
                 int selectedId = radioGroup.getCheckedRadioButtonId();
-                if(selectedId==R.id.radioWalletAccounts)
+                if(marker==1)
                 {
-                    pgoption=4;
-                    callFragment();
-                }
-                else{
-                    if(selectedId==R.id.radioCreditCard)
+                    if(selectedId==R.id.radioWalletAccounts)
                     {
-                        pgoption=1;
-                    }else if(selectedId==R.id.radioDebitCard)
-                    {
-                        pgoption=2;
-                    }else if(selectedId==R.id.radioNetBank)
-                    {
-                        pgoption=3;
-                    }else
-                    {
-                        Toast.makeText(getActivity(),"Please select any one option",Toast.LENGTH_LONG).show();
-                        break;
+                        pgoption=4;
+                        PayRequest(v);
+//                    callFragment();
                     }
-                    PayRequest(v);
+                    else{
+                        if(selectedId==R.id.radioCreditCard)
+                        {
+                            pgoption=1;
+                        }else if(selectedId==R.id.radioDebitCard)
+                        {
+                            pgoption=2;
+                        }else if(selectedId==R.id.radioNetBank)
+                        {
+                            pgoption=3;
+                        }else
+                        {
+                            Toast.makeText(getActivity(),"Please select any one option",Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        PayRequest(v);
+                    }
+                }
+                else
+                {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1"),"PaymentSuccessfull").commit();
                 }
 
                 break;
         }
-
     }
 
+    private void showBox()
+    {
+        if(marker==1)
+        {
+            imagePersonal.setImageDrawable(getResources().getDrawable(R.drawable.check_wrong));
+            imageAtRto.setImageDrawable(getResources().getDrawable(R.drawable.check_right));
+            radioGroup.setVisibility(View.GONE);
+            marker=2;
+        }
+        else
+        {
+            imagePersonal.setImageDrawable(getResources().getDrawable(R.drawable.check_right));
+            imageAtRto.setImageDrawable(getResources().getDrawable(R.drawable.check_wrong));
+            radioGroup.setVisibility(View.VISIBLE);
+            marker=1;
+        }
+    }
     private void callFragment() {
         if(pgoption==1)
         {
@@ -185,8 +227,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 //            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletWebViewFragment.newInstance(sharedpreferences.getString("receiptNum",""),"1"),"Wallet").commit();
         }
-
     }
+
     private int totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
@@ -234,8 +276,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
-
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -282,7 +322,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             int l=0;
             try
             {
-
                 URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
 
                 JSONObject jsonObjectData= new JSONObject(jsonString);
@@ -299,11 +338,9 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 jsonlist1.put("code","11");
                 jsonlist1.put("hoa","1234456778898");
 
-
                 jsonlist2.put("amount","1");
                 jsonlist2.put("code","11");
                 jsonlist2.put("hoa","11455656");
-
 
                 jsonlist3.put("amount","1");
                 jsonlist3.put("code","11");
@@ -315,8 +352,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 arraylist.put(jsonlist3);
 
                 jsonlist.put("list",arraylist);
-
-
 
                 jsonData.put("ref",sharedpreferences.getString("receiptNum",""));
                 jsonData.put("rto_code",jsonObjectData.get("rtocode").toString());

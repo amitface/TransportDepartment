@@ -28,12 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--<CheckBox-->
-        <!--android:id="@+id/citrusWalletCheckBoxId"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Citrus Wallet" />-->
-
         <TextView
             android:id="@+id/citrusWalletTextId"
             android:layout_width="wrap_content"
@@ -74,12 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Citrus Cash" />
-
-
     </LinearLayout>
-
 </RelativeLayout>
-
 
 <TextView
     android:id="@+id/paymentMsgTextViewId"
@@ -89,21 +79,38 @@
     android:layout_marginTop="25dp"
     android:textColor="@color/black" />
 
-<!--<CheckBox-->
-<!--android:id="@+id/paymentOptionsCheckBoxId"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_below="@id/paymentMsgTextViewId"-->
-<!--android:text="Other Payment Options" />-->
+    <RelativeLayout
+        android:id="@+id/paymentOptionsTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:layout_below="@id/paymentMsgTextViewId"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp">
 
-<TextView
-    android:id="@+id/paymentOptionsTextId"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/paymentMsgTextViewId"
-    android:text=" Payment Options"
-    android:textColor="@color/black"
-    android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/imagePersonal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/check_right"
+            android:gravity="center"
+            android:layout_gravity="center_vertical|start"
+            android:padding="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:padding="4dp"
+            android:textSize="12sp"
+            android:text="PAYMENT OPTIONS"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imagePersonal"
+            android:layout_toEndOf="@+id/imagePersonal" />
+    </RelativeLayout>
 
 <RadioGroup
     android:id="@+id/radioPaymentOption"
@@ -114,7 +121,8 @@
     android:layout_marginStart="15dp"
     android:layout_marginTop="15dp"
     android:checkedButton="@+id/radioMale"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <RadioButton
         android:id="@+id/radioCreditCard"
@@ -144,7 +152,38 @@
 
 </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/payAtRto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:layout_below="@id/radioPaymentOption"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp">
 
+        <ImageView
+            android:id="@+id/imageAtRto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/check_wrong"
+            android:gravity="center"
+            android:layout_gravity="center_vertical|start"
+            android:padding="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:padding="4dp"
+            android:textSize="12sp"
+            android:text="PAY AT RTO"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageAtRto"
+            android:layout_toEndOf="@+id/imageAtRto" />
+    </RelativeLayout>
 <TextView
     android:id="@+id/buttonPayNow"
     style="@style/FooterStyle"
@@ -177,54 +216,3 @@
 </RelativeLayout>
 
 
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--android:orientation="vertical"-->
-<!--android:weightSum="1"-->
-<!--android:padding="5dp"-->
-
-<!--tools:context="com.converge.transportdepartment.PayablePayment">-->
-
-<!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-
-
-<!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@drawable/payment"-->
-    <!--android:layout_weight=".9">-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical"-->
-
-        <!--android:gravity="center">-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-            <!--android:text=""-->
-            <!--android:id="@+id/textPayment"-->
-            <!--android:textSize="24dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--/>-->
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src = "@drawable/state_bank_of_india"-->
-            <!--/>-->
-    <!--</LinearLayout>-->
-
-<!--</ScrollView>-->
-<!--<Button-->
-    <!--android:id="@+id/buttonPayNow"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="37dp"-->
-    <!--android:background="@color/colorPrimaryTransportDepartment"-->
-    <!--android:text="Pay Now"-->
-    <!--android:textColor="@android:color/background_light"-->
-    <!--/>-->
-
-<!--</LinearLayout>-->

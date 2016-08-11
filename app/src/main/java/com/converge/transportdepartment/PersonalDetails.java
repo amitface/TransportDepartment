@@ -1,5 +1,6 @@
 package com.converge.transportdepartment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -496,9 +498,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonBackPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonBackPersonalDetail);
 
         addListenerOnSpinnerItemSelection();
-
+        addListenerOnSpinnerEducationQualification();
         retrivesession();
-
     }
 
     private void retrivesession() {
@@ -1352,22 +1353,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     @Override
     public void onClick(View view) {
@@ -1536,6 +1521,34 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
+
+    public void addListenerOnSpinnerEducationQualification() {
+        mspinnerQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                hideKeyboard(getActivity());
+                mspinnerQualification.requestFocus();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                hideKeyboard(getActivity());
+                mspinnerQualification.requestFocus();
+            }
+        });
+    }
+
+    public static void hideKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
     public void sendPostRequest(View View) {
         new PostClass(getActivity()).execute();
     }
@@ -1632,3 +1645,21 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
     }
 }
+
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
