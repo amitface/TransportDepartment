@@ -550,6 +550,47 @@
         <item>Talcher</item>
     </string-array>
 
+    <string-array name="Rto_code">
+        <item>19</item>
+        <item>09</item>
+        <item>01</item>
+        <item>17</item>
+        <item>22</item>
+        <item>32</item>
+        <item>02</item>
+        <item>33</item>
+        <item>03</item>
+        <item>27</item>
+        <item>04</item>
+        <item>05</item>
+        <item>28</item>
+        <item>06</item>
+        <item>20</item>
+        <item>07</item>
+        <item>21</item>
+        <item>34</item>
+        <item>23</item>
+        <item>08</item>
+        <item>29</item>
+        <item>09</item>
+        <item>10</item>
+        <item>02</item>
+        <item>30</item>
+        <item>11</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>12</item>
+        <item>13</item>
+        <item>11</item>
+        <item>18</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>31</item>
+        <item>35</item>
+    </string-array>
+
     <string-array name="district">
         <item>--Select District--</item>
         <item>Angul</item>
@@ -618,7 +659,7 @@
         <item>Athmallik</item>
         <item>Banarpal</item>
         <item>Bantala</item>
-    </string-array>
+    </string-array>e
 
     <string-array name="theesil2">
         <item>--Select Taluka--</item>
@@ -756,7 +797,20 @@
         <item>Tangi</item>
     </string-array>
     <string-array name="theesil9">
-        <item>No Data</item>
+        <item>--Select Taluka--</item>
+        <item>Balangir</item>
+        <item>Bangomunda</item>
+        <item>Belpara</item>
+        <item>Kantabanji</item>
+        <item>Khaprakhol</item>
+        <item>Loisinga</item>
+        <item>Patnagarh</item>
+        <item>Saintala</item>
+        <item>Sindhekela</item>
+        <item>Titlagarh</item>
+        <item>Turekela</item>
+        <item>Tushura</item>
+
     </string-array>
     <string-array name="theesil10">
         <item>--Select Taluka--</item>
@@ -1051,7 +1105,22 @@
         <item>Sinapali</item>
     </string-array>
     <string-array name="theesil30">
-        <item>No Data</item>
+        <item>--Select Taluka--</item>
+        <item>Baliguda</item>
+        <item>Belaghar</item>
+        <item>Brahmanigaon</item>
+        <item>Daringbadi</item>
+        <item>G.Udayagiri</item>
+        <item>Gochhapada</item>
+        <item>Khajuripada</item>
+        <item>Kotagarh</item>
+        <item>Phiringia</item>
+        <item>Phulabani</item>
+        <item>Phulabani Town</item>
+        <item>Raikia</item>
+        <item>Sarangagarh</item>
+        <item>Tikabali</item>
+        <item>Tumudibandha</item>
     </string-array>
     <string-array name="theesil31">
         <item>--Select Taluka--</item>
@@ -1232,6 +1301,130 @@
     <string-array name="pincode">
         <item>759</item>
         <item>756</item>
+    </string-array>
+
+    <string-array name="Rto_Location_Name">
+        <item>Balasore</item>
+        <item>Bhubaneswar - I</item>
+        <item>Bolangir</item>
+        <item>Chandikhole</item>
+        <item>Cuttack</item>
+        <item>Dhenkanal</item>
+        <item>Chatarpur</item>
+        <item>Kalahandi</item>
+        <item>Keonjhar</item>
+        <item>Koraput</item>
+        <item>Mayurbhanj</item>
+        <item>Phulbani</item>
+        <item>Puri</item>
+        <item>Rourkela</item>
+        <item>Sambalpur</item>
+        <item>Sundargarh</item>
+        <item>Bargarh</item>
+        <item>Rayagada</item>
+        <item>Angul</item>
+        <item>Gajpati</item>
+        <item>Jagatsinghpur</item>
+        <item>Bhadrak</item>
+        <item>Jharusguda</item>
+        <item>Nawrangpur</item>
+        <item>Nayagarh</item>
+        <item>Nuapada</item>
+        <item>Boudh</item>
+        <item>Deogarh</item>
+        <item>Kendrapara</item>
+        <item>Malkanagiri</item>
+        <item>Sonepur</item>
+        <item>Bhanjanagar</item>
+        <item>Bhubaneswar - II</item>
+        <item>Jajpur</item>
+        <item>Talcher</item>
+        <item>Khurda</item>
+        <item>Barbil</item>
+        <item>Rayrangpur</item>
+    </string-array>
+
+    <string-array name="Rto_Lat">
+        <item>20.2963141</item>
+        <item>20.6871409</item>
+        <item>20.7059895</item>
+        <item>20.4649249</item>
+        <item>20.6502084</item>
+        <item>19.3535823</item>
+        <item>19.9074846</item>
+        <item>21.6305721</item>
+        <item>18.8158712</item>
+        <item>21.9490004</item>
+        <item>20.4805615</item>
+        <item>19.8026601</item>
+        <item>22.2257565</item>
+        <item>21.4560162</item>
+        <item>nodata</item>
+        <item>21.342675</item>
+        <item>19.1725519</item>
+        <item>nodata</item>
+        <item>18.7727637</item>
+        <item>20.256638</item>
+        <item>nodata</item>
+        <item>21.8716121</item>
+        <item>19.2311336</item>
+        <item>20.1127671</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+    </string-array>
+
+
+
+    <string-array name="Rto_Long">
+        <item>86.9133534</item>
+        <item>85.8335172</item>
+        <item>83.4699804</item>
+        <item>86.113329</item>
+        <item>85.856712</item>
+        <item>85.5958008</item>
+        <item>84.9869085</item>
+        <item>83.1454995</item>
+        <item>85.6120815</item>
+        <item>82.7049601</item>
+        <item>86.739623</item>
+        <item>84.2322099</item>
+        <item>85.8385002</item>
+        <item>84.8355138</item>
+        <item>83.9738153</item>
+        <item>nodata</item>
+        <item>83.6217399</item>
+        <item>83.4187496</item>
+        <item>nodata</item>
+        <item>84.0992532</item>
+        <item>86.1842368</item>
+        <item>nodata</item>
+        <item>83.9899136</item>
+        <item>82.5468533</item>
+        <item>85.0846053</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
+        <item>nodata</item>
     </string-array>
 </resources>
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,17 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DatePicker.DatePickerFragmentDownload;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +50,8 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
+    private String refNum,fname, lname,dob;
 
 
     private OnFragmentInteractionListener mListener;
@@ -100,6 +112,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         fN = (EditText) view.findViewById(R.id.etFirstName);
         lN = (EditText) view.findViewById(R.id.etLastName);
 
+
         im= (ImageView) view.findViewById(R.id.imageViewDatePickerDownloadPdf);
         im.setOnClickListener(this);
 
@@ -123,6 +136,9 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
                     downloadPdfForm(ref);
                 }
                 else if(fN.getText().length()>=3 && lN.getText().length()>=3 && editDownloadPdfDate.getText().length()!=0) {
+                    fname=fN.getText().toString();
+                    lname=lN.getText().toString();
+                    dob= editDownloadPdfDate.getText().toString();
                     download(view);
                 }else
                 {
@@ -253,40 +269,137 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     };
 
     public void download(View view){
-        progress=new ProgressDialog(getActivity());
-        progress.setMessage("Downloading Form");
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.setIndeterminate(true);
-        progress.setProgress(0);
-        progress.show();
 
-        final int totalProgressTime = 100;
-        final Thread t = new Thread() {
-            @Override
-            public void run() {
-                int jumpTime = 0;
+       new  findDetail(getActivity()).execute();
+    }
 
-                while(jumpTime < totalProgressTime) {
-                    try {
-                        sleep(200);
-                        jumpTime += 5;
-                        progress.setProgress(jumpTime);
-                    }
-                    catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+    private class findDetail extends AsyncTask<String, Void, Integer> {
+
+        private final Context context;
+        private ProgressDialog progressDialog;
+
+        public findDetail(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(this.context);
+            progressDialog.setMessage("Please wait ...");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            try {
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/search_by_name.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                String urlString ="fname="+fname+"&lname="+lname+"&dob="+dob;
+
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setConnectTimeout(20000);
+                connection.setReadTimeout(20000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(urlString);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Request Parameters " + urlString);
+                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
+                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
                 }
+                br.close();
 
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                String responseDetail= responseOutput.toString();
+                JSONArray jsonObject =new JSONArray(responseDetail);
+                JSONObject jsonObject1=jsonObject.getJSONObject(0);
+                refNum =jsonObject1.get("ref_num").toString();
+                return 1;
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+        protected void onPostExecute(Integer result) {
+
+            progressDialog.dismiss();
+            if(result==1)
+            {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        progress.hide();
-                        Toast.makeText(getActivity(),"No Data Found",Toast.LENGTH_LONG).show();
-                    }
+                        downloadPdfForm(Integer.parseInt(refNum));
+                    }//public void run() {
                 });
             }
-        };
-        t.start();
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Your code to run in GUI thread here
+
+                    }//public void run() {
+                });
+            }
+        }
+
     }
 }
+//        progress=new ProgressDialog(getActivity());
+//        progress.setMessage("Downloading Form");
+//        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//        progress.setIndeterminate(true);
+//        progress.setProgress(0);
+//        progress.show();
+//
+//        final int totalProgressTime = 100;
+//        final Thread t = new Thread() {
+//            @Override
+//            public void run() {
+//                int jumpTime = 0;
+//
+//                while(jumpTime < totalProgressTime) {
+//                    try {
+//                        sleep(200);
+//                        jumpTime += 5;
+//                        progress.setProgress(jumpTime);
+//                    }
+//                    catch (InterruptedException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        progress.hide();
+//                        Toast.makeText(getActivity(),"No Data Found",Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            }
+//        };
+//        t.start();

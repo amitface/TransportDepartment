@@ -349,39 +349,6 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         View view =  inflater.inflate(R.layout.fragment_check_status, container, false);
 //        {"access_key":"L8YKJ41HP65M1DIOBVLY","signup-id":"e9d6i0fazk-signup","signup-secret":"9903a947ac90c8ae5406dbbd60febe53","signin-id":"e9d6i0fazk-signin","signin-secret":"15502bc50389b1e7b18809abe6e586e8","vanity":"e9d6i0fazk"}
 
-
-//        CitrusClient citrusClient = CitrusClient.getInstance(getActivity()); //pass Activity Context
-//        citrusClient.init("signup-id", "e9d6i0fazk-signup", "test-signin",
-//                "52f7e15efd4208cf5345dd554443fd99", "prepaid", Environment.SANDBOX);
-//
-//        CitrusClient.getInstance(getActivity()).getMerchantPaymentOptions(new
-//
-//                                                                                  Callback<MerchantPaymentOption>() {
-//
-//                                                                                      @Override
-//
-//                                                                                      public void success(MerchantPaymentOption mMerchantPaymentOption)
-//
-//                                                                                      {
-//
-//                                                                                          ArrayList<NetbankingOption> mNetbankingOptionsList =
-//
-//                                                                                                  mMerchantPaymentOption.getNetbankingOptionList();//this will give you only bank list that you can show.
-//
-//
-//                                                                                      }
-//
-//                                                                                      @Override
-//
-//                                                                                      public void error(CitrusError error) {
-//
-//                                                                                      }
-//
-//                                                                                  });
-//        //Method to Send data to api.
-////        sendPostRequest(view);
-//        Button buttonCheckStatus = (Button) view.findViewById(R.id.buttonCheckStatus);
-//        buttonCheckStatus.setOnClickListener(this);
         return view;
     }
 
@@ -529,7 +496,6 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             }finally {
                 connection.disconnect();
             }
-
             return null;
         }
     }

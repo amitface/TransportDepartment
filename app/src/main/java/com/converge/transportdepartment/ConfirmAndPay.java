@@ -19,10 +19,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,54 +81,61 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     ImageView imageViewOther;
     CheckBox checkboxSameAddress;
 
+    private int arrTaluka[]={R.array.theesil,R.array.theesil1,R.array.theesil2,R.array.theesil3,R.array.theesil4,R.array.theesil5,R.array.theesil6,
+            R.array.theesil7,R.array.theesil8,R.array.theesil9,R.array.theesil10,
+            R.array.theesil11,R.array.theesil12,R.array.theesil13,R.array.theesil14,R.array.theesil15,R.array.theesil16,R.array.theesil17,
+            R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
+            R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
+            R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
+
 
     private String mtextViewDateString = "mtextViewDate";
     private String mtextViewDateInt = "mtextViewDateInt";
 
 
     // TextView and Spinner
-    private EditText meditViewApplicantFirstName;
-    private EditText meditViewApplicantMiddleName;
-    private EditText meditViewApplicantLastName;
+    private TextView meditViewApplicantFirstName;
+    private TextView meditViewApplicantMiddleName;
+    private TextView meditViewApplicantLastName;
 
-    private EditText meditViewApplicantRelationsName;
-    private EditText meditViewApplicantRelationsMiddleName;
-    private EditText meditViewApplicantRelationsLastName;
-
-
-    private EditText meditViewPlaceOfBirth;
-    private EditText meditViewYear;
-    private EditText meditViewMonth;
-    private EditText meditViewEmail;
-
-    private EditText meditTextPermanentFlatNum;
-    private EditText meditTextPermanentHouseName;
-    private EditText meditTextPermanentHouseNum;
-    private EditText meditTextPermanentStreet;
-    private EditText meditTextPermanentLocality;
-    private EditText meditTextPermanentvillage;
-    private EditText meditTextPermanentTaluka;
-    private EditText meditTextPermanentDistrict;
-    private EditText meditTextPermanentMonth;
-    private EditText meditTextPermanentYear;
-    private EditText meditTextPermanentPinCode;
-    private EditText meditTextPermanentMoblieNo;
-
-    private EditText meditTextPresentFlatNum;
-    private EditText meditTextPresentHouseName;
-    private EditText meditTextPresentHouseNum;
-    private EditText meditTextPresentStreet;
-    private EditText meditTextPresentLocality;
-    private EditText meditTextPresentvillage;
-    private EditText meditTextPresentTaluka;
-    private EditText meditTextPresentDistrict;
-    private EditText meditTextPresentMonth;
-    private EditText meditTextPresentYear;
-    private EditText meditTextPresentPinCode;
-    private EditText meditTextPresentMoblieNo;
+    private TextView meditViewApplicantRelationsName;
+    private TextView meditViewApplicantRelationsMiddleName;
+    private TextView meditViewApplicantRelationsLastName;
 
 
-    private EditText meditViewFee;
+    private TextView meditViewPlaceOfBirth;
+    private TextView meditViewYear;
+    private TextView meditViewMonth;
+    private TextView meditViewEmail;
+
+    private TextView meditTextPermanentFlatNum;
+    private TextView meditTextPermanentHouseName;
+    private TextView meditTextPermanentHouseNum;
+    private TextView meditTextPermanentStreet;
+    private TextView meditTextPermanentLocality;
+    private TextView meditTextPermanentvillage;
+    private TextView meditTextPermanentTaluka;
+    private TextView meditTextPermanentDistrict;
+    private TextView meditTextPermanentMonth;
+    private TextView meditTextPermanentYear;
+    private TextView meditTextPermanentPinCode;
+    private TextView meditTextPermanentMoblieNo;
+
+    private TextView meditTextPresentFlatNum;
+    private TextView meditTextPresentHouseName;
+    private TextView meditTextPresentHouseNum;
+    private TextView meditTextPresentStreet;
+    private TextView meditTextPresentLocality;
+    private TextView meditTextPresentvillage;
+    private TextView meditTextPresentTaluka;
+    private TextView meditTextPresentDistrict;
+    private TextView meditTextPresentMonth;
+    private TextView meditTextPresentYear;
+    private TextView meditTextPresentPinCode;
+    private TextView meditTextPresentMoblieNo;
+
+
+    private TextView meditViewFee;
 
     private RelativeLayout mlinearlayoutPersonalDetail;
     private RelativeLayout mlinearlayoutPresentAddress;
@@ -158,10 +163,10 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ","OD31 ",  "OD32 ", "OD33 ",
             "OD34 ", "OD35 "};
 
-    private Spinner mspinnerSDate,mspinnerSTime;
-    private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
-    private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
-    private Spinner mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
+    private TextView mspinnerSDate,mspinnerSTime;
+    private TextView mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
+    private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
+    private TextView mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
 
     private ImageView mimageViewDatePicker;
 
@@ -186,7 +191,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             "IVC"};
 
 
-    private Spinner mspinner;
+    private TextView mspinner;
     public ConfirmAndPay() {
         // Required empty public constructor
     }
@@ -377,64 +382,64 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonalC);
         imageViewOther=(ImageView) rootView.findViewById(R.id.imageOtherC);
 
-        meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstNameC);
-        meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleNameC);
-        meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastNameC);
+        meditViewApplicantFirstName = (TextView) rootView.findViewById(R.id.editTextViewApplicantFirstNameC);
+        meditViewApplicantMiddleName = (TextView) rootView.findViewById(R.id.editTextViewApplicantMiddleNameC);
+        meditViewApplicantLastName = (TextView) rootView.findViewById(R.id.editTextViewApplicantLastNameC);
 
-        meditViewEmail = (EditText) rootView.findViewById(R.id.editTextEmailC);
+        meditViewEmail = (TextView) rootView.findViewById(R.id.editTextEmailC);
         mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePickerC);
         mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDateC);
-        meditViewPlaceOfBirth= (EditText) rootView.findViewById(R.id.editTextPlaceofBirthC);
-        meditViewYear = (EditText) rootView.findViewById(R.id.editTextYearC);
-        meditViewMonth = (EditText) rootView.findViewById(R.id.editTextMonthC);
+        meditViewPlaceOfBirth= (TextView) rootView.findViewById(R.id.editTextPlaceofBirthC);
+        meditViewYear = (TextView) rootView.findViewById(R.id.editTextYearC);
+        meditViewMonth = (TextView) rootView.findViewById(R.id.editTextMonthC);
 
-        meditViewApplicantRelationsName = (EditText) rootView.findViewById(R.id.editTextRelationsNameC);
-        meditViewApplicantRelationsMiddleName = (EditText) rootView.findViewById(R.id.editTextRelationsMiddleNameC);
-        meditViewApplicantRelationsLastName = (EditText) rootView.findViewById(R.id.editTextRelationsLastNameC);
+        meditViewApplicantRelationsName = (TextView) rootView.findViewById(R.id.editTextRelationsNameC);
+        meditViewApplicantRelationsMiddleName = (TextView) rootView.findViewById(R.id.editTextRelationsMiddleNameC);
+        meditViewApplicantRelationsLastName = (TextView) rootView.findViewById(R.id.editTextRelationsLastNameC);
 
-        meditTextPermanentFlatNum = (EditText) rootView.findViewById(R.id.editTextPermanentFlatNum);
-        meditTextPermanentHouseName = (EditText) rootView.findViewById(R.id.editTextPermanentHouseName);
-        meditTextPermanentHouseNum = (EditText) rootView.findViewById(R.id.editTextPermanentHouseNum);
-        meditTextPermanentStreet = (EditText) rootView.findViewById(R.id.editTextPermanentStreet);
-        meditTextPermanentLocality = (EditText) rootView.findViewById(R.id.editTextPermanentLocality);
-        meditTextPermanentvillage = (EditText) rootView.findViewById(R.id.editTextPermanentvillage);
-        meditTextPermanentTaluka = (EditText) rootView.findViewById(R.id.editTextPermanentTaluka);
-        meditTextPermanentDistrict = (EditText) rootView.findViewById(R.id.editTextPermanentDistrict);
-        meditTextPermanentMonth = (EditText) rootView.findViewById(R.id.editTextPermanentMonth);
-        meditTextPermanentYear = (EditText) rootView.findViewById(R.id.editTextPermanentYear);
-        meditTextPermanentPinCode = (EditText) rootView.findViewById(R.id.editTextPermanentPinCode);
-        meditTextPermanentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPermanentMoblieNo);
+        meditTextPermanentFlatNum = (TextView) rootView.findViewById(R.id.editTextPermanentFlatNum);
+        meditTextPermanentHouseName = (TextView) rootView.findViewById(R.id.editTextPermanentHouseName);
+        meditTextPermanentHouseNum = (TextView) rootView.findViewById(R.id.editTextPermanentHouseNum);
+        meditTextPermanentStreet = (TextView) rootView.findViewById(R.id.editTextPermanentStreet);
+        meditTextPermanentLocality = (TextView) rootView.findViewById(R.id.editTextPermanentLocality);
+        meditTextPermanentvillage = (TextView) rootView.findViewById(R.id.editTextPermanentvillage);
+        meditTextPermanentTaluka = (TextView) rootView.findViewById(R.id.editTextPermanentTaluka);
+        meditTextPermanentDistrict = (TextView) rootView.findViewById(R.id.editTextPermanentDistrict);
+        meditTextPermanentMonth = (TextView) rootView.findViewById(R.id.editTextPermanentMonth);
+        meditTextPermanentYear = (TextView) rootView.findViewById(R.id.editTextPermanentYear);
+        meditTextPermanentPinCode = (TextView) rootView.findViewById(R.id.editTextPermanentPinCode);
+        meditTextPermanentMoblieNo = (TextView) rootView.findViewById(R.id.editTextPermanentMoblieNo);
 
 
 
-        meditTextPresentFlatNum = (EditText) rootView.findViewById(R.id.editTextPresentFlatNum);
-        meditTextPresentHouseName = (EditText) rootView.findViewById(R.id.editTextPresentHouseName);
-        meditTextPresentHouseNum = (EditText) rootView.findViewById(R.id.editTextPresentHouseNum);
-        meditTextPresentStreet = (EditText) rootView.findViewById(R.id.editTextPresentStreet);
-        meditTextPresentLocality = (EditText) rootView.findViewById(R.id.editTextPresentLocality);
-        meditTextPresentvillage = (EditText) rootView.findViewById(R.id.editTextPresentvillage);
-        meditTextPresentTaluka = (EditText) rootView.findViewById(R.id.editTextPresentTaluka);
-        meditTextPresentDistrict = (EditText) rootView.findViewById(R.id.editTextPresentDistrict);
-        meditTextPresentMonth = (EditText) rootView.findViewById(R.id.editTextPresentMonth);
-        meditTextPresentYear = (EditText) rootView.findViewById(R.id.editTextPresentYear);
-        meditTextPresentPinCode = (EditText) rootView.findViewById(R.id.editTextPresentPinCode);
-        meditTextPresentMoblieNo = (EditText) rootView.findViewById(R.id.editTextPresentMoblieNo);
+        meditTextPresentFlatNum = (TextView) rootView.findViewById(R.id.editTextPresentFlatNum);
+        meditTextPresentHouseName = (TextView) rootView.findViewById(R.id.editTextPresentHouseName);
+        meditTextPresentHouseNum = (TextView) rootView.findViewById(R.id.editTextPresentHouseNum);
+        meditTextPresentStreet = (TextView) rootView.findViewById(R.id.editTextPresentStreet);
+        meditTextPresentLocality = (TextView) rootView.findViewById(R.id.editTextPresentLocality);
+        meditTextPresentvillage = (TextView) rootView.findViewById(R.id.editTextPresentvillage);
+        meditTextPresentTaluka = (TextView) rootView.findViewById(R.id.editTextPresentTaluka);
+        meditTextPresentDistrict = (TextView) rootView.findViewById(R.id.editTextPresentDistrict);
+        meditTextPresentMonth = (TextView) rootView.findViewById(R.id.editTextPresentMonth);
+        meditTextPresentYear = (TextView) rootView.findViewById(R.id.editTextPresentYear);
+        meditTextPresentPinCode = (TextView) rootView.findViewById(R.id.editTextPresentPinCode);
+        meditTextPresentMoblieNo = (TextView) rootView.findViewById(R.id.editTextPresentMoblieNo);
 
-//        meditViewFee = (EditText) rootView.findViewById(R.id.editTextFee);
+//        meditViewFee = (TextView) rootView.findViewById(R.id.editTextFee);
 //        meditViewFee.setText("250");
 
-        mspinnerRTO = (Spinner) rootView.findViewById(R.id.spinnerRTOC);
-        mspinnerCountry = (Spinner) rootView.findViewById(R.id.spinnerCountryC);
-        mspinnerRelationshipType = (Spinner) rootView.findViewById(R.id.spinnerRelationshipTypeC);
-        mspinnerQualification = (Spinner) rootView.findViewById(R.id.spinnerQualificationC);
-        mspinnerGender = (Spinner) rootView.findViewById(R.id.spinnerGenderC);
-        mspinnerIdmark = (Spinner) rootView.findViewById(R.id.spinnerIdmarkC);
-        mspinnerIdmark2 = (Spinner) rootView.findViewById(R.id.spinnerIdmark2C);
-        mspinnerBloodGroup = (Spinner) rootView.findViewById(R.id.spinnerBloodGroupC);
-        mspinnerRH = (Spinner) rootView.findViewById(R.id.spinnerRH);
-        mspinnerPermanentState = (Spinner) rootView.findViewById(R.id.spinnerPermanentState);
-        mspinnerPresentState = (Spinner) rootView.findViewById(R.id.spinnerPresentState);
-        mspinnerCitizenship = (Spinner) rootView.findViewById(R.id.spinnerCitizenshipC);
+        mspinnerRTO = (TextView) rootView.findViewById(R.id.spinnerRTOC);
+        mspinnerCountry = (TextView) rootView.findViewById(R.id.spinnerCountryC);
+        mspinnerRelationshipType = (TextView) rootView.findViewById(R.id.spinnerRelationshipTypeC);
+        mspinnerQualification = (TextView) rootView.findViewById(R.id.spinnerQualificationC);
+        mspinnerGender = (TextView) rootView.findViewById(R.id.spinnerGenderC);
+        mspinnerIdmark = (TextView) rootView.findViewById(R.id.spinnerIdmarkC);
+        mspinnerIdmark2 = (TextView) rootView.findViewById(R.id.spinnerIdmark2C);
+        mspinnerBloodGroup = (TextView) rootView.findViewById(R.id.spinnerBloodGroupC);
+        mspinnerRH = (TextView) rootView.findViewById(R.id.spinnerRH);
+        mspinnerPermanentState = (TextView) rootView.findViewById(R.id.spinnerPermanentState);
+        mspinnerPresentState = (TextView) rootView.findViewById(R.id.spinnerPresentState);
+        mspinnerCitizenship = (TextView) rootView.findViewById(R.id.spinnerCitizenshipC);
 
 
 
@@ -527,7 +532,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         Cursor c = db.getAllDetails();
         if(c.moveToFirst()) {
             if(c.getString(1).length()>0)
-                mspinnerRTO.setSelection(Integer.parseInt(c.getString(1)));
+                mspinnerRTO.setText(getResources().getStringArray(R.array.RTO)[Integer.parseInt(c.getString(1))]);
 
             meditViewApplicantFirstName.setText(c.getString(2));
             meditViewApplicantMiddleName.setText(c.getString(3));
@@ -535,7 +540,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
             mtextViewDate.setText(c.getString(5));
             if(c.getString(6).length()>0)
-                mspinnerGender.setSelection(Integer.parseInt(c.getString(6)));
+                mspinnerGender.setText(getResources().getStringArray(R.array.Gender)[Integer.parseInt(c.getString(6))]);
 
             meditViewPlaceOfBirth.setText(c.getString(7));
             if(c.getString(8).equals(""))
@@ -549,12 +554,12 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 meditViewMonth.setText(c.getString(9));
 
             if(c.getString(10).length()>0)
-                mspinnerCountry.setSelection(Integer.parseInt(c.getString(10)));
+                mspinnerCountry.setText(getResources().getStringArray(R.array.Country)[Integer.parseInt(c.getString(10))]);
 
             meditViewEmail.setText(c.getString(11));
 
             if(c.getString(12).length()>0)
-                mspinnerRelationshipType.setSelection(Integer.parseInt(c.getString(12)));
+                mspinnerRelationshipType.setText(getResources().getStringArray(R.array.RelationType)[Integer.parseInt(c.getString(12))]);
 
             meditViewApplicantRelationsName.setText(c.getString(13));
             meditViewApplicantRelationsMiddleName.setText(c.getString(14));
@@ -566,11 +571,16 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPermanentStreet.setText(c.getString(19));
             meditTextPermanentLocality.setText(c.getString(20));
             meditTextPermanentvillage.setText(c.getString(21));
-            meditTextPermanentTaluka.setText(c.getString(22));
-            meditTextPermanentDistrict.setText(c.getString(23));
+            if(c.getString(22).length()>0)
+            meditTextPermanentTaluka.setText(getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))])[Integer.parseInt(c.getString(22))]);
+//            meditTextPermanentTaluka.setText(c.getString(22));
+
+            if(c.getString(23).length()>0)
+                meditTextPermanentDistrict.setText(getResources().getStringArray(R.array.district)[Integer.parseInt(c.getString(23))]);
+//            meditTextPermanentDistrict.setText(c.getString(23));
 
             if(c.getString(24).length()>0)
-                mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
+                mspinnerPermanentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(24))]);
 
             meditTextPermanentMonth.setText(c.getString(25));
             meditTextPermanentYear.setText(c.getString(26));
@@ -587,7 +597,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPresentDistrict.setText(c.getString(36));
 
             if(c.getString(37).length()>0)
-                mspinnerPresentState .setSelection(Integer.parseInt(c.getString(37)));
+                mspinnerPresentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(37))]);
 
             meditTextPresentMonth.setText(c.getString(38));
             meditTextPresentYear.setText(c.getString(39));
@@ -596,20 +606,20 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 //
 //
             if(c.getString(42).length()>0)
-                mspinnerCitizenship.setSelection(Integer.parseInt(c.getString(42)));
+                mspinnerCitizenship.setText(getResources().getStringArray(R.array.Citizenship)[Integer.parseInt(c.getString(42))]);
 
 
             if(c.getString(43).length()>0)
-                mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
+                mspinnerQualification.setText(getResources().getStringArray(R.array.Qualification)[Integer.parseInt(c.getString(43))]);
 
             if(c.getString(44).length()>0)
-                mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
+                mspinnerIdmark.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(44))]);
             if(c.getString(45).length()>0)
-                mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(45)));
+                mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(45))]);
 
 
             if(c.getString(46).length()>0)
-                mspinnerRH.setSelection(Integer.parseInt(c.getString(46)));
+                mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(46))]);
         }
         db.close();
 
@@ -634,36 +644,36 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
     private void checkPresentAddress() {
-
-        meditTextPresentFlatNum.setText(meditTextPermanentFlatNum.getText().toString());
-        meditTextPresentHouseName.setText(meditTextPermanentHouseName.getText().toString());
-        meditTextPresentHouseNum.setText(meditTextPermanentHouseNum.getText().toString());
-        meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
-        meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
-        meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
-        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
-        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
-        meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
-        meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
-        meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
-        meditTextPresentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString());
-
-        mspinnerPresentState.setSelection(mspinnerPermanentState.getSelectedItemPosition());
-
-        meditTextPresentFlatNum.setEnabled(false);
-        meditTextPresentHouseName.setEnabled(false);
-        meditTextPresentHouseNum.setEnabled(false);
-        meditTextPresentStreet.setEnabled(false);
-        meditTextPresentLocality.setEnabled(false);
-        meditTextPresentvillage.setEnabled(false);
-        meditTextPresentTaluka.setEnabled(false);
-        meditTextPresentDistrict.setEnabled(false);
-        meditTextPresentMonth.setEnabled(false);
-        meditTextPresentYear.setEnabled(false);
-        meditTextPresentPinCode.setEnabled(false);
-        meditTextPresentMoblieNo.setEnabled(false);
-
-        mspinnerPresentState.setEnabled(false);
+//
+//        meditTextPresentFlatNum.setText(meditTextPermanentFlatNum.getText().toString());
+//        meditTextPresentHouseName.setText(meditTextPermanentHouseName.getText().toString());
+//        meditTextPresentHouseNum.setText(meditTextPermanentHouseNum.getText().toString());
+//        meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
+//        meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
+//        meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
+//        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
+//        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
+//        meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
+//        meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
+//        meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
+//        meditTextPresentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString());
+//
+//        mspinnerPresentState.setSelection(mspinnerPermanentState.getSelectedItemPosition());
+//
+//        meditTextPresentFlatNum.setEnabled(false);
+//        meditTextPresentHouseName.setEnabled(false);
+//        meditTextPresentHouseNum.setEnabled(false);
+//        meditTextPresentStreet.setEnabled(false);
+//        meditTextPresentLocality.setEnabled(false);
+//        meditTextPresentvillage.setEnabled(false);
+//        meditTextPresentTaluka.setEnabled(false);
+//        meditTextPresentDistrict.setEnabled(false);
+//        meditTextPresentMonth.setEnabled(false);
+//        meditTextPresentYear.setEnabled(false);
+//        meditTextPresentPinCode.setEnabled(false);
+//        meditTextPresentMoblieNo.setEnabled(false);
+//
+//        mspinnerPresentState.setEnabled(false);
     }
 
     private void uncheckPresentAddress() {

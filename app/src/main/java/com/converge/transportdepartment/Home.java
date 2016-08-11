@@ -23,9 +23,9 @@ import android.widget.Toast;
 
 import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.classes.CitrusConfig;
+import com.converge.transportdepartment.ActivityFragments.RtoLocatorFragment;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.Constants;
-import com.converge.transportdepartment.Utility.RtoLocator;
 
 public class Home extends AppCompatActivity
         implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
@@ -241,11 +241,13 @@ public class Home extends AppCompatActivity
             fragment = LicenseApplication.newInstance("0","2");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"App1").commit();
         }
-//        else if(id == R.id.nav_rto_locator)
-//        {
-//            vibrate();
-//            replaceFragment(RtoLocator.newInstance("1","1"));
-//        }
+        else if(id == R.id.nav_rto_locator)
+        {
+            vibrate();
+//            String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 21.4896639, 86.9133534);,
+
+            replaceFragment(RtoLocatorFragment.newInstance("1","1"));
+        }
         else if (id == R.id.nav_check_status) {
             vibrate();
             replaceFragment(CheckStatus.newInstance("1","1"));

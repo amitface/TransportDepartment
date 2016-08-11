@@ -159,7 +159,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
             R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
             R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
-
+    String rtoC[];
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
@@ -195,7 +195,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-    private String mFinalString1="mFinalString1";
+    private static final String mFinalString1="mFinalString1";
+    private static final String PGInfo="PgInfo";
 
 
 
@@ -237,6 +238,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        rtoC=getResources().getStringArray(R.array.Rto_code);
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
         hidePermanent();
@@ -313,6 +315,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString1, detailString());
+        editor.putString(PGInfo,jsonString());
         editor.putString("EmailZ",meditViewEmail.getText().toString());
         editor.commit();
      }
@@ -474,9 +477,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mspinnerPresentState = (Spinner) rootView.findViewById(R.id.spinnerPresentState);
         mspinnerCitizenship = (Spinner) rootView.findViewById(R.id.spinnerCitizenship);
 
-        addListenerOnSpinnerItemSelection();
-        addListenerOnSpinnerRtoSelection();
-        addListenerOnSpinnerDistrictSelection();
+
 
         mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetail);
         mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanant);
@@ -493,7 +494,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonNextPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonNextPersonalDetail);
         buttonClearPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonBackPersonalDetail);
+
+        addListenerOnSpinnerItemSelection();
+
         retrivesession();
+
     }
 
     private void retrivesession() {
@@ -505,6 +510,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if(c.moveToFirst()) {
             if(c.getString(1).length()>0)
                 mspinnerRTO.setSelection(Integer.parseInt(c.getString(1)));
+
+            if(c.getString(23).length()>0)
+                mSPerDistrict.setSelection(Integer.parseInt(c.getString(23)));
 
             meditViewApplicantFirstName.setText(c.getString(2));
             meditViewApplicantMiddleName.setText(c.getString(3));
@@ -548,9 +556,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             }
 
 
-            if(c.getString(23).length()>0)
-                mSPerDistrict.setSelection(Integer.parseInt(c.getString(23)));
-
             if(c.getString(24).length()>0)
                 mspinnerPermanentState .setSelection(Integer.parseInt(c.getString(24)));
             else
@@ -568,7 +573,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             meditTextPresentLocality.setText(c.getString(33));
             meditTextPresentvillage.setText(c.getString(34));
             meditTextPresentTaluka.setText(c.getString(35));
+
             meditTextPresentDistrict.setText(c.getString(36));
+
             if(c.getString(37).length()>0)
                 mspinnerPresentState.setSelection(Integer.parseInt(c.getString(37)));
             else
@@ -597,7 +604,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             mspinnerRH.setSelection(Integer.parseInt(c.getString(46)));
         }
         db.close();
-
+        addListenerOnSpinnerRtoSelection();
+        addListenerOnSpinnerDistrictSelection();
     }
 
     private void saveSession()
@@ -1112,7 +1120,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //                "&first_name="+meditViewApplicantFirstName.getText()+
                 "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
-                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
+//                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
+                "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
                 "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
                 "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
                 "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
@@ -1183,6 +1192,20 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             return s;
     }
 
+    private String jsonString()
+    {
+        JSONObject js = new JSONObject();
+
+        try {
+            js.put("moblie",meditTextPermanentMoblieNo.getText().toString().toUpperCase() );
+            js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
+            js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+            js.put("email",meditViewEmail.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return js.toString();
+    }
     private String createJsonString()
     {
         JSONArray ja = new JSONArray();

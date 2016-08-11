@@ -96,6 +96,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
         editPassword = (EditText) view.findViewById(R.id.editWalletPassword);
         btnWallet = (Button) view.findViewById(R.id.btnWallet);
 
+
         btnWallet.setOnClickListener(this);
 
         return view;
@@ -169,8 +170,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
+                jsonData.put("rto_code","01");
                 jsonData.put("vehicle_number","Rohit");
-
                 jsonData.put("applicant_name","Rohit");
                 jsonData.put("tax_type","6");
                 jsonData.put("rto_acc_no","0");

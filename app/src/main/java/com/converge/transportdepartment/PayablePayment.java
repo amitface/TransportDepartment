@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.Fragments.CreditCardFragment;
 import com.converge.transportdepartment.Fragments.DebitCardFragment;
 import com.converge.transportdepartment.Fragments.NetbankingFragment;
-import com.converge.transportdepartment.Fragments.WalletFragment;
+import com.converge.transportdepartment.Fragments.WalletWebViewFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,11 +62,15 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private final String mFinalString2="mFinalString2";
     private final String mFinalStringCov="mFinalStringCov";
 
+    private static final String PGInfo="PgInfo";
+
     private RadioGroup radioGroup;
     private RadioButton radioButton1;
     private RadioButton radioButton2;
     private RadioButton radioButton3;
     private RadioButton radioButton4;
+
+    private String jsonString;
 
     private int pgoption ;
 
@@ -122,9 +126,12 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         radioButton4 = (RadioButton) view.findViewById(R.id.radioWalletAccounts);
 
         TextView textPayNow = (TextView) view.findViewById(R.id.buttonPayNow);
-        textPayNow.setText("Pay Rs : 1");
+        textPayNow.setText("Pay Rs : 1 ");
         textPayNow.setOnClickListener(this);
+
+        jsonString=sharedpreferences.getString(PGInfo,"");
 //        PayRequest(view);
+        sendMessage();
         return  view;
     }
 
@@ -157,6 +164,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                     }
                     PayRequest(v);
                 }
+
                 break;
         }
 
@@ -174,7 +182,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1"),"NetBanking").commit();
         }else if(pgoption==4)
         {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletWebViewFragment.newInstance(sharedpreferences.getString("receiptNum",""),"1"),"Wallet").commit();
         }
 
     }
@@ -273,7 +282,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             int l=0;
             try
             {
+
                 URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+
+                JSONObject jsonObjectData= new JSONObject(jsonString);
 
                 JSONObject jsonObject = new JSONObject();
 
@@ -304,16 +316,20 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
-                jsonData.put("vehicle_number","Rohit");
 
-                jsonData.put("applicant_name","Rohit");
+
+                jsonData.put("ref",sharedpreferences.getString("receiptNum",""));
+                jsonData.put("rto_code",jsonObjectData.get("rtocode").toString());
+                jsonData.put("vehicle_number",jsonObjectData.get("name").toString());
+
+                jsonData.put("applicant_name",jsonObjectData.get("name").toString());
                 jsonData.put("tax_type","6");
                 jsonData.put("rto_acc_no","0");
                 jsonData.put("rfu1","");
                 jsonData.put("rfu2","");
                 jsonData.put("rfu3","");
 
-                jsonData.put("ref",sharedpreferences.getString("receiptNum",""));
+
                 jsonData.put("data",jsonlist);
 
                 String json =jsonData.toString();
@@ -394,6 +410,84 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             {
                 Toast.makeText(getActivity(),"Payable payment failure",Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+
+    public void sendMessage()
+    {
+        new sendMsg(getActivity()).execute();
+    }
+
+    private class sendMsg extends AsyncTask<Void, Integer, Integer> {
+
+        private final Context context;
+        private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public sendMsg(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params)
+        {
+            int l=0;
+            try
+            {
+                JSONObject jsonObjectData= new JSONObject(jsonString);
+                URL url = new URL(" http://103.27.233.206/sendsms/");
+                String s ="msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+sharedpreferences.getString("receiptNum","")+". Date of appointment 11/08/2016 and Time 11:15 AM &mobile="+jsonObjectData.get("moblie");
+                System.out.println(s);
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+//                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(s);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print(responseCode);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+
+
         }
     }
 }

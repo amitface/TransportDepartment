@@ -1,5 +1,7 @@
 package com.converge.transportdepartment.Been;
 
+import java.util.List;
+
 /**
  * Created by converge on 21/7/16.
  */
@@ -14,6 +16,12 @@ public class RtoLocatorBeen {
         this.title = title;
 //        this.genre = genre;
 //        this.year = year;
+    }
+
+    public RtoLocatorBeen(List<String> strings) {
+        for (String S :strings) {
+            this.title = S;
+        }
     }
 
     public String getTitle() {

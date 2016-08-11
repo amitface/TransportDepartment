@@ -8,12 +8,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+
+import com.astuetz.PagerSlidingTabStrip;
+import com.converge.transportdepartment.Fragments.SuperAwesomeCardFragment;
 
 import org.json.JSONObject;
 
@@ -48,43 +55,24 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private PagerSlidingTabStrip tabs;
+    private ViewPager pager;
+    private MyPagerAdapter adapter;
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private CheckBox checkBox1;
-    private CheckBox checkBox2;
-    private CheckBox checkBox3;
-    private CheckBox checkBox4;
-    private CheckBox checkBox5;
-    private CheckBox checkBox6;
-    private CheckBox checkBox7;
-    private CheckBox checkBox8;
-    private CheckBox checkBox9;
-    private CheckBox checkBox10;
-    private CheckBox checkBox11;
-    private CheckBox checkBox12;
-    private CheckBox checkBox13;
-    private CheckBox checkBox14;
-    private CheckBox checkBox15;
-    private CheckBox checkBox16;
-    private CheckBox checkBox17;
-    private CheckBox checkBox18;
-    private CheckBox checkBox19;
-    private CheckBox checkBox20;
-    private CheckBox checkBox21;
-    private CheckBox checkBox22;
-    private CheckBox checkBox23;
-    private CheckBox checkBox24;
+    private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
+    private CheckBox checkBox11, checkBox12, checkBox13, checkBox14, checkBox15, checkBox16, checkBox17, checkBox18, checkBox19, checkBox20;
+    private CheckBox checkBox21, checkBox22, checkBox23, checkBox24;
     private CheckBox checkBoxLastClicked;
     private int lastCheckBoxId = 0;
     private int currentChecked = 0;
+    private String jsonData;
 
 
-    private int [] arrayCheckBox ={ R.id.checkbox_schedule1,R.id.checkbox_schedule2,R.id.checkbox_schedule3,R.id.checkbox_schedule4,R.id.checkbox_schedule5,R.id.checkbox_schedule6,R.id.checkbox_schedule7,
-            R.id.checkbox_schedule8,R.id.checkbox_schedule9,R.id.checkbox_schedule10,R.id.checkbox_schedule11,R.id.checkbox_schedule12,R.id.checkbox_schedule13,R.id.checkbox_schedule14,R.id.checkbox_schedule15,
-            R.id.checkbox_schedule16,R.id.checkbox_schedule17,R.id.checkbox_schedule18,R.id.checkbox_schedule19,R.id.checkbox_schedule20,R.id.checkbox_schedule21,R.id.checkbox_schedule22,R.id.checkbox_schedule23,
-            R.id.checkbox_schedule24};
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
@@ -126,82 +114,38 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentSchedule =  inflater.inflate(R.layout.fragment_select_schedule, container, false);
+        View view =  inflater.inflate(R.layout.fragment_select_schedule, container, false);
         hideKeyboard(getContext());
-        if(sharedpreferences.contains(CheckBoxSchedule) && sharedpreferences.getInt(CheckBoxSchedule,0)!=0) {
-          CheckBox checkboxLocal =  (CheckBox) fragmentSchedule.findViewById(arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1]);
-            lastCheckBoxId = arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1];
-            currentChecked = sharedpreferences.getInt(CheckBoxSchedule,0);
-            checkBoxLastClicked =checkboxLocal;
-            checkboxLocal.setChecked(true);
-        }
-        initalize(fragmentSchedule);
 
+        pager = (ViewPager) view.findViewById(R.id.pager);
 
+        pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
 
+        // Bind the tabs to the ViewPager
+        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+//        tabs.setViewPager(pager);
+        tabs.setViewPager(pager);
+        initalize(view);
+//        if(sharedpreferences.contains(CheckBoxSchedule) && sharedpreferences.getInt(CheckBoxSchedule,0)!=0) {
+//          CheckBox checkboxLocal =  (CheckBox) fragmentSchedule.findViewById(arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1]);
+//            lastCheckBoxId = arrayCheckBox[sharedpreferences.getInt(CheckBoxSchedule, 0)-1];
+//            currentChecked = sharedpreferences.getInt(CheckBoxSchedule,0);
+//            checkBoxLastClicked =checkboxLocal;
+//            checkboxLocal.setChecked(true);
+//        }
+//        initalize(fragmentSchedule);
 
-        return fragmentSchedule;
+        Calendar calendar = Calendar.getInstance();
+        Calendar cal = new GregorianCalendar(2016,7,14);
+
+//        calendar.setTimeInMillis(Long.parseLong(String.valueOf("1473332113073")));
+        calendar.setTimeInMillis(cal.getTimeInMillis());
+        Log.d("**slotDate**",calendar.getTime().toString());
+        Log.d("**slotDt**",""+cal.getTimeInMillis());
+//        getSlot();
+        return view;
     }
 
-    private void initalize(View fragmentSchedule) {
-        checkBox1 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule1);
-        checkBox2 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule2);
-        checkBox3 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule3);
-        checkBox4 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule4);
-        checkBox5 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule5);
-        checkBox6 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule6);
-        checkBox7 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule7);
-        checkBox8 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule8);
-        checkBox9 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule9);
-        checkBox10 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule10);
-        checkBox11 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule11);
-        checkBox12 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule12);
-        checkBox13 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule13);
-        checkBox14 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule14);
-        checkBox15 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule15);
-        checkBox16 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule16);
-        checkBox17 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule17);
-        checkBox18 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule18);
-        checkBox19 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule19);
-        checkBox20 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule20);
-        checkBox21 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule21);
-        checkBox22 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule22);
-        checkBox23 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule23);
-        checkBox24 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule24);
-
-        checkBox1.setOnClickListener(this);
-        checkBox2.setOnClickListener(this);
-        checkBox3.setOnClickListener(this);
-        checkBox4.setOnClickListener(this);
-        checkBox5.setOnClickListener(this);
-        checkBox6.setOnClickListener(this);
-        checkBox7.setOnClickListener(this);
-        checkBox8.setOnClickListener(this);
-        checkBox9.setOnClickListener(this);
-        checkBox10.setOnClickListener(this);
-        checkBox11.setOnClickListener(this);
-        checkBox12.setOnClickListener(this);
-        checkBox13.setOnClickListener(this);
-
-        checkBox14.setOnClickListener(this);
-        checkBox15.setOnClickListener(this);
-        checkBox16.setOnClickListener(this);
-        checkBox17.setOnClickListener(this);
-
-        checkBox18.setOnClickListener(this);
-        checkBox19.setOnClickListener(this);
-        checkBox20.setOnClickListener(this);
-        checkBox21.setOnClickListener(this);
-        checkBox22.setOnClickListener(this);
-        checkBox23.setOnClickListener(this);
-        checkBox24.setOnClickListener(this);
-
-
-        ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
-        ImageView buttonNext = (ImageView) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
-        buttonBack.setOnClickListener(this);
-        buttonNext.setOnClickListener(this);
-     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -209,6 +153,14 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             mListener.onFragmentInteraction(uri);
         }
     }
+
+
+    private void initalize(View fragmentSchedule) {
+        ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
+        ImageView buttonNext = (ImageView) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
+        buttonBack.setOnClickListener(this);
+        buttonNext.setOnClickListener(this);
+     }
 
 //    @Override
 //    public void onAttach(Context context) {
@@ -233,219 +185,246 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+
+        private final String[] TITLES = { "11 Aug", "12 Aug", "13 Aug", "16 Aug", "17 Aug", "19 Aug",
+                "20 Aug", "21 Aug" };
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLES.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return SuperAwesomeCardFragment.newInstance(position);
+        }
+
+    }
+
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
-    public void onClickCheckboxSchedule(View view)
-    {
-        Boolean checked = ((CheckBox) view).isChecked();
-
-        if(lastCheckBoxId != 0 && lastCheckBoxId != view.getId())
-        {
-            checkBoxLastClicked.setChecked(false);
-        }
-        switch(view.getId())
-        {
-            case R.id.checkbox_schedule1:
-                if(checked)
-                    currentChecked = 1 ;
-                else
-                    currentChecked = 0 ;
-                Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule2:
-                if(checked)
-                    currentChecked = 2 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule3:
-                if(checked)
-                    currentChecked = 3 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule4:
-                if(checked)
-                    currentChecked = 4 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule5:
-                if(checked)
-                    currentChecked = 5 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule6:
-                if(checked)
-                    currentChecked = 6 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule7:
-                if(checked)
-                    currentChecked = 7 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule8:
-                if(checked)
-                    currentChecked = 8 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule9:
-                if(checked)
-                    currentChecked = 9 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule10:
-                if(checked)
-                    currentChecked = 10 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule11:
-                if(checked)
-                    currentChecked = 11 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule12:
-                if(checked)
-                    currentChecked = 12 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule13:
-                if(checked)
-                    currentChecked = 13 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule14:
-                if(checked)
-                    currentChecked = 14 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule15:
-                if(checked)
-                    currentChecked = 15 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule16:
-                if(checked)
-                    currentChecked = 16 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule17:
-                if(checked)
-                    currentChecked = 17 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule18:
-                if(checked)
-                    currentChecked = 18 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule19:
-                if(checked)
-                    currentChecked = 19 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule20:
-                if(checked)
-                    currentChecked = 20 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule21:
-                if(checked)
-                    currentChecked = 21 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule22:
-                if(checked)
-                    currentChecked = 22 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule23:
-                if(checked)
-                    currentChecked = 23 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule24:
-                if(checked)
-                    currentChecked = 24 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-
-
-            default:break;
-        }
-    }
+//    public void onClickCheckboxSchedule(View view)
+//    {
+//        Boolean checked = ((CheckBox) view).isChecked();
+//
+//        if(lastCheckBoxId != 0 && lastCheckBoxId != view.getId())
+//        {
+//            checkBoxLastClicked.setChecked(false);
+//        }
+//        switch(view.getId())
+//        {
+//            case R.id.checkbox_schedule1:
+//                if(checked)
+//                    currentChecked = 1 ;
+//                else
+//                    currentChecked = 0 ;
+//                Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule2:
+//                if(checked)
+//                    currentChecked = 2 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule3:
+//                if(checked)
+//                    currentChecked = 3 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule4:
+//                if(checked)
+//                    currentChecked = 4 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule5:
+//                if(checked)
+//                    currentChecked = 5 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule6:
+//                if(checked)
+//                    currentChecked = 6 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule7:
+//                if(checked)
+//                    currentChecked = 7 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule8:
+//                if(checked)
+//                    currentChecked = 8 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule9:
+//                if(checked)
+//                    currentChecked = 9 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule10:
+//                if(checked)
+//                    currentChecked = 10 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule11:
+//                if(checked)
+//                    currentChecked = 11 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule12:
+//                if(checked)
+//                    currentChecked = 12 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule13:
+//                if(checked)
+//                    currentChecked = 13 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule14:
+//                if(checked)
+//                    currentChecked = 14 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule15:
+//                if(checked)
+//                    currentChecked = 15 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule16:
+//                if(checked)
+//                    currentChecked = 16 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule17:
+//                if(checked)
+//                    currentChecked = 17 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule18:
+//                if(checked)
+//                    currentChecked = 18 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule19:
+//                if(checked)
+//                    currentChecked = 19 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule20:
+//                if(checked)
+//                    currentChecked = 20 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule21:
+//                if(checked)
+//                    currentChecked = 21 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule22:
+//                if(checked)
+//                    currentChecked = 22 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule23:
+//                if(checked)
+//                    currentChecked = 23 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule24:
+//                if(checked)
+//                    currentChecked = 24 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//
+//
+//            default:break;
+//        }
+//    }
 
     public void Save() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -455,230 +434,19 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     }
     @Override
     public void onClick(View view) {
-        Boolean checked=false;
-            try{
-                checked= ((CheckBox) view).isChecked();
-                if(lastCheckBoxId != 0 && lastCheckBoxId != view.getId())
-                {
-                    checkBoxLastClicked.setChecked(false);
-                }
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
 
-
-        switch(view.getId())
+        switch (view.getId())
         {
             case R.id.buttonNextSelectSchedule:
-                getSlot();
-//                if(currentChecked!=0)
-//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
-//                else
-//                    Toast.makeText(getActivity(),"Select atleast one time slot",Toast.LENGTH_SHORT).show();
-//                break;
+
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                break;
 
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
                 break;
-            case R.id.checkbox_schedule1:
-                if(checked)
-                    currentChecked = 1 ;
-                else
-                    currentChecked = 0 ;
-                Save();
-                lastCheckBoxId = R.id.checkbox_schedule1;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule2:
-                if(checked)
-                    currentChecked = 2 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule2;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule3:
-                if(checked)
-                    currentChecked = 3 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule3;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule4:
-                if(checked)
-                    currentChecked = 4 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule4;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule5:
-                if(checked)
-                    currentChecked = 5 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule5;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule6:
-                if(checked)
-                    currentChecked = 6 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule6;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule7:
-                if(checked)
-                    currentChecked = 7 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule7;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule8:
-                if(checked)
-                    currentChecked = 8 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule8;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule9:
-                if(checked)
-                    currentChecked = 9 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule9;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule10:
-                if(checked)
-                    currentChecked = 10 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule10;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule11:
-                if(checked)
-                    currentChecked = 11 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule11;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule12:
-                if(checked)
-                    currentChecked = 12 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule12;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule13:
-                if(checked)
-                    currentChecked = 13 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule13;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule14:
-                if(checked)
-                    currentChecked = 14 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule14;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule15:
-                if(checked)
-                    currentChecked = 15 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule15;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule16:
-                if(checked)
-                    currentChecked = 16 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule16;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule17:
-                if(checked)
-                    currentChecked = 17 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule17;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule18:
-                if(checked)
-                    currentChecked = 18 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule18;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule19:
-                if(checked)
-                    currentChecked = 19 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule19;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule20:
-                if(checked)
-                    currentChecked = 20 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule20;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule21:
-                if(checked)
-                    currentChecked = 21 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule21;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule22:
-                if(checked)
-                    currentChecked = 22 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule22;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule23:
-                if(checked)
-                    currentChecked = 23 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule23;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-            case R.id.checkbox_schedule24:
-                if(checked)
-                    currentChecked = 24 ;
-                else
-                    currentChecked = 0 ;Save();
-                lastCheckBoxId = R.id.checkbox_schedule24;
-                checkBoxLastClicked =(CheckBox)view;
-                break;
-
-
-            default:
-                break;
         }
+
     }
 
     /**
@@ -727,8 +495,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         try{
 
 //             URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
-//               URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
-                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+               URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
+//                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
 
             connection = (HttpURLConnection) url.openConnection();
             //Creating json object.
@@ -750,7 +518,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             jsonObject1.put("agentId", "smartchip");
             jsonObject1.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
             jsonObject1.put("serviceName","LLSlotBook");
-            jsonObject1.put("rtocode","CG04");
+            jsonObject1.put("rtocode","OD01");
 
             JSONObject jsonObject2 = new JSONObject();
 
@@ -774,15 +542,15 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             jsonObject2.put("slotDate","1471631400000");
             jsonObject2.put("slotNo",1);
 
-            String json = jsonObject2.toString();
+            String json = jsonObject1.toString();
             System.out.println(json);
 //            String json = "{\"applno\":102526,\"rtocode\":\"GJ01\",\"slotDate\":1471631400000,\"serviceType\":\"LL\",\"slotNo\":1,\"agentId\":\"smartchip\",\"pwd\":\"3998151263B55EB10F7AE1A974FD036E\",\"serviceName\":\"LLSlotBook\"}";
             connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
             connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(25000);
-            connection.setReadTimeout(25000);
+            connection.setConnectTimeout(200000);
+            connection.setReadTimeout(200000);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -802,6 +570,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             br.close();
 //                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
             System.out.println(responseOutput.toString());
+            jsonData=responseOutput.toString();
             return 1L;
         }catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -839,3 +608,295 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
     }
 }
+
+
+//    private int [] arrayCheckBox ={ R.id.checkbox_schedule1,R.id.checkbox_schedule2,R.id.checkbox_schedule3,R.id.checkbox_schedule4,R.id.checkbox_schedule5,R.id.checkbox_schedule6,R.id.checkbox_schedule7,
+//            R.id.checkbox_schedule8,R.id.checkbox_schedule9,R.id.checkbox_schedule10,R.id.checkbox_schedule11,R.id.checkbox_schedule12,R.id.checkbox_schedule13,R.id.checkbox_schedule14,R.id.checkbox_schedule15,
+//            R.id.checkbox_schedule16,R.id.checkbox_schedule17,R.id.checkbox_schedule18,R.id.checkbox_schedule19,R.id.checkbox_schedule20,R.id.checkbox_schedule21,R.id.checkbox_schedule22,R.id.checkbox_schedule23,
+//            R.id.checkbox_schedule24};
+
+
+//    private void initalize(View fragmentSchedule) {
+//        checkBox1 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule1);
+//        checkBox2 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule2);
+//        checkBox3 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule3);
+//        checkBox4 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule4);
+//        checkBox5 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule5);
+//        checkBox6 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule6);
+//        checkBox7 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule7);
+//        checkBox8 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule8);
+//        checkBox9 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule9);
+//        checkBox10 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule10);
+//        checkBox11 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule11);
+//        checkBox12 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule12);
+//        checkBox13 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule13);
+//        checkBox14 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule14);
+//        checkBox15 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule15);
+//        checkBox16 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule16);
+//        checkBox17 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule17);
+//        checkBox18 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule18);
+//        checkBox19 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule19);
+//        checkBox20 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule20);
+//        checkBox21 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule21);
+//        checkBox22 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule22);
+//        checkBox23 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule23);
+//        checkBox24 = (CheckBox) fragmentSchedule.findViewById(R.id.checkbox_schedule24);
+//
+//        checkBox1.setOnClickListener(this);
+//        checkBox2.setOnClickListener(this);
+//        checkBox3.setOnClickListener(this);
+//        checkBox4.setOnClickListener(this);
+//        checkBox5.setOnClickListener(this);
+//        checkBox6.setOnClickListener(this);
+//        checkBox7.setOnClickListener(this);
+//        checkBox8.setOnClickListener(this);
+//        checkBox9.setOnClickListener(this);
+//        checkBox10.setOnClickListener(this);
+//        checkBox11.setOnClickListener(this);
+//        checkBox12.setOnClickListener(this);
+//        checkBox13.setOnClickListener(this);
+//
+//        checkBox14.setOnClickListener(this);
+//        checkBox15.setOnClickListener(this);
+//        checkBox16.setOnClickListener(this);
+//        checkBox17.setOnClickListener(this);
+//
+//        checkBox18.setOnClickListener(this);
+//        checkBox19.setOnClickListener(this);
+//        checkBox20.setOnClickListener(this);
+//        checkBox21.setOnClickListener(this);
+//        checkBox22.setOnClickListener(this);
+//        checkBox23.setOnClickListener(this);
+//        checkBox24.setOnClickListener(this);
+//
+//
+//        ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
+//        ImageView buttonNext = (ImageView) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
+//        buttonBack.setOnClickListener(this);
+//        buttonNext.setOnClickListener(this);
+//     }
+
+
+
+//        Boolean checked=false;
+//            try{
+//                checked= ((CheckBox) view).isChecked();
+//                if(lastCheckBoxId != 0 && lastCheckBoxId != view.getId())
+//                {
+//                    checkBoxLastClicked.setChecked(false);
+//                }
+//            }catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+//
+//
+//        switch(view.getId())
+//        {
+//            case R.id.buttonNextSelectSchedule:
+////
+//                if(currentChecked!=0)
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+//                else
+//                    Toast.makeText(getActivity(),"Select atleast one time slot",Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.buttonBackSelectSchedule:
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
+//                break;
+//            case R.id.checkbox_schedule1:
+//                if(checked)
+//                    currentChecked = 1 ;
+//                else
+//                    currentChecked = 0 ;
+//                Save();
+//                lastCheckBoxId = R.id.checkbox_schedule1;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule2:
+//                if(checked)
+//                    currentChecked = 2 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule2;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule3:
+//                if(checked)
+//                    currentChecked = 3 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule3;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule4:
+//                if(checked)
+//                    currentChecked = 4 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule4;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule5:
+//                if(checked)
+//                    currentChecked = 5 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule5;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule6:
+//                if(checked)
+//                    currentChecked = 6 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule6;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule7:
+//                if(checked)
+//                    currentChecked = 7 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule7;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule8:
+//                if(checked)
+//                    currentChecked = 8 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule8;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule9:
+//                if(checked)
+//                    currentChecked = 9 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule9;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule10:
+//                if(checked)
+//                    currentChecked = 10 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule10;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule11:
+//                if(checked)
+//                    currentChecked = 11 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule11;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule12:
+//                if(checked)
+//                    currentChecked = 12 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule12;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule13:
+//                if(checked)
+//                    currentChecked = 13 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule13;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule14:
+//                if(checked)
+//                    currentChecked = 14 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule14;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule15:
+//                if(checked)
+//                    currentChecked = 15 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule15;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule16:
+//                if(checked)
+//                    currentChecked = 16 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule16;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule17:
+//                if(checked)
+//                    currentChecked = 17 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule17;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule18:
+//                if(checked)
+//                    currentChecked = 18 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule18;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule19:
+//                if(checked)
+//                    currentChecked = 19 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule19;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule20:
+//                if(checked)
+//                    currentChecked = 20 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule20;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule21:
+//                if(checked)
+//                    currentChecked = 21 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule21;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule22:
+//                if(checked)
+//                    currentChecked = 22 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule22;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule23:
+//                if(checked)
+//                    currentChecked = 23 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule23;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            case R.id.checkbox_schedule24:
+//                if(checked)
+//                    currentChecked = 24 ;
+//                else
+//                    currentChecked = 0 ;Save();
+//                lastCheckBoxId = R.id.checkbox_schedule24;
+//                checkBoxLastClicked =(CheckBox)view;
+//                break;
+//            default:
+//                break;
+//        }
