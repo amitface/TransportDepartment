@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.Fragments.CreditCardFragment;
 import com.converge.transportdepartment.Fragments.DebitCardFragment;
 import com.converge.transportdepartment.Fragments.NetbankingFragment;
+import com.converge.transportdepartment.Fragments.NoPaymentFragment;
 import com.converge.transportdepartment.Fragments.WalletWebViewFragment;
 
 import org.json.JSONArray;
@@ -188,7 +189,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 }
                 else
                 {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1"),"PaymentSuccessfull").commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NoPaymentFragment.newInstance("1","1"),"NoPaymentFragment").commit();
                 }
 
                 break;

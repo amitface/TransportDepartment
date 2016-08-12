@@ -172,7 +172,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
-        List<SlotData> data,data1,data2,data3,data4,data5,data6,data7;
+        List<SlotData> data;
         List<Long> Title;
         Calendar c ;
         SimpleDateFormat ft;
@@ -223,27 +223,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             return temp;
         }
 
-        private List<SlotData> getDataAtDate(Long l)
-        {
-            List<SlotData> temp = new ArrayList<>();
-              for(int i=0;i<data.size();i++)
-                {
-                    int count=0;
-                    if(data.get(i)!=null)
-                    {
-                        if(l==data.get(i).getslotdate())
-                        {
-                            temp.add(data.get(i));
-                            count++;
-                        }
-                    }
-                    if(count==20)
-                    {
-                        break;
-                    }
-                }
-            return temp;
-        }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
@@ -259,9 +239,9 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         @Override
         public Fragment getItem(int position) {
 
-            return SuperAwesomeCardFragment.newInstance(position);
+            return SuperAwesomeCardFragment.newInstance(jsonData,Title.get(position));
+//            return SuperAwesomeCardFragment.newInstance(position);
         }
-
     }
 
 
@@ -404,7 +384,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             }
             br.close();
 //                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//            System.out.println(responseOutput.toString());
+            System.out.println(responseOutput.toString());
             jsonData=responseOutput.toString();
             return 1L;
         }catch (FileNotFoundException e) {

@@ -1071,7 +1071,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
                 URL url = new URL(" http://103.27.233.206/sendsms/");
-                String s ="msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+sharedpreferences.getString("receiptNum","")+". Date of appointment 11/08/2016 and Time 11:15 AM &mobile="+jsonObjectData.get("moblie");
+                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+jsonObjectData.get("receiptNum")+". Date of appointment 11/08/2016 and Time 11:15 AM &mobile="+jsonObjectData.get("moblie");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

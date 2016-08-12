@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -192,6 +194,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
 
     private TextView mspinner;
+    private String jsonString;
+    private static final String PGInfo="PgInfo";
+
     public ConfirmAndPay() {
         // Required empty public constructor
     }
@@ -232,6 +237,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        jsonString = sharedpreferences.getString(PGInfo,"");
         TextView textfee= (TextView)view.findViewById(R.id.textfee);
         TextView textTotal=(TextView)view.findViewById(R.id.textTotal);
         textfee.setText("Application Fee : Rs. "+(totalFee()-20));
@@ -767,7 +774,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         new PostClass(getActivity()).execute();
     }
 
-    private class PostClass extends AsyncTask<String, Void, Void> {
+    private class PostClass extends AsyncTask<String, Void, Integer> {
 
         private final Context context;
         private ProgressDialog progressDialog;
@@ -786,10 +793,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Integer doInBackground(String... params) {
             try {
-
-
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -824,19 +829,24 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 //                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
                 String responseDetail= responseOutput.toString();
-                System.out.println(responseDetail+"\n");
-                String detail[] =responseDetail.split(":");
 
-//                SharedPreferences.Editor editor = sharedpreferences.edit();
-//                editor.putString("receiptNum",detail[1].substring(1, 8));
-//                editor.commit();
+                JSONObject jsonObject = new JSONObject(responseDetail);
+                String s= jsonObject.getString("receiptNum");
+                System.out.println("Receipt No."+s);
+                JSONObject jsonObject1 = new JSONObject(jsonString);
+                jsonObject1.put("receiptNum",s);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                if(Integer.parseInt(detail[1].substring(1, 8))>0)
+                editor.putString(PGInfo,jsonObject1.toString());
+                editor.apply();
+
+                if(Integer.parseInt(s)>0)
+
                 {
                     int  MEGABYTE = 1024 * 1024;
 //                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
                     URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                    String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                    String s1="referenceId=" +sharedpreferences.getString("receiptNum","")+
                             "&email=amit.choudhary@cnvg.in";
 
                     HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();
@@ -849,18 +859,10 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                     connection1.setDoOutput(true);
                     DataOutputStream dStream1 = new DataOutputStream(connection1.getOutputStream());
 
-                    dStream1.writeBytes(s);
+                    dStream1.writeBytes(s1);
                     dStream1.flush();
                     dStream1.close();
                     responseCode = connection1.getResponseCode();
-//                    BufferedReader br1 = new BufferedReader(new InputStreamReader(connection1.getInputStream()));
-//                    StringBuilder responseOutput2 = new StringBuilder();
-//                    System.out.println("output===============" + br1);
-//                    while ((line = br1.readLine()) != null) {
-//                        responseOutput2.append(line);
-//                    }
-//                    br.close();
-//                    System.out.println("email Response "+responseOutput2.toString());
                 }
                 else
                 {
@@ -871,27 +873,25 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                         }//public void run() {
                     });
                 }
-
-
+                return 1;
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                return 0;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                return 0;
             }catch (Exception e)
             {
                 e.printStackTrace();
-            }
-            finally {
-                progressDialog.hide();
+                return 0;
             }
 
-            return null;
         }
 
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Integer result) {
 
             progressDialog.dismiss();
             if(result==1)

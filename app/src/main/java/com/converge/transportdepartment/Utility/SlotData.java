@@ -5,15 +5,16 @@ package com.converge.transportdepartment.Utility;
  */
 public class SlotData {
 
-
-
     private String rtocode;
     private long slotdate;
     private Integer slotno;
     private String slottime;
     private Integer avilablequota;
 
-
+    public SlotData(String slotTime, int slotQuota) {
+        this.slottime= slotTime;
+        this.avilablequota= slotQuota;
+    }
 
 
     public long getslotdate() {
