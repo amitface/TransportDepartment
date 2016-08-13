@@ -1,14 +1,19 @@
-package com.converge.transportdepartment.Fragments;
+package com.converge.transportdepartment.ActivityFragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.converge.transportdepartment.Adapter.SlotAdapter;
 import com.converge.transportdepartment.R;
@@ -26,7 +31,7 @@ import java.util.List;
  * Use the {@link SuperAwesomeCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SuperAwesomeCardFragment extends Fragment {
+public class SuperAwesomeCardFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_POSITION = "position";
     private static final String ARG_POSITION2 = "position2";
 
@@ -36,6 +41,8 @@ public class SuperAwesomeCardFragment extends Fragment {
     private List<SlotData> dataTrimed;
     private RecyclerView recyclerView;
     private SlotAdapter slotAdapter;
+
+    private String itemSelected;
 
 
     public static SuperAwesomeCardFragment newInstance(String data,Long position) {
@@ -73,9 +80,28 @@ public class SuperAwesomeCardFragment extends Fragment {
         recyclerView.setAdapter(slotAdapter);
         prepareSlotData(dateLong);
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RtoLocatorFragment.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getActivity(),"Click "+position,Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getActivity(),"LongClick",Toast.LENGTH_SHORT).show();
+            }
+        }));
+
         return view;
     }
 
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.d("SuperAwesomeFragment","Stoped");
+    }
     private void prepareSlotData(Long l) {
        SlotData temp;
         for(int i=0;i<data.size();i++)
@@ -119,5 +145,53 @@ public class SuperAwesomeCardFragment extends Fragment {
             }
         }
         return temp;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private RtoLocatorFragment.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final RtoLocatorFragment.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 }

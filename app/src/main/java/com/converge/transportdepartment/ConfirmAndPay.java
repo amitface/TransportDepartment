@@ -896,14 +896,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             progressDialog.dismiss();
             if(result==1)
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
 
-//                        showToast("Email sent");
-                    }//public void run() {
-                });
             }
             else
             {

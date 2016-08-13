@@ -2,16 +2,17 @@
 <resources>
     <string-array name="Gender">
         <item>--Select*--</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
+        <item>male</item>
+        <item>female</item>
+        <item>others</item>
     </string-array>
 
     <string-array name="RelationType">
         <item>Select</item>
-        <item>S/O </item>
-        <item>W/O </item>
-        <item>D/O </item>
+        <item>father</item>
+        <item>husband</item>
+        <item>mother</item>
+        <item>gaurdian</item>
     </string-array>
 
     <string-array name="Blood">
@@ -88,7 +89,7 @@
     </string-array>
 
     <string-array name="Qualification">
-         <item>Select</item>
+        <item>Select</item>
         <item> Illiterate</item>
         <item> Not specified </item>
         <item> Below 8 th </item>
@@ -125,8 +126,46 @@
         <item> M. Ch. ( Surgery )/ D.M. ( Medicine )</item>
     </string-array>
 
-    <string-array name="states">
+    <string-array name="qualificationCode">
+        <item>Select</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6 </item>
+        <item>7</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>39</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>70</item>
+        <item>80</item>
+        <item>81</item>
+        <item>82</item>
+        <item>90</item>
+    </string-array>
 
+
+    <string-array name="states">
         <item>--State*--</item>
         <item>Odisha</item>
         <item>Andaman and Nicobar</item>
@@ -167,6 +206,49 @@
         <item>Uttarakhand</item>
         <item>UA-Uttarakhand</item>
     </string-array>
+
+    <string-array name="statesCode">
+        <item>--State Code*--</item>
+        <item>OD</item>
+        <item>AN</item>
+        <item>AP</item>
+        <item>AR</item>
+        <item>AS</item>
+        <item>BR</item>
+        <item>CG</item>
+        <item>CH</item>
+        <item>DL</item>
+        <item>DN</item>
+        <item>GA</item>
+        <item>GJ</item>
+        <item>HP</item>
+        <item>HR</item>
+        <item>JK</item>
+        <item>JH</item>
+        <item>KA</item>
+        <item>KL</item>
+        <item>LD</item>
+        <item>MH</item>
+        <item>ML</item>
+        <item>MN</item>
+        <item>MP</item>
+        <item>MZ</item>
+        <item>NL</item>
+        <item>OD</item>
+        <item>PB</item>
+        <item>PY</item>
+        <item>RJ</item>
+        <item>SK</item>
+        <item>TN</item>
+        <item>TR</item>
+        <item>UP</item>
+        <item>WB</item>
+        <item>XX</item>
+        <item>DD</item>
+        <item>UK</item>
+        <item>UA</item>
+    </string-array>
+
 
     <string-array name="idMark">
         <item>Select</item>
@@ -659,7 +741,7 @@
         <item>Athmallik</item>
         <item>Banarpal</item>
         <item>Bantala</item>
-    </string-array>e
+    </string-array>
 
     <string-array name="theesil2">
         <item>--Select Taluka--</item>

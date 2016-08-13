@@ -10,8 +10,10 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,8 +49,8 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
     String s =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
                 "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
                 "<applicants>"+
-                "<applicant refno=\"6\">"+
-                            "<statecode>AP</statecode>"+
+                "<applicant refno=\"15\">"+
+                            "<statecode>OD</statecode>"+
                             "<rtocode>OD01</rtocode>"+
                             "<licence-type>L</licence-type>"+
                             "<applicant-name>" +
@@ -73,8 +75,8 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                                 "<p-street-locality>Ramarajyanagar</p-street-locality>" +
                                 "<p-village-city>Hyderabad</p-village-city>" +
                                 "<p-district>Ranga Reddy</p-district>" +
-                                "<p-state>AP</p-state>" +
-                                "<p-pin>500012</p-pin>" +
+                                "<p-state>OD</p-state>" +
+                                "<p-pin>750012</p-pin>" +
                                 "<p-phone-no></p-phone-no>" +
                                 "<p-mobile-no>9533241448</p-mobile-no>" +
                                 "<p-durationofstay>" +
@@ -87,8 +89,8 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                                 "<t-street-locality>Ramarajyanagar</t-street-locality>" +
                                 "<t-village-city>Hyderabad</t-village-city>" +
                                 "<t-district> Ranga Reddy </t-district>" +
-                                "<t-state>AP</t-state>" +
-                                "<t-pin>500012</t-pin>" +
+                                "<t-state>OD</t-state>" +
+                                "<t-pin>750012</t-pin>" +
                                 "<t-phone-no></t-phone-no>" +
                                 "<t-durationofstay>" +
                                   "<t-years>5</t-years>" +
@@ -125,11 +127,13 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                             "</attachdoc>"+
                 "</applicant>" +
             "</applicants>";
+
+    //s2 is working
     String s2="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
             "<applicants>"
              +
-            "<applicant refno=\"2\">" +
+            "<applicant refno=\"15\">" +
 
             "<statecode>KA</statecode>" +
 
@@ -309,7 +313,11 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
             "</applicants>";
 
+    private Button button, buttonSave;
+    private EditText eTRefNum,eTDob;
+
     private OnFragmentInteractionListener mListener;
+    private String jsonData;
 
     public CheckStatus() {
         // Required empty public constructor
@@ -348,6 +356,12 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_check_status, container, false);
 //        {"access_key":"L8YKJ41HP65M1DIOBVLY","signup-id":"e9d6i0fazk-signup","signup-secret":"9903a947ac90c8ae5406dbbd60febe53","signin-id":"e9d6i0fazk-signin","signin-secret":"15502bc50389b1e7b18809abe6e586e8","vanity":"e9d6i0fazk"}
+        button =(Button) view.findViewById(R.id.buttonCheckStatus);
+        buttonSave =(Button) view.findViewById(R.id.buttonSave);
+        buttonSave.setOnClickListener(this);
+        button.setOnClickListener(this);
+        eTRefNum = (EditText) view.findViewById(R.id.eTRefNum);
+        eTDob = (EditText) view.findViewById(R.id.eTDob);
 
         return view;
     }
@@ -365,18 +379,6 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -384,7 +386,17 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        payment(v);
+        switch (v.getId())
+        {
+            case R.id.eTRefNum:
+                break;
+            case R.id.buttonCheckStatus:
+                getApplicant(Integer.parseInt(eTRefNum.getText().toString()),eTDob.getText().toString());
+                break;
+            case R.id.buttonSave:
+                sendPostRequest(v);
+                break;
+        }
     }
 
     /**
@@ -407,13 +419,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         new PostClass(getActivity()).execute();
     }
 
-    public void PayRequest(View View) {
-        new sendPayRequest(getActivity()).execute();
-    }
 
-    public void payment(View View) {
-        new sendPayRequest(getActivity()).execute();
-    }
 
     //Class to Post Data in Background
     private class PostClass extends AsyncTask<String, Void, Void> {
@@ -436,13 +442,12 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 //                final TextView outputView = (TextView) findViewById(R.id.showOutput);
                 URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
 
-                 connection = (HttpURLConnection) url.openConnection();
-//                String urlParameters ="base64file="+endcodetoBase64(s)+"&agentID=smartchip"+"&password=3998151263B55EB10F7AE1A974FD036E";
+                connection = (HttpURLConnection) url.openConnection();
 
                 //Creating json object.
                 JSONObject jsonObject = new JSONObject();
 
-                jsonObject.accumulate("base64file", endcodetoBase64(s));
+                jsonObject.accumulate("base64file", endcodetoBase64(s2));
                 jsonObject.accumulate("agentID", "smartchip");
                 jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
                 jsonObject.accumulate("seckey","");
@@ -453,9 +458,9 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
                 connection.setRequestProperty("Content-Type", "application/json");
-//                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-//                connection.setDoInput(true);
+                connection.setDoInput(true);
                 connection.setDoOutput(true);
 
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
@@ -465,12 +470,11 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 int responseCode = connection.getResponseCode();
                 System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
 
-//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
 
                 final StringBuilder output = new StringBuilder("Request URL " + url);
                 output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
                 output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
-//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
+
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
                 StringBuilder responseOutput = new StringBuilder();
@@ -501,77 +505,63 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
     }
 
 
-    private class sendPayRequest extends AsyncTask<Void, Integer, Long> {
 
-        private final Context context;
+
+    private void getApplicant(int i, String dob)
+    {
+        new getApplicantData(getActivity(),i,dob).execute();
+    }
+
+    private class getApplicantData extends AsyncTask<Void, Integer, Long>
+    {
         private ProgressDialog progress;
-        private static final int  MEGABYTE = 1024 * 1024;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
 
-        public sendPayRequest(Context c) {
+        public getApplicantData(Context c, int i, String dob) {
             this.context = c;
+            this.i=i;
+            this.dob=dob;
         }
-
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Downloading");
-            progress.setCancelable(false);
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setProgress(0);
-            progress.show();
-
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Please Wait");
+            progressSendMail.setCancelable(false);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
         }
 
         @Override
-        protected Long doInBackground(Void... params)
-        {
-            Long l=0L;
-            try
-            {
-                URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
+
+                connection = (HttpURLConnection) url.openConnection();
+                //Creating json object.
 
                 JSONObject jsonObject = new JSONObject();
 
-                JSONObject jsonData = new JSONObject();
-                JSONObject jsonlist = new JSONObject();
-                JSONObject jsonlist1 = new JSONObject();
-                JSONObject jsonlist2 = new JSONObject();
-                JSONObject jsonlist3 = new JSONObject();
+                jsonObject.put("Applno", i);
+                jsonObject.put("dob", dob);
+                jsonObject.put("servType", "LL");
+                jsonObject.put("usrName", "smartchip");
+                jsonObject.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.put("serviceName","LLSlotBook");
 
-                jsonlist1.put("amount","1");
-                jsonlist1.put("code","11");
-                jsonlist1.put("hoa","1234456778898");
-
-
-                jsonlist2.put("amount","1");
-                jsonlist2.put("code","11");
-                jsonlist2.put("hoa","11455656");
-
-
-                jsonlist3.put("amount","1");
-                jsonlist3.put("code","11");
-                jsonlist3.put("hoa","1998878776676");
-
-                JSONArray arraylist = new JSONArray();
-                arraylist.put(jsonlist1);
-                arraylist.put(jsonlist2);
-                arraylist.put(jsonlist3);
-
-                jsonlist.put("list",arraylist);
-
-                jsonData.put("ref","123456789");
-                jsonData.put("data",jsonlist);
-
-                String json =jsonData.toString();
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                //urlConnection.setRequestMethod("GET");
-                //urlConnection.setDoOutput(true);
+                String json = jsonObject.toString();
+                System.out.println(json);
 
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
                 connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(15000);
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
@@ -582,55 +572,179 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 int responseCode = connection.getResponseCode();
                 System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
 
-//                Toast.makeText(getActivity(),connection.getResponseMessage().toString(),Toast.LENGTH_SHORT).show();
-
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
-//                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
                 StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
                 while ((line = br.readLine()) != null) {
                     responseOutput.append(line);
                 }
                 br.close();
-
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
-
-            } catch (FileNotFoundException e) {
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+                jsonData=responseOutput.toString();
+                return 1L;
+            }catch (FileNotFoundException e) {
                 e.printStackTrace();
-
+                return 0L;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                return 0L;
             } catch (IOException e) {
                 e.printStackTrace();
+                return 0L;
             }
             catch (Exception e)
             {
                 e.printStackTrace();
+                return 0L;
             }
-            return l;
+
         }
 
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-          progress.setProgress(percent[0]);
+            progressSendMail.setProgress(percent[0]);
         }
-        protected void onPostExecute(Long result) {
 
-            progress.dismiss();
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
             if(result==1)
             {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+
+                    }
+                });
 
             }
             else
             {
-
+                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
             }
         }
+    }
 
+    private void saveApplicantSlot(int i, String dob)
+    {
+        new getApplicantData(getActivity(),i,dob).execute();
+    }
+
+    private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
+
+        public saveApplicantSlot(Context c, int i, String dob) {
+            this.context = c;
+            this.i=i;
+            this.dob=dob;
+        }
+        protected void onPreExecute() {
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Please Wait");
+            progressSendMail.setCancelable(false);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+                connection = (HttpURLConnection) url.openConnection();
+                //Creating json object.
+
+                JSONObject jsonObject2 = new JSONObject();
+
+                jsonObject2.put("applno", 102526);
+                jsonObject2.put("serviceType", "LL");
+                jsonObject2.put("agentId", "smartchip");
+                jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject2.put("serviceName","LLSlotBook");
+                jsonObject2.put("rtocode","KA53");
+                jsonObject2.put("slotDate","1471631400000");
+                jsonObject2.put("slotNo",1);
+
+                String json = jsonObject2.toString();
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+                jsonData=responseOutput.toString();
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0L;
+            }
+
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+
+                    }
+                });
+
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
+

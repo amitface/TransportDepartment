@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/golsy"
     android:padding="6dp"
-    tools:context="com.converge.transportdepartment.Fragments.NoPaymentFragment">
+    tools:context=".ActivityFragments.NoPaymentFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

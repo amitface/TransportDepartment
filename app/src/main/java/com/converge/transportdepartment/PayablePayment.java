@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.Fragments.CreditCardFragment;
 import com.converge.transportdepartment.Fragments.DebitCardFragment;
 import com.converge.transportdepartment.Fragments.NetbankingFragment;
-import com.converge.transportdepartment.Fragments.NoPaymentFragment;
+import com.converge.transportdepartment.ActivityFragments.NoPaymentFragment;
 import com.converge.transportdepartment.Fragments.WalletWebViewFragment;
 
 import org.json.JSONArray;

@@ -161,7 +161,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
             R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
             R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
-    String rtoC[];
+    String rtoC[], qualificateCode[], stateCode[];
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
@@ -199,7 +199,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private SharedPreferences sharedpreferences;
     private static final String mFinalString1="mFinalString1";
     private static final String PGInfo="PgInfo";
-
+    private final String NICjson= "NICjson";
+    private int num;
 
 
     public PersonalDetails() {
@@ -241,6 +242,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         rtoC=getResources().getStringArray(R.array.Rto_code);
+        qualificateCode=getResources().getStringArray(R.array.qualificationCode);
+        stateCode=getResources().getStringArray(R.array.statesCode);
+        Random rand = new Random();
+        num = rand.nextInt(9000000) + 1000000;
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
         hidePermanent();
@@ -318,6 +323,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString1, detailString());
         editor.putString(PGInfo,jsonString());
+        editor.putString(NICjson,jsonNIC());
         editor.putString("EmailZ",meditViewEmail.getText().toString());
         editor.commit();
      }
@@ -1112,8 +1118,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private String detailString()
     {
-        Random rand = new Random();
-        int num = rand.nextInt(9000000) + 1000000;
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("receiptNum",Integer.toString(num));
         editor.commit();
@@ -1191,6 +1195,74 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&attdtofconviction="+
                 "&attreason=";
             return s;
+    }
+
+    private String jsonNIC() {
+        JSONObject jsNic = new JSONObject();
+        try {
+
+            jsNic.put("refno",Integer.toString(num));
+            jsNic.put("statecode","OD");
+            jsNic.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+            jsNic.put("licenceType","l");
+            jsNic.put("aFName",meditViewApplicantFirstName.getText().toString().toUpperCase());
+            jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString().toUpperCase());
+            jsNic.put("aFLast",meditViewApplicantLastName.getText().toString().toUpperCase());
+            jsNic.put("dob",mtextViewDate.getText().toString().toUpperCase().replace("/","-"));
+            jsNic.put("gender",mspinnerGender.getSelectedItem().toString().toUpperCase());
+            jsNic.put("relation-type",mspinnerRelationshipType.getSelectedItem().toString().toUpperCase());
+            jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString().toUpperCase());
+            jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase());
+            jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString().toUpperCase());
+
+
+            jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString().toUpperCase());
+            jsNic.put("identification-marks2",mspinnerIdmark2.getSelectedItem().toString().toUpperCase());
+
+            jsNic.put("blood-group",mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItemPosition());
+
+
+            jsNic.put("tFlatHouseNo",meditTextPermanentFlatNum.getText().toString().toUpperCase()+" "+meditTextPermanentHouseName.getText().toString().toUpperCase()+" "+meditTextPresentHouseNum.getText().toString().toUpperCase());
+            jsNic.put("tStreetLocality",meditTextPermanentStreet.getText().toString().toUpperCase()+" "+meditTextPermanentLocality.getText().toString().toUpperCase());
+            jsNic.put("tVillageCity",meditTextPermanentvillage.getText().toString().toUpperCase()+" "+meditTextPresentTaluka.getText().toString().toUpperCase());
+
+            jsNic.put("tDistrict",mSPerDistrict.getSelectedItem().toString().toUpperCase());
+            jsNic.put("tState",mspinnerPermanentState.getSelectedItem().toString().toUpperCase());
+            jsNic.put("tPin",meditTextPermanentPinCode.getText().toString().toUpperCase());
+            jsNic.put("tPhoneNo",meditTextPermanentMoblieNo.getText().toString().toUpperCase());
+            jsNic.put("tMobileNo",meditTextPermanentMoblieNo.getText().toString().toUpperCase());
+            jsNic.put("tYears",meditTextPermanentYear.getText().toString().toUpperCase());
+            jsNic.put("tMonths",meditTextPermanentMonth.getText().toString().toUpperCase());
+
+
+            jsNic.put("pFlatHouseNo",meditTextPresentFlatNum.getText().toString().toUpperCase()+" "+meditTextPresentHouseName.getText().toString().toUpperCase()+" "+meditTextPresentHouseNum.getText().toString().toUpperCase());
+            jsNic.put("pStreetLocality",meditTextPresentStreet.getText().toString().toUpperCase()+" "+meditTextPresentLocality.getText().toString().toUpperCase());
+            jsNic.put("pVillageCity",meditTextPresentvillage.getText().toString().toUpperCase()+" "+meditTextPresentTaluka.getText().toString().toUpperCase());
+
+            jsNic.put("pDistrict",meditTextPresentDistrict.getText().toString().toUpperCase());
+            jsNic.put("pState",mspinnerPresentState.getSelectedItem().toString().toUpperCase());
+            jsNic.put("pPin",meditTextPresentPinCode.getText().toString().toUpperCase());
+            jsNic.put("pPhoneNo",meditTextPresentMoblieNo.getText().toString().toUpperCase());
+            jsNic.put("pMobileNo",meditTextPresentMoblieNo.getText().toString().toUpperCase());
+            jsNic.put("pYears",meditTextPresentYear.getText().toString().toUpperCase());
+            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
+
+            jsNic.put("citizenship-status",mspinnerCitizenship.getSelectedItem().toString().toUpperCase());
+            jsNic.put("birth-place",meditViewPlaceOfBirth.getText().toString().toUpperCase());
+            jsNic.put("year",meditViewYear.getText().toString().toUpperCase());
+            jsNic.put("month",meditViewMonth.getText().toString().toUpperCase());
+            jsNic.put("birth-country","IND");
+            jsNic.put("email-id",meditViewEmail.getText().toString().toUpperCase());
+//            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
+
+        return jsNic.toString();
+
+        }catch (JSONException e)
+        {
+            e.printStackTrace();
+
+        }
+        return jsNic.toString();
     }
 
     private String jsonString()

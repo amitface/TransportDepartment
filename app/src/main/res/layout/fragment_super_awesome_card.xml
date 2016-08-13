@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical"
-    tools:context="com.converge.transportdepartment.Fragments.SuperAwesomeCardFragment">
+    tools:context=".ActivityFragments.SuperAwesomeCardFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout

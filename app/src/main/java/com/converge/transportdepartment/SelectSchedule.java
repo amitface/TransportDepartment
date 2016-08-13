@@ -20,7 +20,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.converge.transportdepartment.Fragments.SuperAwesomeCardFragment;
+import com.converge.transportdepartment.ActivityFragments.SuperAwesomeCardFragment;
 import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -402,7 +402,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             e.printStackTrace();
             return 0L;
         }
-
     }
 
         protected void onProgressUpdate(Integer... percent) {
@@ -411,7 +410,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
 
         protected void onPostExecute(Long result) {
-
             if(result==1)
             {
                 getActivity().runOnUiThread(new Runnable() {
@@ -426,7 +424,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                         progressSendMail.hide();
                     }
                 });
-
             }
             else
             {
