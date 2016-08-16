@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.converge.transportdepartment.ActivityFragments.SuperAwesomeCardFragment;
@@ -66,6 +67,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
+    private ProgressDialog progress;
+
 
 
     // TODO: Rename and change types of parameters
@@ -84,6 +87,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
+    private static volatile Integer slotNumber=-1;
+    private static volatile Long slotDate=-1L;
 
     public SelectSchedule() {
         // Required empty public constructor
@@ -149,6 +154,13 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progress.dismiss();
+    }
+
 
     private void initalize(View fragmentSchedule) {
         ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
@@ -170,7 +182,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         List<SlotData> data;
         List<Long> Title;
@@ -223,8 +235,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             return temp;
         }
 
-
-
         @Override
         public CharSequence getPageTitle(int position) {
             c.setTimeInMillis(Title.get(position));
@@ -239,11 +249,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         @Override
         public Fragment getItem(int position) {
 
-            return SuperAwesomeCardFragment.newInstance(jsonData,Title.get(position));
+            return SuperAwesomeCardFragment.newInstance(jsonData,Title.get(position),position);
 //            return SuperAwesomeCardFragment.newInstance(position);
         }
     }
-
 
     @Override
     public void onDetach() {
@@ -251,12 +260,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
-
     public void Save() {
 //        SharedPreferences.Editor editor = sharedpreferences.edit();
 //        editor.putInt(CheckBoxSchedule,currentChecked);
 //        editor.commit();
-
     }
 
     @Override
@@ -265,14 +272,26 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         switch (view.getId())
         {
             case R.id.buttonNextSelectSchedule:
+                if(val())
+                {
+                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
+                }
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
                 break;
 
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
                 break;
         }
+    }
+
+    private boolean val() {
+        if(slotDate==-1 || slotNumber==-1L) {
+            Toast.makeText(getActivity(),"Please select at least one slot",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -297,7 +316,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
     private class scheduleSlot extends AsyncTask<Void, Integer, Long>
     {
-        private ProgressDialog progress;
         private final Context context;
         private ProgressDialog progressSendMail;
 
@@ -305,12 +323,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             this.context = c;
         }
         protected void onPreExecute() {
-            progressSendMail = new ProgressDialog(this.context);
-            progressSendMail.setMessage("Please Wait");
-            progressSendMail.setCancelable(false);
-            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressSendMail.setProgress(0);
-            progressSendMail.show();
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Please Wait");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
         }
 
         @Override
@@ -406,7 +424,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-            progressSendMail.setProgress(percent[0]);
+            progress.setProgress(percent[0]);
         }
 
         protected void onPostExecute(Long result) {
@@ -421,7 +439,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
                         pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager(),posts));
                         tabs.setViewPager(pager);
-                        progressSendMail.hide();
+                        progress.hide();
                     }
                 });
             }

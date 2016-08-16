@@ -10,10 +10,12 @@ public class SlotData {
     private Integer slotno;
     private String slottime;
     private Integer avilablequota;
+    private Boolean status;
 
-    public SlotData(String slotTime, int slotQuota) {
+    public SlotData(String slotTime, int slotQuota, Boolean status) {
         this.slottime= slotTime;
         this.avilablequota= slotQuota;
+        this.status = status;
     }
 
 
@@ -49,6 +51,16 @@ public class SlotData {
     }
     public void setavilablequota(Integer avilablequota) {
         this.avilablequota = avilablequota;
+    }
+
+    public Boolean getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Boolean status)
+    {
+        this.status = status;
     }
 
 }

@@ -34,22 +34,26 @@ import java.util.List;
 public class SuperAwesomeCardFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_POSITION = "position";
     private static final String ARG_POSITION2 = "position2";
+    private static final String ARG3 = "arg3";
 
     private String jsonData;
     private Long dateLong;
+    private int Id;
     private List<SlotData> data;
     private List<SlotData> dataTrimed;
     private RecyclerView recyclerView;
     private SlotAdapter slotAdapter;
+    private static int lastItemClicked=-1;
 
     private String itemSelected;
 
 
-    public static SuperAwesomeCardFragment newInstance(String data,Long position) {
+    public static SuperAwesomeCardFragment newInstance(String data,Long position,int Id) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
         Bundle b = new Bundle();
         b.putString(ARG_POSITION, data);
         b.putLong(ARG_POSITION2, position);
+        b.putInt(ARG3,Id);
         f.setArguments(b);
         return f;
     }
@@ -59,6 +63,7 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
         super.onCreate(savedInstanceState);
         jsonData = getArguments().getString(ARG_POSITION);
         dateLong = getArguments().getLong(ARG_POSITION2);
+        Id = getArguments().getInt(ARG3);
     }
 
 
@@ -84,12 +89,16 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(getActivity(),"Click "+position,Toast.LENGTH_SHORT).show();
-
+                dataTrimed.get(position).setStatus(true);
+                if(lastItemClicked>-1)
+                dataTrimed.get(lastItemClicked).setStatus(false);
+                lastItemClicked=position;
+                slotAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLongClick(View view, int position) {
-                Toast.makeText(getActivity(),"LongClick",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"LongClick",Toast.LENGTH_SHORT).show();
             }
         }));
 
@@ -100,8 +109,16 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
     public void onStop()
     {
         super.onStop();
-        Log.d("SuperAwesomeFragment","Stoped");
+        Log.d("Fragment => ",Id+" Stoped");
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.d("Fragment => ",Id+" Paused");
+    }
+
     private void prepareSlotData(Long l) {
        SlotData temp;
         for(int i=0;i<data.size();i++)
@@ -111,7 +128,7 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
             {
                 if(l<=data.get(i).getslotdate() && data.get(i).getslotdate()<(l+86400000))
                 {
-                    temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota());
+                    temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota(),false);
                     dataTrimed.add(temp);
                     count++;
                 }
@@ -123,7 +140,6 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
         }
         slotAdapter.notifyDataSetChanged();
     }
-
 
     private List<SlotData> getDataAtDate(Long l)
     {

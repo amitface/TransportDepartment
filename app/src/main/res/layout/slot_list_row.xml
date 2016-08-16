@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
         <RadioButton
+            android:id="@+id/slotRadio"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="wrap_content" />

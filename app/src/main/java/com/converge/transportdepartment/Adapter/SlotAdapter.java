@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.converge.transportdepartment.R;
@@ -20,12 +21,13 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.MyViewHolder> 
     private List<SlotData> slotList;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, quota, genre;
+        public RadioButton slotRadio;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.slotTime);
             quota = (TextView) view.findViewById(R.id.slotQuota);
-//            year = (TextView) view.findViewById(R.id.year);
+            slotRadio = (RadioButton) view.findViewById(R.id.slotRadio);
         }
     }
 
@@ -46,6 +48,8 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.MyViewHolder> 
         SlotData slot = slotList.get(position);
         holder.title.setText(slot.slottime());
         holder.quota.setText(Integer.toString(slot.avilablequota()));
+        holder.slotRadio.setChecked(slot.getStatus());
+
     }
 
     @Override
