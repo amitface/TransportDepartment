@@ -313,7 +313,192 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
             "</applicants>";
 
-    private Button button, buttonSave;
+    //s2 is working
+    String s3="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+            "<applicants>"
+            +
+            "<applicant refno=\"19\">" +
+
+            "<statecode>OD</statecode>" +
+
+            "<rtocode>OD22</rtocode>" +
+
+            "<licence-type>l</licence-type>" +
+
+            "<applicant-name>" +
+
+            "<first-name>JIGNESH</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name>S S</last-name>" +
+
+            "</applicant-name>" +
+
+            "<dob>14-06-1989</dob>" +
+
+            "<gender type=\"male\"/>" +
+
+            "<relation type=\"father\" />" +
+
+            "<parent-name>" +
+
+            "<first-name>NARAYANA</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name />" +
+
+            "</parent-name>" +
+
+            "<edu-qualification>31</edu-qualification>" +
+
+            "<identification-marks />" +
+
+            "<identification-marks />" +
+
+            "<blood-group>O-</blood-group>" +
+
+            "<permanent-address>" +
+
+            "<p-flat-house-no>Flat-102, SAI APTS</p-flat-house-no>" +
+
+            "<p-street-locality>39, 19th crs, muneeswar nagar</p-street-locality>" +
+
+            "<p-village-city>tc palya main road</p-village-city>" +
+
+            "<p-district>Bhadrak</p-district>" +
+
+            "<p-state>OD</p-state>" +
+
+            "<p-pin>760016</p-pin>" +
+
+            "<p-phone-no />" +
+
+            "<p-mobile-no>9573443091</p-mobile-no>" +
+
+            "<p-durationofstay>" +
+
+            "<p-years />" +
+
+            "<p-months />" +
+
+            "</p-durationofstay>" +
+
+            "</permanent-address>" +
+
+            "<temporary-address>" +
+
+            "<t-flat-house-no>Flat-102, SAI APTS</t-flat-house-no>" +
+
+            "<t-street-locality>39, 19th crs, muneeswar nagar</t-street-locality>" +
+
+            "<t-village-city>tc palya main road</t-village-city>" +
+
+            "<t-district>Bhadrak</t-district>" +
+
+            "<t-state>OD</t-state>" +
+
+            "<t-pin>760016</t-pin>" +
+
+            "<t-phone-no />" +
+
+            "<t-durationofstay>" +
+
+            "<t-years />" +
+
+            "<t-months />" +
+
+            "</t-durationofstay>" +
+
+            "</temporary-address>" +
+
+            "<citizenship-status type=\"birth\" />" +
+
+            "<birth-place>Bhadrak</birth-place>" +
+
+            "<migration>" +
+
+            "<year />" +
+
+            "<month />" +
+
+            "</migration>" +
+
+            "<birth-country>IND</birth-country>" +
+
+            "<email-id>amit.choudhary@cnvg.in</email-id>" +
+
+            "<list-of-proofs>" +
+
+            "<doc>" +
+
+            "<proofcode>1</proofcode>" +
+
+            "<licence-certificate-badge-no>c1</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i1</issuing-authority>" +
+
+            "<date-of-issue>02-12-1992</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>3</proofcode>" +
+
+            "<licence-certificate-badge-no>c2</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i2</issuing-authority>" +
+
+            "<date-of-issue>02-12-2011</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>O</proofcode>" +
+
+            "<licence-certificate-badge-no />" +
+
+            "<issuing-authority />" +
+
+            "<date-of-issue>02-12-2014</date-of-issue>" +
+
+            "</doc>" +
+
+            "</list-of-proofs>" +
+
+            "<covs>3,4,2,10,53</covs>" +
+
+            "<rcnumber />" +
+
+            "<parentleterforbelow18age type=\"n\" />" +
+
+            "<allnecessarycertificates type=\"y\" />" +
+
+            "<exemptedmedicaltest type=\"n\" />" +
+
+            "<exemptedpreliminarytest type=\"n\" />" +
+
+            "<convicted type=\"n\" />" +
+
+            "<attachdoc>" +
+
+            "<attdlnumber />" +
+
+            "<attdtofconviction />" +
+
+            "<attreason />" +
+
+            "</attachdoc>" +
+
+            "</applicant>" +
+
+            "</applicants>";
+
+    private Button button, buttonSave, buttonSaveSlot;
     private EditText eTRefNum,eTDob;
 
     private OnFragmentInteractionListener mListener;
@@ -358,11 +543,14 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 //        {"access_key":"L8YKJ41HP65M1DIOBVLY","signup-id":"e9d6i0fazk-signup","signup-secret":"9903a947ac90c8ae5406dbbd60febe53","signin-id":"e9d6i0fazk-signin","signin-secret":"15502bc50389b1e7b18809abe6e586e8","vanity":"e9d6i0fazk"}
         button =(Button) view.findViewById(R.id.buttonCheckStatus);
         buttonSave =(Button) view.findViewById(R.id.buttonSave);
+        buttonSaveSlot =(Button) view.findViewById(R.id.buttonSaveSlot);
+
         buttonSave.setOnClickListener(this);
         button.setOnClickListener(this);
+        buttonSaveSlot.setOnClickListener(this);
         eTRefNum = (EditText) view.findViewById(R.id.eTRefNum);
         eTDob = (EditText) view.findViewById(R.id.eTDob);
-
+        String db=s;
         return view;
     }
 
@@ -396,8 +584,13 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             case R.id.buttonSave:
                 sendPostRequest(v);
                 break;
+            case R.id.buttonSaveSlot:
+                saveSlot(5,"14-06-1989",3064487L);
+                break;
         }
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -422,7 +615,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
 
     //Class to Post Data in Background
-    private class PostClass extends AsyncTask<String, Void, Void> {
+    public class PostClass extends AsyncTask<String, Void, Integer> {
 
         private final Context context;
 
@@ -435,7 +628,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Integer doInBackground(String... params) {
             HttpURLConnection connection=null;
             try {
 
@@ -447,13 +640,12 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 //Creating json object.
                 JSONObject jsonObject = new JSONObject();
 
-                jsonObject.accumulate("base64file", endcodetoBase64(s2));
+                jsonObject.accumulate("base64file", endcodetoBase64(s3));
                 jsonObject.accumulate("agentID", "smartchip");
                 jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
                 jsonObject.accumulate("seckey","");
 
                 String json = jsonObject.toString();
-
 
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
@@ -470,7 +662,6 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 int responseCode = connection.getResponseCode();
                 System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
 
-
                 final StringBuilder output = new StringBuilder("Request URL " + url);
                 output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
                 output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
@@ -486,6 +677,15 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
                 System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+                String str [] = responseOutput.toString().split("|");
+
+                if(str[0].equals("Success"))
+                {
+                    return 1;
+                }
+                else
+                    return 0;
+
 
 
 
@@ -502,15 +702,35 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             }
             return null;
         }
+        protected void onPostExecute(Integer result) {
+
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
 
 
-
+//    3064482
     private void getApplicant(int i, String dob)
     {
         new getApplicantData(getActivity(),i,dob).execute();
     }
+
+    //working now 16/08/2016
 
     private class getApplicantData extends AsyncTask<Void, Integer, Long>
     {
@@ -546,7 +766,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
                 JSONObject jsonObject = new JSONObject();
 
-                jsonObject.put("Applno", i);
+                jsonObject.put("applNo",i);
                 jsonObject.put("dob", dob);
                 jsonObject.put("servType", "LL");
                 jsonObject.put("usrName", "smartchip");
@@ -627,9 +847,9 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void saveApplicantSlot(int i, String dob)
+    private void saveSlot(int i, String dob, long l)
     {
-        new getApplicantData(getActivity(),i,dob).execute();
+        new saveApplicantSlot(getActivity(),i,dob,l).execute();
     }
 
     private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
@@ -639,11 +859,13 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         private ProgressDialog progressSendMail;
         private int i;
         private String dob;
+        private Long refNum;
 
-        public saveApplicantSlot(Context c, int i, String dob) {
+        public saveApplicantSlot(Context c, int i, String dob, Long refNum) {
             this.context = c;
             this.i=i;
             this.dob=dob;
+            this.refNum=refNum;
         }
         protected void onPreExecute() {
             progressSendMail = new ProgressDialog(this.context);
@@ -664,14 +886,14 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
                 JSONObject jsonObject2 = new JSONObject();
 
-                jsonObject2.put("applno", 102526);
+                jsonObject2.put("applno", refNum);
                 jsonObject2.put("serviceType", "LL");
                 jsonObject2.put("agentId", "smartchip");
                 jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
                 jsonObject2.put("serviceName","LLSlotBook");
-                jsonObject2.put("rtocode","KA53");
-                jsonObject2.put("slotDate","1471631400000");
-                jsonObject2.put("slotNo",1);
+                jsonObject2.put("rtocode","OD02");
+                jsonObject2.put("slotDate","1471503953386");
+                jsonObject2.put("slotNo",i);
 
                 String json = jsonObject2.toString();
                 System.out.println(json);
@@ -734,8 +956,6 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                     @Override
                     public void run() {
 
-
-
                     }
                 });
 
@@ -746,5 +966,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             }
         }
     }
+
+
 }
 

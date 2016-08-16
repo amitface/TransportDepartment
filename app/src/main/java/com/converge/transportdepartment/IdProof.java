@@ -61,6 +61,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     private final String mFinalString1="mFinalString1";
     private final String NICjson= "NICjson";
+    private final String NICDetail= "NICDetail";
 
     String s1,s2;
     String idCode[]={"","B", "C", "D", "F","H","I","L","T","V","Z","E", "A", "1",
@@ -365,6 +366,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
         editor.putString(mFinalString2, detailString());
         editor.commit();
         editor.putString(NICjson,jsonNIC());
+        editor.putString(NICDetail,detailNIC());
         editor.apply();
     }
 
@@ -512,7 +514,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             stringBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             stringBuffer.append("<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">");
             stringBuffer.append("<applicants>");
-            stringBuffer.append("<applicant refno=").append(jsonObject.getString("refno")).append(">");
+            stringBuffer.append("<applicant refno=\"").append(jsonObject.getString("refno")).append("\">");
             stringBuffer.append("<statecode>").append(jsonObject.getString("statecode")).append("</statecode>");
             stringBuffer.append("<rtocode>OD").append(jsonObject.getString("rtocode")).append("</rtocode>");
             stringBuffer.append("<licence-type>").append(jsonObject.getString("licenceType")).append("</licence-type>");
@@ -548,7 +550,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             stringBuffer.append("</p-durationofstay>");
             stringBuffer.append("</permanent-address>");
 
-            stringBuffer.append("<temporary-address>");
+            stringBuffer.append("<present-address>");
             stringBuffer.append("<t-flat-house-no>").append(jsonObject.getString("tFlatHouseNo")).append("</t-flat-house-no>");
             stringBuffer.append("<t-street-locality>").append(jsonObject.getString("tStreetLocality")).append("</t-street-locality>");
             stringBuffer.append("<t-village-city>").append(jsonObject.getString("tVillageCity")).append("</t-village-city>");
@@ -556,12 +558,12 @@ public class IdProof extends Fragment implements View.OnClickListener{
             stringBuffer.append("<t-state>").append("OD").append("</t-state>");
             stringBuffer.append("<t-pin>").append(jsonObject.getString("tPin")).append("</t-pin>");
             stringBuffer.append("<t-phone-no>").append(jsonObject.getString("tPhoneNo")).append("</t-phone-no>");
-            stringBuffer.append("<t-mobile-no>").append(jsonObject.getString("tMobileNo")).append("</t-mobile-no>");
+//            stringBuffer.append("<t-mobile-no>").append(jsonObject.getString("tMobileNo")).append("</t-mobile-no>");
             stringBuffer.append("<t-durationofstay>");
             stringBuffer.append("<t-years>").append(jsonObject.getString("tYears")).append("</t-years>");
             stringBuffer.append("<t-months>").append(jsonObject.getString("tMonths")).append("</t-months>");
             stringBuffer.append("</t-durationofstay>");
-            stringBuffer.append("</temporary-address>");
+            stringBuffer.append("</present-address>");
             stringBuffer.append("<citizenship-status type=\"").append(jsonObject.getString("citizenship-status")).append("\"/>");
             stringBuffer.append("<birth-place>").append(jsonObject.getString("birth-place")).append("</birth-place>");
             stringBuffer.append("<migration>");
@@ -622,9 +624,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
             stringBuffer.append("</list-of-proofs>");
             stringBuffer.append("<covs>").append(sharedpreferences.getString("mFinalStringCov","")).append("</covs>");
-            stringBuffer.append("<rcnumber />").append("<parentleterforbelow18age type=\"n\"/>").append("<allnecessarycertificates type=\"y\"/>");
+            stringBuffer.append("<rcnumber />").append("<parentleterforbelow18age />").append("<allnecessarycertificates type=\"y\"/>");
             stringBuffer.append("<exemptedmedicaltest type=\"n\"/>").append("<exemptedpreliminarytest type=\"n\"/>");
-            stringBuffer.append("<allnecessarycertificates type=\"y\"/>").append("<convicted type=\"n\" />");
+            stringBuffer.append("<convicted type=\"n\" />");
             stringBuffer.append("<attachdoc>");
             stringBuffer.append("<attdlnumber />");
             stringBuffer.append("<attdtofconviction />");

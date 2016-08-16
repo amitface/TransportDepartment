@@ -26,6 +26,7 @@ import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -63,11 +64,15 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String PGInfo = "PgInfo";
+    private static final String SLOTNUMBER = "SLOTNUMBER";
+    private static final String SLOTDATE = "SLOTDATE";
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
     private ProgressDialog progress;
+    private String rtoCode=null;
 
 
 
@@ -87,8 +92,9 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
-    private static volatile Integer slotNumber=-1;
-    private static volatile Long slotDate=-1L;
+    public static volatile Integer slotNumber=-1;
+    public static volatile Long slotDate=-1L;
+    public static volatile String slotTime=null;
 
     public SelectSchedule() {
         // Required empty public constructor
@@ -129,10 +135,15 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_select_schedule, container, false);
         hideKeyboard(getContext());
-
+//        sharedpreferences;
         pager = (ViewPager) view.findViewById(R.id.pager);
 
-
+        try {
+            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
+            rtoCode = jsonObject.getString("rtocodeReal");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Bind the tabs to the ViewPager
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
@@ -189,10 +200,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         Calendar c ;
         SimpleDateFormat ft;
 
-//        private final String[] TITLES = {"13 Aug", "16 Aug", "17 Aug", "19 Aug",
-//                "20 Aug", "21 Aug" };
-//        private String[] TITLES;
-
         public MyPagerAdapter(FragmentManager fm, List<SlotData> posts) {
             super(fm);
             data = new ArrayList<SlotData>(posts);
@@ -220,16 +227,16 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 for(int i=0;i<data.size();i++)
                 {
                     if(data.get(i)!=null)
+                    {
+                        if(dateSetArray[j]<=data.get(i).getSlotdate() && data.get(i).getSlotdate()<dateSetArray[j+1])
                         {
-                            if(dateSetArray[j]<=data.get(i).getslotdate() && data.get(i).getslotdate()<dateSetArray[j+1])
-                            {
                                 temp.add(dateSetArray[j]);
-                                Log.d("unique Date",""+data.get(i).getslotdate());
+                                Log.d("unique Date",""+data.get(i).getSlotdate());
                                 if(temp.size()==7)
                                     return temp;
                                 break;
-                            }
                         }
+                    }
                 }
             }
             return temp;
@@ -275,9 +282,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 if(val())
                 {
                     Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(PGInfo,jsonString());
+                    editor.apply();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
                 }
-
-//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
                 break;
 
             case R.id.buttonBackSelectSchedule:
@@ -286,8 +295,22 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
     }
 
+    private String jsonString() {
+        JSONObject js=null;
+
+        try {
+            js = new JSONObject(sharedpreferences.getString(PGInfo,""));
+            js.put("slotDate",slotDate);
+            js.put("slotNumber",slotNumber);
+            js.put("slotTime",slotTime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return js.toString();
+    }
+
     private boolean val() {
-        if(slotDate==-1 || slotNumber==-1L) {
+        if(slotDate==-1 || slotNumber==-1L || slotTime==null) {
             Toast.makeText(getActivity(),"Please select at least one slot",Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -345,7 +368,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("Applno", 102532);
+            jsonObject.put("applno", 102532);
             jsonObject.put("dob", "20/08/1984");
             jsonObject.put("servType", "LL");
             jsonObject.put("usrName", "smartchip");
@@ -360,7 +383,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             jsonObject1.put("agentId", "smartchip");
             jsonObject1.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
             jsonObject1.put("serviceName","LLSlotBook");
-            jsonObject1.put("rtocode","OD01");
+            jsonObject1.put("rtocode",rtoCode);
 
             JSONObject jsonObject2 = new JSONObject();
 
@@ -445,6 +468,13 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             }
             else
             {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.hide();
+                        Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         }

@@ -13,10 +13,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.converge.transportdepartment.Adapter.SlotAdapter;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.SelectSchedule;
 import com.converge.transportdepartment.Utility.DividerItemDecoration;
 import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
@@ -88,8 +88,11 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RtoLocatorFragment.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getActivity(),"Click "+position,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"Click "+position,Toast.LENGTH_SHORT).show();
                 dataTrimed.get(position).setStatus(true);
+                SelectSchedule.slotNumber=dataTrimed.get(position).getSlotno();
+                SelectSchedule.slotDate=dataTrimed.get(position).getSlotdate();
+                SelectSchedule.slotTime=dataTrimed.get(position).slottime();
                 if(lastItemClicked>-1)
                 dataTrimed.get(lastItemClicked).setStatus(false);
                 lastItemClicked=position;
@@ -126,9 +129,9 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
             int count=0;
             if(data.get(i)!=null)
             {
-                if(l<=data.get(i).getslotdate() && data.get(i).getslotdate()<(l+86400000))
+                if(l<=data.get(i).getSlotdate() && data.get(i).getSlotdate()<(l+86400000))
                 {
-                    temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota(),false);
+                    temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota(),false,data.get(i).getSlotno(),data.get(i).getSlotdate());
                     dataTrimed.add(temp);
                     count++;
                 }
@@ -149,7 +152,7 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
             int count=0;
             if(data.get(i)!=null)
             {
-                if(l==data.get(i).getslotdate())
+                if(l==data.get(i).getSlotdate())
                 {
                     temp.add(data.get(i));
                     count++;

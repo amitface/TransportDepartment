@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +28,19 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -60,6 +65,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private String mFinalString1="mFinalString1";
     private final String mFinalString2="mFinalString2";
     private final String mFinalStringCov="mFinalStringCov";
+    private final String NICjson= "NICjson";
+    private final String NICDetail= "NICDetail";
 
     private static boolean permanent = false;
     private static boolean present = false;
@@ -135,6 +142,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private TextView meditTextPresentYear;
     private TextView meditTextPresentPinCode;
     private TextView meditTextPresentMoblieNo;
+    private TextView mTxtAppointmentDate;
+    private TextView mTxtAppointmentTime;
 
 
     private TextView meditViewFee;
@@ -271,9 +280,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         String arr[]=s.split(",");
         int len =arr.length;
         if(arr[0].length()>0)
-        len = len*30+20;
+            len = len*30+20;
         else
-        len=0;
+            len=0;
         return len;
     }
     // TODO: Rename method, update argument and hook method into UI event
@@ -298,6 +307,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 if(validate()) {
                     sendPostRequest();
 //                    saveSharedPreference();
+//                    sendPostNICRequest();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
                 }
                 break;
@@ -466,8 +476,22 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 //        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackConfirmAndPay = (ImageView) rootView.findViewById(R.id.buttonBackConfirmAndPay);
 
+        mTxtAppointmentDate =(TextView) rootView.findViewById(R.id.txtAppiontmentDate);
+        mTxtAppointmentTime =(TextView) rootView.findViewById(R.id.txtAppiontmentTime);
+        try {
+            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
+            mTxtAppointmentTime.setText("Appointment time : "+jsonObject.getString("slotTime"));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
+            Calendar calendar = Calendar.getInstance();
+            Long aLong = jsonObject.getLong("slotDate");
+            calendar.setTimeInMillis(aLong);
+            dateFormat.format(calendar.getTime());
+            System.out.println(dateFormat.format(calendar.getTime()));
+            mTxtAppointmentDate.setText("Appointment time : "+dateFormat.format(calendar.getTime()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         retrivesession();
-
     }
 
     private void disableField(View rootView) {
@@ -621,20 +645,20 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
             if(c.getString(44).length()>0)
                 mspinnerIdmark.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(44))]);
-            if(c.getString(45).length()>0)
-                mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(45))]);
 
+            if(c.getString(45).length()>0)
+                mspinnerIdmark2.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(45))]);
 
             if(c.getString(46).length()>0)
-                mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(46))]);
+                mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(46))]);
+
+
+            if(c.getString(47).length()>0)
+                mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(47))]);
         }
         db.close();
 
     }
-
-
-
-
 
     private boolean validate() {
 //        if(mspinnerSDate.getSelectedItemPosition()==0)
@@ -699,8 +723,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
         mspinnerPresentState.setEnabled(true);
     }
-
-
 
     private void hidePersonalDetail()
     {
@@ -906,6 +928,135 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                         //Your code to run in GUI thread here
                         showToast("failure");
                     }//public void run() {
+                });
+            }
+        }
+
+    }
+
+
+    public void sendPostNICRequest() {
+        new PostClassNIC(getActivity()).execute();
+    }
+
+
+
+    //Class to Post Data in Background
+    public class PostClassNIC extends AsyncTask<String, Void, Integer> {
+
+        private final Context context;
+
+        //Method to Encode to Base64
+        private String endcodetoBase64(String s) throws UnsupportedEncodingException {
+            byte[] byteArray = s.getBytes("UTF-8");
+            return Base64.encodeToString(byteArray,0);
+        }
+
+        public PostClassNIC(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpURLConnection connection=null;
+            try {
+
+//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
+                URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
+
+                connection = (HttpURLConnection) url.openConnection();
+
+                //Creating json object.
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.accumulate("base64file", endcodetoBase64(sharedpreferences.getString(NICDetail,"")));
+                jsonObject.accumulate("agentID", "smartchip");
+                jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.accumulate("seckey","");
+
+                String json = jsonObject.toString();
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+                String str [] = responseOutput.toString().split("\\|");
+
+                if(str[0].equals("Success"))
+                {
+                    JSONObject jsonObject1 = new JSONObject(jsonString);
+                    jsonObject1.put("applicantNum",str[0]);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(PGInfo,jsonObject1.toString());
+                    editor.apply();
+                    return 1;
+                }
+                else
+                    return 0;
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }finally {
+                connection.disconnect();
+            }
+            return null;
+        }
+        protected void onPostExecute(Integer result) {
+
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
+                    }
+                });
+
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
                 });
             }
         }

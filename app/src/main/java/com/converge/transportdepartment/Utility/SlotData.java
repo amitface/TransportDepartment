@@ -12,14 +12,16 @@ public class SlotData {
     private Integer avilablequota;
     private Boolean status;
 
-    public SlotData(String slotTime, int slotQuota, Boolean status) {
+    public SlotData(String slotTime, int slotQuota, Boolean status,Integer slotno, Long slotdate) {
         this.slottime= slotTime;
         this.avilablequota= slotQuota;
         this.status = status;
+        this.slotno = slotno;
+        this.slotdate = slotdate;
     }
 
 
-    public long getslotdate() {
+    public long getSlotdate() {
         return slotdate;
     }
     public void setslotdate(long slotdate) {
@@ -33,12 +35,13 @@ public class SlotData {
         this.rtocode = rtocode;
     }
 
-    public Integer slotno() {
+    public Integer getSlotno() {
         return slotno;
     }
     public void setSlotNo(Integer slotno) {
         this.slotno = slotno;
     }
+
     public String slottime() {
         return slottime;
     }
@@ -57,7 +60,6 @@ public class SlotData {
     {
         return status;
     }
-
     public void setStatus(Boolean status)
     {
         this.status = status;

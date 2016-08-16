@@ -177,6 +177,7 @@
                 <TableRow
                     android:layout_marginTop="2dp">
                     <TextView
+                        android:id="@+id/txtAppiontmentDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -191,6 +192,7 @@
                 <TableRow
                     android:layout_marginTop="4dp">
                     <TextView
+                        android:id="@+id/txtAppiontmentTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Appointment time : 11:30 to 11:50"

@@ -85,6 +85,7 @@ public class DBAdapter {
             " citizenship_status TEXT," +
             " edu_qualification TEXT," +
             " identification_marks TEXT," +
+            " identification_marks2 TEXT," +
             " blood_group TEXT," +
             " blood_group_rh TEXT)";
 //            " covs TEXT," +
@@ -124,7 +125,7 @@ public class DBAdapter {
             "'','','','','','','','','',''," +
             "'','','','','','','','','',''," +
             "'','','','','','','','','',''," +
-            "'','','','','','');";
+            "'','','','','','','');";
 
     static String [] dataFeildIdProof = {"id", "name1", "doc_num1", "authority1" ,"do_issue1",
             "name2","doc_num2 ","authority2 ","do_issue2",
@@ -190,6 +191,7 @@ public class DBAdapter {
             " citizenship_status ",
             " edu_qualification ",
             " identification_marks ",
+            " identification_marks2 ",
             " blood_group ",
             " blood_group_rh "};
     //Id proof
@@ -258,6 +260,7 @@ public class DBAdapter {
     static final String citizenship_status="citizenship_status";
     static final String edu_qualification="edu_qualification";
     static final String identification_marks="identification_marks";
+    static final String identification_marks2="identification_marks2";
     static final String blood_group="blood_group";//13
     private final String blood_group_rh="blood_group_rh";
 
@@ -457,6 +460,7 @@ public class DBAdapter {
          args.put(citizenship_status,hashMap.get("citizenship_status"));
          args.put(edu_qualification,hashMap.get("edu_qualification"));
          args.put(identification_marks,hashMap.get("identification_marks"));
+         args.put(identification_marks2,hashMap.get("identification_marks2"));
          args.put(blood_group,hashMap.get("blood_group"));
          args.put(blood_group_rh,hashMap.get("blood_group_rh"));
 

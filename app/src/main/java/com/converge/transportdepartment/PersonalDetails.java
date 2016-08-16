@@ -161,7 +161,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
             R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
             R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
-    String rtoC[], qualificateCode[], stateCode[];
+    String rtoC[], rtoRealCode[], qualificateCode[], stateCode[];
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
@@ -242,6 +242,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         rtoC=getResources().getStringArray(R.array.Rto_code);
+        rtoRealCode=getResources().getStringArray(R.array.Rto_code_Real);
         qualificateCode=getResources().getStringArray(R.array.qualificationCode);
         stateCode=getResources().getStringArray(R.array.statesCode);
         Random rand = new Random();
@@ -602,13 +603,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
 
             if(c.getString(44).length()>0)
-            mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
-            if(c.getString(45).length()>0)
-            mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(45)));
+                mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
 
+            if(c.getString(45).length()>0)
+                mspinnerIdmark2.setSelection(Integer.parseInt(c.getString(45)));
 
             if(c.getString(46).length()>0)
-            mspinnerRH.setSelection(Integer.parseInt(c.getString(46)));
+            mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(46)));
+
+
+            if(c.getString(47).length()>0)
+            mspinnerRH.setSelection(Integer.parseInt(c.getString(47)));
         }
         db.close();
         addListenerOnSpinnerRtoSelection();
@@ -679,21 +684,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         hashMap.put("citizenship_status",Integer.toString(mspinnerCitizenship.getSelectedItemPosition()));
         hashMap.put("edu_qualification",Integer.toString(mspinnerQualification.getSelectedItemPosition()));
         hashMap.put("identification_marks",Integer.toString(mspinnerIdmark.getSelectedItemPosition()));
+        hashMap.put("identification_marks2",Integer.toString(mspinnerIdmark2.getSelectedItemPosition()));
         hashMap.put("blood_group",Integer.toString(mspinnerBloodGroup.getSelectedItemPosition()));
         hashMap.put("blood_group_rh",Integer.toString(mspinnerRH.getSelectedItemPosition()));
-
-//        hashMap.put("migration","");
-
-//        hashMap.put("covs","3,4");
-//        hashMap.put("rcnumber","");
-//        hashMap.put("parentletterforbelow18age","");
-//        hashMap.put("allnecessarycertificates","y");
-//        hashMap.put("exemptedmedicaltest","");
-//        hashMap.put("exemptedpreliminarytest","");
-//        hashMap.put("convicted","n");
-//        hashMap.put("attdlnumber","");
-//        hashMap.put("attdtofconviction","");
-//        hashMap.put("attreason","");
         try{
 
 
@@ -1209,8 +1202,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString().toUpperCase());
             jsNic.put("aFLast",meditViewApplicantLastName.getText().toString().toUpperCase());
             jsNic.put("dob",mtextViewDate.getText().toString().toUpperCase().replace("/","-"));
-            jsNic.put("gender",mspinnerGender.getSelectedItem().toString().toUpperCase());
-            jsNic.put("relation-type",mspinnerRelationshipType.getSelectedItem().toString().toUpperCase());
+            jsNic.put("gender",mspinnerGender.getSelectedItem().toString());
+            jsNic.put("relation-type",mspinnerRelationshipType.getSelectedItem().toString());
             jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString().toUpperCase());
             jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase());
             jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString().toUpperCase());
@@ -1247,7 +1240,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("pYears",meditTextPresentYear.getText().toString().toUpperCase());
             jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
 
-            jsNic.put("citizenship-status",mspinnerCitizenship.getSelectedItem().toString().toUpperCase());
+            jsNic.put("citizenship-status",mspinnerCitizenship.getSelectedItem().toString());
             jsNic.put("birth-place",meditViewPlaceOfBirth.getText().toString().toUpperCase());
             jsNic.put("year",meditViewYear.getText().toString().toUpperCase());
             jsNic.put("month",meditViewMonth.getText().toString().toUpperCase());
@@ -1273,12 +1266,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             js.put("moblie",meditTextPermanentMoblieNo.getText().toString().toUpperCase() );
             js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
             js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+            js.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
             js.put("email",meditViewEmail.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return js.toString();
     }
+
     private String createJsonString()
     {
         JSONArray ja = new JSONArray();
@@ -1418,6 +1413,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         return true;
 
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
