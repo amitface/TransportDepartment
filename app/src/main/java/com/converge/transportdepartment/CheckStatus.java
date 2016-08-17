@@ -46,87 +46,87 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
-    String s =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
-                "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
-                "<applicants>"+
-                "<applicant refno=\"15\">"+
-                            "<statecode>OD</statecode>"+
-                            "<rtocode>OD01</rtocode>"+
-                            "<licence-type>L</licence-type>"+
-                            "<applicant-name>" +
-                                "<first-name>Ramana</first-name>" +
-                                "<middle-name>Rao</middle-name>" +
-                                "<last-name>Yogi</last-name>" +
-                            "</applicant-name>"+
-                            "<dob>05-08-1989</dob>" +
-                            "<gender type=\"male\"/>" +
-                            "<relation type=\"father\"/>"+
-                            "<parent-name>" +
-                                "<first-name>Shankar</first-name>" +
-                                "<middle-name>rao</middle-name>" +
-                                "<last-name>Yogi</last-name>" +
-                            "</parent-name>"+
-                            "<edu-qualification>4</edu-qualification>" +
-                            "<identification-marks>A mole on the right side of the neck</identification-marks>" +
-                            "<identification-marks/>"+
-                            "<blood-group>O+</blood-group>"+
-                            "<permanent-address>" +
-                                "<p-flat-house-no>21</p-flat-house-no>" +
-                                "<p-street-locality>Ramarajyanagar</p-street-locality>" +
-                                "<p-village-city>Hyderabad</p-village-city>" +
-                                "<p-district>Ranga Reddy</p-district>" +
-                                "<p-state>OD</p-state>" +
-                                "<p-pin>750012</p-pin>" +
-                                "<p-phone-no></p-phone-no>" +
-                                "<p-mobile-no>9533241448</p-mobile-no>" +
-                                "<p-durationofstay>" +
-                                    "<p-years>5</p-years>" +
-                                    "<p-months>5</p-months>" +
-                                "</p-durationofstay>" +
-                             "</permanent-address>" +
-                             "<present-address>" +
-                                "<t-flat-house-no>21</t-flat-house-no>" +
-                                "<t-street-locality>Ramarajyanagar</t-street-locality>" +
-                                "<t-village-city>Hyderabad</t-village-city>" +
-                                "<t-district> Ranga Reddy </t-district>" +
-                                "<t-state>OD</t-state>" +
-                                "<t-pin>750012</t-pin>" +
-                                "<t-phone-no></t-phone-no>" +
-                                "<t-durationofstay>" +
-                                  "<t-years>5</t-years>" +
-                                  "<t-months>5</t-months>" +
-                                "</t-durationofstay>" +
-                             "</present-address>"+
-                        "<citizenship-status type=\"birth\"/>" +
-                        "<birth-place>Warangal</birth-place>" +
-                        "<migration>" +
-                            "<year>2012</year>" +
-                            "<month>05</month>" +
-                        "</migration>" +
-                        "<birth-country>IND</birth-country>" +
-                        "<email-id>ramana@gmail.com</email-id>" +
-                        "<list-of-proofs>" +
-                        "<doc>" +
-                        "<proofcode>D</proofcode>" +
-                        "<licence-certificate-badge-no>MH0119760129144</licence-certificate-badge-no>" +
-                        "<issuing-authority>MH01</issuing-authority>" +
-                        "<date-of-issue>18-07-2007</date-of-issue>" +
-                        "</doc>" +
-                        "</list-of-proofs>"+
-                        "<covs>3</covs>" +
-                        "<rcnumber/>"+
-                        "<parentleterforbelow18age/>"+
-                        "<allnecessarycertificates type=\"y\"/>"+
-                        "<exemptedmedicaltest type=\"n\"/>"+
-                        "<exemptedpreliminarytest type=\"n\"/>"+
-                        "<convicted type=\"n\"/>"+
-                            "<attachdoc>" +
-                                "<attdlnumber/>" +
-                                "<attdtofconviction/>" +
-                                "<attreason/>" +
-                            "</attachdoc>"+
-                "</applicant>" +
-            "</applicants>";
+//    String s =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+//                "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+//                "<applicants>"+
+//                "<applicant refno=\"15\">"+
+//                            "<statecode>OD</statecode>"+
+//                            "<rtocode>OD01</rtocode>"+
+//                            "<licence-type>L</licence-type>"+
+//                            "<applicant-name>" +
+//                                "<first-name>Ramana</first-name>" +
+//                                "<middle-name>Rao</middle-name>" +
+//                                "<last-name>Yogi</last-name>" +
+//                            "</applicant-name>"+
+//                            "<dob>05-08-1989</dob>" +
+//                            "<gender type=\"male\"/>" +
+//                            "<relation type=\"father\"/>"+
+//                            "<parent-name>" +
+//                                "<first-name>Shankar</first-name>" +
+//                                "<middle-name>rao</middle-name>" +
+//                                "<last-name>Yogi</last-name>" +
+//                            "</parent-name>"+
+//                            "<edu-qualification>4</edu-qualification>" +
+//                            "<identification-marks>A mole on the right side of the neck</identification-marks>" +
+//                            "<identification-marks/>"+
+//                            "<blood-group>O+</blood-group>"+
+//                            "<permanent-address>" +
+//                                "<p-flat-house-no>21</p-flat-house-no>" +
+//                                "<p-street-locality>Ramarajyanagar</p-street-locality>" +
+//                                "<p-village-city>Hyderabad</p-village-city>" +
+//                                "<p-district>Ranga Reddy</p-district>" +
+//                                "<p-state>OD</p-state>" +
+//                                "<p-pin>750012</p-pin>" +
+//                                "<p-phone-no></p-phone-no>" +
+//                                "<p-mobile-no>9533241448</p-mobile-no>" +
+//                                "<p-durationofstay>" +
+//                                    "<p-years>5</p-years>" +
+//                                    "<p-months>5</p-months>" +
+//                                "</p-durationofstay>" +
+//                             "</permanent-address>" +
+//                             "<present-address>" +
+//                                "<t-flat-house-no>21</t-flat-house-no>" +
+//                                "<t-street-locality>Ramarajyanagar</t-street-locality>" +
+//                                "<t-village-city>Hyderabad</t-village-city>" +
+//                                "<t-district> Ranga Reddy </t-district>" +
+//                                "<t-state>OD</t-state>" +
+//                                "<t-pin>750012</t-pin>" +
+//                                "<t-phone-no></t-phone-no>" +
+//                                "<t-durationofstay>" +
+//                                  "<t-years>5</t-years>" +
+//                                  "<t-months>5</t-months>" +
+//                                "</t-durationofstay>" +
+//                             "</present-address>"+
+//                        "<citizenship-status type=\"birth\"/>" +
+//                        "<birth-place>Warangal</birth-place>" +
+//                        "<migration>" +
+//                            "<year>2012</year>" +
+//                            "<month>05</month>" +
+//                        "</migration>" +
+//                        "<birth-country>IND</birth-country>" +
+//                        "<email-id>ramana@gmail.com</email-id>" +
+//                        "<list-of-proofs>" +
+//                        "<doc>" +
+//                        "<proofcode>D</proofcode>" +
+//                        "<licence-certificate-badge-no>MH0119760129144</licence-certificate-badge-no>" +
+//                        "<issuing-authority>MH01</issuing-authority>" +
+//                        "<date-of-issue>18-07-2007</date-of-issue>" +
+//                        "</doc>" +
+//                        "</list-of-proofs>"+
+//                        "<covs>3</covs>" +
+//                        "<rcnumber/>"+
+//                        "<parentleterforbelow18age/>"+
+//                        "<allnecessarycertificates type=\"y\"/>"+
+//                        "<exemptedmedicaltest type=\"n\"/>"+
+//                        "<exemptedpreliminarytest type=\"n\"/>"+
+//                        "<convicted type=\"n\"/>"+
+//                            "<attachdoc>" +
+//                                "<attdlnumber/>" +
+//                                "<attdtofconviction/>" +
+//                                "<attreason/>" +
+//                            "</attachdoc>"+
+//                "</applicant>" +
+//            "</applicants>";
 
     //s2 is working
     String s2="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
@@ -550,7 +550,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         buttonSaveSlot.setOnClickListener(this);
         eTRefNum = (EditText) view.findViewById(R.id.eTRefNum);
         eTDob = (EditText) view.findViewById(R.id.eTDob);
-        String db=s;
+        String db=s2;
         return view;
     }
 

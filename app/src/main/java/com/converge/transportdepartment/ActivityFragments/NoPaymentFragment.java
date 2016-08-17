@@ -492,6 +492,7 @@ public class NoPaymentFragment extends Fragment {
     public void sendMessage()
     {
         new sendMsg(getActivity()).execute();
+//        new sendRtoMsg(getActivity()).execute();
     }
 
     private class sendMsg extends AsyncTask<Void, Integer, Integer> {
@@ -515,14 +516,100 @@ public class NoPaymentFragment extends Fragment {
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-                URL url = new URL(" http://103.27.233.206/sendsms/");
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+//                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+
+
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E,dd/MM/yy");
                 Long aLong = jsonObjectData.getLong("slotDate");
                 calendar.setTimeInMillis(aLong);
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
-                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
+                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+//                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                System.out.println(s);
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+//                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(s);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print(responseCode);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return l;
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+
+
+        }
+    }
+
+    private class sendRtoMsg extends AsyncTask<Void, Integer, Integer> {
+
+        private final Context context;
+        private ProgressDialog progress;
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public sendRtoMsg(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params)
+        {
+            int l=0;
+            try
+            {
+                JSONObject jsonObjectData= new JSONObject(jsonString);
+//                URL url = new URL(" http://103.27.233.206/sendsms/");
+                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+
+
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E,dd/MM/yy");
+                Long aLong = jsonObjectData.getLong("slotDate");
+                calendar.setTimeInMillis(aLong);
+                dateFormat.format(calendar.getTime());
+                System.out.println(dateFormat.format(calendar.getTime()));
+//                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
+                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -598,7 +598,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             if(c.getString(42).length()>0)
                 mspinnerCitizenship.setSelection(Integer.parseInt(c.getString(42)));
 
-
             if(c.getString(43).length()>0)
             mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
 
@@ -610,7 +609,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             if(c.getString(46).length()>0)
             mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(46)));
-
 
             if(c.getString(47).length()>0)
             mspinnerRH.setSelection(Integer.parseInt(c.getString(47)));
@@ -1198,54 +1196,54 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("statecode","OD");
             jsNic.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
             jsNic.put("licenceType","l");
-            jsNic.put("aFName",meditViewApplicantFirstName.getText().toString().toUpperCase());
-            jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString().toUpperCase());
-            jsNic.put("aFLast",meditViewApplicantLastName.getText().toString().toUpperCase());
-            jsNic.put("dob",mtextViewDate.getText().toString().toUpperCase().replace("/","-"));
+            jsNic.put("aFName",meditViewApplicantFirstName.getText().toString());
+            jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString());
+            jsNic.put("aFLast",meditViewApplicantLastName.getText().toString());
+            jsNic.put("dob",mtextViewDate.getText().toString().replace("/","-"));
             jsNic.put("gender",mspinnerGender.getSelectedItem().toString());
             jsNic.put("relation-type",mspinnerRelationshipType.getSelectedItem().toString());
-            jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString().toUpperCase());
-            jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase());
-            jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString().toUpperCase());
+            jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString());
+            jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString());
+            jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString());
 
 
-            jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString().toUpperCase());
-            jsNic.put("identification-marks2",mspinnerIdmark2.getSelectedItem().toString().toUpperCase());
+            jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString());
+            jsNic.put("identification-marks2",mspinnerIdmark2.getSelectedItem().toString());
 
             jsNic.put("blood-group",mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItemPosition());
 
 
-            jsNic.put("tFlatHouseNo",meditTextPermanentFlatNum.getText().toString().toUpperCase()+" "+meditTextPermanentHouseName.getText().toString().toUpperCase()+" "+meditTextPresentHouseNum.getText().toString().toUpperCase());
-            jsNic.put("tStreetLocality",meditTextPermanentStreet.getText().toString().toUpperCase()+" "+meditTextPermanentLocality.getText().toString().toUpperCase());
-            jsNic.put("tVillageCity",meditTextPermanentvillage.getText().toString().toUpperCase()+" "+meditTextPresentTaluka.getText().toString().toUpperCase());
+            jsNic.put("tFlatHouseNo",meditTextPermanentFlatNum.getText().toString()+" "+meditTextPermanentHouseName.getText().toString()+" "+meditTextPresentHouseNum.getText().toString());
+            jsNic.put("tStreetLocality",meditTextPermanentStreet.getText().toString()+" "+meditTextPermanentLocality.getText().toString());
+            jsNic.put("tVillageCity",meditTextPermanentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
 
-            jsNic.put("tDistrict",mSPerDistrict.getSelectedItem().toString().toUpperCase());
-            jsNic.put("tState",mspinnerPermanentState.getSelectedItem().toString().toUpperCase());
-            jsNic.put("tPin",meditTextPermanentPinCode.getText().toString().toUpperCase());
-            jsNic.put("tPhoneNo",meditTextPermanentMoblieNo.getText().toString().toUpperCase());
-            jsNic.put("tMobileNo",meditTextPermanentMoblieNo.getText().toString().toUpperCase());
-            jsNic.put("tYears",meditTextPermanentYear.getText().toString().toUpperCase());
-            jsNic.put("tMonths",meditTextPermanentMonth.getText().toString().toUpperCase());
+            jsNic.put("tDistrict",mSPerDistrict.getSelectedItem().toString());
+            jsNic.put("tState",mspinnerPermanentState.getSelectedItem().toString());
+            jsNic.put("tPin",meditTextPermanentPinCode.getText().toString());
+            jsNic.put("tPhoneNo",meditTextPermanentMoblieNo.getText().toString());
+            jsNic.put("tMobileNo",meditTextPermanentMoblieNo.getText().toString());
+            jsNic.put("tYears",meditTextPermanentYear.getText().toString());
+            jsNic.put("tMonths",meditTextPermanentMonth.getText().toString());
 
 
-            jsNic.put("pFlatHouseNo",meditTextPresentFlatNum.getText().toString().toUpperCase()+" "+meditTextPresentHouseName.getText().toString().toUpperCase()+" "+meditTextPresentHouseNum.getText().toString().toUpperCase());
-            jsNic.put("pStreetLocality",meditTextPresentStreet.getText().toString().toUpperCase()+" "+meditTextPresentLocality.getText().toString().toUpperCase());
-            jsNic.put("pVillageCity",meditTextPresentvillage.getText().toString().toUpperCase()+" "+meditTextPresentTaluka.getText().toString().toUpperCase());
+            jsNic.put("pFlatHouseNo",meditTextPresentFlatNum.getText().toString()+" "+meditTextPresentHouseName.getText().toString()+" "+meditTextPresentHouseNum.getText().toString());
+            jsNic.put("pStreetLocality",meditTextPresentStreet.getText().toString()+" "+meditTextPresentLocality.getText().toString());
+            jsNic.put("pVillageCity",meditTextPresentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
 
-            jsNic.put("pDistrict",meditTextPresentDistrict.getText().toString().toUpperCase());
-            jsNic.put("pState",mspinnerPresentState.getSelectedItem().toString().toUpperCase());
-            jsNic.put("pPin",meditTextPresentPinCode.getText().toString().toUpperCase());
-            jsNic.put("pPhoneNo",meditTextPresentMoblieNo.getText().toString().toUpperCase());
-            jsNic.put("pMobileNo",meditTextPresentMoblieNo.getText().toString().toUpperCase());
-            jsNic.put("pYears",meditTextPresentYear.getText().toString().toUpperCase());
-            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
+            jsNic.put("pDistrict",meditTextPresentDistrict.getText().toString());
+            jsNic.put("pState",mspinnerPresentState.getSelectedItem().toString());
+            jsNic.put("pPin",meditTextPresentPinCode.getText().toString());
+            jsNic.put("pPhoneNo",meditTextPresentMoblieNo.getText().toString());
+            jsNic.put("pMobileNo",meditTextPresentMoblieNo.getText().toString());
+            jsNic.put("pYears",meditTextPresentYear.getText().toString());
+            jsNic.put("pMonths",meditTextPresentMonth.getText().toString());
 
             jsNic.put("citizenship-status",mspinnerCitizenship.getSelectedItem().toString());
-            jsNic.put("birth-place",meditViewPlaceOfBirth.getText().toString().toUpperCase());
-            jsNic.put("year",meditViewYear.getText().toString().toUpperCase());
-            jsNic.put("month",meditViewMonth.getText().toString().toUpperCase());
+            jsNic.put("birth-place",meditViewPlaceOfBirth.getText().toString());
+            jsNic.put("year",meditViewYear.getText().toString());
+            jsNic.put("month",meditViewMonth.getText().toString());
             jsNic.put("birth-country","IND");
-            jsNic.put("email-id",meditViewEmail.getText().toString().toUpperCase());
+            jsNic.put("email-id",meditViewEmail.getText().toString());
 //            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
 
         return jsNic.toString();
@@ -1266,6 +1264,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             js.put("moblie",meditTextPermanentMoblieNo.getText().toString().toUpperCase() );
             js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
             js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+
             js.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
             js.put("email",meditViewEmail.getText().toString());
         } catch (JSONException e) {

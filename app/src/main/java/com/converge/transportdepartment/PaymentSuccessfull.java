@@ -41,6 +41,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -1070,8 +1072,16 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-                URL url = new URL(" http://103.27.233.206/sendsms/");
-                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+jsonObjectData.get("receiptNum")+". Date of appointment 11/08/2016 and Time 11:15 AM &mobile="+jsonObjectData.get("moblie");
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E,dd/MM/yy");
+                Long aLong = jsonObjectData.getLong("slotDate");
+                calendar.setTimeInMillis(aLong);
+                dateFormat.format(calendar.getTime());
+                System.out.println(dateFormat.format(calendar.getTime()));
+
+                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+jsonObjectData.get("receiptNum")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+"&mobile="+jsonObjectData.get("moblie");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

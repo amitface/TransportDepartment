@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -52,7 +50,7 @@ import java.util.HashMap;
  * Use the {@link ConfirmAndPay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConfirmAndPay extends Fragment implements View.OnClickListener{
+public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,11 +60,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-    private String mFinalString1="mFinalString1";
-    private final String mFinalString2="mFinalString2";
-    private final String mFinalStringCov="mFinalStringCov";
-    private final String NICjson= "NICjson";
-    private final String NICDetail= "NICDetail";
+    private String mFinalString1 = "mFinalString1";
+    private final String mFinalString2 = "mFinalString2";
+    private final String mFinalStringCov = "mFinalStringCov";
+    private final String NICjson = "NICjson";
+    private final String NICDetail = "NICDetail";
 
     private static boolean permanent = false;
     private static boolean present = false;
@@ -82,20 +80,20 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
     private static Handler handler;
-    private static boolean aBooleanstop=false;
+    private static boolean aBooleanstop = false;
 
-    ImageView imageViewPermanent ;
-    ImageView imageViewPresent ;
-    ImageView imageViewPersonal ;
+    ImageView imageViewPermanent;
+    ImageView imageViewPresent;
+    ImageView imageViewPersonal;
     ImageView imageViewOther;
     CheckBox checkboxSameAddress;
 
-    private int arrTaluka[]={R.array.theesil,R.array.theesil1,R.array.theesil2,R.array.theesil3,R.array.theesil4,R.array.theesil5,R.array.theesil6,
-            R.array.theesil7,R.array.theesil8,R.array.theesil9,R.array.theesil10,
-            R.array.theesil11,R.array.theesil12,R.array.theesil13,R.array.theesil14,R.array.theesil15,R.array.theesil16,R.array.theesil17,
-            R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
-            R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
-            R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
+    private int arrTaluka[] = {R.array.theesil, R.array.theesil1, R.array.theesil2, R.array.theesil3, R.array.theesil4, R.array.theesil5, R.array.theesil6,
+            R.array.theesil7, R.array.theesil8, R.array.theesil9, R.array.theesil10,
+            R.array.theesil11, R.array.theesil12, R.array.theesil13, R.array.theesil14, R.array.theesil15, R.array.theesil16, R.array.theesil17,
+            R.array.theesil18, R.array.theesil19, R.array.theesil20, R.array.theesil21, R.array.theesil22, R.array.theesil23, R.array.theesil24,
+            R.array.theesil25, R.array.theesil26, R.array.theesil27, R.array.theesil28, R.array.theesil29, R.array.theesil30, R.array.theesil31,
+            R.array.theesil32, R.array.theesil33, R.array.theesil34, R.array.theesil35, R.array.theesil36, R.array.theesil37, R.array.theesil38};
 
 
     private String mtextViewDateString = "mtextViewDate";
@@ -161,23 +159,23 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     public static TextView mtextViewDate;
     Thread th;
 
-    String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
-            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
+    String statecode[] = {"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
+            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ", "TR ", "UP ", "WB ",
             "XX ", "DD ", "UK ", "UA ", "OD "};
 
-    String qualificatinCode[] = {"0 ", "1 ","2 ","3 ", "4 ","6 ", "7 ", "10","11", "12",
-            "13","14","30","31","32","33","34","35","39","50","51",
-            "52", "53", "54","55","56","57", "58","59", "70", "80", "81","82","90"};
-    String rtoCode []=  { "OD01 ",  "OD02 ", " OD02K","OD03 ",    "OD04 ", "OD05 ",  "OD06 ", "OD07 ", "OD08 ", "OD09 ",  "OD09B", "OD10 ",  "OD11 ", "OD11R",
-            "OD12 ",  "OD13 ","OD13 ",     " OD15 ","OD16 ",  "OD17 ","OD18 ",
-            " OD19","OD20 ",     "OD21 ",  "OD22 ","OD23 ","OD24 ", "OD25 ", "OD12 ",
-            "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ","OD31 ",  "OD32 ", "OD33 ",
+    String qualificatinCode[] = {"0 ", "1 ", "2 ", "3 ", "4 ", "6 ", "7 ", "10", "11", "12",
+            "13", "14", "30", "31", "32", "33", "34", "35", "39", "50", "51",
+            "52", "53", "54", "55", "56", "57", "58", "59", "70", "80", "81", "82", "90"};
+    String rtoCode[] = {"OD01 ", "OD02 ", " OD02K", "OD03 ", "OD04 ", "OD05 ", "OD06 ", "OD07 ", "OD08 ", "OD09 ", "OD09B", "OD10 ", "OD11 ", "OD11R",
+            "OD12 ", "OD13 ", "OD13 ", " OD15 ", "OD16 ", "OD17 ", "OD18 ",
+            " OD19", "OD20 ", "OD21 ", "OD22 ", "OD23 ", "OD24 ", "OD25 ", "OD12 ",
+            "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ", "OD31 ", "OD32 ", "OD33 ",
             "OD34 ", "OD35 "};
 
-    private TextView mspinnerSDate,mspinnerSTime;
+    private TextView mspinnerSDate, mspinnerSTime;
     private TextView mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
-    private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
-    private TextView mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
+    private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState, mspinnerPresentState;
+    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2;
 
     private ImageView mimageViewDatePicker;
 
@@ -190,8 +188,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private String usr_email, usr_qualification, usr_dob, usr_gender;
     private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
 
-    private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
-    private int int_apply_class, int_dob ;
+    private int int_relation_type, int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
+    private int int_apply_class, int_dob;
 
     private String vehicleClass[] = {"Motor cycle without gear for less then 50cc",
             "Motor cycle without grear",
@@ -204,7 +202,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     private TextView mspinner;
     private String jsonString;
-    private static final String PGInfo="PgInfo";
+    private static final String PGInfo = "PgInfo";
 
     public ConfirmAndPay() {
         // Required empty public constructor
@@ -247,11 +245,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-        jsonString = sharedpreferences.getString(PGInfo,"");
-        TextView textfee= (TextView)view.findViewById(R.id.textfee);
-        TextView textTotal=(TextView)view.findViewById(R.id.textTotal);
-        textfee.setText("Application Fee : Rs. "+(totalFee()-20));
-        textTotal.setText("Total Fee : Rs. "+totalFee());
+        jsonString = sharedpreferences.getString(PGInfo, "");
+        TextView textfee = (TextView) view.findViewById(R.id.textfee);
+        TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
+        textfee.setText("Application Fee : Rs. " + (totalFee() - 20));
+        textTotal.setText("Total Fee : Rs. " + totalFee());
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);
@@ -276,15 +274,16 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
     private int totalFee() {
-        String s= sharedpreferences.getString("mFinalStringCov","");
-        String arr[]=s.split(",");
-        int len =arr.length;
-        if(arr[0].length()>0)
-            len = len*30+20;
+        String s = sharedpreferences.getString("mFinalStringCov", "");
+        String arr[] = s.split(",");
+        int len = arr.length;
+        if (arr[0].length() > 0)
+            len = len * 30 + 20;
         else
-            len=0;
+            len = 0;
         return len;
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -304,40 +303,39 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.button_confirm_and_pay:
 //                getFieldData();
-                if(validate()) {
+                if (validate()) {
                     sendPostRequest();
 //                    saveSharedPreference();
-//                    sendPostNICRequest();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1", "1")).commit();
                 }
                 break;
             case R.id.buttonBackConfirmAndPay:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3","1")).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 break;
             case R.id.imageViewDatePickerC:
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.linearlayoutPermanantC:
-                if(permanent==true)
+                if (permanent == true)
                     hidePermanent();
                 else
                     showPremanent();
                 break;
             case R.id.linearlayoutPresentAddressC:
-                if(present==true)
+                if (present == true)
                     hidePresent();
                 else
                     showPresent();
                 break;
             case R.id.linearlayoutOtherInfoC:
-                if(otherInfo==true)
+                if (otherInfo == true)
                     hideOtherInfo();
                 else
                     showOtherInfo();
                 break;
             case R.id.linearlayoutPersonalDetailC:
-                if(personalDetail==true)
+                if (personalDetail == true)
                     hidePersonalDetail();
                 else
                     showPersonalDetail();
@@ -352,7 +350,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -388,16 +386,15 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
 
-
     private void initailizeFelids(View rootView) {
 
 //        mspinnerSDate=(Spinner) rootView.findViewById(R.id.spinnerSDate);
 //        mspinnerSTime=(Spinner) rootView.findViewById(R.id.spinnerSTime);
 
-        imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanentC);
-        imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresentC);
-        imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonalC);
-        imageViewOther=(ImageView) rootView.findViewById(R.id.imageOtherC);
+        imageViewPermanent = (ImageView) rootView.findViewById(R.id.imagePermanentC);
+        imageViewPresent = (ImageView) rootView.findViewById(R.id.imagePresentC);
+        imageViewPersonal = (ImageView) rootView.findViewById(R.id.imagePersonalC);
+        imageViewOther = (ImageView) rootView.findViewById(R.id.imageOtherC);
 
         meditViewApplicantFirstName = (TextView) rootView.findViewById(R.id.editTextViewApplicantFirstNameC);
         meditViewApplicantMiddleName = (TextView) rootView.findViewById(R.id.editTextViewApplicantMiddleNameC);
@@ -406,7 +403,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditViewEmail = (TextView) rootView.findViewById(R.id.editTextEmailC);
         mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePickerC);
         mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDateC);
-        meditViewPlaceOfBirth= (TextView) rootView.findViewById(R.id.editTextPlaceofBirthC);
+        meditViewPlaceOfBirth = (TextView) rootView.findViewById(R.id.editTextPlaceofBirthC);
         meditViewYear = (TextView) rootView.findViewById(R.id.editTextYearC);
         meditViewMonth = (TextView) rootView.findViewById(R.id.editTextMonthC);
 
@@ -426,7 +423,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentYear = (TextView) rootView.findViewById(R.id.editTextPermanentYear);
         meditTextPermanentPinCode = (TextView) rootView.findViewById(R.id.editTextPermanentPinCode);
         meditTextPermanentMoblieNo = (TextView) rootView.findViewById(R.id.editTextPermanentMoblieNo);
-
 
 
         meditTextPresentFlatNum = (TextView) rootView.findViewById(R.id.editTextPresentFlatNum);
@@ -459,35 +455,34 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         mspinnerCitizenship = (TextView) rootView.findViewById(R.id.spinnerCitizenshipC);
 
 
+        mlinearlayoutPersonalDetail = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetailC);
+        mlinearlayoutPremanentAddress = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanantC);
+        mlinearlayoutPresentAddress = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPresentAddressC);
+        mlinearlayoutOtherInfo = (RelativeLayout) rootView.findViewById(R.id.linearlayoutOtherInfoC);
 
-        mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetailC);
-        mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanantC);
-        mlinearlayoutPresentAddress =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPresentAddressC);
-        mlinearlayoutOtherInfo =(RelativeLayout) rootView.findViewById(R.id.linearlayoutOtherInfoC);
 
-
-        mtablelayoutPersonalDetail = (TableLayout)rootView.findViewById(R.id.tablelayoutPersonalDetailC);
-        mtablelayoutPresentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPresentAddressC);
-        mtablelayoutPremanentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPermanenetAddressC);
-        mtablelayoutOtherInfo = (TableLayout)rootView.findViewById(R.id.tablelayoutOtherInfoC);
+        mtablelayoutPersonalDetail = (TableLayout) rootView.findViewById(R.id.tablelayoutPersonalDetailC);
+        mtablelayoutPresentAddress = (TableLayout) rootView.findViewById(R.id.tablelayoutPresentAddressC);
+        mtablelayoutPremanentAddress = (TableLayout) rootView.findViewById(R.id.tablelayoutPermanenetAddressC);
+        mtablelayoutOtherInfo = (TableLayout) rootView.findViewById(R.id.tablelayoutOtherInfoC);
 
 
         buttonNext = (ImageView) rootView.findViewById(R.id.button_confirm_and_pay);
 //        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackConfirmAndPay = (ImageView) rootView.findViewById(R.id.buttonBackConfirmAndPay);
 
-        mTxtAppointmentDate =(TextView) rootView.findViewById(R.id.txtAppiontmentDate);
-        mTxtAppointmentTime =(TextView) rootView.findViewById(R.id.txtAppiontmentTime);
+        mTxtAppointmentDate = (TextView) rootView.findViewById(R.id.txtAppiontmentDate);
+        mTxtAppointmentTime = (TextView) rootView.findViewById(R.id.txtAppiontmentTime);
         try {
-            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
-            mTxtAppointmentTime.setText("Appointment time : "+jsonObject.getString("slotTime"));
+            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo, ""));
+            mTxtAppointmentTime.setText("Appointment time : " + jsonObject.getString("slotTime"));
             SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
             Calendar calendar = Calendar.getInstance();
             Long aLong = jsonObject.getLong("slotDate");
             calendar.setTimeInMillis(aLong);
             dateFormat.format(calendar.getTime());
             System.out.println(dateFormat.format(calendar.getTime()));
-            mTxtAppointmentDate.setText("Appointment time : "+dateFormat.format(calendar.getTime()));
+            mTxtAppointmentDate.setText("Appointment time : " + dateFormat.format(calendar.getTime()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -526,7 +521,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentMoblieNo.setEnabled(false);
 
 
-
         meditTextPresentFlatNum.setEnabled(false);
         meditTextPresentHouseName.setEnabled(false);
         meditTextPresentHouseNum.setEnabled(false);
@@ -561,8 +555,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         //---get all contacts---
         db.open();
         Cursor c = db.getAllDetails();
-        if(c.moveToFirst()) {
-            if(c.getString(1).length()>0)
+        if (c.moveToFirst()) {
+            if (c.getString(1).length() > 0)
                 mspinnerRTO.setText(getResources().getStringArray(R.array.RTO)[Integer.parseInt(c.getString(1))]);
 
             meditViewApplicantFirstName.setText(c.getString(2));
@@ -570,26 +564,26 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditViewApplicantLastName.setText(c.getString(4));
 
             mtextViewDate.setText(c.getString(5));
-            if(c.getString(6).length()>0)
+            if (c.getString(6).length() > 0)
                 mspinnerGender.setText(getResources().getStringArray(R.array.Gender)[Integer.parseInt(c.getString(6))]);
 
             meditViewPlaceOfBirth.setText(c.getString(7));
-            if(c.getString(8).equals(""))
+            if (c.getString(8).equals(""))
                 meditViewYear.setText("0");
             else
                 meditViewYear.setText(c.getString(8));
 
-            if(c.getString(9).equals(""))
+            if (c.getString(9).equals(""))
                 meditViewMonth.setText("0");
             else
                 meditViewMonth.setText(c.getString(9));
 
-            if(c.getString(10).length()>0)
+            if (c.getString(10).length() > 0)
                 mspinnerCountry.setText(getResources().getStringArray(R.array.Country)[Integer.parseInt(c.getString(10))]);
 
             meditViewEmail.setText(c.getString(11));
 
-            if(c.getString(12).length()>0)
+            if (c.getString(12).length() > 0)
                 mspinnerRelationshipType.setText(getResources().getStringArray(R.array.RelationType)[Integer.parseInt(c.getString(12))]);
 
             meditViewApplicantRelationsName.setText(c.getString(13));
@@ -602,15 +596,15 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPermanentStreet.setText(c.getString(19));
             meditTextPermanentLocality.setText(c.getString(20));
             meditTextPermanentvillage.setText(c.getString(21));
-            if(c.getString(22).length()>0)
-            meditTextPermanentTaluka.setText(getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))])[Integer.parseInt(c.getString(22))]);
+            if (c.getString(22).length() > 0)
+                meditTextPermanentTaluka.setText(getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))])[Integer.parseInt(c.getString(22))]);
 //            meditTextPermanentTaluka.setText(c.getString(22));
 
-            if(c.getString(23).length()>0)
+            if (c.getString(23).length() > 0)
                 meditTextPermanentDistrict.setText(getResources().getStringArray(R.array.district)[Integer.parseInt(c.getString(23))]);
 //            meditTextPermanentDistrict.setText(c.getString(23));
 
-            if(c.getString(24).length()>0)
+            if (c.getString(24).length() > 0)
                 mspinnerPermanentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(24))]);
 
             meditTextPermanentMonth.setText(c.getString(25));
@@ -627,7 +621,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPresentTaluka.setText(c.getString(35));
             meditTextPresentDistrict.setText(c.getString(36));
 
-            if(c.getString(37).length()>0)
+            if (c.getString(37).length() > 0)
                 mspinnerPresentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(37))]);
 
             meditTextPresentMonth.setText(c.getString(38));
@@ -636,24 +630,24 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPresentMoblieNo.setText(c.getString(41));
 //
 //
-            if(c.getString(42).length()>0)
+            if (c.getString(42).length() > 0)
                 mspinnerCitizenship.setText(getResources().getStringArray(R.array.Citizenship)[Integer.parseInt(c.getString(42))]);
 
 
-            if(c.getString(43).length()>0)
+            if (c.getString(43).length() > 0)
                 mspinnerQualification.setText(getResources().getStringArray(R.array.Qualification)[Integer.parseInt(c.getString(43))]);
 
-            if(c.getString(44).length()>0)
+            if (c.getString(44).length() > 0)
                 mspinnerIdmark.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(44))]);
 
-            if(c.getString(45).length()>0)
+            if (c.getString(45).length() > 0)
                 mspinnerIdmark2.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(45))]);
 
-            if(c.getString(46).length()>0)
+            if (c.getString(46).length() > 0)
                 mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(46))]);
 
 
-            if(c.getString(47).length()>0)
+            if (c.getString(47).length() > 0)
                 mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(47))]);
         }
         db.close();
@@ -724,72 +718,69 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         mspinnerPresentState.setEnabled(true);
     }
 
-    private void hidePersonalDetail()
-    {
+    private void hidePersonalDetail() {
         mtablelayoutPersonalDetail.setVisibility(View.GONE);
         personalDetail = false;
-        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
 
-    private void showPersonalDetail()
-    {
+    private void showPersonalDetail() {
         mtablelayoutPersonalDetail.setVisibility(View.VISIBLE);
         personalDetail = true;
-        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
+
     private void hideOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.GONE);
         otherInfo = false;
-        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
+
     private void showOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
         otherInfo = true;
-        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
 
-    private void hidePermanent()
-    {
+    private void hidePermanent() {
         mtablelayoutPremanentAddress.setVisibility(View.GONE);
-        permanent=false;
-        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        permanent = false;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
 
-    private void showPremanent()
-    {
+    private void showPremanent() {
         mtablelayoutPremanentAddress.setVisibility(View.VISIBLE);
-        permanent=true;
-        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        permanent = true;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
 
     }
-    private void hidePresent()
-    {
+
+    private void hidePresent() {
         mtablelayoutPresentAddress.setVisibility(View.GONE);
-        present=false;
-        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        present = false;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
-    private void showPresent()
-    {
+
+    private void showPresent() {
         mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
-        present=true;
-        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        present = true;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
 
     @Override
-    public void onPause ()
-    {
+    public void onPause() {
         super.onPause();
-        Log.d("onPause :"," saving session");
+        Log.d("onPause :", " saving session");
 //        saveSession();
-        Log.d("Session :"," saved session");
+        Log.d("Session :", " saved session");
     }
+
     @Override
-    public void onResume ()
-    {
+    public void onResume() {
         super.onResume();
-        Log.d("onResume :"," retrieving  session");
+        Log.d("onResume :", " retrieving  session");
         retrivesession();
-        Log.d("Session :"," session retrieved");
+        Log.d("Session :", " session retrieved");
     }
 
     public void sendPostRequest() {
@@ -820,7 +811,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlString =sharedpreferences.getString(mFinalString1,"")+sharedpreferences.getString(mFinalString2,"")+"&covs="+(sharedpreferences.getString(mFinalStringCov,""));
+                String urlString = sharedpreferences.getString(mFinalString1, "") + sharedpreferences.getString(mFinalString2, "") + "&covs=" + (sharedpreferences.getString(mFinalStringCov, ""));
 
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
@@ -850,25 +841,23 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 //                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
-                String responseDetail= responseOutput.toString();
+                String responseDetail = responseOutput.toString();
 
                 JSONObject jsonObject = new JSONObject(responseDetail);
-                String s= jsonObject.getString("receiptNum");
-                System.out.println("Receipt No."+s);
+                String s = jsonObject.getString("receiptNum");
+                System.out.println("Receipt No." + s);
                 JSONObject jsonObject1 = new JSONObject(jsonString);
-                jsonObject1.put("receiptNum",s);
+                jsonObject1.put("receiptNum", s);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                editor.putString(PGInfo,jsonObject1.toString());
+                editor.putString(PGInfo, jsonObject1.toString());
                 editor.apply();
 
-                if(Integer.parseInt(s)>0)
-
-                {
-                    int  MEGABYTE = 1024 * 1024;
+                if (Integer.parseInt(s) > 0) {
+                    int MEGABYTE = 1024 * 1024;
 //                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
                     URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                    String s1="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                    String s1 = "referenceId=" + sharedpreferences.getString("receiptNum", "") +
                             "&email=amit.choudhary@cnvg.in";
 
                     HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();
@@ -885,9 +874,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                     dStream1.flush();
                     dStream1.close();
                     responseCode = connection1.getResponseCode();
-                }
-                else
-                {
+                } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -904,8 +891,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 return 0;
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return 0;
             }
@@ -916,12 +902,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         protected void onPostExecute(Integer result) {
 
             progressDialog.dismiss();
-            if(result==1)
-            {
+            if (result == 1) {
 
-            }
-            else
-            {
+            } else {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -933,133 +916,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         }
 
     }
-
-
-    public void sendPostNICRequest() {
-        new PostClassNIC(getActivity()).execute();
-    }
-
-
-
-    //Class to Post Data in Background
-    public class PostClassNIC extends AsyncTask<String, Void, Integer> {
-
-        private final Context context;
-
-        //Method to Encode to Base64
-        private String endcodetoBase64(String s) throws UnsupportedEncodingException {
-            byte[] byteArray = s.getBytes("UTF-8");
-            return Base64.encodeToString(byteArray,0);
-        }
-
-        public PostClassNIC(Context c) {
-            this.context = c;
-        }
-
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            HttpURLConnection connection=null;
-            try {
-
-//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
-                URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
-
-                connection = (HttpURLConnection) url.openConnection();
-
-                //Creating json object.
-                JSONObject jsonObject = new JSONObject();
-
-                jsonObject.accumulate("base64file", endcodetoBase64(sharedpreferences.getString(NICDetail,"")));
-                jsonObject.accumulate("agentID", "smartchip");
-                jsonObject.accumulate("password", "3998151263B55EB10F7AE1A974FD036E");
-                jsonObject.accumulate("seckey","");
-
-                String json = jsonObject.toString();
-
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestProperty("Accept", "application/json");
-                connection.setRequestMethod("POST");
-                connection.setDoInput(true);
-                connection.setDoOutput(true);
-
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(json);
-                dStream.flush();
-                dStream.close();
-                int responseCode = connection.getResponseCode();
-                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
-
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                br.close();
-
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
-                String str [] = responseOutput.toString().split("\\|");
-
-                if(str[0].equals("Success"))
-                {
-                    JSONObject jsonObject1 = new JSONObject(jsonString);
-                    jsonObject1.put("applicantNum",str[0]);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(PGInfo,jsonObject1.toString());
-                    editor.apply();
-                    return 1;
-                }
-                else
-                    return 0;
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }finally {
-                connection.disconnect();
-            }
-            return null;
-        }
-        protected void onPostExecute(Integer result) {
-
-            if(result==1)
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
-                    }
-                });
-
-            }
-            else
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }
-
-    }
 }
+
+

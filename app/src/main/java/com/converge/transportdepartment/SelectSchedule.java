@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -67,6 +68,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private static final String PGInfo = "PgInfo";
     private static final String SLOTNUMBER = "SLOTNUMBER";
     private static final String SLOTDATE = "SLOTDATE";
+    private static  Integer statusServer =0;
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -95,6 +97,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     public static volatile Integer slotNumber=-1;
     public static volatile Long slotDate=-1L;
     public static volatile String slotTime=null;
+
+    private Button buttonRefresh;
 
     public SelectSchedule() {
         // Required empty public constructor
@@ -137,6 +141,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         hideKeyboard(getContext());
 //        sharedpreferences;
         pager = (ViewPager) view.findViewById(R.id.pager);
+        buttonRefresh = (Button) view.findViewById(R.id.buttonRefreshSelectSchedule);
+        buttonRefresh.setOnClickListener(this);
 
         try {
             JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
@@ -232,7 +238,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                         {
                                 temp.add(dateSetArray[j]);
                                 Log.d("unique Date",""+data.get(i).getSlotdate());
-                                if(temp.size()==7)
+                                if(temp.size()==6)
                                     return temp;
                                 break;
                         }
@@ -250,7 +256,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         @Override
         public int getCount() {
-            return 7;
+            return 5;
         }
 
         @Override
@@ -281,7 +287,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             case R.id.buttonNextSelectSchedule:
                 if(val())
                 {
-                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(PGInfo,jsonString());
                     editor.apply();
@@ -291,6 +297,17 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
+                break;
+
+            case R.id.buttonRefreshSelectSchedule:
+                if(statusServer==0)
+                {
+                    getSlot();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"No need to refresh",Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -310,7 +327,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     }
 
     private boolean val() {
-        if(slotDate==-1 || slotNumber==-1L || slotTime==null) {
+        if(statusServer==0)
+        {
+            Toast.makeText(getActivity(),"Please use refresh button",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(slotDate==-1 || slotNumber==-1L || slotTime==null) {
             Toast.makeText(getActivity(),"Please select at least one slot",Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -334,7 +356,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
     private void getSlot()
     {
-        new scheduleSlot(getActivity()).execute();
+//        new scheduleSlot(getActivity()).execute();
+        new scheduleSlotServer(getActivity()).execute();
     }
 
     private class scheduleSlot extends AsyncTask<Void, Integer, Long>
@@ -456,6 +479,9 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        statusServer=1;
+                        buttonRefresh.setEnabled(false);
+
                         Gson gson = new Gson();
                         Type listType = new TypeToken<List<SlotData>>(){}.getType();
                         List<SlotData> posts = (List<SlotData>) gson.fromJson(jsonData, listType);
@@ -468,11 +494,141 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             }
             else
             {
+                statusServer=0;
+                buttonRefresh.setEnabled(true);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progress.hide();
-                        Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Cannot Fetch data from Server. Please wait for sometime then refresh",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }
+    }
+
+    private class scheduleSlotServer extends AsyncTask<Void, Integer, Long>
+    {
+        private final Context context;
+        private ProgressDialog progressSendMail;
+
+        public scheduleSlotServer(Context c) {
+            this.context = c;
+        }
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Please Wait");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/fetch_slot.php");
+
+                connection = (HttpURLConnection) url.openConnection();
+                //Creating json object.
+
+                String json ="rtocode="+rtoCode;
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+                jsonData=responseOutput.toString();
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0L;
+            }
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Gson gson = new Gson();
+                            Type listType = new TypeToken<List<SlotData>>() {
+                            }.getType();
+                            List<SlotData> posts = (List<SlotData>) gson.fromJson(jsonData, listType);
+
+                            pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager(), posts));
+                            tabs.setViewPager(pager);
+                            progress.hide();
+                            statusServer = 1;
+                            buttonRefresh.setEnabled(false);
+                        } catch (Exception e) {
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progress.hide();
+                                    Toast.makeText(getActivity(),"Data Not available",Toast.LENGTH_SHORT).show();
+                                    statusServer=0;
+                                    buttonRefresh.setEnabled(false);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            else
+            {
+                statusServer=0;
+                buttonRefresh.setEnabled(true);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.hide();
+                        Toast.makeText(getActivity(),"Cannot Fetch data from Server. Please wait for sometime then refresh",Toast.LENGTH_SHORT).show();
                     }
                 });
 

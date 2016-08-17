@@ -291,9 +291,6 @@ public class DBAdapter {
         DBHelper = new DatabaseHelper(context);
     }
 
-
-
-
     private static class DatabaseHelper extends SQLiteOpenHelper
     {
         DatabaseHelper(Context context)

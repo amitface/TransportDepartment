@@ -265,11 +265,11 @@
 
     <string-array name="Citizenship">
         <item>Select</item>
-        <item>Birth</item>
-        <item>Registration</item>
-        <item>Descent</item>
-        <item>Naturalization</item>
-        <item>Non Indian</item>
+        <item>birth</item>
+        <item>registration</item>
+        <item>descent</item>
+        <item>naturalization</item>
+        <item>non indian</item>
     </string-array>
 
     <string-array name="IdProof">
@@ -300,7 +300,7 @@
 
         <item>Country</item>
         <item>India    </item>
-        <item> Afghanistan</item>
+        <item>Afghanistan</item>
         <item>Albania   </item>
         <item>Algeria   </item>
         <item>Andorra   </item>

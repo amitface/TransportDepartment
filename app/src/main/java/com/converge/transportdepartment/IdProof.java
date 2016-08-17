@@ -4,9 +4,11 @@ package com.converge.transportdepartment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,14 @@ import com.converge.transportdepartment.DatePicker.DatePickerFragment4;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 
@@ -63,6 +73,9 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private final String NICjson= "NICjson";
     private final String NICDetail= "NICDetail";
 
+    private String jsonString;
+    private static final String PGInfo = "PgInfo";
+
     String s1,s2;
     String idCode[]={"","B", "C", "D", "F","H","I","L","T","V","Z","E", "A", "1",
             "2", "3", "P", "4", "5", "6", "7"};
@@ -76,7 +89,191 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private final String mFinalStringCov="mFinalStringCov";
 
     private String s3;
-    private HashMap<String,String> hashMap = new HashMap<String, String>();;
+    private HashMap<String,String> hashMap = new HashMap<String, String>();
+
+    String sTest="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+            "<applicants>"
+            +
+            "<applicant refno=\"19\">" +
+
+            "<statecode>OD</statecode>" +
+
+            "<rtocode>OD22</rtocode>" +
+
+            "<licence-type>l</licence-type>" +
+
+            "<applicant-name>" +
+
+            "<first-name>JIGNESH</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name>S S</last-name>" +
+
+            "</applicant-name>" +
+
+            "<dob>14-06-1989</dob>" +
+
+            "<gender type=\"male\"/>" +
+
+            "<relation type=\"father\" />" +
+
+            "<parent-name>" +
+
+            "<first-name>NARAYANA</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name />" +
+
+            "</parent-name>" +
+
+            "<edu-qualification>31</edu-qualification>" +
+
+            "<identification-marks >A mole on right hand</identification-marks>" +
+
+            "<identification-marks />" +
+
+            "<blood-group>O-</blood-group>" +
+
+            "<permanent-address>" +
+
+            "<p-flat-house-no>Flat-102, SAI APTS</p-flat-house-no>" +
+
+            "<p-street-locality>39, 19th crs, muneeswar nagar</p-street-locality>" +
+
+            "<p-village-city>tc palya main road</p-village-city>" +
+
+            "<p-district>Bhadrak</p-district>" +
+
+            "<p-state>OD</p-state>" +
+
+            "<p-pin>760016</p-pin>" +
+
+            "<p-phone-no />" +
+
+            "<p-mobile-no>9573443091</p-mobile-no>" +
+
+            "<p-durationofstay>" +
+
+            "<p-years />" +
+
+            "<p-months />" +
+
+            "</p-durationofstay>" +
+
+            "</permanent-address>" +
+
+            "<temporary-address>" +
+
+            "<t-flat-house-no>Flat-102, SAI APTS</t-flat-house-no>" +
+
+            "<t-street-locality>39, 19th crs, muneeswar nagar</t-street-locality>" +
+
+            "<t-village-city>tc palya main road</t-village-city>" +
+
+            "<t-district>Bhadrak</t-district>" +
+
+            "<t-state>OD</t-state>" +
+
+            "<t-pin>760016</t-pin>" +
+
+            "<t-phone-no />" +
+
+            "<t-durationofstay>" +
+
+            "<t-years />" +
+
+            "<t-months />" +
+
+            "</t-durationofstay>" +
+
+            "</temporary-address>" +
+
+            "<citizenship-status type=\"birth\" />" +
+
+            "<birth-place>Bhadrak</birth-place>" +
+
+            "<migration>" +
+
+            "<year />" +
+
+            "<month />" +
+
+            "</migration>" +
+
+            "<birth-country>IND</birth-country>" +
+
+            "<email-id>amit.choudhary@cnvg.in</email-id>" +
+
+            "<list-of-proofs>" +
+
+            "<doc>" +
+
+            "<proofcode>1</proofcode>" +
+
+            "<licence-certificate-badge-no>c1</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i1</issuing-authority>" +
+
+            "<date-of-issue>02-12-1992</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>3</proofcode>" +
+
+            "<licence-certificate-badge-no>c2</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i2</issuing-authority>" +
+
+            "<date-of-issue>02-12-2011</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>O</proofcode>" +
+
+            "<licence-certificate-badge-no />" +
+
+            "<issuing-authority />" +
+
+            "<date-of-issue>02-12-2014</date-of-issue>" +
+
+            "</doc>" +
+
+            "</list-of-proofs>" +
+
+            "<covs>3,4,2,10,53</covs>" +
+
+            "<rcnumber />" +
+
+            "<parentleterforbelow18age type=\"n\" />" +
+
+            "<allnecessarycertificates type=\"y\" />" +
+
+            "<exemptedmedicaltest type=\"n\" />" +
+
+            "<exemptedpreliminarytest type=\"n\" />" +
+
+            "<convicted type=\"n\" />" +
+
+            "<attachdoc>" +
+
+            "<attdlnumber />" +
+
+            "<attdtofconviction />" +
+
+            "<attreason />" +
+
+            "</attachdoc>" +
+
+            "</applicant>" +
+
+            "</applicants>";
 
     public IdProof() {
         // Required empty public constructor
@@ -117,11 +314,11 @@ public class IdProof extends Fragment implements View.OnClickListener{
             count=0;
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        jsonString = sharedpreferences.getString(PGInfo, "");
         View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
         ImageView button = (ImageView)view.findViewById(R.id.buttonNextIdProof);
         ImageView buttonback = (ImageView)view.findViewById(R.id.buttonBackIdProof);
         ImageView buttonClear = (ImageView)view.findViewById(R.id.buttonClearIdProof);
-
 
         buttonback.setOnClickListener(this);
         button.setOnClickListener(this);
@@ -159,8 +356,6 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         img1.setOnClickListener(this);
         img2.setOnClickListener(this);
-
-
     }
 
 
@@ -198,12 +393,6 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 
-
-
-    public void onClickIdProof(View view) {
-
-    }
-
     private boolean validate() {
         if(spinnerIdcard1.getSelectedItemPosition()==0)
         {
@@ -234,6 +423,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 if (validate()) {
                     detailNIC();
                     saveSharedPreference();
+//                    sendPostNICRequest();
                     if (sharedpreferences.contains(mFinalString1)) {
                         s1 = sharedpreferences.getString(mFinalString1, "");
                         s2 = detailString();
@@ -424,81 +614,6 @@ public class IdProof extends Fragment implements View.OnClickListener{
         }catch (JSONException e)
         {
             //s2 is working
-            String s2="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                    "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
-                    "<applicants>"+
-
-                    "<dob>14-06-1989</dob>" +
-
-                    "<edu-qualification>31</edu-qualification>" +
-
-                    "<list-of-proofs>" +
-
-                    "<doc>" +
-
-                    "<proofcode>1</proofcode>" +
-
-                    "<licence-certificate-badge-no>c1</licence-certificate-badge-no>" +
-
-                    "<issuing-authority>i1</issuing-authority>" +
-
-                    "<date-of-issue>02-12-1992</date-of-issue>" +
-
-                    "</doc>" +
-
-                    "<doc>" +
-
-                    "<proofcode>3</proofcode>" +
-
-                    "<licence-certificate-badge-no>c2</licence-certificate-badge-no>" +
-
-                    "<issuing-authority>i2</issuing-authority>" +
-
-                    "<date-of-issue>02-12-2011</date-of-issue>" +
-
-                    "</doc>" +
-
-                    "<doc>" +
-
-                    "<proofcode>O</proofcode>" +
-
-                    "<licence-certificate-badge-no />" +
-
-                    "<issuing-authority />" +
-
-                    "<date-of-issue>02-12-2014</date-of-issue>" +
-
-                    "</doc>" +
-
-                    "</list-of-proofs>" +
-
-                    "<covs>3,4</covs>" +
-//only till here
-                    "<rcnumber />" +
-
-                    "<parentleterforbelow18age type=\"n\" />" +
-
-                    "<allnecessarycertificates type=\"y\" />" +
-
-                    "<exemptedmedicaltest type=\"n\" />" +
-
-                    "<exemptedpreliminarytest type=\"n\" />" +
-
-                    "<convicted type=\"n\" />" +
-
-                    "<attachdoc>" +
-
-                    "<attdlnumber />" +
-
-                    "<attdtofconviction />" +
-
-                    "<attreason />" +
-
-                    "</attachdoc>" +
-
-                    "</applicant>" +
-
-                    "</applicants>";
 
         }
         return jsNic.toString();
@@ -514,7 +629,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
             stringBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             stringBuffer.append("<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">");
             stringBuffer.append("<applicants>");
-            stringBuffer.append("<applicant refno=\"").append(jsonObject.getString("refno")).append("\">");
+//            stringBuffer.append("<applicant refno=\"").append(jsonObject.getString("refno")).append("\">");
+            stringBuffer.append("<applicant refno=\"").append("19").append("\">");
             stringBuffer.append("<statecode>").append(jsonObject.getString("statecode")).append("</statecode>");
             stringBuffer.append("<rtocode>OD").append(jsonObject.getString("rtocode")).append("</rtocode>");
             stringBuffer.append("<licence-type>").append(jsonObject.getString("licenceType")).append("</licence-type>");
@@ -534,7 +650,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
             stringBuffer.append("<edu-qualification>").append("31").append("</edu-qualification>");//pending
             stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks")).append("</identification-marks>");
             stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks2")).append("</identification-marks>");
-            stringBuffer.append("<blood-group>").append(jsonObject.getString("blood-group")).append("</blood-group>");
+//            stringBuffer.append("<blood-group>").append(jsonObject.getString("blood-group")).append("</blood-group>");
+            stringBuffer.append("<blood-group>").append("O+").append("</blood-group>");
             stringBuffer.append("<permanent-address>");
             stringBuffer.append("<p-flat-house-no>").append(jsonObject.getString("pFlatHouseNo")).append("</p-flat-house-no>");
             stringBuffer.append("<p-street-locality>").append(jsonObject.getString("pStreetLocality")).append("</p-street-locality>");
@@ -739,4 +856,134 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 
+
+    public void sendPostNICRequest() {
+        new PostClassNIC(getActivity()).execute();
+    }
+
+    //Class to Post Data in Background
+    public class PostClassNIC extends AsyncTask<String, Void, Integer> {
+
+        private final Context context;
+
+        //Method to Encode to Base64
+        private String endcodetoBase64(String s) throws UnsupportedEncodingException {
+            byte[] byteArray = s.getBytes("UTF-8");
+            return Base64.encodeToString(byteArray,0);
+        }
+
+        public PostClassNIC(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpURLConnection connection=null;
+            try {
+
+//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
+                URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
+
+                connection = (HttpURLConnection) url.openConnection();
+
+                //Creating json object.
+                JSONObject jsonObject = new JSONObject();
+
+//                jsonObject.put("base64file", endcodetoBase64(detailNIC()));
+                jsonObject.put("base64file", endcodetoBase64(sTest));
+                jsonObject.put("agentID", "smartchip");
+                jsonObject.put("password", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.put("seckey","");
+
+                String json = jsonObject.toString();
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Response Code" + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+                String str [] = responseOutput.toString().split("\\|");
+
+                if(str[0].equals("Success"))
+                {
+                    JSONObject jsonObject1 = new JSONObject(jsonString);
+                    jsonObject1.put("applicantNum",str[0]);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(PGInfo,jsonObject1.toString());
+                    editor.apply();
+                    return 1;
+                }
+                else
+                    return 0;
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return 0;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return 0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return 0;
+            }
+
+        }
+        protected void onPostExecute(Integer result) {
+
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, .newInstance("1","1")).commit();
+                    }
+                });
+
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
+    }
 }
+
+
