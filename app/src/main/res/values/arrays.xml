@@ -208,7 +208,6 @@
     </string-array>
 
     <string-array name="statesCode">
-        <item>--State Code*--</item>
         <item>OD</item>
         <item>AN</item>
         <item>AP</item>

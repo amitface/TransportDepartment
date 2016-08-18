@@ -1195,6 +1195,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("refno",Integer.toString(num));
             jsNic.put("statecode","OD");
             jsNic.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+            jsNic.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
+
             jsNic.put("licenceType","l");
             jsNic.put("aFName",meditViewApplicantFirstName.getText().toString());
             jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString());
@@ -1205,6 +1207,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString());
             jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString());
             jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString());
+
+            jsNic.put("qualification",qualificateCode[mspinnerQualification.getSelectedItemPosition()-1]);
 
 
             jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString());
@@ -1218,7 +1222,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("tVillageCity",meditTextPermanentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
 
             jsNic.put("tDistrict",mSPerDistrict.getSelectedItem().toString());
-            jsNic.put("tState",mspinnerPermanentState.getSelectedItem().toString());
+            jsNic.put("tState",stateCode[mspinnerPermanentState.getSelectedItemPosition()-1]);
             jsNic.put("tPin",meditTextPermanentPinCode.getText().toString());
             jsNic.put("tPhoneNo",meditTextPermanentMoblieNo.getText().toString());
             jsNic.put("tMobileNo",meditTextPermanentMoblieNo.getText().toString());
@@ -1231,7 +1235,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("pVillageCity",meditTextPresentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
 
             jsNic.put("pDistrict",meditTextPresentDistrict.getText().toString());
-            jsNic.put("pState",mspinnerPresentState.getSelectedItem().toString());
+            jsNic.put("pState",stateCode[mspinnerPresentState.getSelectedItemPosition()-1]);
             jsNic.put("pPin",meditTextPresentPinCode.getText().toString());
             jsNic.put("pPhoneNo",meditTextPresentMoblieNo.getText().toString());
             jsNic.put("pMobileNo",meditTextPresentMoblieNo.getText().toString());

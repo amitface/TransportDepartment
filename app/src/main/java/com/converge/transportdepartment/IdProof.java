@@ -76,7 +76,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private String jsonString;
     private static final String PGInfo = "PgInfo";
 
-    String s1,s2;
+    String s1,s2, stringError;
     String idCode[]={"","B", "C", "D", "F","H","I","L","T","V","Z","E", "A", "1",
             "2", "3", "P", "4", "5", "6", "7"};
 
@@ -348,6 +348,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
         retrivesession();
         Log.d("Session :"," Id proof session retrieved");
     }
+
     private void setListner(View view) {
         imageViewDatePicker1.setOnClickListener(this);
         imageViewDatePicker2.setOnClickListener(this);
@@ -421,16 +422,16 @@ public class IdProof extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.buttonNextIdProof:
                 if (validate()) {
-                    detailNIC();
+//                    detailNIC();
                     saveSharedPreference();
-//                    sendPostNICRequest();
+                    sendPostNICRequest();
                     if (sharedpreferences.contains(mFinalString1)) {
                         s1 = sharedpreferences.getString(mFinalString1, "");
                         s2 = detailString();
                     }
 //                    sendPostRequest();
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 }
                 break;
             case R.id.buttonBackIdProof:
@@ -555,7 +556,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString2, detailString());
         editor.commit();
-        editor.putString(NICjson,jsonNIC());
+//        editor.putString(NICjson,jsonNIC());
         editor.putString(NICDetail,detailNIC());
         editor.apply();
     }
@@ -621,144 +622,230 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     private String detailNIC()
     {
+        String testNic=null;
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(sharedpreferences.getString(NICjson,"").toString());
-
-            StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            stringBuffer.append("<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">");
-            stringBuffer.append("<applicants>");
-//            stringBuffer.append("<applicant refno=\"").append(jsonObject.getString("refno")).append("\">");
-            stringBuffer.append("<applicant refno=\"").append("19").append("\">");
-            stringBuffer.append("<statecode>").append(jsonObject.getString("statecode")).append("</statecode>");
-            stringBuffer.append("<rtocode>OD").append(jsonObject.getString("rtocode")).append("</rtocode>");
-            stringBuffer.append("<licence-type>").append(jsonObject.getString("licenceType")).append("</licence-type>");
-            stringBuffer.append("<applicant-name>");
-            stringBuffer.append("<first-name>").append(jsonObject.getString("aFName")).append("</first-name>");
-            stringBuffer.append("<middle-name>").append(jsonObject.getString("aFMiddle")).append("</middle-name>");
-            stringBuffer.append("<last-name>").append(jsonObject.getString("aFLast")).append("</last-name>");
-            stringBuffer.append("</applicant-name>");
-            stringBuffer.append("<dob>").append(jsonObject.getString("dob")).append("</dob>");
-            stringBuffer.append("<gender type=\"").append(jsonObject.getString("gender")).append("\"/>");
-            stringBuffer.append("<relation type=\"").append(jsonObject.getString("relation-type")).append("\"/>");
-            stringBuffer.append("<parent-name>");
-            stringBuffer.append("<first-name>").append(jsonObject.getString("pFName")).append("</first-name>");
-            stringBuffer.append("<middle-name>").append(jsonObject.getString("pFMiddle")).append("</middle-name>");
-            stringBuffer.append("<last-name>").append(jsonObject.getString("pFLast")).append("</last-name>");
-            stringBuffer.append("</parent-name>");
-            stringBuffer.append("<edu-qualification>").append("31").append("</edu-qualification>");//pending
-            stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks")).append("</identification-marks>");
-            stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks2")).append("</identification-marks>");
-//            stringBuffer.append("<blood-group>").append(jsonObject.getString("blood-group")).append("</blood-group>");
-            stringBuffer.append("<blood-group>").append("O+").append("</blood-group>");
-            stringBuffer.append("<permanent-address>");
-            stringBuffer.append("<p-flat-house-no>").append(jsonObject.getString("pFlatHouseNo")).append("</p-flat-house-no>");
-            stringBuffer.append("<p-street-locality>").append(jsonObject.getString("pStreetLocality")).append("</p-street-locality>");
-            stringBuffer.append("<p-village-city>").append(jsonObject.getString("pVillageCity")).append("</p-village-city>");
-            stringBuffer.append("<p-district>").append(jsonObject.getString("pDistrict")).append("</p-district>");
-            stringBuffer.append("<p-state>").append("OD").append("</p-state>");
-            stringBuffer.append("<p-pin>").append(jsonObject.getString("pPin")).append("</p-pin>");
-            stringBuffer.append("<p-phone-no>").append(jsonObject.getString("pPhoneNo")).append("</p-phone-no>");
-            stringBuffer.append("<p-mobile-no>").append(jsonObject.getString("pMobileNo")).append("</p-mobile-no>");
-            stringBuffer.append("<p-durationofstay>");
-            stringBuffer.append("<p-years>").append(jsonObject.getString("pYears")).append("</p-years>");
-            stringBuffer.append("<p-months>").append(jsonObject.getString("pMonths")).append("</p-months>");
-            stringBuffer.append("</p-durationofstay>");
-            stringBuffer.append("</permanent-address>");
-
-            stringBuffer.append("<present-address>");
-            stringBuffer.append("<t-flat-house-no>").append(jsonObject.getString("tFlatHouseNo")).append("</t-flat-house-no>");
-            stringBuffer.append("<t-street-locality>").append(jsonObject.getString("tStreetLocality")).append("</t-street-locality>");
-            stringBuffer.append("<t-village-city>").append(jsonObject.getString("tVillageCity")).append("</t-village-city>");
-            stringBuffer.append("<t-district>").append(jsonObject.getString("tDistrict")).append("</t-district>");
-            stringBuffer.append("<t-state>").append("OD").append("</t-state>");
-            stringBuffer.append("<t-pin>").append(jsonObject.getString("tPin")).append("</t-pin>");
-            stringBuffer.append("<t-phone-no>").append(jsonObject.getString("tPhoneNo")).append("</t-phone-no>");
-//            stringBuffer.append("<t-mobile-no>").append(jsonObject.getString("tMobileNo")).append("</t-mobile-no>");
-            stringBuffer.append("<t-durationofstay>");
-            stringBuffer.append("<t-years>").append(jsonObject.getString("tYears")).append("</t-years>");
-            stringBuffer.append("<t-months>").append(jsonObject.getString("tMonths")).append("</t-months>");
-            stringBuffer.append("</t-durationofstay>");
-            stringBuffer.append("</present-address>");
-            stringBuffer.append("<citizenship-status type=\"").append(jsonObject.getString("citizenship-status")).append("\"/>");
-            stringBuffer.append("<birth-place>").append(jsonObject.getString("birth-place")).append("</birth-place>");
-            stringBuffer.append("<migration>");
-            stringBuffer.append("<year>").append(jsonObject.getString("year")).append("</year>");
-            stringBuffer.append("<month>").append(jsonObject.getString("month")).append("</month>");
-            stringBuffer.append("</migration>");
-
-            stringBuffer.append("<birth-country>").append(jsonObject.getString("birth-country")).append("</birth-country>");
-            stringBuffer.append("<email-id>").append(jsonObject.getString("email-id")).append("</email-id>");
-            stringBuffer.append("<list-of-proofs>");
-            stringBuffer.append("<doc>");
+            jsonObject = new JSONObject(sharedpreferences.getString(NICjson, "").toString());
 
             String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
+            StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append("<proofcode>").append(proof1).append("</proofcode>");
             stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum1.getText().toString()).append("</licence-certificate-badge-no>");
             stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority1.getText().toString()).append("</issuing-authority>");
             stringBuffer.append("<date-of-issue>").append(editTextDateofIssue1.getText().toString().replace("/","-")).append("</date-of-issue>");
-            stringBuffer.append("</doc>");
+            proof1= stringBuffer.toString();
 
-
+            stringBuffer.delete(0,stringBuffer.length());
             String proof2=new String();
             if(spinnerIdcard2.getSelectedItemPosition()!=0)
             {
                 proof2 =idCode[spinnerIdcard2.getSelectedItemPosition()];
                 stringBuffer.append("<doc>");
                 stringBuffer.append("<proofcode>").append(proof2).append("</proofcode>");
-                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum2.getText().toString()).append("<licence-certificate-badge-no>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum2.getText().toString()).append("</licence-certificate-badge-no>");
                 stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority2.getText().toString()).append("</issuing-authority>");
                 stringBuffer.append("<date-of-issue>").append(editTextDateofIssue2.getText().toString().replace("/","-")).append("</date-of-issue>");
                 stringBuffer.append("</doc>");
+                proof2=stringBuffer.toString();
+            }else
+                proof2="";
 
-            }
-
+            stringBuffer.delete(0,stringBuffer.length());
             String proof3=new String();
             if(spinnerIdcard3.getSelectedItemPosition()!=0)
             {
                 proof3 =idCode[spinnerIdcard3.getSelectedItemPosition()];
                 stringBuffer.append("<doc>");
                 stringBuffer.append("<proofcode>").append(proof3).append("</proofcode>");
-                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum3.getText().toString()).append("<licence-certificate-badge-no>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum3.getText().toString()).append("</licence-certificate-badge-no>");
                 stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority3.getText().toString()).append("</issuing-authority>");
                 stringBuffer.append("<date-of-issue>").append(editTextDateofIssue3.getText().toString().replace("/","-")).append("</date-of-issue>");
                 stringBuffer.append("</doc>");
-            }
+                proof3=stringBuffer.toString();
+            }else
+                proof3="";
 
-
+            stringBuffer.delete(0,stringBuffer.length());
             String proof4=new String();
             if(spinnerIdcard4.getSelectedItemPosition()!=0)
             {
                 proof4 =idCode[spinnerIdcard4.getSelectedItemPosition()];
                 stringBuffer.append("<doc>");
                 stringBuffer.append("<proofcode>").append(proof4).append("</proofcode>");
-                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum4.getText().toString()).append("<licence-certificate-badge-no>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum4.getText().toString()).append("</licence-certificate-badge-no>");
                 stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority4.getText().toString()).append("</issuing-authority>");
                 stringBuffer.append("<date-of-issue>").append(editTextDateofIssue4.getText().toString().replace("/","-")).append("</date-of-issue>");
                 stringBuffer.append("</doc>");
+                proof4=stringBuffer.toString();
             }
+            else
+                proof4="";
 
-            stringBuffer.append("</list-of-proofs>");
-            stringBuffer.append("<covs>").append(sharedpreferences.getString("mFinalStringCov","")).append("</covs>");
-            stringBuffer.append("<rcnumber />").append("<parentleterforbelow18age />").append("<allnecessarycertificates type=\"y\"/>");
-            stringBuffer.append("<exemptedmedicaltest type=\"n\"/>").append("<exemptedpreliminarytest type=\"n\"/>");
-            stringBuffer.append("<convicted type=\"n\" />");
-            stringBuffer.append("<attachdoc>");
-            stringBuffer.append("<attdlnumber />");
-            stringBuffer.append("<attdtofconviction />");
-            stringBuffer.append("<attreason/>");
-            stringBuffer.append("</attachdoc>");
-            stringBuffer.append("</applicant>");
-            stringBuffer.append("</applicants>");
+            testNic = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                    "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+                    "<applicants>"
+                    +
+                    "<applicant refno=\"" + jsonObject.getString("refno")+"\">" +
 
-            return stringBuffer.toString();
-        } catch (JSONException e) {
+                    "<statecode>"+jsonObject.getString("statecode")+"</statecode>" +
+
+                    "<rtocode>"+jsonObject.getString("rtocodeReal")+"</rtocode>" +
+
+                    "<licence-type>l</licence-type>" +
+
+                    "<applicant-name>" +
+
+                    "<first-name>"+jsonObject.getString("aFName")+"</first-name>" +
+
+                    "<middle-name>"+jsonObject.getString("aFMiddle")+"</middle-name>" +
+
+                    "<last-name>"+jsonObject.getString("aFLast")+"</last-name>" +
+
+                    "</applicant-name>" +
+
+                    "<dob>"+jsonObject.getString("dob")+"</dob>" +
+
+                    "<gender type=\""+jsonObject.getString("gender")+"\"/>" +
+
+                    "<relation type=\""+jsonObject.getString("relation-type")+"\" />" +
+
+                    "<parent-name>" +
+
+                    "<first-name>"+jsonObject.getString("pFName")+"</first-name>" +
+
+                    "<middle-name>"+jsonObject.getString("pFMiddle")+"</middle-name>" +
+
+                    "<last-name />" +
+
+                    "</parent-name>" +
+
+
+                    "<edu-qualification>"+jsonObject.getString("qualification")+"</edu-qualification>" +
+
+                    "<identification-marks >"+jsonObject.getString("identification-marks")+"</identification-marks>" +
+
+                    "<identification-marks >"+jsonObject.getString("identification-marks2")+"</identification-marks>" +
+
+                    "<blood-group>O-</blood-group>" +
+
+                    "<permanent-address>" +
+
+                    "<p-flat-house-no>"+jsonObject.getString("tFlatHouseNo")+"</p-flat-house-no>" +
+
+                    "<p-street-locality>"+jsonObject.getString("tStreetLocality")+"</p-street-locality>" +
+
+                    "<p-village-city>"+jsonObject.getString("tVillageCity")+"</p-village-city>" +
+
+                    "<p-district>"+jsonObject.getString("tDistrict")+"</p-district>" +
+
+                    "<p-state>"+jsonObject.getString("pState")+"</p-state>" +
+
+                    "<p-pin>"+jsonObject.getString("pPin")+"</p-pin>" +
+
+                    "<p-phone-no />" +
+
+                    "<p-mobile-no>"+jsonObject.getString("pMobileNo")+"</p-mobile-no>" +
+
+                    "<p-durationofstay>" +
+
+                    "<p-years >"+jsonObject.getString("pYears")+"</p-years>"+
+
+                    "<p-months >"+jsonObject.getString("pMonths")+"</p-months >"+
+
+                    "</p-durationofstay>" +
+
+                    "</permanent-address>" +
+
+                    "<temporary-address>" +
+
+                    "<t-flat-house-no>"+jsonObject.getString("tFlatHouseNo")+"</t-flat-house-no>" +
+
+                    "<t-street-locality>"+jsonObject.getString("tStreetLocality")+"</t-street-locality>" +
+
+                    "<t-village-city>"+jsonObject.getString("tVillageCity")+"</t-village-city>" +
+
+                    "<t-district>"+jsonObject.getString("tDistrict")+"</t-district>" +
+
+                    "<t-state>"+jsonObject.getString("tState")+"</t-state>" +
+
+                    "<t-pin>"+jsonObject.getString("tPin")+"</t-pin>" +
+
+                    "<t-phone-no >"+jsonObject.getString("tPhoneNo")+"</t-phone-no>"+
+
+                    "<t-durationofstay>" +
+
+                    "<t-years >"+jsonObject.getString("tYears")+"</t-years>" +
+
+                    "<t-months >"+jsonObject.getString("tMonths")+"</t-months>" +
+
+                    "</t-durationofstay>" +
+
+                    "</temporary-address>" +
+
+                    "<citizenship-status type=\""+jsonObject.getString("citizenship-status")+"\" />" +
+
+                    "<birth-place>"+jsonObject.getString("birth-place")+"</birth-place>" +
+
+                    "<migration>" +
+
+                    "<year >" +jsonObject.getString("year")+"</year>"+
+
+                    "<month >" +jsonObject.getString("month")+"</month>"+
+
+                    "</migration>" +
+
+                    "<birth-country>"+jsonObject.getString("birth-country")+"</birth-country>" +
+
+                    "<email-id>"+jsonObject.getString("email-id")+"</email-id>" +
+//                    complete till here
+                    "<list-of-proofs>" +
+
+                    "<doc>" +
+                    proof1+
+                    "</doc>" +
+
+                    proof2 +
+
+                    proof3 +
+
+                    proof4+
+                    "</list-of-proofs>" +
+
+                    "<covs>"+sharedpreferences.getString("mFinalStringCov","")+"</covs>" +
+
+                    "<rcnumber />" +
+
+                    "<parentleterforbelow18age type=\"n\" />" +
+
+                    "<allnecessarycertificates type=\"y\" />" +
+
+                    "<exemptedmedicaltest type=\"n\" />" +
+
+                    "<exemptedpreliminarytest type=\"n\" />" +
+
+                    "<convicted type=\"n\" />" +
+
+                    "<attachdoc>" +
+
+                    "<attdlnumber />" +
+
+                    "<attdtofconviction />" +
+
+                    "<attreason />" +
+
+                    "</attachdoc>" +
+
+                    "</applicant>" +
+
+                    "</applicants>";
+        }catch (JSONException e)
+        {
             e.printStackTrace();
         }
 
-       return null;
+        return testNic;
     }
+
     private void showToast(String s)
     {
         Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
@@ -893,8 +980,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 //Creating json object.
                 JSONObject jsonObject = new JSONObject();
 
-//                jsonObject.put("base64file", endcodetoBase64(detailNIC()));
-                jsonObject.put("base64file", endcodetoBase64(sTest));
+                jsonObject.put("base64file", endcodetoBase64(detailNIC()));
+//                jsonObject.put("base64file", endcodetoBase64(sTest));
                 jsonObject.put("agentID", "smartchip");
                 jsonObject.put("password", "3998151263B55EB10F7AE1A974FD036E");
                 jsonObject.put("seckey","");
@@ -931,7 +1018,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
                 System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
-                String str [] = responseOutput.toString().split("\\|");
+                 String str [] = responseOutput.toString().split("\\|");
 
                 if(str[0].equals("Success"))
                 {
@@ -942,8 +1029,16 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     editor.apply();
                     return 1;
                 }
+                else if(str[1].equals("Registration Certificate Number of the INVCRG should be enter"))
+                {
+                    return 2;
+                }
                 else
+                {
+                    stringError=responseOutput.toString();
                     return 0;
+                }
+
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -967,17 +1062,26 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
-//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, .newInstance("1","1")).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                     }
                 });
 
+            }
+            else if(result==2)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), stringError, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             else
             {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), stringError, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -985,5 +1089,146 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 }
+
+//    private String detailNIC()
+//    {
+//        JSONObject jsonObject;
+//        try {
+//            jsonObject = new JSONObject(sharedpreferences.getString(NICjson,"").toString());
+//
+//            StringBuffer stringBuffer = new StringBuffer();
+//            stringBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+//            stringBuffer.append("<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">");
+//            stringBuffer.append("<applicants>");
+////            stringBuffer.append("<applicant refno=\"").append(jsonObject.getString("refno")).append("\">");
+//            stringBuffer.append("<applicant refno=\"").append("19").append("\">");
+//            stringBuffer.append("<statecode>").append(jsonObject.getString("statecode")).append("</statecode>");
+//            stringBuffer.append("<rtocode>OD").append(jsonObject.getString("rtocode")).append("</rtocode>");
+//            stringBuffer.append("<licence-type>").append(jsonObject.getString("licenceType")).append("</licence-type>");
+//            stringBuffer.append("<applicant-name>");
+//            stringBuffer.append("<first-name>").append(jsonObject.getString("aFName")).append("</first-name>");
+//            stringBuffer.append("<middle-name>").append(jsonObject.getString("aFMiddle")).append("</middle-name>");
+//            stringBuffer.append("<last-name>").append(jsonObject.getString("aFLast")).append("</last-name>");
+//            stringBuffer.append("</applicant-name>");
+//            stringBuffer.append("<dob>").append(jsonObject.getString("dob")).append("</dob>");
+//            stringBuffer.append("<gender type=\"").append(jsonObject.getString("gender")).append("\"/>");
+//            stringBuffer.append("<relation type=\"").append(jsonObject.getString("relation-type")).append("\"/>");
+//            stringBuffer.append("<parent-name>");
+//            stringBuffer.append("<first-name>").append(jsonObject.getString("pFName")).append("</first-name>");
+//            stringBuffer.append("<middle-name>").append(jsonObject.getString("pFMiddle")).append("</middle-name>");
+//            stringBuffer.append("<last-name>").append(jsonObject.getString("pFLast")).append("</last-name>");
+//            stringBuffer.append("</parent-name>");
+//            stringBuffer.append("<edu-qualification>").append("31").append("</edu-qualification>");//pending
+//            stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks")).append("</identification-marks>");
+//            stringBuffer.append("<identification-marks>").append(jsonObject.getString("identification-marks2")).append("</identification-marks>");
+////            stringBuffer.append("<blood-group>").append(jsonObject.getString("blood-group")).append("</blood-group>");
+//            stringBuffer.append("<blood-group>").append("O+").append("</blood-group>");
+//            stringBuffer.append("<permanent-address>");
+//            stringBuffer.append("<p-flat-house-no>").append(jsonObject.getString("pFlatHouseNo")).append("</p-flat-house-no>");
+//            stringBuffer.append("<p-street-locality>").append(jsonObject.getString("pStreetLocality")).append("</p-street-locality>");
+//            stringBuffer.append("<p-village-city>").append(jsonObject.getString("pVillageCity")).append("</p-village-city>");
+//            stringBuffer.append("<p-district>").append(jsonObject.getString("pDistrict")).append("</p-district>");
+//            stringBuffer.append("<p-state>").append("OD").append("</p-state>");
+//            stringBuffer.append("<p-pin>").append(jsonObject.getString("pPin")).append("</p-pin>");
+//            stringBuffer.append("<p-phone-no>").append(jsonObject.getString("pPhoneNo")).append("</p-phone-no>");
+//            stringBuffer.append("<p-mobile-no>").append(jsonObject.getString("pMobileNo")).append("</p-mobile-no>");
+//            stringBuffer.append("<p-durationofstay>");
+//            stringBuffer.append("<p-years>").append(jsonObject.getString("pYears")).append("</p-years>");
+//            stringBuffer.append("<p-months>").append(jsonObject.getString("pMonths")).append("</p-months>");
+//            stringBuffer.append("</p-durationofstay>");
+//            stringBuffer.append("</permanent-address>");
+//
+//            stringBuffer.append("<present-address>");
+//            stringBuffer.append("<t-flat-house-no>").append(jsonObject.getString("tFlatHouseNo")).append("</t-flat-house-no>");
+//            stringBuffer.append("<t-street-locality>").append(jsonObject.getString("tStreetLocality")).append("</t-street-locality>");
+//            stringBuffer.append("<t-village-city>").append(jsonObject.getString("tVillageCity")).append("</t-village-city>");
+//            stringBuffer.append("<t-district>").append(jsonObject.getString("tDistrict")).append("</t-district>");
+//            stringBuffer.append("<t-state>").append("OD").append("</t-state>");
+//            stringBuffer.append("<t-pin>").append(jsonObject.getString("tPin")).append("</t-pin>");
+//            stringBuffer.append("<t-phone-no>").append(jsonObject.getString("tPhoneNo")).append("</t-phone-no>");
+////            stringBuffer.append("<t-mobile-no>").append(jsonObject.getString("tMobileNo")).append("</t-mobile-no>");
+//            stringBuffer.append("<t-durationofstay>");
+//            stringBuffer.append("<t-years>").append(jsonObject.getString("tYears")).append("</t-years>");
+//            stringBuffer.append("<t-months>").append(jsonObject.getString("tMonths")).append("</t-months>");
+//            stringBuffer.append("</t-durationofstay>");
+//            stringBuffer.append("</present-address>");
+//            stringBuffer.append("<citizenship-status type=\"").append(jsonObject.getString("citizenship-status")).append("\"/>");
+//            stringBuffer.append("<birth-place>").append(jsonObject.getString("birth-place")).append("</birth-place>");
+//            stringBuffer.append("<migration>");
+//            stringBuffer.append("<year>").append(jsonObject.getString("year")).append("</year>");
+//            stringBuffer.append("<month>").append(jsonObject.getString("month")).append("</month>");
+//            stringBuffer.append("</migration>");
+//
+//            stringBuffer.append("<birth-country>").append(jsonObject.getString("birth-country")).append("</birth-country>");
+//            stringBuffer.append("<email-id>").append(jsonObject.getString("email-id")).append("</email-id>");
+//            stringBuffer.append("<list-of-proofs>");
+//            stringBuffer.append("<doc>");
+//
+//            String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
+//            stringBuffer.append("<proofcode>").append(proof1).append("</proofcode>");
+//            stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum1.getText().toString()).append("</licence-certificate-badge-no>");
+//            stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority1.getText().toString()).append("</issuing-authority>");
+//            stringBuffer.append("<date-of-issue>").append(editTextDateofIssue1.getText().toString().replace("/","-")).append("</date-of-issue>");
+//            stringBuffer.append("</doc>");
+//
+//
+//            String proof2=new String();
+//            if(spinnerIdcard2.getSelectedItemPosition()!=0)
+//            {
+//                proof2 =idCode[spinnerIdcard2.getSelectedItemPosition()];
+//                stringBuffer.append("<doc>");
+//                stringBuffer.append("<proofcode>").append(proof2).append("</proofcode>");
+//                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum2.getText().toString()).append("<licence-certificate-badge-no>");
+//                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority2.getText().toString()).append("</issuing-authority>");
+//                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue2.getText().toString().replace("/","-")).append("</date-of-issue>");
+//                stringBuffer.append("</doc>");
+//
+//            }
+//
+//            String proof3=new String();
+//            if(spinnerIdcard3.getSelectedItemPosition()!=0)
+//            {
+//                proof3 =idCode[spinnerIdcard3.getSelectedItemPosition()];
+//                stringBuffer.append("<doc>");
+//                stringBuffer.append("<proofcode>").append(proof3).append("</proofcode>");
+//                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum3.getText().toString()).append("<licence-certificate-badge-no>");
+//                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority3.getText().toString()).append("</issuing-authority>");
+//                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue3.getText().toString().replace("/","-")).append("</date-of-issue>");
+//                stringBuffer.append("</doc>");
+//            }
+//
+//
+//            String proof4=new String();
+//            if(spinnerIdcard4.getSelectedItemPosition()!=0)
+//            {
+//                proof4 =idCode[spinnerIdcard4.getSelectedItemPosition()];
+//                stringBuffer.append("<doc>");
+//                stringBuffer.append("<proofcode>").append(proof4).append("</proofcode>");
+//                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum4.getText().toString()).append("<licence-certificate-badge-no>");
+//                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority4.getText().toString()).append("</issuing-authority>");
+//                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue4.getText().toString().replace("/","-")).append("</date-of-issue>");
+//                stringBuffer.append("</doc>");
+//            }
+//
+//            stringBuffer.append("</list-of-proofs>");
+//            stringBuffer.append("<covs>").append(sharedpreferences.getString("mFinalStringCov","")).append("</covs>");
+//            stringBuffer.append("<rcnumber />").append("<parentleterforbelow18age />").append("<allnecessarycertificates type=\"y\"/>");
+//            stringBuffer.append("<exemptedmedicaltest type=\"n\"/>").append("<exemptedpreliminarytest type=\"n\"/>");
+//            stringBuffer.append("<convicted type=\"n\" />");
+//            stringBuffer.append("<attachdoc>");
+//            stringBuffer.append("<attdlnumber />");
+//            stringBuffer.append("<attdtofconviction />");
+//            stringBuffer.append("<attreason/>");
+//            stringBuffer.append("</attachdoc>");
+//            stringBuffer.append("</applicant>");
+//            stringBuffer.append("</applicants>");
+//
+//            return stringBuffer.toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
 
 
