@@ -674,7 +674,7 @@
 
     <string-array name="Rto_code_Real">
         <item>OD19</item>
-        <item>OD09</item>
+        <item>OD09B</item>
         <item>OD01</item>
         <item>OD17</item>
         <item>OD22</item>
@@ -696,7 +696,7 @@
         <item>OD29</item>
         <item>OD09</item>
         <item>OD10</item>
-        <item>OD02</item>
+        <item>OD02K</item>
         <item>OD30</item>
         <item>OD11</item>
         <item>OD24</item>
@@ -704,7 +704,7 @@
         <item>OD26</item>
         <item>OD12</item>
         <item>OD13</item>
-        <item>OD11</item>
+        <item>OD11R</item>
         <item>OD18</item>
         <item>OD14</item>
         <item>OD15</item>

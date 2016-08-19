@@ -105,6 +105,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         editCardHolderName = (EditText) view.findViewById(R.id.cardHolderNameCredit);
         //cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
         editCVV = (EditText) view.findViewById(R.id.cardCvvCredit);
+        alertDialogNote();
         return view;
     }
 
@@ -134,14 +135,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
-//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
-//                    }
-//                });
-                alertDialogPostReport();
+                alertDialogPostReport("Payment Successful.");
             }
 
             @Override
@@ -165,10 +159,9 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public void alertDialogPostReport()
+    public void alertDialogPostReport(String s)
     {
-        final String[] items = {"Payment Successful."
-        };
+        final String[] items = {s };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");
@@ -182,6 +175,28 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         });
 
         builder.show();
+    }
 
+    private void alertDialogNote()
+    {
+        final String[] items = {"2 % + Service Tax will be added for all credit cards"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    private Double calulateTax(Double amt)
+    {
+        amt = amt+(amt/100)*0.2;
+        return amt;
     }
 }

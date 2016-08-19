@@ -253,4 +253,28 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         builder.show();
 
     }
+
+    private void alertDialogNote()
+    {
+        final String[] items = {"HDFC & ICICI-1.70% +ST, REST 1.55% + ST ","Your final amit"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+
+    private Double calulateTax(Double amt)
+    {
+        amt = amt+(amt/100)*0.2;
+        return amt;
+    }
 }

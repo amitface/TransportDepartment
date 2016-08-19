@@ -106,7 +106,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 //        cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
         editCVV = (EditText) view.findViewById(R.id.cardCvv);
 
-
+        alertDialogNote();
         pay.setOnClickListener(this);
         return  view;
     }
@@ -136,13 +136,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
-//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
-//                    }
-//                });
+
                 alertDialogPostReport();
             }
 
@@ -188,6 +182,28 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         });
 
         builder.show();
+    }
 
+    private void alertDialogNote()
+    {
+        final String[] items = {" 0.75% + Service Tax will be added for all debit cards","Your amount will be"+calulateTax((double) 1)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    private Double calulateTax(Double amt)
+    {
+        amt = amt+(amt/100)*0.75;
+        return amt;
     }
 }

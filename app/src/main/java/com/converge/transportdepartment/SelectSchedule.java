@@ -289,7 +289,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 {
 //                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
                     saveSlot(1,"",1L);
-
                 }
                 break;
 
