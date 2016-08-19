@@ -87,6 +87,8 @@ public class RtoLocatorFragment extends Fragment implements View.OnClickListener
         rtoLat=getResources().getStringArray(R.array.Rto_Lat);
         rtoLong=getResources().getStringArray(R.array.Rto_Long);
 
+        System.out.println("rtoLat  =="+ rtoLat);
+        System.out.println("rtoLong  =="+ rtoLong);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -105,9 +107,15 @@ public class RtoLocatorFragment extends Fragment implements View.OnClickListener
                 {
                     try
                     {
-                        String geoUri = "http://maps.google.com/maps?q=loc:" + Double.parseDouble(rtoLat[position]) + "," + Double.parseDouble(rtoLong[position]) + "RTO Office, ITI Square, Balasore";
+                        String geoUri = "http://maps.google.com/maps?q=loc:" + Double.parseDouble(rtoLat[position]) + "," + Double.parseDouble(rtoLong[position]);
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
                         startActivity(intent);
+
+                        System.out.println("geoUri  =="+ Uri.parse(geoUri));
+
+                        System.out.println("rtoLat[position]  =="+ rtoLat[position]);
+                        System.out.println("rtoLong[position]  =="+ rtoLong[position]);
+
                     }catch (Exception e)
                     {
                         e.printStackTrace();

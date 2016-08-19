@@ -1467,6 +1467,7 @@
     </string-array>
 
     <string-array name="Rto_Lat">
+        <item>21.4896639</item>
         <item>20.2963141</item>
         <item>20.6871409</item>
         <item>20.7059895</item>
@@ -1534,6 +1535,7 @@
         <item>83.9899136</item>
         <item>82.5468533</item>
         <item>85.0846053</item>
+        <item>nodata</item>
         <item>nodata</item>
         <item>nodata</item>
         <item>nodata</item>

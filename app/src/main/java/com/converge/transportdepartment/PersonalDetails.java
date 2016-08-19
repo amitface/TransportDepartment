@@ -143,8 +143,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     Thread th;
 
     String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
-                        "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
-                        "XX ", "DD ", "UK ", "UA ", "OD "};
+            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
+            "XX ", "DD ", "UK ", "UA ", "OD "};
 
     String qualificatinCode[] = {"0 ", "1 ","2 ","3 ", "4 ","6 ", "7 ", "10","11", "12",
             "13","14","30","31","32","33","34","35","39","50","51",
@@ -327,7 +327,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         editor.putString(NICjson,jsonNIC());
         editor.putString("EmailZ",meditViewEmail.getText().toString());
         editor.commit();
-     }
+    }
 
 
     private void showToast(String s) {
@@ -599,7 +599,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 mspinnerCitizenship.setSelection(Integer.parseInt(c.getString(42)));
 
             if(c.getString(43).length()>0)
-            mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
+                mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
 
             if(c.getString(44).length()>0)
                 mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
@@ -608,10 +608,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 mspinnerIdmark2.setSelection(Integer.parseInt(c.getString(45)));
 
             if(c.getString(46).length()>0)
-            mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(46)));
+                mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(46)));
 
             if(c.getString(47).length()>0)
-            mspinnerRH.setSelection(Integer.parseInt(c.getString(47)));
+                mspinnerRH.setSelection(Integer.parseInt(c.getString(47)));
         }
         db.close();
         addListenerOnSpinnerRtoSelection();
@@ -688,17 +688,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         try{
 
 
-        DBAdapter db = new DBAdapter(getActivity());
+            DBAdapter db = new DBAdapter(getActivity());
 
-        //---get all contacts---
-        db.open();
-        if(db.updateData(hashMap))
-        {
-            System.out.println("date Saved----------");
-        }
+            //---get all contacts---
+            db.open();
+            if(db.updateData(hashMap))
+            {
+                System.out.println("date Saved----------");
+            }
             else {
-            System.out.println("date cannot be Saved----------");
-        }
+                System.out.println("date cannot be Saved----------");
+            }
         }catch (Exception e)
         {
             System.out.println("ErrorSaving");
@@ -821,8 +821,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(!validation.isEmailAddress(meditViewEmail,true))
         {
-                showToast("Email not correct");
-                return false;
+            showToast("Email not correct");
+            return false;
 
         }
         else if(mspinnerRelationshipType.getSelectedItemPosition()==0)
@@ -852,8 +852,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
         {
-                showToast("Only aplhabets  allowed in Relations Name ");
-                return false;
+            showToast("Only aplhabets  allowed in Relations Name ");
+            return false;
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
@@ -909,8 +909,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-                showToast("only digit in Years");
-                return false;
+            showToast("only digit in Years");
+            return false;
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
@@ -1185,7 +1185,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&attdlnumber="+
                 "&attdtofconviction="+
                 "&attreason=";
-            return s;
+        return s;
     }
 
     private String jsonNIC() {
@@ -1250,7 +1250,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("email-id",meditViewEmail.getText().toString());
 //            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
 
-        return jsNic.toString();
+            return jsNic.toString();
 
         }catch (JSONException e)
         {
@@ -1284,71 +1284,71 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         JSONObject applicant = new JSONObject();
         try
         {
-        applicant.put("refno","");
-        applicant.put("statecode","");
-        applicant.put("rtocode","");
+            applicant.put("refno","");
+            applicant.put("statecode","");
+            applicant.put("rtocode","");
 
-        js.put("applicant_first_name","");
-        js.put("applicant_middle_name","");
-        js.put("applicant_last_name","");
-        applicant.put("applicant",js);
-        applicant.put("dob","");
-        applicant.put("gender_type","");
-        applicant.put("relation_type","");
-        applicant.put("relative_first_name","");
-        applicant.put("relative_middle_name","");
-        applicant.put("relative_last_name","");
-        applicant.put("edu_qualification","");
-        applicant.put("identification_mark","");
-        applicant.put("blood_group","");
+            js.put("applicant_first_name","");
+            js.put("applicant_middle_name","");
+            js.put("applicant_last_name","");
+            applicant.put("applicant",js);
+            applicant.put("dob","");
+            applicant.put("gender_type","");
+            applicant.put("relation_type","");
+            applicant.put("relative_first_name","");
+            applicant.put("relative_middle_name","");
+            applicant.put("relative_last_name","");
+            applicant.put("edu_qualification","");
+            applicant.put("identification_mark","");
+            applicant.put("blood_group","");
 
-        JSONObject permanentAddress = new JSONObject();
-        permanentAddress.put("p_flat_house_no","");
-        permanentAddress.put("p_street_locality","");
-        permanentAddress.put("p_village_city","");
-        permanentAddress.put("p_district","");
-        permanentAddress.put("p_state","");
-        permanentAddress.put("p_pin","");
-        permanentAddress.put("p_phone_no","");
-        permanentAddress.put("p_mobile_no","");
-        permanentAddress.put("p_years","");
-        permanentAddress.put("p_months","");
+            JSONObject permanentAddress = new JSONObject();
+            permanentAddress.put("p_flat_house_no","");
+            permanentAddress.put("p_street_locality","");
+            permanentAddress.put("p_village_city","");
+            permanentAddress.put("p_district","");
+            permanentAddress.put("p_state","");
+            permanentAddress.put("p_pin","");
+            permanentAddress.put("p_phone_no","");
+            permanentAddress.put("p_mobile_no","");
+            permanentAddress.put("p_years","");
+            permanentAddress.put("p_months","");
 
-        applicant.accumulate("permanent",permanentAddress);
+            applicant.accumulate("permanent",permanentAddress);
 
-        JSONObject presentAddress = new JSONObject();
-        presentAddress.put("t_flat_house_no","");
-        presentAddress.put("t_street_locality","");
-        presentAddress.put("t_village_city","");
-        presentAddress.put("t_district","");
-        presentAddress.put("t_state","");
-        presentAddress.put("t_pin","");
-        presentAddress.put("t_phone_no","");
-        presentAddress.put("t_mobile_no","");
-        presentAddress.put("t_years","");
-        presentAddress.put("t_months","");
+            JSONObject presentAddress = new JSONObject();
+            presentAddress.put("t_flat_house_no","");
+            presentAddress.put("t_street_locality","");
+            presentAddress.put("t_village_city","");
+            presentAddress.put("t_district","");
+            presentAddress.put("t_state","");
+            presentAddress.put("t_pin","");
+            presentAddress.put("t_phone_no","");
+            presentAddress.put("t_mobile_no","");
+            presentAddress.put("t_years","");
+            presentAddress.put("t_months","");
 
 
-        applicant.accumulate("present",presentAddress);
-        applicant.put("citizenship_status_type","");
-        applicant.put(" birth_place","");
-        applicant.put("year","");
-        applicant.put("birth_country","");
-        applicant.put("email_id","");
-        applicant.put("proofcode","");
-        applicant.put("licence_certificate_badge_no","");
-        applicant.put("issuing_authority","");
-        applicant.put("date_of_issue","");
-        applicant.put("covs","");
-        applicant.put("rcnumber","");
-        applicant.put("parentleterforbelow18age","");
-        applicant.put("allnecessarycertificates","");
-        applicant.put("exemptedmedicaltest","");
-        applicant.put("exemptedpreliminarytest","");
-        applicant.put("convicted","");
-        applicant.put("attdlnumber","");
-        applicant.put("attdtofconviction","");
-        applicant.put("attreason","");
+            applicant.accumulate("present",presentAddress);
+            applicant.put("citizenship_status_type","");
+            applicant.put(" birth_place","");
+            applicant.put("year","");
+            applicant.put("birth_country","");
+            applicant.put("email_id","");
+            applicant.put("proofcode","");
+            applicant.put("licence_certificate_badge_no","");
+            applicant.put("issuing_authority","");
+            applicant.put("date_of_issue","");
+            applicant.put("covs","");
+            applicant.put("rcnumber","");
+            applicant.put("parentleterforbelow18age","");
+            applicant.put("allnecessarycertificates","");
+            applicant.put("exemptedmedicaltest","");
+            applicant.put("exemptedpreliminarytest","");
+            applicant.put("convicted","");
+            applicant.put("attdlnumber","");
+            applicant.put("attdtofconviction","");
+            applicant.put("attreason","");
 
             return applicant.toString();
 
@@ -1396,13 +1396,13 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private boolean textFieldValidation()
     {
         if(usr_fname.length()<1 ||  usr_lname.length() <1 ||  usr_father_name.length() <1 || usr_email.length()<1 || usr_mobile.length()<1 ||
-             usr_pincode.length()<1 || usr_address.length()<1 || usr_feeamnt.length()<1 || usr_city.length()<1 || usr_district.length()<1){
+                usr_pincode.length()<1 || usr_address.length()<1 || usr_feeamnt.length()<1 || usr_city.length()<1 || usr_district.length()<1){
             showToast("Enter All fields");
             return false;
         }
         else if( int_relation_type == 0 || int_qualification== 0 || int_gender== 0 ||
-            int_idmark== 0 || int_blood_gr== 0 || int_blood_rh== 0
-           ){
+                int_idmark== 0 || int_blood_gr== 0 || int_blood_rh== 0
+                ){
             showToast("Enter All Drop DownItem");
             return false;
         }
@@ -1487,12 +1487,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     }
 
-   private void hidePresent()
-   {
-       mtablelayoutPresentAddress.setVisibility(View.GONE);
-       present=false;
-       imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
-   }
+    private void hidePresent()
+    {
+        mtablelayoutPresentAddress.setVisibility(View.GONE);
+        present=false;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+    }
 
     private void showPresent()
     {
@@ -1502,7 +1502,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     }
 
     @Override
-     public void onPause ()
+    public void onPause ()
     {
         super.onPause();
         Log.d("onPause :"," saving session");
@@ -1540,10 +1540,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(adapterView.getItemAtPosition(i).toString().toUpperCase().equals("INDIA"))
                 {
-                        meditViewMonth.setText("");
-                        meditViewYear.setText("");
-                        meditViewYear.setEnabled(false);
-                        meditViewMonth.setEnabled(false);
+                    meditViewMonth.setText("");
+                    meditViewYear.setText("");
+                    meditViewYear.setEnabled(false);
+                    meditViewMonth.setEnabled(false);
                 }
                 else
                 {
