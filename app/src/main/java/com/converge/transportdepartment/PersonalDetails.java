@@ -14,7 +14,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -23,7 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -86,6 +90,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private String mtextViewDateString = "mtextViewDate";
     private String mtextViewDateInt = "mtextViewDateInt";
 
+    ScrollView scrollView;
+    private TextView textView_personalDetail;
+    private TextView textView13;
 
     // TextView and Spinner
     private EditText meditViewApplicantFirstName;
@@ -259,12 +266,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.buttonNextPersonalDetail:
 //                getFieldData();
+                removeSpace();
                 if(validate()) {
                     aBooleanstop=true;
                     saveSession();
                     String s = detailString();
                     saveSharedPreference();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2", "1")).commit();
+                }else
+                {
+
                 }
                 break;
             case R.id.editTextYear:
@@ -289,6 +300,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 break;
             case R.id.imageViewDatePicker:
                 DialogFragment newFragment = new DatePickerFragment();
+
+
+
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.linearlayoutPermanant:
@@ -296,6 +310,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     hidePermanent();
                 else
                     showPremanent();
+
                 break;
             case R.id.linearlayoutPresentAddress:
                 if(present==true)
@@ -424,6 +439,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonal);
         imageViewOther=(ImageView) rootView.findViewById(R.id.imageOther);
 
+
         meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
         meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
         meditViewApplicantLastName = (EditText) rootView.findViewById(R.id.editTextViewApplicantLastName);
@@ -504,9 +520,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonClearPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonBackPersonalDetail);
 
+
+        scrollView=(ScrollView) rootView.findViewById(R.id.scrollView);
+        textView_personalDetail = (TextView) rootView.findViewById(R.id.textView_personalDetail);
+        textView13 = (TextView) rootView.findViewById(R.id.textView13);
+
         addListenerOnSpinnerItemSelection();
         addListenerOnSpinnerEducationQualification();
         retrivesession();
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                scrollView.clearFocus();
+                return false;
+            }
+        });
+
     }
 
     private void retrivesession() {
@@ -758,59 +788,42 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mtextViewDate.setText("");
     }
 
-    private void removeSpace(View rootView) {
-        meditViewApplicantFirstName.setText("");
-        meditViewApplicantMiddleName.setText("");
-        meditViewApplicantLastName.setText("");
+    private void removeSpace() {
+        meditViewApplicantFirstName.setText(meditViewApplicantFirstName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantMiddleName.setText(meditViewApplicantMiddleName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantLastName.setText(meditViewApplicantLastName.getText().toString().replaceAll("\\s",""));
 
-        meditViewApplicantRelationsName.setText("");
-        meditViewApplicantRelationsMiddleName.setText("");
-        meditViewApplicantRelationsLastName.setText("");
+        meditViewApplicantRelationsName.setText(meditViewApplicantRelationsName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantRelationsMiddleName.setText(meditViewApplicantRelationsMiddleName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantRelationsLastName.setText(meditViewApplicantRelationsLastName.getText().toString().replaceAll("\\s",""));
 
-        meditViewPlaceOfBirth.setText("");
-        meditViewEmail.setText("");
+        meditViewPlaceOfBirth.setText(meditViewPlaceOfBirth.getText().toString().replaceAll("\\s",""));
+        meditViewEmail.setText(meditViewEmail.getText().toString().replaceAll("\\s",""));
 
-        meditTextPermanentFlatNum.setText("");
-        meditTextPermanentHouseName.setText("");
-        meditTextPermanentHouseNum.setText("");
-        meditTextPermanentStreet.setText("");
-        meditTextPermanentLocality.setText("");
-        meditTextPermanentvillage.setText("");
-        meditTextPermanentTaluka.setSelection(0);
-        mSPerDistrict.setSelection(0);
-        meditTextPermanentMonth.setText("");
-        meditTextPermanentYear.setText("");
-        meditTextPermanentPinCode.setText("");
-        meditTextPermanentMoblieNo.setText("");
+        meditTextPermanentFlatNum.setText(meditTextPermanentFlatNum.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentHouseName.setText(meditTextPermanentHouseName.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentHouseNum.setText(meditTextPermanentHouseNum.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentStreet.setText(meditTextPermanentStreet.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentLocality.setText(meditTextPermanentLocality.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentvillage.setText(meditTextPermanentvillage.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentMonth.setText(meditTextPermanentMonth.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentYear.setText(meditTextPermanentYear.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentPinCode.setText(meditTextPermanentPinCode.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString().replaceAll("\\s",""));
 
-        meditTextPresentFlatNum.setText("");
-        meditTextPresentHouseName.setText("");
-        meditTextPresentHouseNum.setText("");
-        meditTextPresentStreet.setText("");
-        meditTextPresentLocality.setText("");
-        meditTextPresentvillage.setText("");
-        meditTextPresentTaluka.setText("");
-        meditTextPresentDistrict.setText("");
-        meditTextPresentMonth.setText("");
-        meditTextPresentYear.setText("");
-        meditTextPresentPinCode.setText("");
-        meditTextPresentMoblieNo.setText("");
-
-        mspinnerRTO.setSelection(0);
-        mspinnerRelationshipType.setSelection(0);
-        mspinnerQualification.setSelection(0);
-        mspinnerGender.setSelection(0);
-        mspinnerIdmark.setSelection(0);
-        mspinnerIdmark2.setSelection(0);
-        mspinnerBloodGroup.setSelection(0);
-        mspinnerRH.setSelection(0);
-        mspinnerPermanentState.setSelection(1);
-        mspinnerPresentState.setSelection(1);
-        mspinnerCountry.setSelection(1);
-
-        mtextViewDate.setText("");
+        meditTextPresentFlatNum.setText(meditTextPresentFlatNum.getText().toString().replaceAll("\\s",""));
+        meditTextPresentHouseName.setText(meditTextPresentHouseName.getText().toString().replaceAll("\\s",""));
+        meditTextPresentHouseNum.setText(meditTextPresentHouseNum.getText().toString().replaceAll("\\s",""));
+        meditTextPresentStreet.setText(meditTextPresentStreet.getText().toString().replaceAll("\\s",""));
+        meditTextPresentLocality.setText(meditTextPresentLocality.getText().toString().replaceAll("\\s",""));
+        meditTextPresentvillage.setText(meditTextPresentvillage.getText().toString().replaceAll("\\s",""));
+        meditTextPresentTaluka.setText(meditTextPresentTaluka.getText().toString().replaceAll("\\s",""));
+        meditTextPresentDistrict.setText(meditTextPresentDistrict.getText().toString().replaceAll("\\s",""));
+        meditTextPresentMonth.setText(meditTextPresentMonth.getText().toString().replaceAll("\\s",""));
+        meditTextPresentYear.setText(meditTextPresentYear.getText().toString().replaceAll("\\s",""));
+        meditTextPresentPinCode.setText(meditTextPresentPinCode.getText().toString().replaceAll("\\s",""));
+        meditTextPresentMoblieNo.setText(meditTextPresentMoblieNo.getText().toString().replaceAll("\\s",""));
     }
-
 
     private boolean validate() {
         String s="000";
@@ -822,31 +835,66 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if( mspinnerRTO.getSelectedItemPosition()==0)
         {
             showToast("Select RTO");
+
+//            mspinnerRTO.setError("Select RTO");
+//            mspinnerRTO.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantFirstName.getText().length()==0)
         {
             showToast("Enter applicant first name");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Enter applicant first name");
+//            meditViewApplicantFirstName.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantLastName.getText().length()==0)
         {
             showToast("Enter applicant last name");
+
+            showPersonalDetail();
+
+            meditViewApplicantLastName.setError("Enter applicant last name");
+            meditViewApplicantLastName.requestFocus();
+//            meditViewApplicantLastName.requestFocus();
+
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
         {
             showToast("Only aplhabets  allowed in Name ");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Only aplhabets  allowed in Name ");
+            meditViewApplicantFirstName.requestFocus();
+
             return false;
         }
         else if(mtextViewDate.getText().length()==0)
         {
             showToast("Select DOB");
+
+            showPersonalDetail();
+
+            mtextViewDate.setError("Select DOB");
+            mtextViewDate.requestFocus();
+
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()==0)
         {
             showToast("Select Gender");
+
+            showPersonalDetail();
+
+//            mspinnerGender.setError("Select Gender");
+            mspinnerGender.requestFocus();
+
             return false;
         }
 
@@ -858,62 +906,145 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,true))
         {
             showToast("year & month only digit ");
+
+            showPersonalDetail();
+
+            meditViewYear.setError("year & month only digit");
+            meditViewYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,true))
         {
             showToast("year & month only digit ");
+
+            showPersonalDetail();
+
+            meditViewMonth.setError("year & month only digit");
+            meditViewMonth.requestFocus();
+
             return false;
         }
         else if(mspinnerCountry.getSelectedItemPosition()==0)
         {
             showToast("Select Country of Birth");
+
+            showPersonalDetail();
+
+//            mspinnerCountry.setError("Select Country of Birth");
+            mspinnerCountry.requestFocus();
+
+            return false;
+        }
+        else if(meditViewPlaceOfBirth.getText().length()==0)
+        {
+            showToast("Enter place of birth");
+
+            showPersonalDetail();
+
+            meditViewPlaceOfBirth.setError("Enter place of birth");
+            meditViewPlaceOfBirth.requestFocus();
+
             return false;
         }
         else if(meditViewEmail.getText().length()==0)
         {
             showToast("Enter email");
+
+            showPersonalDetail();
+
+            meditViewEmail.setError("Enter email");
+            meditViewEmail.requestFocus();
+
             return false;
         }
         else if(!validation.isEmailAddress(meditViewEmail,true))
         {
             showToast("Email not correct");
+
+            showPersonalDetail();
+
+            meditViewEmail.setError("Email not correct");
+            meditViewEmail.requestFocus();
+
             return false;
 
         }
         else if(mspinnerRelationshipType.getSelectedItemPosition()==0)
         {
             showToast("Select RelationType");
+
+            showPersonalDetail();
+
+//            mspinnerRelationshipType.setError("Select RelationType");
+            mspinnerRelationshipType.requestFocus();
+
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()<=1 && mspinnerRelationshipType.getSelectedItemPosition()>1)
         {
             showToast("RelationType and Gender Does not match");
+
+            showPersonalDetail();
+
+//            mspinnerGender.setError("RelationType and Gender Does not match");
+            mspinnerGender.requestFocus();
+
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
         {
             showToast("RelationType and Gender Does not match");
+
+            showPersonalDetail();
+
+//            mspinnerGender.setError("RelationType and Gender Does not match");
+            mspinnerGender.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantRelationsName.getText().length()==0)
         {
-            showToast("Enter applicant first name");
+            showToast("Enter applicant relative name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsName.setError("Enter applicant relative name");
+            meditViewApplicantRelationsName.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantRelationsLastName.getText().length()==0)
         {
-            showToast("Enter applicant Last name");
+            showToast("Enter applicant relative Last name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsLastName.setError("Enter applicant relative Last name");
+            meditViewApplicantRelationsLastName.requestFocus();
+
             return false;
         }
         else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
         {
             showToast("Only aplhabets  allowed in Relations Name ");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Only aplhabets  allowed in Relations Name");
+            meditViewApplicantFirstName.requestFocus();
+
             return false;
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
             showToast("At least one field required in Present Address");
+
+            showPremanent();
+
+            meditTextPermanentFlatNum.setError("At least one field required in Present Address");
+            meditTextPermanentFlatNum.requestFocus();
+
 //            showToast("Flat number cannot be empty");
             return false;
         }
@@ -945,63 +1076,132 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if( meditTextPermanentTaluka.getSelectedItemPosition()==0)
         {
             showToast("Present Taluka cannot be empty");
+
+            showPremanent();
+
+//            meditTextPermanentTaluka.setError("Present Taluka cannot be empty");
+            meditTextPermanentTaluka.requestFocus();
+
             return false;
         }
         else if(mSPerDistrict.getSelectedItemPosition()==0)
         {
             showToast("Present District cannot be empty");
+
+            showPremanent();
+
+//            mSPerDistrict.setError("Present District cannot be empty");
+            mSPerDistrict.requestFocus();
+
             return false;
         }
         else if(mspinnerPermanentState.getSelectedItemPosition()==0)
         {
             showToast("Select Present State");
+
+            showPremanent();
+
+//            mspinnerPermanentState.setError("Select Present State");
+            mspinnerPermanentState.requestFocus();
+
             return false;
         }
 
         else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
         {
             showToast("Years cannot be empty");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("Years cannot be empty");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
             showToast("only digit in Years");
+
+            showPremanent();
+
+            meditTextPermanentYear.setError("only digit in Years");
+            meditTextPermanentYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
             showToast("only digit in Months");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("only digit in Months");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
             showToast("Invalid Pincode ");
+
+            showPremanent();
+
+            meditTextPermanentPinCode.setError("Invalid Pincode");
+            meditTextPermanentPinCode.requestFocus();
+
             return false;
         }
         else if(!(s.equals("77") || s.equals("76") || s.equals("75")))
         {
             showToast("Present Pincode not vaild");
+
+            showPremanent();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
             showToast("only digit in Month");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("only digit in Month");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPermanentMoblieNo.getText().length()!=10)
         {
             showToast("Invalid Moblie Number ");
+
+            showPremanent();
+
+            meditTextPermanentMoblieNo.setError("Invalid Moblie Number");
+            meditTextPermanentMoblieNo.requestFocus();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
         {
             showToast("only digit in Mobile number");
+
+            showPremanent();
+
+            meditTextPermanentMoblieNo.setError("only digit in Mobile number");
+            meditTextPermanentMoblieNo.requestFocus();
+
             return false;
         }
 
         else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
             showToast("At least one field required in Permanent Address");
+
+            showPresent();
+
+            meditTextPresentFlatNum.setError("At least one field required in Permanent Address");
+            meditTextPresentFlatNum.requestFocus();
+
 //            showToast("Flat number cannot be empty");
             return false;
         }
@@ -1038,11 +1238,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(meditTextPresentDistrict.getText().length()==0)
         {
             showToast("Permanent District cannot be empty");
+
+            showPresent();
+
+            meditTextPresentDistrict.setError("Permanent District cannot be empty");
+            meditTextPresentDistrict.requestFocus();
+
             return false;
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
             showToast("Select  Permanent State ");
+
+            showPresent();
+
+//            mspinnerPresentState.setError("Select  Permanent State");
+            mspinnerPresentState.requestFocus();
+
             return false;
         }
 //        else if(meditTextPresentvillage.getText().length()==0)
@@ -1053,61 +1265,133 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(meditTextPresentYear.getText().length()==0)
         {
             showToast("Years cannot be empty");
+
+            showPresent();
+
+            meditTextPresentYear.setError("Years cannot be empty");
+            meditTextPresentYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPresentYear) && !validation.isPhoneNumber(meditTextPresentYear,true))
         {
             showToast("only digit in Years");
+
+            showPresent();
+
+            meditTextPresentYear.setError("only digit in Years");
+            meditTextPresentYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPresentMonth) && !validation.isPhoneNumber(meditTextPresentMonth,true))
         {
             showToast("only digit in Months");
+
+            showPresent();
+
+            meditTextPresentMonth.setError("only digit in Months");
+            meditTextPresentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPresentPinCode.getText().length()<6)
         {
             showToast("Invalid Present Pincode ");
+
+            showPresent();
+
+            meditTextPresentPinCode.setError("Invalid Present Pincode ");
+            meditTextPresentPinCode.requestFocus();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentPinCode,true))
         {
             showToast("Digits only in Pincode ");
+
+            showPresent();
+
+            meditTextPresentPinCode.setError("Digits only in Pincode ");
+            meditTextPresentPinCode.requestFocus();
+
             return false;
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
             showToast("Invalid  Permanent Moblie Number ");
+
+            showPresent();
+
+            meditTextPresentMoblieNo.setError("Invalid  Permanent Moblie Number ");
+            meditTextPresentMoblieNo.requestFocus();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
         {
             showToast("Digits only in mobile number ");
+
+            showPresent();
+
+            meditTextPresentMoblieNo.setError("Digits only in mobile number");
+            meditTextPresentMoblieNo.requestFocus();
+
             return false;
         }
         else if(mspinnerCitizenship.getSelectedItemPosition()==0)
         {
             showToast("Select Citizenship");
+
+            showPersonalDetail();
+
+//            mspinnerCitizenship.setError("Select Citizenship");
+            mspinnerCitizenship.requestFocus();
+
             return false;
         }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
         {
             showToast("Select Qualification");
+
+            showOtherInfo();
+
+//            mspinnerQualification.setError("Select Qualification");
+            mspinnerQualification.requestFocus();
+
             return false;
         }
         else if(mspinnerIdmark.getSelectedItemPosition()==0)
         {
             showToast("Select Id Mark");
+
+            showOtherInfo();
+
+//            mspinnerIdmark.setError("Select Id Mark");
+            mspinnerIdmark.requestFocus();
+
             return false;
         }
         else if(mspinnerBloodGroup.getSelectedItemPosition()==0)
         {
             showToast("Select BloodGroup");
+
+            showOtherInfo();
+
+//            mspinnerBloodGroup.setError("Select BloodGroup");
+            mspinnerBloodGroup.requestFocus();
+
             return false;
         }
         else if(mspinnerRH.getSelectedItemPosition()==0)
         {
             showToast("Select Rh of Blood Group");
+
+            showOtherInfo();
+
+//            mspinnerRH.setError("Select Rh of Blood Group");
+            mspinnerRH.requestFocus();
+
             return false;
         }
         return true;
@@ -1511,6 +1795,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showPersonalDetail()
     {
+        scrollView.scrollTo(0, mlinearlayoutPersonalDetail.getTop());
         mtablelayoutPersonalDetail.setVisibility(View.VISIBLE);
         personalDetail = true;
         imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
@@ -1522,7 +1807,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
     }
 
-    private void showOtherInfo() {
+    private void showOtherInfo()
+    {
+        scrollView.scrollTo(0, mlinearlayoutOtherInfo.getTop());
+
         mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
         otherInfo = true;
         imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
@@ -1537,10 +1825,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showPremanent()
     {
+        scrollView.scrollTo(0, mlinearlayoutPresentAddress.getTop());
+
         mtablelayoutPremanentAddress.setVisibility(View.VISIBLE);
         permanent=true;
         imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
-
     }
 
     private void hidePresent()
@@ -1552,6 +1841,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showPresent()
     {
+        scrollView.scrollTo(0, mlinearlayoutPresentAddress.getTop());
         mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
         present=true;
         imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
