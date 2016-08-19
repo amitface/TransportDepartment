@@ -714,6 +714,62 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewApplicantRelationsMiddleName.setText("");
         meditViewApplicantRelationsLastName.setText("");
 
+        meditViewPlaceOfBirth.setText("");
+        meditViewEmail.setText("");
+
+        meditTextPermanentFlatNum.setText("");
+        meditTextPermanentHouseName.setText("");
+        meditTextPermanentHouseNum.setText("");
+        meditTextPermanentStreet.setText("");
+        meditTextPermanentLocality.setText("");
+        meditTextPermanentvillage.setText("");
+        meditTextPermanentTaluka.setSelection(0);
+        mSPerDistrict.setSelection(0);
+        meditTextPermanentMonth.setText("");
+        meditTextPermanentYear.setText("");
+        meditTextPermanentPinCode.setText("");
+        meditTextPermanentMoblieNo.setText("");
+
+        meditTextPresentFlatNum.setText("");
+        meditTextPresentHouseName.setText("");
+        meditTextPresentHouseNum.setText("");
+        meditTextPresentStreet.setText("");
+        meditTextPresentLocality.setText("");
+        meditTextPresentvillage.setText("");
+        meditTextPresentTaluka.setText("");
+        meditTextPresentDistrict.setText("");
+        meditTextPresentMonth.setText("");
+        meditTextPresentYear.setText("");
+        meditTextPresentPinCode.setText("");
+        meditTextPresentMoblieNo.setText("");
+
+        mspinnerRTO.setSelection(0);
+        mspinnerRelationshipType.setSelection(0);
+        mspinnerQualification.setSelection(0);
+        mspinnerGender.setSelection(0);
+        mspinnerIdmark.setSelection(0);
+        mspinnerIdmark2.setSelection(0);
+        mspinnerBloodGroup.setSelection(0);
+        mspinnerRH.setSelection(0);
+        mspinnerPermanentState.setSelection(1);
+        mspinnerPresentState.setSelection(1);
+        mspinnerCountry.setSelection(1);
+
+        mtextViewDate.setText("");
+    }
+
+    private void removeSpace(View rootView) {
+        meditViewApplicantFirstName.setText("");
+        meditViewApplicantMiddleName.setText("");
+        meditViewApplicantLastName.setText("");
+
+        meditViewApplicantRelationsName.setText("");
+        meditViewApplicantRelationsMiddleName.setText("");
+        meditViewApplicantRelationsLastName.setText("");
+
+        meditViewPlaceOfBirth.setText("");
+        meditViewEmail.setText("");
+
         meditTextPermanentFlatNum.setText("");
         meditTextPermanentHouseName.setText("");
         meditTextPermanentHouseNum.setText("");
