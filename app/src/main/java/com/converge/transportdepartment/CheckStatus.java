@@ -833,9 +833,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-
-
+                    Toast.makeText(getActivity(),jsonData,Toast.LENGTH_SHORT).show();
                     }
                 });
 

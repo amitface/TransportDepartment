@@ -88,7 +88,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private CheckBox checkBoxLastClicked;
     private int lastCheckBoxId = 0;
     private int currentChecked = 0;
-    private String jsonData;
+    private String jsonData, jsonDataSaveSlot;
     //Start is 12/08/2016 & format dd/mm/yyyy
     private Long [] dateSetArray= {1470960000000L,1471046400000L,1471132800000L,1471219200000L,1471305600000L,1471392000000L,1471478400000L,1471564800000L,1471651200000L,1471737600000L,1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L};
     private OnFragmentInteractionListener mListener;
@@ -288,10 +288,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 if(val())
                 {
 //                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(PGInfo,jsonString());
-                    editor.apply();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                    saveSlot(1,"",1L);
+
                 }
                 break;
 
@@ -322,7 +320,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             js.put("slotTime",slotTime);
         } catch (JSONException e) {
             e.printStackTrace();
+        }catch (Exception e)
+        {
+            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
         }
+
         return js.toString();
     }
 
@@ -632,6 +634,130 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                     }
                 });
 
+            }
+        }
+    }
+
+    private void saveSlot(int i, String dob, long l)
+    {
+        new saveApplicantSlot(getActivity(),i,dob,l).execute();
+    }
+
+    private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
+        private Long appNum;
+
+        public saveApplicantSlot(Context c, int i, String dob, Long appNum) {
+            this.context = c;
+            this.i=i;
+            this.dob=dob;
+            this.appNum=appNum;
+        }
+        protected void onPreExecute() {
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Please Wait");
+            progressSendMail.setCancelable(false);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+                connection = (HttpURLConnection) url.openConnection();
+
+                //Creating json object.
+                JSONObject jsonObject2 = new JSONObject();
+
+                jsonObject2.put("applno", appNum);
+                jsonObject2.put("serviceType", "LL");
+                jsonObject2.put("agentId", "smartchip");
+                jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject2.put("serviceName","LLSlotBook");
+                jsonObject2.put("rtocode",rtoCode);
+                jsonObject2.put("slotDate",slotDate);
+                jsonObject2.put("slotNo",slotNumber);
+
+                String json = jsonObject2.toString();
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+                jsonDataSaveSlot = responseOutput.toString();
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0L;
+            }
+
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(PGInfo,jsonString());
+                        editor.apply();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                    }
+                });
+
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
             }
         }
     }

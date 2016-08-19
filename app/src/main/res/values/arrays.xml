@@ -1467,6 +1467,7 @@
     </string-array>
 
     <string-array name="Rto_Lat">
+        <item>21.4896639</item>
         <item>20.2963141</item>
         <item>20.6871409</item>
         <item>20.7059895</item>
@@ -1505,8 +1506,6 @@
         <item>nodata</item>
         <item>nodata</item>
     </string-array>
-
-
 
     <string-array name="Rto_Long">
         <item>86.9133534</item>
