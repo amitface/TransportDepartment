@@ -302,13 +302,15 @@
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dropdown" />
 
-                     <EditText
-                         android:id="@+id/spinnerCitizenship_text"
-                         android:layout_width="0dp"
-                         android:layout_height="0dp"
-                         android:text=""/>
+
 
                  </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerCitizenship_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
                 <!--Migration time-->
                 <TableRow
                     android:layout_marginTop="8dp"
@@ -1423,13 +1425,15 @@
                     android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
 
-                <EditText
-                    android:id="@+id/spinnerIdmark_text"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:text=""/>
+
 
             </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerIdmark_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
 
                  <!--Id mark 2 -->
                  <TableRow
@@ -1457,13 +1461,15 @@
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dialog" />
 
-                     <EditText
-                         android:id="@+id/spinnerIdmark2_text"
-                         android:layout_width="0dp"
-                         android:layout_height="0dp"
-                         android:text=""/>
+
 
                  </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerIdmark2_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
                 <!-- BloodGroup Rh-->
                 <TableRow
                     android:layout_marginTop="8dp"
@@ -1496,12 +1502,6 @@
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
 
-                    <EditText
-                        android:id="@+id/spinnerBloodGroup_text"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:text=""/>
-
                     <Spinner
                         android:id="@+id/spinnerRH"
                         android:layout_width="match_parent"
@@ -1511,12 +1511,6 @@
                         android:background="@drawable/gradient_spinner"
                         android:layout_marginRight="2dp"
                         />
-
-                    <EditText
-                        android:id="@+id/spinnerRH_text"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:text=""/>
 
                 </TableRow>
                 <!--PhotoId -->

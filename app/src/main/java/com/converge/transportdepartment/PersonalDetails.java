@@ -547,8 +547,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         spinnerQualification_text = (EditText) rootView.findViewById(R.id.spinnerQualification_text);
         spinnerIdmark_text = (EditText) rootView.findViewById(R.id.spinnerIdmark_text);
         spinnerIdmark2_text = (EditText) rootView.findViewById(R.id.spinnerIdmark2_text);
-        spinnerBloodGroup_text = (EditText) rootView.findViewById(R.id.spinnerBloodGroup_text);
-        spinnerRH_text = (EditText) rootView.findViewById(R.id.spinnerRH_text);
+//        spinnerBloodGroup_text = (EditText) rootView.findViewById(R.id.spinnerBloodGroup_text);
+//        spinnerRH_text = (EditText) rootView.findViewById(R.id.spinnerRH_text);
 
         addListenerOnSpinnerItemSelection();
         addListenerOnSpinnerEducationQualification();
@@ -1416,8 +1416,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showOtherInfo();
 
-            spinnerBloodGroup_text.setError("Select BloodGroup");
-            spinnerBloodGroup_text.requestFocus();
+//            mspinnerBloodGroup.setError("Select BloodGroup");
+            mspinnerBloodGroup.requestFocus();
 
             return false;
         }
@@ -1427,8 +1427,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showOtherInfo();
 
-            spinnerRH_text.setError("Select Rh of Blood Group");
-            spinnerRH_text.requestFocus();
+//            mspinnerRH.setError("Select Rh of Blood Group");
+            mspinnerRH.requestFocus();
 
             return false;
         }
@@ -1989,7 +1989,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     mspinnerQualification.setSelection(0);
                     showToast("For Transport Vehicle Applicant should be atleast 8th passed.");
                 }
-
             }
 
             @Override

@@ -2,6 +2,13 @@ package com.converge.transportdepartment.Utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by pankaj on 20/8/16.
@@ -40,4 +47,24 @@ public class ConValidation {
 
         return false  ;
     }
+
+    public static long currentDateInMilliSec(long milliSeconds)
+    {
+        // Create a DateFormatter object for displaying date in specified format.
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return Long.parseLong(formatter.format(new Date(milliSeconds)));
+    }
+
+    public static boolean isNetworkAvailable(Context con) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)con.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
 }
