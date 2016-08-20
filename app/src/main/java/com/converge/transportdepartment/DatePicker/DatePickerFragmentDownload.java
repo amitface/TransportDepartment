@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DownloadPDF;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by converge on 1/7/16.
@@ -26,9 +27,18 @@ public class DatePickerFragmentDownload extends DialogFragment
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+        year=year-16;
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+
+        Calendar calendar = new GregorianCalendar(year,month,day);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+
+//        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+        return datePickerDialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {

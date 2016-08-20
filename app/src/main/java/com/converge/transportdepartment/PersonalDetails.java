@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +84,21 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     ImageView imageViewPersonal ;
     ImageView imageViewOther;
     CheckBox  checkboxSameAddress;
+    EditText setectRto_text;
+    EditText spinnerRelationshipType_text;
+    EditText spinnerCountry_text;
+    EditText spinnerCitizenship_text;
+    EditText sPerDistrict_text;
+    EditText spinnerPermanentState_text;
+    EditText spinnerPresentState_text;
+    EditText spinnerQualification_text;
+    EditText spinnerIdmark_text;
+    EditText spinnerIdmark2_text;
+    EditText spinnerBloodGroup_text;
+    EditText spinnerRH_text;
 
+    private String []arrCov;
+    private final String mFinalStringCov="mFinalStringCov";
 
     private String mtextViewDateString = "mtextViewDate";
     private String mtextViewDateInt = "mtextViewDateInt";
@@ -522,6 +537,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         scrollView=(ScrollView) rootView.findViewById(R.id.scrollView);
         textView_personalDetail = (TextView) rootView.findViewById(R.id.textView_personalDetail);
         textView13 = (TextView) rootView.findViewById(R.id.textView13);
+        setectRto_text = (EditText) rootView.findViewById(R.id.setectRto_text);
+        spinnerRelationshipType_text = (EditText) rootView.findViewById(R.id.spinnerRelationshipType_text);
+        spinnerCountry_text = (EditText) rootView.findViewById(R.id.spinnerCountry_text);
+        spinnerCitizenship_text = (EditText) rootView.findViewById(R.id.spinnerCitizenship_text);
+        sPerDistrict_text = (EditText) rootView.findViewById(R.id.sPerDistrict_text);
+        spinnerPermanentState_text = (EditText) rootView.findViewById(R.id.spinnerPermanentState_text);
+        spinnerPresentState_text = (EditText) rootView.findViewById(R.id.spinnerPresentState_text);
+        spinnerQualification_text = (EditText) rootView.findViewById(R.id.spinnerQualification_text);
+        spinnerIdmark_text = (EditText) rootView.findViewById(R.id.spinnerIdmark_text);
+        spinnerIdmark2_text = (EditText) rootView.findViewById(R.id.spinnerIdmark2_text);
+        spinnerBloodGroup_text = (EditText) rootView.findViewById(R.id.spinnerBloodGroup_text);
+        spinnerRH_text = (EditText) rootView.findViewById(R.id.spinnerRH_text);
 
         addListenerOnSpinnerItemSelection();
         addListenerOnSpinnerEducationQualification();
@@ -644,6 +671,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         db.close();
         addListenerOnSpinnerRtoSelection();
         addListenerOnSpinnerDistrictSelection();
+//        addListenerOnSpinnerQuaSelection();
     }
 
     private void saveSession()
@@ -669,8 +697,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         hashMap.put("p_first_name",meditViewApplicantRelationsName.getText().toString());
         hashMap.put("p_middle_name",meditViewApplicantMiddleName.getText().toString());
         hashMap.put("p_last_name",meditViewApplicantRelationsLastName.getText().toString());
-
-
 
 //        hashMap.put("permanent_address","");
         hashMap.put("p_flat_no",meditTextPermanentFlatNum.getText().toString());
@@ -834,8 +860,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         {
             showToast("Select RTO");
 
-//            mspinnerRTO.setError("Select RTO");
-//            mspinnerRTO.requestFocus();
+            setectRto_text.setError("Select RTO");
+            setectRto_text.requestFocus();
 
             return false;
         }
@@ -846,7 +872,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showPersonalDetail();
 
             meditViewApplicantFirstName.setError("Enter applicant first name");
-//            meditViewApplicantFirstName.requestFocus();
+            meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
@@ -929,8 +955,19 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPersonalDetail();
 
-//            mspinnerCountry.setError("Select Country of Birth");
-            mspinnerCountry.requestFocus();
+            spinnerCountry_text.setError("Select Country of Birth");
+            spinnerCountry_text.requestFocus();
+
+            return false;
+        }
+        else if(mspinnerCitizenship.getSelectedItemPosition()==0)
+        {
+            showToast("Select Citizenship");
+
+            showPersonalDetail();
+
+            spinnerCitizenship_text.setError("Select Citizenship");
+            spinnerCitizenship_text.requestFocus();
 
             return false;
         }
@@ -974,8 +1011,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPersonalDetail();
 
-//            mspinnerRelationshipType.setError("Select RelationType");
-            mspinnerRelationshipType.requestFocus();
+            spinnerRelationshipType_text.setError("Select RelationType");
+            spinnerRelationshipType_text.requestFocus();
 
             return false;
         }
@@ -990,7 +1027,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             return false;
         }
-        else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
+        /*else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
         {
             showToast("RelationType and Gender Does not match");
 
@@ -1000,7 +1037,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             mspinnerGender.requestFocus();
 
             return false;
-        }
+        }*/
         else if(meditViewApplicantRelationsName.getText().length()==0)
         {
             showToast("Enter applicant relative name");
@@ -1088,8 +1125,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-//            mSPerDistrict.setError("Present District cannot be empty");
-            mSPerDistrict.requestFocus();
+            sPerDistrict_text.setError("Present District cannot be empty");
+            sPerDistrict_text.requestFocus();
 
             return false;
         }
@@ -1099,8 +1136,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-//            mspinnerPermanentState.setError("Select Present State");
-            mspinnerPermanentState.requestFocus();
+            spinnerPermanentState_text.setError("Select Present State");
+            spinnerPermanentState_text.requestFocus();
 
             return false;
         }
@@ -1251,8 +1288,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPresent();
 
-//            mspinnerPresentState.setError("Select  Permanent State");
-            mspinnerPresentState.requestFocus();
+            spinnerPresentState_text.setError("Select  Permanent State");
+            spinnerPresentState_text.requestFocus();
 
             return false;
         }
@@ -1338,25 +1375,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             return false;
         }
-        else if(mspinnerCitizenship.getSelectedItemPosition()==0)
-        {
-            showToast("Select Citizenship");
-
-            showPersonalDetail();
-
-//            mspinnerCitizenship.setError("Select Citizenship");
-            mspinnerCitizenship.requestFocus();
-
-            return false;
-        }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
         {
             showToast("Select Qualification");
 
             showOtherInfo();
 
-//            mspinnerQualification.setError("Select Qualification");
-            mspinnerQualification.requestFocus();
+            spinnerQualification_text.setError("Select Qualification");
+            spinnerQualification_text.requestFocus();
 
             return false;
         }
@@ -1366,19 +1392,32 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showOtherInfo();
 
-//            mspinnerIdmark.setError("Select Id Mark");
-            mspinnerIdmark.requestFocus();
+            spinnerIdmark_text.setError("Select Id Mark");
+            spinnerIdmark_text.requestFocus();
 
             return false;
         }
+
+        else if(mspinnerIdmark2.getSelectedItemPosition()==0)
+        {
+            showToast("Select Id Mark2");
+
+            showOtherInfo();
+
+            spinnerIdmark2_text.setError("Select Id Mark2");
+            spinnerIdmark2_text.requestFocus();
+
+            return false;
+        }
+
         else if(mspinnerBloodGroup.getSelectedItemPosition()==0)
         {
             showToast("Select BloodGroup");
 
             showOtherInfo();
 
-//            mspinnerBloodGroup.setError("Select BloodGroup");
-            mspinnerBloodGroup.requestFocus();
+            spinnerBloodGroup_text.setError("Select BloodGroup");
+            spinnerBloodGroup_text.requestFocus();
 
             return false;
         }
@@ -1388,8 +1427,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showOtherInfo();
 
-//            mspinnerRH.setError("Select Rh of Blood Group");
-            mspinnerRH.requestFocus();
+            spinnerRH_text.setError("Select Rh of Blood Group");
+            spinnerRH_text.requestFocus();
 
             return false;
         }
@@ -1919,6 +1958,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
+
     public void addListenerOnSpinnerDistrictSelection() {
         mSPerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1938,19 +1978,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
-
     public void addListenerOnSpinnerEducationQualification() {
         mspinnerQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 hideKeyboard(getActivity());
-                mspinnerQualification.requestFocus();
+
+                if((i == 1 || i == 2 || i == 3) && new ConValidation(getActivity()).isTransportVihcle())
+                {
+                    mspinnerQualification.setSelection(0);
+                    showToast("For Transport Vehicle Applicant should be atleast 8th passed.");
+                }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 hideKeyboard(getActivity());
-                mspinnerQualification.requestFocus();
             }
         });
     }
