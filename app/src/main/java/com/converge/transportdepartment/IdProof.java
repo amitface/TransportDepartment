@@ -26,6 +26,7 @@ import com.converge.transportdepartment.DatePicker.DatePickerFragment1;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment2;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment3;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment4;
+import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -323,6 +324,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             count=0;
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        progressDialog = new ProgressDialog(getActivity());
         jsonString = sharedpreferences.getString(PGInfo, "");
         View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
         ImageView button = (ImageView)view.findViewById(R.id.buttonNextIdProof);
@@ -444,6 +446,11 @@ public class IdProof extends Fragment implements View.OnClickListener{
     }
 
     private boolean validate() {
+        if(!new ConValidation(getActivity()).isNetworkAvailable())
+        {
+            showToast("No internet connnection");
+            return false;
+        }
         if(inValidStatus==true && rCNumber.getText().length()<=6 )
         {
             showToast("Registration number required for INVALID CARRIAGE VEHICLE");
@@ -1035,7 +1042,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
         }
 
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(getActivity());
+
             progressDialog.setMessage("Please Wait");
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
