@@ -14,7 +14,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +24,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -903,28 +901,28 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //                showToast("only digit in phone number");
 //                return false;
 //        }
-        else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,true))
-        {
-            showToast("year & month only digit ");
-
-            showPersonalDetail();
-
-            meditViewYear.setError("year & month only digit");
-            meditViewYear.requestFocus();
-
-            return false;
-        }
-        else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,true))
-        {
-            showToast("year & month only digit ");
-
-            showPersonalDetail();
-
-            meditViewMonth.setError("year & month only digit");
-            meditViewMonth.requestFocus();
-
-            return false;
-        }
+//        else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,false))
+//        {
+//            showToast("year & month only digit ");
+//
+//            showPersonalDetail();
+//
+//            meditViewYear.setError("year & month only digit");
+//            meditViewYear.requestFocus();
+//
+//            return false;
+//        }
+//        else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,false))
+//        {
+////            showToast("year & month only digit ");
+////
+////            showPersonalDetail();
+////
+////            meditViewMonth.setError("year & month only digit");
+////            meditViewMonth.requestFocus();
+////
+////            return false;
+//        }
         else if(mspinnerCountry.getSelectedItemPosition()==0)
         {
             showToast("Select Country of Birth");
@@ -981,7 +979,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             return false;
         }
-        else if(mspinnerGender.getSelectedItemPosition()<=1 && mspinnerRelationshipType.getSelectedItemPosition()>1)
+        else if(mspinnerGender.getSelectedItemPosition()==1 && mspinnerRelationshipType.getSelectedItemPosition()==2)
         {
             showToast("RelationType and Gender Does not match");
 
@@ -1031,7 +1029,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPersonalDetail();
 
-            meditViewApplicantFirstName.setError("Only aplhabets  allowed in Relations Name");
+            meditViewApplicantFirstName.setError("Only aplhabets  allowed");
             meditViewApplicantFirstName.requestFocus();
 
             return false;
@@ -1109,7 +1107,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
         {
-            showToast("Years cannot be empty");
+            showToast("Present Years cannot be empty");
 
             showPremanent();
 
@@ -1120,7 +1118,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-            showToast("only digit in Years");
+            showToast("only digit in Present Years");
 
             showPremanent();
 
@@ -1131,7 +1129,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit in Months");
+            showToast("only digit inPresent Months");
 
             showPremanent();
 
@@ -1142,11 +1140,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
-            showToast("Invalid Pincode ");
+            showToast("Invalid Present Pincode format");
 
             showPremanent();
 
-            meditTextPermanentPinCode.setError("Invalid Pincode");
+            meditTextPermanentPinCode.setError("Invalid Pincode format");
             meditTextPermanentPinCode.requestFocus();
 
             return false;
@@ -1156,7 +1154,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Present Pincode not vaild");
 
             showPremanent();
-
+            meditTextPermanentPinCode.setError("Invalid Pincode");
+            meditTextPermanentPinCode.requestFocus();
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
@@ -1165,7 +1164,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("only digit in Month");
+            meditTextPermanentMonth.setError("only digit in Present  Month");
             meditTextPermanentMonth.requestFocus();
 
             return false;
@@ -1176,7 +1175,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-            meditTextPermanentMoblieNo.setError("Invalid Moblie Number");
+            meditTextPermanentMoblieNo.setError("Invalid Present Moblie Number");
             meditTextPermanentMoblieNo.requestFocus();
 
             return false;
@@ -1187,7 +1186,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-            meditTextPermanentMoblieNo.setError("only digit in Mobile number");
+            meditTextPermanentMoblieNo.setError("only digit in Present Mobile number");
             meditTextPermanentMoblieNo.requestFocus();
 
             return false;
@@ -1452,7 +1451,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("receiptNum",Integer.toString(num));
         editor.commit();
-        String s= "ref_num="+num+
+        String s=
+//                "ref_num="+num+
 //                "&first_name="+meditViewApplicantFirstName.getText()+
                 "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+

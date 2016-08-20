@@ -99,6 +99,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     public static volatile String slotTime=null;
 
     private Button buttonRefresh;
+    private Long appNumber;
 
     public SelectSchedule() {
         // Required empty public constructor
@@ -147,6 +148,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         try {
             JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
             rtoCode = jsonObject.getString("rtocodeReal");
+            appNumber = jsonObject.getLong("applicantNum");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -288,7 +290,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 if(val())
                 {
 //                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
-                    saveSlot(1,"",1L);
+                    saveSlot(1,"",appNumber);
                 }
                 break;
 
@@ -361,6 +363,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         new scheduleSlotServer(getActivity()).execute();
     }
 
+    //for Nic server
     private class scheduleSlot extends AsyncTask<Void, Integer, Long>
     {
         private final Context context;
@@ -509,6 +512,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
     }
 
+    //For converge server
     private class scheduleSlotServer extends AsyncTask<Void, Integer, Long>
     {
         private final Context context;
@@ -637,11 +641,13 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
     }
 
+
     private void saveSlot(int i, String dob, long l)
     {
         new saveApplicantSlot(getActivity(),i,dob,l).execute();
     }
 
+    //For Nic server
     private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
     {
         private ProgressDialog progress;
@@ -657,6 +663,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             this.dob=dob;
             this.appNum=appNum;
         }
+
         protected void onPreExecute() {
             progressSendMail = new ProgressDialog(this.context);
             progressSendMail.setMessage("Please Wait");
@@ -713,7 +720,127 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 br.close();
 //                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
                 System.out.println(responseOutput.toString());
-                jsonDataSaveSlot = responseOutput.toString();
+
+                    JSONObject jsonObject = new JSONObject(responseOutput.toString());
+                    if(jsonObject.getInt("errorCd")!=0)
+                    {
+                        jsonDataSaveSlot = jsonObject.getString("msg");
+                        return 0L;
+                    }
+                    else
+                    {
+                        jsonDataSaveSlot = jsonObject.getString("msg");
+                        return 1L;
+                    }
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            }
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+
+                        new saveApplicantSlotToServer(getActivity(),1).execute();
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(PGInfo,jsonString());
+                        editor.apply();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                    }
+                });
+            }
+            else
+            {
+//                new saveApplicantSlotToServer(getActivity(),0).execute();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }
+    }
+
+    //For Converge server
+    private class saveApplicantSlotToServer extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
+        private Long appNum;
+
+        public saveApplicantSlotToServer(Context c, int i) {
+            this.context = c;
+            this.i=i;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/assgn_slot.php?");
+                connection = (HttpURLConnection) url.openConnection();
+
+                String json = "rtocode="+rtoCode+"&slotNum="+slotNumber+"&slotdate="+slotDate+"&code="+i;
+
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println("Converge Server "+responseOutput.toString());
                 return 1L;
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -739,26 +866,17 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
 
         protected void onPostExecute(Long result) {
-            progressSendMail.hide();
+
             if(result==1)
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString(PGInfo,jsonString());
-                        editor.apply();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
-                    }
-                });
 
             }
             else
             {
-                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+
             }
         }
     }
+
 }
 

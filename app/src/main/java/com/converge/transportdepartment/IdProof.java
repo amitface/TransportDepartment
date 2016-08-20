@@ -1023,7 +1023,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 if(str[0].equals("Success"))
                 {
                     JSONObject jsonObject1 = new JSONObject(jsonString);
-                    jsonObject1.put("applicantNum",str[0]);
+                    jsonObject1.put("applicantNum",Long.parseLong(str[1]));
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(PGInfo,jsonObject1.toString());
                     editor.apply();

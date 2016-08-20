@@ -49,7 +49,6 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.MyViewHolder> 
         holder.title.setText(slot.slottime());
         holder.quota.setText(Integer.toString(slot.avilablequota()));
         holder.slotRadio.setChecked(slot.getStatus());
-
     }
 
     @Override

@@ -361,7 +361,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
                 jsonlist.put("list",arraylist);
 
-                jsonData.put("ref",sharedpreferences.getString("receiptNum",""));
+                jsonData.put("ref",jsonObjectData.get("applicantNum").toString());
                 jsonData.put("rto_code",jsonObjectData.get("rtocode").toString());
                 jsonData.put("vehicle_number",jsonObjectData.get("name").toString());
 

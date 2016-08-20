@@ -203,6 +203,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private TextView mspinner;
     private String jsonString;
     private static final String PGInfo = "PgInfo";
+    private long appNumber;
 
     public ConfirmAndPay() {
         // Required empty public constructor
@@ -811,7 +812,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlString = sharedpreferences.getString(mFinalString1, "") + sharedpreferences.getString(mFinalString2, "") + "&covs=" + (sharedpreferences.getString(mFinalStringCov, ""));
+                try {
+                    JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
+
+                    appNumber = jsonObject.getLong("applicantNum");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String urlString ="ref_num="+appNumber+sharedpreferences.getString(mFinalString1, "") + sharedpreferences.getString(mFinalString2, "") + "&covs=" + (sharedpreferences.getString(mFinalStringCov, ""));
 
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
@@ -857,7 +865,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                     int MEGABYTE = 1024 * 1024;
 //                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
                     URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                    String s1 = "referenceId=" + sharedpreferences.getString("receiptNum", "") +
+                    String s1 = "referenceId=" + appNumber +
                             "&email=amit.choudhary@cnvg.in";
 
                     HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();

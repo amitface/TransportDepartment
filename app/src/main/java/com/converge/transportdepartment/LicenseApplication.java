@@ -88,7 +88,7 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
 //               SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
-        mTabHost.getTabWidget().setEnabled(false);
+//        mTabHost.getTabWidget().setEnabled(false);
 
         mTabHost.setCurrentTab(Integer.parseInt(mParam1));
 

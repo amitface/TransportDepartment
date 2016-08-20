@@ -29,6 +29,7 @@ import com.converge.transportdepartment.R;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 import com.converge.transportdepartment.Validation;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -72,6 +73,7 @@ public class NoPaymentFragment extends Fragment {
     private SharedPreferences sharedpreferences;
     private String emailToSend;
     private long lastDownload = -1L;
+    private long appNumber;
 
     private DownloadManager mgr=null;
 
@@ -134,6 +136,13 @@ public class NoPaymentFragment extends Fragment {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         jsonString=sharedpreferences.getString(PGInfo,"");
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         sendMessage();
 
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
@@ -141,7 +150,7 @@ public class NoPaymentFragment extends Fragment {
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
-        textView2.setText("Application Form : "+sharedpreferences.getString("receiptNum",""));
+        textView2.setText("Application Form : "+appNumber);
 
         int fee= totalFee();
         textFee.setText("Pay at RTO amount of Rs. "+fee);
@@ -206,7 +215,15 @@ public class NoPaymentFragment extends Fragment {
         editor.putString(mFinalString1,"");
         editor.putString(mFinalString2,"");
         editor.putString(mFinalStringCov,"");
+
         editor.putInt(CheckBoxSchedule,0);
+        editor.commit();
+    }
+
+    private void pgInfo()
+    {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(PGInfo,"");
         editor.commit();
     }
 
@@ -392,8 +409,8 @@ public class NoPaymentFragment extends Fragment {
         protected Long doInBackground(Void... params) {
             try{
 
-                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_noreceipt.php?");
+                String s="referenceId=" +appNumber+
                         "&email="+emailToSend;
 
                 HttpURLConnection connection = (HttpURLConnection) email.openConnection();
@@ -472,6 +489,7 @@ public class NoPaymentFragment extends Fragment {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+                    pgInfo();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
             }
         });
@@ -526,7 +544,7 @@ public class NoPaymentFragment extends Fragment {
                 calendar.setTimeInMillis(aLong);
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
-                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
 //                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
@@ -609,7 +627,7 @@ public class NoPaymentFragment extends Fragment {
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.get("moblie")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

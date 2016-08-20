@@ -131,8 +131,11 @@ public class SuperAwesomeCardFragment extends Fragment implements View.OnClickLi
             {
                 if(l<=data.get(i).getSlotdate() && data.get(i).getSlotdate()<(l+86400000))
                 {
-                    temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota(),false,data.get(i).getSlotno(),data.get(i).getSlotdate());
-                    dataTrimed.add(temp);
+                    if(data.get(i).avilablequota()!=0)
+                    {
+                        temp=new SlotData(data.get(i).slottime(),data.get(i).avilablequota(),false,data.get(i).getSlotno(),data.get(i).getSlotdate());
+                        dataTrimed.add(temp);
+                    }
                     count++;
                 }
             }
