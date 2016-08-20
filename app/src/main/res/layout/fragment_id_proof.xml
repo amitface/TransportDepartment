@@ -36,27 +36,13 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/refNumber"
+            android:id="@+id/rCNumber"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_margin="2dp"
             android:maxLength="20"
             android:visibility="gone"
             android:hint="RC Number"
-            android:inputType="text|textCapCharacters"
-            android:singleLine="true"
-            android:paddingLeft="5dp"
-            android:background="@drawable/edit_text_personal_details"
-            />
-
-        <EditText
-            android:id="@+id/dlNumber"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_margin="2dp"
-            android:maxLength="20"
-            android:hint="DL Number"
-            android:visibility="gone"
             android:inputType="text|textCapCharacters"
             android:singleLine="true"
             android:paddingLeft="5dp"

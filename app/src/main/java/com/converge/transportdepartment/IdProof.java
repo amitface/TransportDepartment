@@ -1,6 +1,7 @@
 package com.converge.transportdepartment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -51,12 +52,14 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private ProgressDialog progressDialog;
+
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    EditText refNumber;
-    EditText dlNumber;
+    private String mParam1, mParam2;
+    private EditText rCNumber;
+
+    private boolean  inValidStatus = false, dlStatus = false;
 
     private String covTCode[]={"8", "9","7","10","53","54","16","15","17","58","59"};
 
@@ -407,8 +410,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
         imageViewDatePicker4 = (ImageView) view.findViewById(R.id.imageViewDatePicker4);
 
 
-        refNumber = (EditText) view.findViewById(R.id.refNumber);
-        dlNumber = (EditText) view.findViewById(R.id.dlNumber);
+        rCNumber = (EditText) view.findViewById(R.id.rCNumber);
+
 
         /*if(arrCov[9].equals("12"))
         {
@@ -421,7 +424,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
         {
             if(arrCov[i].equals("12"))
             {
-                refNumber.setVisibility(View.VISIBLE);
+                rCNumber.setVisibility(View.VISIBLE);
+                inValidStatus=true;
             }
         }
 
@@ -430,16 +434,23 @@ public class IdProof extends Fragment implements View.OnClickListener{
             for(int j =0;j<arrCov.length;j++)
                 if(covTCode[i].equals(arrCov[j]))
                 {
-                    dlNumber.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(),"Driving license is compulsory for Transport vehicle.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Driving license issue date should be 1 year less than current date",Toast.LENGTH_LONG).show();
+                    dlStatus= true;
                 }
         }
-
         retrivesession();
         
     }
 
     private boolean validate() {
-        if(spinnerIdcard1.getSelectedItemPosition()==0)
+        if(inValidStatus==true && rCNumber.getText().length()<=6 )
+        {
+            showToast("Registration number required for INVALID CARRIAGE VEHICLE");
+            rCNumber.setError("Enter Registration number");
+            return false;
+        }
+        else if(spinnerIdcard1.getSelectedItemPosition()==0)
         {
             showToast("Enter Id proof");
             return false;
@@ -456,6 +467,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             showToast("Enter Date of Issue");
             return false;
         }
+
         return true;
     }
 
@@ -596,6 +608,13 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progressDialog.dismiss();
+    }
+
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString2, detailString());
@@ -670,6 +689,13 @@ public class IdProof extends Fragment implements View.OnClickListener{
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(sharedpreferences.getString(NICjson, "").toString());
+
+            String rcStringNumber, dlStringNumber;
+            if(inValidStatus==true)
+            {
+                rcStringNumber = "<rcnumber >"+rCNumber.getText().toString()+"</rcnumber >";
+            }else
+                rcStringNumber= "<rcnumber />";
 
             String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
             StringBuffer stringBuffer = new StringBuffer();
@@ -857,7 +883,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                     "<covs>"+sharedpreferences.getString("mFinalStringCov","")+"</covs>" +
 
-                    "<rcnumber />" +
+                    rcStringNumber +
 
                     "<parentleterforbelow18age type=\"n\" />" +
 
@@ -1005,10 +1031,16 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         public PostClassNIC(Context c) {
             this.context = c;
+
         }
 
         protected void onPreExecute() {
-
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please Wait");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
         }
 
         @Override
@@ -1071,11 +1103,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(PGInfo,jsonObject1.toString());
                     editor.apply();
+                    stringError=responseOutput.toString();
                     return 1;
-                }
-                else if(str[1].equals("Registration Certificate Number of the INVCRG should be enter"))
-                {
-                    return 2;
                 }
                 else
                 {
@@ -1099,13 +1128,13 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         }
         protected void onPostExecute(Integer result) {
-
+            progressDialog.hide();
             if(result==1)
             {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),stringError,Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                     }
                 });

@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by root on 1/6/16.
  */
-public   class DatePickerFragment1 extends DialogFragment
+    public class DatePickerFragment1 extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
         StringBuilder br;
        Calendar c;

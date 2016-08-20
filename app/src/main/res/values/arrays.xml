@@ -127,7 +127,6 @@
     </string-array>
 
     <string-array name="qualificationCode">
-        <item>Select</item>
         <item>0</item>
         <item>1</item>
         <item>2</item>

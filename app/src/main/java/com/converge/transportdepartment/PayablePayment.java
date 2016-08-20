@@ -58,7 +58,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
     private OnFragmentInteractionListener mListener;
 
-    public static final String PREFS_NAME = "MyTransportFile";
+
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
     private String mFinalString1="mFinalString1";
@@ -191,7 +191,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NoPaymentFragment.newInstance("1","1"),"NoPaymentFragment").commit();
                 }
-
                 break;
         }
     }

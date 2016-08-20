@@ -30,6 +30,9 @@ import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
 import com.converge.transportdepartment.Utility.Constants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CreditCardFragment#newInstance} factory method to
@@ -53,9 +56,12 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
     private EditText editCVV;
     private EditText editExpiryDate;
 
-    public static final String PREFS_NAME = "MyTransportFile";
+
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
+    private static final String PGInfo="PgInfo";
+    private String jsonString;
+    private Long applicantNum;
 
     public CreditCardFragment() {
         // Required empty public constructor
@@ -96,6 +102,8 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
+        jsonString=sharedpreferences.getString(PGInfo,"");
+
         TextView pay = (TextView) view.findViewById(R.id.textCreditload);
         pay.setOnClickListener(this);
 
@@ -116,6 +124,12 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
 
     private  void makePayment()
     {
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            applicantNum=jsonObjectData.getLong("applicantNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         String cardHolderName = editCardHolderName.getText().toString();
         String cardNumber = editCardNumber.getText().toString();
@@ -129,7 +143,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         }
         citrusClient = CitrusClient.getInstance(getActivity());
         CreditCardOption creditCardOption = new CreditCardOption(cardHolderName, cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        Amount amount = new Amount("1");
+        Amount amount = new Amount(Double.toString(calulateTax((double) 1)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
@@ -148,7 +162,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         try {
 //                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, new CitrusUser("amit.choudhary@cnvg.com","9981950533"));
 //                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, null);
-            pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+sharedpreferences.getString("receiptNum",""), creditCardOption, null);
+            pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+applicantNum, creditCardOption, null);
 
 
 //                paymentType = new PaymentType.PGPayment(amount, Constants.BILL_URL, debitCardOption, null);
@@ -196,7 +210,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
 
     private Double calulateTax(Double amt)
     {
-        amt = amt+(amt/100)*0.2;
+        amt = amt+(amt/100)*0.2+(amt/100)*15;
         return amt;
     }
 }

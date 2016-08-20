@@ -544,7 +544,7 @@ public class NoPaymentFragment extends Fragment {
                 calendar.setTimeInMillis(aLong);
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
-                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
 //                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
