@@ -55,6 +55,10 @@ public class IdProof extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    EditText refNumber;
+    EditText dlNumber;
+
+    private String covTCode[]={"8", "9","7","10","53","54","16","15","17","58","59"};
 
     private Spinner spinnerIdcard1, spinnerIdcard2, spinnerIdcard3, spinnerIdcard4;
     private EditText editTextDocumentNum1,editTextIssuingAuthority1;
@@ -87,6 +91,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private SharedPreferences sharedpreferences;
     private final String mFinalString2="mFinalString2";
     private final String mFinalStringCov="mFinalStringCov";
+
+    private String []arrCov;
 
     private String s3;
     private HashMap<String,String> hashMap = new HashMap<String, String>();
@@ -320,6 +326,15 @@ public class IdProof extends Fragment implements View.OnClickListener{
         ImageView buttonback = (ImageView)view.findViewById(R.id.buttonBackIdProof);
         ImageView buttonClear = (ImageView)view.findViewById(R.id.buttonClearIdProof);
 
+
+        sharedpreferences = getActivity().getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        String temp = sharedpreferences.getString(mFinalStringCov,"");
+        arrCov =temp.split(",");
+
+        System.out.println("arrCov  ==="+ arrCov[0]);
+
         buttonback.setOnClickListener(this);
         button.setOnClickListener(this);
         buttonClear.setOnClickListener(this);
@@ -390,8 +405,37 @@ public class IdProof extends Fragment implements View.OnClickListener{
         imageViewDatePicker2 = (ImageView) view.findViewById(R.id.imageViewDatePicker2);
         imageViewDatePicker3 = (ImageView) view.findViewById(R.id.imageViewDatePicker3);
         imageViewDatePicker4 = (ImageView) view.findViewById(R.id.imageViewDatePicker4);
-        retrivesession();
 
+
+        refNumber = (EditText) view.findViewById(R.id.refNumber);
+        dlNumber = (EditText) view.findViewById(R.id.dlNumber);
+
+        /*if(arrCov[9].equals("12"))
+        {
+            refNumber.setVisibility(View.VISIBLE);
+        }*/
+
+        System.out.println("arrCov.length == "+arrCov.length);
+
+        for(int i=0; i<arrCov.length; i++)
+        {
+            if(arrCov[i].equals("12"))
+            {
+                refNumber.setVisibility(View.VISIBLE);
+            }
+        }
+
+        for(int i = 0; i<covTCode.length;i++)
+        {
+            for(int j =0;j<arrCov.length;j++)
+                if(covTCode[i].equals(arrCov[j]))
+                {
+                    dlNumber.setVisibility(View.VISIBLE);
+                }
+        }
+
+        retrivesession();
+        
     }
 
     private boolean validate() {

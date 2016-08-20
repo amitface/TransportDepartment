@@ -21,7 +21,7 @@ public   class DatePickerFragment extends DialogFragment
     Calendar c;
 
     private String []arrCov;
-    private String covNTCode[]={"3","5" ,"4","6","12","13","2","65"};
+    private String covNTCode[]={"3","5" ,"4","6","12","13","65"};
     private String covTCode[]={"8", "9","7","10","53","54","16","15","17","58","59"};
     private SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -120,7 +120,7 @@ public   class DatePickerFragment extends DialogFragment
         PersonalDetails.mtextViewDate.setText(br.toString());
     }
 
-    public  boolean isNonTransportVihcle()
+    private boolean isNonTransportVihcle()
     {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -142,7 +142,7 @@ public   class DatePickerFragment extends DialogFragment
         return false;
     }
 
-    public  boolean isTransportVihcle()
+    private  boolean isTransportVihcle()
     {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

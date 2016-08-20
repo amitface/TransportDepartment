@@ -383,7 +383,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        buttonNextPersonalDetails.setOnClickListener(new View.OnClickListener() {
+        buttonNextPersonalDetails.setOnClickListener(new View.OnClickListener()
+                                                     {
                                                          @Override
                                                          public void onClick(View view) {
                                                              onClickPersonalDetails(view);
@@ -1496,74 +1497,74 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
 //                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
-                "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
-                "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
-                "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
-                "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
+                        "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
+                        "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
+                        "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
+                        "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
 
-                "&dob="+mtextViewDate.getText().toString().toUpperCase()+
-                "&gender="+mspinnerGender.getSelectedItem().toString().toUpperCase()+
-                "&relation="+mspinnerRelationshipType.getSelectedItem().toString().toUpperCase()+
-                "&p_first_name="+meditViewApplicantRelationsName.getText().toString().toUpperCase()+
-                "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase()+
-                "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString().toUpperCase()+
+                        "&dob="+mtextViewDate.getText().toString().toUpperCase()+
+                        "&gender="+mspinnerGender.getSelectedItem().toString().toUpperCase()+
+                        "&relation="+mspinnerRelationshipType.getSelectedItem().toString().toUpperCase()+
+                        "&p_first_name="+meditViewApplicantRelationsName.getText().toString().toUpperCase()+
+                        "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase()+
+                        "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString().toUpperCase()+
 //                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
-                "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
-                "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+","+Integer.toString(mspinnerRH.getSelectedItemPosition())+
+                        "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
+                        "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                        "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+","+Integer.toString(mspinnerRH.getSelectedItemPosition())+
 
-                "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
-                "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
-                "&p_house_no="+meditTextPermanentHouseNum.getText().toString().toUpperCase()+
+                        "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                        "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
+                        "&p_house_no="+meditTextPermanentHouseNum.getText().toString().toUpperCase()+
 
 
-                "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
-                "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
-                "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
-                "&p_taluka="+meditTextPermanentTaluka.getSelectedItem().toString().toUpperCase()+
-                "&p_district="+mSPerDistrict.getSelectedItem().toString().toUpperCase()+
+                        "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
+                        "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
+                        "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
+                        "&p_taluka="+meditTextPermanentTaluka.getSelectedItem().toString().toUpperCase()+
+                        "&p_district="+mSPerDistrict.getSelectedItem().toString().toUpperCase()+
 //                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
-                "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
-                "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
-                "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
-                "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
-                "&p_years="+meditTextPermanentYear.getText().toString().toUpperCase()+
-                "&p_months="+meditTextPermanentMonth.getText().toString().toUpperCase()+
+                        "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
+                        "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
+                        "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                        "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                        "&p_years="+meditTextPermanentYear.getText().toString().toUpperCase()+
+                        "&p_months="+meditTextPermanentMonth.getText().toString().toUpperCase()+
 
-                "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
-                "&t_house_name="+meditTextPresentHouseName.getText().toString().toUpperCase()+
-                "&t_house_no="+meditTextPresentHouseNum.getText().toString().toUpperCase()+
+                        "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                        "&t_house_name="+meditTextPresentHouseName.getText().toString().toUpperCase()+
+                        "&t_house_no="+meditTextPresentHouseNum.getText().toString().toUpperCase()+
 
-                "&t_street_locality="+meditTextPresentStreet.getText().toString().toUpperCase()+
-                "&t_locality="+meditTextPresentLocality.getText().toString().toUpperCase()+
-                "&t_village_city="+meditTextPresentvillage.getText().toString().toUpperCase()+
-                "&t_taluka="+meditTextPresentTaluka.getText().toString().toUpperCase()+
-                "&t_district="+meditTextPresentDistrict.getText().toString().toUpperCase()+
+                        "&t_street_locality="+meditTextPresentStreet.getText().toString().toUpperCase()+
+                        "&t_locality="+meditTextPresentLocality.getText().toString().toUpperCase()+
+                        "&t_village_city="+meditTextPresentvillage.getText().toString().toUpperCase()+
+                        "&t_taluka="+meditTextPresentTaluka.getText().toString().toUpperCase()+
+                        "&t_district="+meditTextPresentDistrict.getText().toString().toUpperCase()+
 //                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
-                "&t_state="+mspinnerPresentState.getSelectedItem().toString().toUpperCase()+
-                "&t_pin="+meditTextPresentPinCode.getText().toString().toUpperCase()+
-                "&t_phone_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
-                "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
-                "&t_years="+meditTextPresentYear.getText().toString().toUpperCase()+
-                "&t_months="+meditTextPresentMonth.getText().toString().toUpperCase()+
+                        "&t_state="+mspinnerPresentState.getSelectedItem().toString().toUpperCase()+
+                        "&t_pin="+meditTextPresentPinCode.getText().toString().toUpperCase()+
+                        "&t_phone_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                        "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                        "&t_years="+meditTextPresentYear.getText().toString().toUpperCase()+
+                        "&t_months="+meditTextPresentMonth.getText().toString().toUpperCase()+
 
-                "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString().toUpperCase()+
+                        "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString().toUpperCase()+
 
-                "& birth_place="+meditViewPlaceOfBirth.getText().toString().toUpperCase()+
-                "&year="+meditViewYear.getText().toString().toUpperCase()+
-                "&birth_country="+mspinnerCountry.getSelectedItem().toString().toUpperCase()+
-                "&email_id="+meditViewEmail.getText().toString().toUpperCase()+
-                "&identification_marks="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                "&identification_marks2="+mspinnerIdmark2.getSelectedItem().toString().toUpperCase()+
-                "&rcnumber="+
-                "&parentleterforbelow18age=n"+
-                "&allnecessarycertificates=y"+
-                "&exemptedmedicaltest=n"+
-                "&exemptedpreliminarytest=n"+
-                "&convicted=n"+
-                "&attdlnumber="+
-                "&attdtofconviction="+
-                "&attreason=";
+                        "& birth_place="+meditViewPlaceOfBirth.getText().toString().toUpperCase()+
+                        "&year="+meditViewYear.getText().toString().toUpperCase()+
+                        "&birth_country="+mspinnerCountry.getSelectedItem().toString().toUpperCase()+
+                        "&email_id="+meditViewEmail.getText().toString().toUpperCase()+
+                        "&identification_marks="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                        "&identification_marks2="+mspinnerIdmark2.getSelectedItem().toString().toUpperCase()+
+                        "&rcnumber="+
+                        "&parentleterforbelow18age=n"+
+                        "&allnecessarycertificates=y"+
+                        "&exemptedmedicaltest=n"+
+                        "&exemptedpreliminarytest=n"+
+                        "&convicted=n"+
+                        "&attdlnumber="+
+                        "&attdtofconviction="+
+                        "&attreason=";
         return s;
     }
 
@@ -1984,7 +1985,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 hideKeyboard(getActivity());
 
-                if((i == 1 || i == 2 || i == 3) && new ConValidation(getActivity()).isTransportVihcle())
+                if((i == 1 || i == 2 || i == 3) && new ConValidation(getActivity()).QualificationCheck())
                 {
                     mspinnerQualification.setSelection(0);
                     showToast("For Transport Vehicle Applicant should be atleast 8th passed.");

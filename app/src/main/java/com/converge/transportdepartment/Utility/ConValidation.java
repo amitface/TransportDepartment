@@ -33,7 +33,7 @@ public class ConValidation {
     }
 
 
-    public  boolean isTransportVihcle()
+    public  boolean QualificationCheck()
     {
 
         for(int i = 0; i<qualificatinCode.length;i++)
