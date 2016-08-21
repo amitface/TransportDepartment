@@ -442,15 +442,15 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 }
         }
         retrivesession();
-        
+
     }
 
     private boolean validate() {
-        if(!new ConValidation(getActivity()).isNetworkAvailable())
+       /* if(!new ConValidation(getActivity()).isNetworkAvailable())
         {
             showToast("No internet connnection");
             return false;
-        }
+        }*/
         if(inValidStatus==true && rCNumber.getText().length()<=6 )
         {
             showToast("Registration number required for INVALID CARRIAGE VEHICLE");

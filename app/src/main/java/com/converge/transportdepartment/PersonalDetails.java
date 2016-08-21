@@ -1959,7 +1959,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
-
     public void addListenerOnSpinnerDistrictSelection() {
         mSPerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

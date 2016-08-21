@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DatePicker.DatePickerFragmentDownload;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 import org.json.JSONArray;
@@ -129,20 +130,24 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         buttonDownloadPdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                s=getLength();
-                if(s.length()==7) {
-                    ref = Integer.parseInt(s);
-                    Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
-                    downloadPdfForm(ref);
+                s = getLength();
+                if (ConValidation.isNetworkAvailable(getActivity())) {
+                    if (s.length() == 7) {
+                        ref = Integer.parseInt(s);
+                        Toast.makeText(getActivity(), "Downloading Form", Toast.LENGTH_SHORT).show();
+                        downloadPdfForm(ref);
+                    } else if (fN.getText().length() >= 3 && lN.getText().length() >= 3 && editDownloadPdfDate.getText().length() != 0) {
+                        fname = fN.getText().toString();
+                        lname = lN.getText().toString();
+                        dob = editDownloadPdfDate.getText().toString();
+                        download(view);
+                    } else {
+                        Toast.makeText(getActivity(), "Reference number wrong", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else if(fN.getText().length()>=3 && lN.getText().length()>=3 && editDownloadPdfDate.getText().length()!=0) {
-                    fname=fN.getText().toString();
-                    lname=lN.getText().toString();
-                    dob= editDownloadPdfDate.getText().toString();
-                    download(view);
-                }else
+                else
                 {
-                    Toast.makeText(getActivity(), "Reference number wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Pleasecheck network connection...",Toast.LENGTH_SHORT).show();
                 }
             }
         });
