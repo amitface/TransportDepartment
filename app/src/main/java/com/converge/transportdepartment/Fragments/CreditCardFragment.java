@@ -62,6 +62,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
     private static final String PGInfo="PgInfo";
     private String jsonString;
     private Long applicantNum;
+    private String transId, amt;
 
     public CreditCardFragment() {
         // Required empty public constructor
@@ -143,12 +144,26 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         }
         citrusClient = CitrusClient.getInstance(getActivity());
         CreditCardOption creditCardOption = new CreditCardOption(cardHolderName, cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        Amount amount = new Amount(Double.toString(calulateTax((double) 1)));
+        Amount amount = new Amount(Double.toString(1.0));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
+                try {
+                    JSONObject jsonObject = new JSONObject(transactionResponse.getJsonResponse().toString());
+                    transId= jsonObject.getString("transactionId");
+                    amt= jsonObject.getString("amount");
+
+                    new PaymentReport(transId,"Paid",amt).savePayment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
                 alertDialogPostReport("Payment Successful.");
             }
 
@@ -193,7 +208,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
 
     private void alertDialogNote()
     {
-        final String[] items = {"2 % + Service Tax will be added for all credit cards"};
+        final String[] items = {"2 % + 15% Service Tax will be added for all credit cards","Your amount will be "+calulateTax(1.0)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");

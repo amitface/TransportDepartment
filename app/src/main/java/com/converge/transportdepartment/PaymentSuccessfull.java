@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -87,6 +88,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     private long lastDownload = -1L;
     private static String emailToSend;
     private HashMap<String,String> hashMap=new HashMap<>();
+    private long appNumber;
+    private String receiptNumber;
 
     public PaymentSuccessfull() {
         // Required empty public constructor
@@ -123,31 +126,17 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(CheckNuevosAvisosIntentService.ACTION_PROGRESO);
-//        filter.addAction(CheckNuevosAvisosIntentService.ACTION_FIN);
-//        getActivity().registerReceiver(rcv, filter);
+
 
         mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
         getActivity().registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-////        getActivity().registerReceiver(onNotificationClick,
-////                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-//        getActivity().registerReceiver(onCompleteDownload,
-//                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-////        getActivity().registerReceiver(onNotificationClickDownload,
-////                new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(onComplete);
-//        getActivity().unregisterReceiver(onNotificationClick);
-//        getActivity().unregisterReceiver(onCompleteDownload);
-//        getActivity().unregisterReceiver(onNotificationClickDownload);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -157,18 +146,26 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
         jsonString=sharedpreferences.getString(PGInfo,"");
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         sendMessage();
-//        TextView textView1 = (TextView) view.findViewById(R.id.textView10);
+
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
         TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
         TextView textReceipt  = (TextView) view.findViewById(R.id.textViewReceipt);
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
-//        textView1.setText("Please note Reference Number");
-        textView2.setText("Application Form : "+sharedpreferences.getString("receiptNum",""));
-        textReceipt.setText("Receipt No.      : R"+sharedpreferences.getString("receiptNum",""));
+        textView2.setText("Application Form : "+appNumber);
+        textReceipt.setText("Receipt No.      : R"+receiptNumber);
         int fee= totalFee();
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
@@ -178,23 +175,16 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
 
         ImageView buttonEmail = (ImageView) view.findViewById(R.id.buttonEmail);
-//        ImageView openForm =  (ImageView) view.findViewById(R.id.openForm);
-//        ImageView openReceipt =  (ImageView) view.findViewById(R.id.openReceipt);
+
 
         ImageView buttonDownload = (ImageView) view.findViewById(R.id.buttonDownload);
         ImageView saveReceipt = (ImageView) view.findViewById(R.id.saveReceipt);
 
-//                openForm.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        new DownloadFile(getActivity()).execute();
-//                    }
-//                });
+
                 buttonDownload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                       new DownloadFile(getActivity()).execute();
-//                        downloadPdf();
+
                         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
                         {
 
@@ -217,16 +207,11 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         }
                     }
                 });
-//                openReceipt.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        new DownloadReceipt(getActivity()).execute();
-//                    }
-//                });
+
                 saveReceipt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        new DownloadReceipt(getActivity()).execute();
+
                         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
                         {
                             new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
@@ -237,8 +222,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         downloadPdf();
                     }
                 });
-
-
         deleteSession();
 
         return view;
@@ -267,12 +250,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         editor.commit();
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
+
 
         private void showProgress()
         {
@@ -354,6 +332,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         hashMap.put("citizenship_status","");
         hashMap.put("edu_qualification","");
         hashMap.put("identification_marks","");
+        hashMap.put("identification_marks2","");
         hashMap.put("blood_group","");
         hashMap.put("blood_group_rh","");
 
@@ -443,7 +422,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     public void downloadPdf() {
 //        showProgress();
 //        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+sharedpreferences.getString("receiptNum","")+"LL_Cash_Receipt.pdf");
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+"LL_Cash_Receipt.pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -472,7 +451,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void downloadPdfForm() {
 //        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+sharedpreferences.getString("receiptNum","")+".pdf");
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -601,24 +580,17 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             progressSendMail.setCancelable(true);
             progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressSendMail.setProgress(0);
-//            progressSendMail.show();
+
         }
 
         @Override
         protected Long doInBackground(Void... params) {
             try{
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
-//                        showToast("Dowloading");
-                    }//public void run() {
-                });
 
                 int  MEGABYTE = 1024 * 1024;
 //                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
                 URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
+                String s="referenceId=" +appNumber+
                         "&email="+emailToSend;
 
                 HttpURLConnection connection = (HttpURLConnection) email.openConnection();
@@ -646,35 +618,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 }
                 br.close();
 
-//                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
-//                String responseDetail= responseOutput.toString();
-//                System.out.println(responseDetail+"\n");
-//                String detail[] =responseDetail.split(":");
-
-//                if(responseCode==200 || responseCode==201) {
-//                    for (int i = 1; i < 101; i++) {
-//                        publishProgress(i);
-//                    }
-//                }
-//                if(Integer.parseInt(detail[1].substring(1, 8))>0) {
-//                    for (int i = 1; i < 101; i++) {
-//                        publishProgress(i);
-//                    }
-//                }
-//                else
-//                {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            alertDialogPostReport("Error");
-//                        }
-//                    });
-//                    return 0L;
-//                }
-
-
-
                 return 1L;
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -696,17 +639,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
         protected void onPostExecute(Long result) {
 
-//            progressSendMail.dismiss();
+
             if(result==1)
             {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Your code to run in GUI thread here
 
-//                        showToast("Email sent");
-//                       alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
-                    }//public void run() {
+                    }
                 });
             }
             else
@@ -714,7 +654,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Your code to run in GUI thread here
+
                         showToast("failure");
                     }//public void run() {
                 });
@@ -1003,20 +943,19 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     BroadcastReceiver onNotificationClick=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-//            Toast.makeText(ctxt, "Check Notification!", Toast.LENGTH_SHORT).show();
+
         }
     };
 
     BroadcastReceiver onCompleteDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-//            getActivity().findViewById(R.id.start).setEnabled(true);
-//            Toast.makeText(getActivity(),"complete",Toast.LENGTH_SHORT).show();
+
         }
     };
 
     BroadcastReceiver onNotificationClickDownload=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
-//            Toast.makeText(ctxt, "Check Notification!", Toast.LENGTH_SHORT).show();
+
 
         }
     };
@@ -1081,7 +1020,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 
-                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No "+jsonObjectData.get("receiptNum")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+"&mobile="+jsonObjectData.get("moblie");
+                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No "+jsonObjectData.get("receiptNum")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+"&mobile="+jsonObjectData.get("moblie");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

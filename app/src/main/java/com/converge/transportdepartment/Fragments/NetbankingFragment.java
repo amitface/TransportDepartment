@@ -68,6 +68,8 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
     private SharedPreferences sharedpreferences;
     private String jsonString;
     private Long applicantNum;
+    private String transId, amt;
+    Double tax;
 
 
     public NetbankingFragment() {
@@ -152,13 +154,15 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         @Override
         public void onItemClick(View childView, int position) {
             NetbankingOption netbankingOption = getItem(position);
-            Double tax;
-            if(position==9)
+
+            if(position==8)
             {
                 tax =1.70;
+                alertDialogNote(" 1.70% tax + 15% Service tax will be added to amount");
             }
             else{
                 tax = 1.55;
+                alertDialogNote(" 1.55% tax + 15% Service tax will be added to amount");
             }
            makePayment(tax,netbankingOption);
 
@@ -181,6 +185,19 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
+                try {
+                    JSONObject jsonObject = new JSONObject(transactionResponse.getJsonResponse().toString());
+                    transId= jsonObject.getString("transactionId");
+                    amt= jsonObject.getString("amount");
+
+                    new PaymentReport(transId,"Paid",amt).savePayment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
                 alertDialogPostReport();
             }
 
@@ -236,9 +253,9 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void alertDialogNote()
+    private void alertDialogNote(String s)
     {
-        final String[] items = {"HDFC & ICICI-1.70% +ST, REST 1.55% + ST ","Your final amit"};
+        final String[] items = {s,"Your final amount will be"+calulateTax(1.0,tax)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");

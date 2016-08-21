@@ -46,8 +46,9 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
+    private String transId, amt;
+
     private CitrusClient citrusClient;
     private Constants constants;
 
@@ -107,6 +108,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
         editCardNumber = (CardNumberEditText) view
                 .findViewById(R.id.cardHolderNumber);
+
         editExpiryDate = (ExpiryDate) view.findViewById(R.id.cardExpiry);
         editCardHolderName = (EditText) view.findViewById(R.id.cardHolderName);
 //        cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
@@ -143,12 +145,26 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         }
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        Amount amount = new Amount("1");
+        final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(transactionResponse.getJsonResponse().toString());
+                    transId= jsonObject.getString("transactionId");
+                    amt= jsonObject.getString("amount");
+
+                    new PaymentReport(transId,"Paid",amt).savePayment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
 
                 alertDialogPostReport();
             }
@@ -199,7 +215,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     private void alertDialogNote()
     {
-        final String[] items = {" 0.75% + Service Tax will be added for all debit cards","Your amount will be"+calulateTax((double) 1)};
+        final String[] items = {" 0.75% + 15.0% Service Tax will be added for all debit cards","Your amount will be "+calulateTax((double) 1)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan");
@@ -219,4 +235,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         amt = amt+(amt/100)*0.75+(amt/100)*15;
         return amt;
     }
+
+
 }
+
