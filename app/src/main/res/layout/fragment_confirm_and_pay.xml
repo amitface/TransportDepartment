@@ -1632,6 +1632,7 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:textAlignment="textStart"
                         android:padding="5dp"
+                        android:visibility="gone"
                         android:spinnerMode="dialog" />
                     <TextView
                         android:id="@+id/spinnerRH"
@@ -1644,6 +1645,7 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:textAlignment="textStart"
                         android:padding="5dp"
+                        android:visibility="gone"
                         android:layout_marginRight="2dp"
                         />
 

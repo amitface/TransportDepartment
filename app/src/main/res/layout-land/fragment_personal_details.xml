@@ -1163,6 +1163,7 @@
                     android:paddingLeft="4dp"
                     android:entries="@array/Blood"
                     android:layout_marginRight="2dp"
+                    android:visibility="gone"
                     android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
                 <Spinner
@@ -1171,6 +1172,7 @@
                     android:layout_height="36dp"
                     android:paddingLeft="4dp"
                     android:entries="@array/Rh"
+                    android:visibility="gone"
                     android:background="@drawable/gradient_spinner"
                     android:layout_marginRight="2dp"
                     />

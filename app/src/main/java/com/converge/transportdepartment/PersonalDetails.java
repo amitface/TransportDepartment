@@ -34,7 +34,6 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.ConValidation;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -1422,17 +1421,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             return false;
         }
-        else if(mspinnerRH.getSelectedItemPosition()==0)
-        {
-            showToast("Select Rh of Blood Group");
-
-            showOtherInfo();
-
-//            mspinnerRH.setError("Select Rh of Blood Group");
-            mspinnerRH.requestFocus();
-
-            return false;
-        }
         return true;
     }
 
@@ -1511,7 +1499,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
                         "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
                         "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                        "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+","+Integer.toString(mspinnerRH.getSelectedItemPosition())+
+                        "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+
 
                         "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
                         "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
@@ -1594,7 +1582,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString());
             jsNic.put("identification-marks2",mspinnerIdmark2.getSelectedItem().toString());
 
-            jsNic.put("blood-group",mspinnerBloodGroup.getSelectedItem().toString()+mspinnerRH.getSelectedItemPosition());
+            jsNic.put("blood-group",mspinnerBloodGroup.getSelectedItem().toString());
 
 
             jsNic.put("tFlatHouseNo",meditTextPermanentFlatNum.getText().toString()+" "+meditTextPermanentHouseName.getText().toString()+" "+meditTextPresentHouseNum.getText().toString());
@@ -1655,122 +1643,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
         return js.toString();
-    }
-
-    private String createJsonString()
-    {
-        JSONArray ja = new JSONArray();
-        JSONObject js = new JSONObject();
-        JSONObject applicant = new JSONObject();
-        try
-        {
-            applicant.put("refno","");
-            applicant.put("statecode","");
-            applicant.put("rtocode","");
-
-            js.put("applicant_first_name","");
-            js.put("applicant_middle_name","");
-            js.put("applicant_last_name","");
-            applicant.put("applicant",js);
-            applicant.put("dob","");
-            applicant.put("gender_type","");
-            applicant.put("relation_type","");
-            applicant.put("relative_first_name","");
-            applicant.put("relative_middle_name","");
-            applicant.put("relative_last_name","");
-            applicant.put("edu_qualification","");
-            applicant.put("identification_mark","");
-            applicant.put("blood_group","");
-
-            JSONObject permanentAddress = new JSONObject();
-            permanentAddress.put("p_flat_house_no","");
-            permanentAddress.put("p_street_locality","");
-            permanentAddress.put("p_village_city","");
-            permanentAddress.put("p_district","");
-            permanentAddress.put("p_state","");
-            permanentAddress.put("p_pin","");
-            permanentAddress.put("p_phone_no","");
-            permanentAddress.put("p_mobile_no","");
-            permanentAddress.put("p_years","");
-            permanentAddress.put("p_months","");
-
-            applicant.accumulate("permanent",permanentAddress);
-
-            JSONObject presentAddress = new JSONObject();
-            presentAddress.put("t_flat_house_no","");
-            presentAddress.put("t_street_locality","");
-            presentAddress.put("t_village_city","");
-            presentAddress.put("t_district","");
-            presentAddress.put("t_state","");
-            presentAddress.put("t_pin","");
-            presentAddress.put("t_phone_no","");
-            presentAddress.put("t_mobile_no","");
-            presentAddress.put("t_years","");
-            presentAddress.put("t_months","");
-
-
-            applicant.accumulate("present",presentAddress);
-            applicant.put("citizenship_status_type","");
-            applicant.put(" birth_place","");
-            applicant.put("year","");
-            applicant.put("birth_country","");
-            applicant.put("email_id","");
-            applicant.put("proofcode","");
-            applicant.put("licence_certificate_badge_no","");
-            applicant.put("issuing_authority","");
-            applicant.put("date_of_issue","");
-            applicant.put("covs","");
-            applicant.put("rcnumber","");
-            applicant.put("parentleterforbelow18age","");
-            applicant.put("allnecessarycertificates","");
-            applicant.put("exemptedmedicaltest","");
-            applicant.put("exemptedpreliminarytest","");
-            applicant.put("convicted","");
-            applicant.put("attdlnumber","");
-            applicant.put("attdtofconviction","");
-            applicant.put("attreason","");
-
-            return applicant.toString();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
-    private void getFieldData() {
-        usr_fname = meditViewApplicantFirstName.getText().toString() + " " + meditViewApplicantMiddleName.getText().toString();
-        usr_lname = meditViewApplicantLastName.getText().toString();
-        usr_father_name = meditViewApplicantRelationsName.getText().toString();
-       /* usr_email = meditViewEmail.getText().toString();
-        usr_mobile = meditViewMobileNo.getText().toString();
-        usr_pincode = meditViewPincode.getText().toString();
-        usr_address = meditViewAddress.getText().toString();
-        usr_feeamnt = meditViewFee.getText().toString();*/
-
-        usr_city = "indore";
-        usr_district = usr_city;
-
-//        usr_rtmspinnerRTO.getSelectedItem().toString();
-        usr_relation_type = mspinnerRelationshipType.getSelectedItem().toString();
-        usr_qualification = mspinnerQualification.getSelectedItem().toString();
-        usr_gender = mspinnerGender.getSelectedItem().toString();
-        usr_idmark = mspinnerIdmark.getSelectedItem().toString();
-        usr_blood_gr = mspinnerBloodGroup.getSelectedItem().toString();
-        usr_blood_rh = mspinnerRH.getSelectedItem().toString();
-//        usr_apply_class = getVehicleClass();
-        usr_dob = mtextViewDate.getText().toString();
-
-        usr_status = "1";
-
-        int_relation_type = mspinnerRelationshipType.getSelectedItemPosition();
-        int_qualification = mspinnerQualification.getSelectedItemPosition();
-        int_gender = mspinnerGender.getSelectedItemPosition();
-        int_idmark = mspinnerIdmark.getSelectedItemPosition();
-        int_blood_gr = mspinnerBloodGroup.getSelectedItemPosition();
-        int_blood_rh = mspinnerRH.getSelectedItemPosition();
-
     }
 
     private boolean textFieldValidation()

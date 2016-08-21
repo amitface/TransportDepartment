@@ -1500,6 +1500,7 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Blood"
                         android:layout_marginRight="2dp"
+                        android:visibility="gone"
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
 
@@ -1510,6 +1511,7 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Rh"
                         android:background="@drawable/gradient_spinner"
+                        android:visibility="gone"
                         android:layout_marginRight="2dp"
                         />
 

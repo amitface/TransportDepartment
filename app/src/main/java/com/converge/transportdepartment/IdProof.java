@@ -26,7 +26,6 @@ import com.converge.transportdepartment.DatePicker.DatePickerFragment1;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment2;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment3;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment4;
-import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -437,7 +436,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 if(covTCode[i].equals(arrCov[j]))
                 {
                     Toast.makeText(getActivity(),"Driving license is compulsory for Transport vehicle.",Toast.LENGTH_LONG).show();
-                    Toast.makeText(getActivity(),"Driving license issue date should be 1 year less than current date",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Driving license issue date should be, 1 year less than current date",Toast.LENGTH_LONG).show();
                     dlStatus= true;
                 }
         }
@@ -667,7 +666,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 "&date_of_issue%5B%5D="+editTextDateofIssue1.getText().toString()+
                 "&date_of_issue%5B%5D="+editTextDateofIssue2.getText().toString()+
                 "&date_of_issue%5B%5D="+editTextDateofIssue3.getText().toString()+
-                "&date_of_issue%5B%5D="+editTextDateofIssue4.getText().toString();
+                "&date_of_issue%5B%5D="+editTextDateofIssue4.getText().toString()+"&rc_number="+rCNumber.getText().toString().toUpperCase();
         return idProof;
     }
 
@@ -803,7 +802,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
                     "<identification-marks >"+jsonObject.getString("identification-marks2")+"</identification-marks>" +
 
-                    "<blood-group>O-</blood-group>" +
+                    "<blood-group>"+jsonObject.getString("blood-group")+"</blood-group>" +
 
                     "<permanent-address>" +
 
