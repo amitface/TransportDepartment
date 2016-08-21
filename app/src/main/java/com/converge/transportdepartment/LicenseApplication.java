@@ -75,19 +75,24 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
         mTabHost.setPadding(10,0,0,0);
+
         mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Class of Vehicle"),
                 SelectApplicationType.class, null);
 //
         mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
                PersonalDetails.class, null);
+
         mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),
                 IdProof.class, null);
+
         mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
                SelectSchedule.class, null);
+
 //        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("",getResources().getDrawable(R.drawable.app_schedule_selected,null)),
 //               SelectSchedule.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
                ConfirmAndPay.class, null);
+
         mTabHost.getTabWidget().setEnabled(false);
 
         mTabHost.setCurrentTab(Integer.parseInt(mParam1));

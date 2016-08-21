@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.Utility.ConValidation;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -727,8 +729,15 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 //    3064482
     private void getApplicant(int i, String dob)
     {
-        new getApplicantData(getActivity(),i,dob).execute();
-    }
+        if(ConValidation.isNetworkAvailable(getActivity()))
+        {
+            new getApplicantData(getActivity(), i, dob).execute();
+        }
+        else
+        {
+            Toast.makeText(getActivity(),"Please check network connection",Toast.LENGTH_SHORT).show();
+        }
+        }
 
     //working now 16/08/2016
 

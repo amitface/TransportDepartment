@@ -59,9 +59,9 @@ public class ConValidation {
         return Long.parseLong(formatter.format(new Date(milliSeconds)));
     }
 
-    public boolean isNetworkAvailable() {
+    public static boolean isNetworkAvailable(Context con) {
         ConnectivityManager connectivityManager
-                = (ConnectivityManager)c.getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager)con.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
