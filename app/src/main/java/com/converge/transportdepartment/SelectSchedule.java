@@ -91,7 +91,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private int currentChecked = 0;
     private String jsonData, jsonDataSaveSlot;
     //Start is 12/08/2016 & format dd/mm/yyyy
-    private Long [] dateSetArray= {1470960000000L,1471046400000L,1471132800000L,1471219200000L,1471305600000L,1471392000000L,1471478400000L,1471564800000L,1471651200000L,1471737600000L,1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L};
+    private Long [] dateSetArray= {1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L,1472688000000L,1472774400000L,1472860800000L,1472947200000L,1473033600000L,1473120000000L,1473206400000L,1473292800000L,1473379200000L,1473552000000L,1473638400000L,1473724800000L,1473811200000L,1473897600000L,1473984000000L,1474070400000L,1474156800000L,1474243200000L,1474329600000L,1474416000000L};
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
@@ -703,8 +703,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(200000);
-                connection.setReadTimeout(200000);
+                connection.setConnectTimeout(30000);
+                connection.setReadTimeout(30000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
@@ -738,13 +738,16 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                     }
 
             }catch (FileNotFoundException e) {
-                e.printStackTrace();
+                jsonDataSaveSlot =e.toString();
                 return 0L;
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                jsonDataSaveSlot =e.toString();
                 return 0L;
             } catch (IOException e) {
-                e.printStackTrace();
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            } catch (JSONException e) {
+                jsonDataSaveSlot =e.toString();
                 return 0L;
             }
             catch (Exception e)
@@ -752,6 +755,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 jsonDataSaveSlot =e.toString();
                 return 0L;
             }
+
         }
 
         protected void onProgressUpdate(Integer... percent) {

@@ -1499,7 +1499,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 //                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
                         "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
                         "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                        "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+
+                        "&blood_group="+mspinnerBloodGroup.getSelectedItemPosition()+
 
                         "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
                         "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+

@@ -347,8 +347,6 @@ public class NoPaymentFragment extends Fragment {
     @Override
     public void onStop()
     {
-//        getActivity().unregisterReceiver(onComplete);
-//        getActivity().unregisterReceiver(onNotificationClick);
         super.onStop();
     }
 
@@ -533,13 +531,11 @@ public class NoPaymentFragment extends Fragment {
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                //urlConnection.setRequestMethod("GET");
-                //urlConnection.setDoOutput(true);
+
 
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-//                connection.setRequestProperty("Content-Type", "application/json");
-//                connection.setRequestProperty("Accept", "application/json");
+
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(15000);
                 connection.setReadTimeout(15000);
@@ -568,7 +564,6 @@ public class NoPaymentFragment extends Fragment {
         }
 
         protected void onProgressUpdate(Integer... percent) {
-//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
             progress.setProgress(percent[0]);
         }
 

@@ -446,7 +446,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
     }
 
     private boolean validate() {
-       /**/ if(!ConValidation.isNetworkAvailable(getActivity()))
+        if(!ConValidation.isNetworkAvailable(getActivity()))
         {
             showToast("Please check internet connection ...");
             return false;

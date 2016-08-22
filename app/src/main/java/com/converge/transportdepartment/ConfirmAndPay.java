@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.BackGroundTasks;
+import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -660,7 +661,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     }
 
     private boolean validate() {
-
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            showToast("Please check internet connection ...");
+            return false;
+        }
         return true;
     }
 

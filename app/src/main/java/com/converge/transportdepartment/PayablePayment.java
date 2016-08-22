@@ -24,6 +24,7 @@ import com.converge.transportdepartment.Fragments.DebitCardFragment;
 import com.converge.transportdepartment.Fragments.NetbankingFragment;
 import com.converge.transportdepartment.ActivityFragments.NoPaymentFragment;
 import com.converge.transportdepartment.Fragments.WalletWebViewFragment;
+import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -195,6 +196,15 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private  boolean validate()
+    {
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            Toast.makeText(getActivity(),"No internet connnection...",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
     private void showBox()
     {
         if(marker==1)
