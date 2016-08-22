@@ -1487,6 +1487,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
@@ -1500,7 +1501,7 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Blood"
                         android:layout_marginRight="2dp"
-                        android:visibility="gone"
+
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
 
@@ -1516,92 +1517,7 @@
                         />
 
                 </TableRow>
-                <!--PhotoId -->
-                <TableRow    android:visibility="gone"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_span="2"
-                        android:text="Id Proof 4"/>
-                </TableRow>
-                <TableRow    android:visibility="gone"  >
-                    <Spinner
-                        android:id="@+id/spinnerIdcard"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:paddingLeft="4dp"
-                        android:background="@drawable/gradient_spinner"
-                        android:layout_span="3"
-                        android:entries="@array/IdProof"/>
-                </TableRow>
-                <!--Photo Id Detail-->
-                <TableRow
-                    android:visibility="gone"
-                    android:layout_marginTop="6dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-                        android:text="Document Number"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
 
-                        android:text="Issuing Authority"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-
-                        android:text="Date of Issue"/>
-
-                </TableRow>
-                <TableRow
-                    android:visibility="gone">
-                    <EditText
-                        android:id="@+id/editTextDocumentNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-                    <EditText
-                        android:id="@+id/editTextIssuingAuthority"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        android:layout_span="1"
-
-                        />
-                    <EditText
-                        android:id="@+id/editTextDateofIssue"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:textSize="12dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>

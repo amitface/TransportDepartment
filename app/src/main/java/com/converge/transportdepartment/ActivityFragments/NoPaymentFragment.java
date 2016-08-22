@@ -359,7 +359,7 @@ public class NoPaymentFragment extends Fragment {
     };
 
     public void downloadPdfForm() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+sharedpreferences.getString("receiptNum","")+".pdf");
+        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -459,22 +459,6 @@ public class NoPaymentFragment extends Fragment {
         }
         protected void onPostExecute(Long result) {
 
-//            progressSendMail.dismiss();
-//            if(result==1)
-//            {
-//
-//            }
-//            else
-//            {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //Your code to run in GUI thread here
-//                        showToast("failure");
-//                    }//public void run() {
-//                });
-//
-//            }
         }
     }
 

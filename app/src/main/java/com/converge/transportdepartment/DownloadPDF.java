@@ -87,7 +87,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+         fragment.setArguments(args);
         return fragment;
     }
 
@@ -147,7 +147,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Pleasecheck network connection...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Please check network connection...",Toast.LENGTH_SHORT).show();
                 }
             }
         });

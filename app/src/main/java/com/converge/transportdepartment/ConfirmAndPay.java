@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.BackGroundTasks;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private String mParam2;
     private static Handler handler;
     private static boolean aBooleanstop = false;
+
+    private ProgressDialog progressDialog;
 
     ImageView imageViewPermanent;
     ImageView imageViewPresent;
@@ -307,7 +310,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 if (validate()) {
                     sendPostRequest();
 //                    saveSharedPreference();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1", "1")).commit();
+
+
                 }
                 break;
             case R.id.buttonBackConfirmAndPay:
@@ -656,50 +660,12 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     }
 
     private boolean validate() {
-//        if(mspinnerSDate.getSelectedItemPosition()==0)
-//        {
-//            showToast("Enter Date");
-//            return false;
-//        }
-//        else if(mspinnerSTime.getSelectedItemPosition()==0)
-//        {
-//            showToast("Enter Time");
-//            return false;
-//        }
+
         return true;
     }
 
     private void checkPresentAddress() {
-//
-//        meditTextPresentFlatNum.setText(meditTextPermanentFlatNum.getText().toString());
-//        meditTextPresentHouseName.setText(meditTextPermanentHouseName.getText().toString());
-//        meditTextPresentHouseNum.setText(meditTextPermanentHouseNum.getText().toString());
-//        meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
-//        meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
-//        meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
-//        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
-//        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
-//        meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
-//        meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
-//        meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
-//        meditTextPresentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString());
-//
-//        mspinnerPresentState.setSelection(mspinnerPermanentState.getSelectedItemPosition());
-//
-//        meditTextPresentFlatNum.setEnabled(false);
-//        meditTextPresentHouseName.setEnabled(false);
-//        meditTextPresentHouseNum.setEnabled(false);
-//        meditTextPresentStreet.setEnabled(false);
-//        meditTextPresentLocality.setEnabled(false);
-//        meditTextPresentvillage.setEnabled(false);
-//        meditTextPresentTaluka.setEnabled(false);
-//        meditTextPresentDistrict.setEnabled(false);
-//        meditTextPresentMonth.setEnabled(false);
-//        meditTextPresentYear.setEnabled(false);
-//        meditTextPresentPinCode.setEnabled(false);
-//        meditTextPresentMoblieNo.setEnabled(false);
-//
-//        mspinnerPresentState.setEnabled(false);
+
     }
 
     private void uncheckPresentAddress() {
@@ -784,6 +750,12 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         Log.d("Session :", " session retrieved");
     }
 
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progressDialog.dismiss();
+    }
+
     public void sendPostRequest() {
         new PostClass(getActivity()).execute();
     }
@@ -791,7 +763,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private class PostClass extends AsyncTask<String, Void, Integer> {
 
         private final Context context;
-        private ProgressDialog progressDialog;
+
 
         public PostClass(Context c) {
             this.context = c;
@@ -803,7 +775,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
-//            progressDialog.show();
+            progressDialog.show();
         }
 
         @Override
@@ -812,13 +784,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                try {
+
                     JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
 
                     appNumber = jsonObject.getLong("applicantNum");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 String urlString ="ref_num="+appNumber+sharedpreferences.getString(mFinalString1, "") + sharedpreferences.getString(mFinalString2, "") + "&covs=" + (sharedpreferences.getString(mFinalStringCov, ""));
 
                 connection.setRequestMethod("POST");
@@ -850,9 +820,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 //                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
                 String responseDetail = responseOutput.toString();
-
-                JSONObject jsonObject = new JSONObject(responseDetail);
-                String s = jsonObject.getString("receiptNum");
+                System.out.println("Response output "+responseDetail);
+                JSONObject jsonObject2 = new JSONObject(responseDetail);
+                String s = jsonObject2.getString("receiptNum");
                 System.out.println("Receipt No." + s);
                 JSONObject jsonObject1 = new JSONObject(jsonString);
                 jsonObject1.put("receiptNum", s);
@@ -862,34 +832,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 editor.apply();
 
                 if (Integer.parseInt(s) > 0) {
-                    int MEGABYTE = 1024 * 1024;
-//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
-                    URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                    String s1 = "referenceId=" + appNumber +
-                            "&email=amit.choudhary@cnvg.in";
-
-                    HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();
-
-                    connection1.setRequestMethod("POST");
-                    connection1.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                    connection1.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                    connection1.setConnectTimeout(25000);
-                    connection1.setDoInput(true);
-                    connection1.setDoOutput(true);
-                    DataOutputStream dStream1 = new DataOutputStream(connection1.getOutputStream());
-
-                    dStream1.writeBytes(s1);
-                    dStream1.flush();
-                    dStream1.close();
-                    responseCode = connection1.getResponseCode();
-                } else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-//                        showToast("Email sent");
-                        }//public void run() {
-                    });
+                    BackGroundTasks.sendMail(appNumber);
                 }
+
                 return 1;
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -911,7 +856,12 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
 
             progressDialog.dismiss();
             if (result == 1) {
-
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1", "1")).commit();
+                    }
+                });
             } else {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

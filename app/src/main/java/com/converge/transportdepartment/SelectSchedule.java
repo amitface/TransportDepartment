@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.converge.transportdepartment.ActivityFragments.SuperAwesomeCardFragment;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -161,7 +162,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         Calendar c= Calendar.getInstance();
 
         Log.d("**slotDt**","Current Date: " + c.getTimeInMillis());
-        getSlot();
+        if(ConValidation.isNetworkAvailable(getActivity()))
+            getSlot();
+        else
+            Toast.makeText(getActivity(),"Please check network connection...",Toast.LENGTH_SHORT).show();
         return view;
     }
 
