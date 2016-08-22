@@ -669,26 +669,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         return true;
     }
 
-    private void checkPresentAddress() {
 
-    }
-
-    private void uncheckPresentAddress() {
-        meditTextPresentFlatNum.setEnabled(true);
-        meditTextPresentHouseName.setEnabled(true);
-        meditTextPresentHouseNum.setEnabled(true);
-        meditTextPresentStreet.setEnabled(true);
-        meditTextPresentLocality.setEnabled(true);
-        meditTextPresentvillage.setEnabled(true);
-        meditTextPresentTaluka.setEnabled(true);
-        meditTextPresentDistrict.setEnabled(true);
-        meditTextPresentMonth.setEnabled(true);
-        meditTextPresentYear.setEnabled(true);
-        meditTextPresentPinCode.setEnabled(true);
-        meditTextPresentMoblieNo.setEnabled(true);
-
-        mspinnerPresentState.setEnabled(true);
-    }
 
     private void hidePersonalDetail() {
         mtablelayoutPersonalDetail.setVisibility(View.GONE);

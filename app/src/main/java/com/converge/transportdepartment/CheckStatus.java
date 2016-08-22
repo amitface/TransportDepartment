@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.DatePicker.DatePickerFragmentStatus;
 import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONException;
@@ -501,7 +505,10 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             "</applicants>";
 
     private Button button, buttonSave, buttonSaveSlot;
-    private EditText eTRefNum,eTDob;
+    private EditText eTRefNum;
+    public static TextView textDateofIssueStatus;
+
+    private ImageView datePickerStatus;
 
     private OnFragmentInteractionListener mListener;
     private String jsonData;
@@ -546,12 +553,15 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         button =(Button) view.findViewById(R.id.buttonCheckStatus);
         buttonSave =(Button) view.findViewById(R.id.buttonSave);
         buttonSaveSlot =(Button) view.findViewById(R.id.buttonSaveSlot);
+        datePickerStatus = (ImageView) view.findViewById(R.id.datePickerStatus);
 
+
+        datePickerStatus.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         button.setOnClickListener(this);
         buttonSaveSlot.setOnClickListener(this);
         eTRefNum = (EditText) view.findViewById(R.id.eTRefNum);
-        eTDob = (EditText) view.findViewById(R.id.eTDob);
+        textDateofIssueStatus = (TextView) view.findViewById(R.id.eTDob);
         String db=s2;
         return view;
     }
@@ -581,13 +591,17 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             case R.id.eTRefNum:
                 break;
             case R.id.buttonCheckStatus:
-                getApplicant(Integer.parseInt(eTRefNum.getText().toString()),eTDob.getText().toString());
+                getApplicant(Integer.parseInt(eTRefNum.getText().toString()),textDateofIssueStatus.getText().toString());
                 break;
             case R.id.buttonSave:
                 sendPostRequest(v);
                 break;
             case R.id.buttonSaveSlot:
                 saveSlot(5,"14-06-1989",3064487L);
+                break;
+            case R.id.datePickerStatus:
+                DialogFragment newFragment = new DatePickerFragmentStatus();
+                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
         }
     }

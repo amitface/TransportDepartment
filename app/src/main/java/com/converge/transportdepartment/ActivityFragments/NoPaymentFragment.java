@@ -59,6 +59,7 @@ public class NoPaymentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ProgressDialog progressDialog;
 
     private String jsonString;
     private static final String PGInfo="PgInfo";
@@ -74,6 +75,7 @@ public class NoPaymentFragment extends Fragment {
     private String emailToSend;
     private long lastDownload = -1L;
     private long appNumber;
+    private String rtoCode, msg;
 
     private DownloadManager mgr=null;
 
@@ -135,15 +137,18 @@ public class NoPaymentFragment extends Fragment {
         
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        progressDialog=new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
         try {
             JSONObject jsonObjectData= new JSONObject(jsonString);
             appNumber= jsonObjectData.getLong("applicantNum");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        sendMessage();
+        new getAddress(getActivity()).execute();
 
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
         TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
@@ -348,6 +353,7 @@ public class NoPaymentFragment extends Fragment {
     public void onStop()
     {
         super.onStop();
+        progressDialog.dismiss();
     }
 
     BroadcastReceiver onComplete=new BroadcastReceiver() {
@@ -489,20 +495,22 @@ public class NoPaymentFragment extends Fragment {
         Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
     }
 
-    public void sendMessage()
+    public void sendMessage(String s)
     {
-        new sendMsg(getActivity()).execute();
-//        new sendRtoMsg(getActivity()).execute();
+        new sendFormMsg(getActivity()).execute();
+        new sendRtoMsg(getActivity(),s).execute();
     }
 
-    private class sendMsg extends AsyncTask<Void, Integer, Integer> {
+    private class sendRtoMsg extends AsyncTask<Void, Integer, Integer> {
 
         private final Context context;
         private ProgressDialog progress;
         private static final int  MEGABYTE = 1024 * 1024;
+        private String message;
 
-        public sendMsg(Context c) {
+        public sendRtoMsg(Context c,String message) {
             this.context = c;
+            this.message = message;
         }
 
         protected void onPreExecute() {
@@ -516,8 +524,7 @@ public class NoPaymentFragment extends Fragment {
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
-//                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -526,8 +533,8 @@ public class NoPaymentFragment extends Fragment {
                 calendar.setTimeInMillis(aLong);
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
-                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
-//                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+//                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg="+message;
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -574,13 +581,13 @@ public class NoPaymentFragment extends Fragment {
         }
     }
 
-    private class sendRtoMsg extends AsyncTask<Void, Integer, Integer> {
+    private class sendFormMsg extends AsyncTask<Void, Integer, Integer> {
 
         private final Context context;
         private ProgressDialog progress;
         private static final int  MEGABYTE = 1024 * 1024;
 
-        public sendRtoMsg(Context c) {
+        public sendFormMsg(Context c) {
             this.context = c;
         }
 
@@ -606,7 +613,7 @@ public class NoPaymentFragment extends Fragment {
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.get("moblie")+" and Receipt No NA. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -653,6 +660,107 @@ public class NoPaymentFragment extends Fragment {
         protected void onPostExecute(Integer result) {
 
 
+        }
+    }
+
+    private class getAddress extends AsyncTask<Void, Integer, Integer> {
+
+        private final Context context;
+
+        private static final int  MEGABYTE = 1024 * 1024;
+
+        public getAddress(Context c) {
+            this.context = c;
+        }
+
+        protected void onPreExecute() {
+            progressDialog.setMessage("Please Wait");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params)
+        {
+            int l=0;
+            try
+            {
+
+                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+
+                String s="rtocode="+rtoCode;
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //urlConnection.setRequestMethod("GET");
+                //urlConnection.setDoOutput(true);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(s);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print(responseCode);
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+                String reponseMsg=responseOutput.toString();
+                JSONObject jsonObject = new JSONObject(reponseMsg);
+                msg=jsonObject.getString("Message");
+
+                return 1;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return 0;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0;
+            }
+
+
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            progressDialog.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendMessage(msg);
+                    }
+                });
+            }
         }
     }
 }

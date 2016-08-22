@@ -144,7 +144,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         }
         citrusClient = CitrusClient.getInstance(getActivity());
         CreditCardOption creditCardOption = new CreditCardOption(cardHolderName, cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        Amount amount = new Amount(Double.toString(1.0));
+        Amount amount = new Amount(Double.toString(calulateTax(1.0)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {

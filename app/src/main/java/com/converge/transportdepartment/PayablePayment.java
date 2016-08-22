@@ -150,7 +150,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        if(!validate())
+            return ;
         switch (v.getId())
         {
             case R.id.paymentOptionsTextId:

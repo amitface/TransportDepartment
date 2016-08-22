@@ -334,6 +334,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     }
 
     private boolean val() {
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            Toast.makeText(getActivity(),"No internet avaliable",Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if(statusServer==0)
         {
             Toast.makeText(getActivity(),"Please use refresh button",Toast.LENGTH_SHORT).show();
