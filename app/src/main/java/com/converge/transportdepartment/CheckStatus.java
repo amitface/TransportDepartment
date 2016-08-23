@@ -586,11 +586,13 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId())
         {
             case R.id.eTRefNum:
                 break;
             case R.id.buttonCheckStatus:
+                if(validate())
                 getApplicant(Integer.parseInt(eTRefNum.getText().toString()),textDateofIssueStatus.getText().toString());
                 break;
             case R.id.buttonSave:
@@ -606,7 +608,25 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
         }
     }
 
-
+    private boolean validate()
+    {
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            Toast.makeText(getActivity(),"No internet connection",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(eTRefNum.getText().length()<=6)
+        {
+            Toast.makeText(getActivity(),"Reference number should be 7 digit long.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(textDateofIssueStatus.getText().length()==0)
+        {
+            Toast.makeText(getActivity(),"Date cannot be empty",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
