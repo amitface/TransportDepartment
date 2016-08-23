@@ -28,6 +28,7 @@ import com.citrus.widgets.CardNumberEditText;
 import com.citrus.widgets.ExpiryDate;
 import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.Constants;
 
 import org.json.JSONException;
@@ -63,7 +64,10 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private static final String PGInfo="PgInfo";
     private String jsonString;
     private Long applicantNum;
-
+    private String cardHolderName, cardNumber, cardCVV, md[];
+    private long appNumber;
+    private String receiptNumber, date, time, rtoCode;
+    private long aLong;
 
     public DebitCardFragment() {
         // Required empty public constructor
@@ -104,6 +108,18 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         jsonString=sharedpreferences.getString(PGInfo,"");
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+            aLong = jsonObjectData.getLong("slotDate");
+            date = ConValidation.getDateString(aLong);
+            time = jsonObjectData.getString("slotTime");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         TextView pay = (TextView) view.findViewById(R.id.textDebitload);
 
         editCardNumber = (CardNumberEditText) view
@@ -114,7 +130,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 //        cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
         editCVV = (EditText) view.findViewById(R.id.cardCvv);
 
-        alertDialogNote();
+
         pay.setOnClickListener(this);
         return  view;
     }
@@ -123,9 +139,9 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
     }
-    private  void makePayment()
-    {
 
+    private boolean validate()
+    {
         try {
             JSONObject jsonObjectData= new JSONObject(jsonString);
             applicantNum=jsonObjectData.getLong("applicantNum");
@@ -133,16 +149,21 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
             e.printStackTrace();
         }
 
-        String cardHolderName = editCardHolderName.getText().toString();
-        String cardNumber = editCardNumber.getText().toString();
-        String cardCVV = editCVV.getText().toString();
+         cardHolderName = editCardHolderName.getText().toString();
+         cardNumber = editCardNumber.getText().toString();
+         cardCVV = editCVV.getText().toString();
 
-        String md []=editExpiryDate.getText().toString().split("/");
+         md = editExpiryDate.getText().toString().split("/");
         if(cardHolderName.length()<5 || cardCVV.length()!=3 || cardNumber.length()<10 || editExpiryDate.length()==0)
         {
             Toast.makeText(getActivity(),"Enter all fields correctly",Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
+        return true;
+    }
+    private  void makePayment()
+    {
+
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
         final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
@@ -157,7 +178,8 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
                     transId= jsonObject.getString("transactionId");
                     amt= jsonObject.getString("amount");
 
-                    new PaymentReport(transId,"Paid",amt).savePayment();
+                    //Log of payment and receipt generation.
+                     new PaymentReport(transId,"Paid",amt,date,time,receiptNumber,Long.toString(appNumber), rtoCode).savePayment();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -171,7 +193,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void error(CitrusError error) {
-                Toast.makeText(getActivity(),"Payment Failed"+error.getTransactionResponse().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Payment Failed"+error.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         };
         // Init PaymentType
@@ -191,7 +213,9 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        makePayment();
+        if(validate())
+        alertDialogNote();
+
     }
 
     public void alertDialogPostReport()
@@ -215,15 +239,20 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     private void alertDialogNote()
     {
-        final String[] items = {" 0.75% + 15.0% Service Tax will be added for all debit cards","Your amount will be "+calulateTax((double) 1)};
+        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax((double) 1)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan");
         builder.setItems(items, null);
         builder.setCancelable(false);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                makePayment();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
 
@@ -233,7 +262,8 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private Double calulateTax(Double amt)
     {
         amt = amt+(amt/100)*0.75+(amt/100)*15;
-        return amt;
+
+        return (Math.round(amt * 100D)) / 100D;
     }
 
 

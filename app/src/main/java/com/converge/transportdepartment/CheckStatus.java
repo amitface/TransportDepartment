@@ -824,7 +824,9 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
                 br.close();
 //                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
                 System.out.println(responseOutput.toString());
-                jsonData=responseOutput.toString();
+                JSONObject jsonObject1 = new JSONObject(responseOutput.toString());
+                JSONObject jsonObject2 = jsonObject1.getJSONObject("retobj");
+                jsonData=jsonObject2.getString("msg");
                 return 1L;
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -863,7 +865,7 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             }
             else
             {
-                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Error "+jsonData,Toast.LENGTH_SHORT).show();
             }
         }
     }

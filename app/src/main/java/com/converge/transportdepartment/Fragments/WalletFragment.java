@@ -1,8 +1,10 @@
 package com.converge.transportdepartment.Fragments;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,8 +18,9 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -41,7 +44,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String mParam1, msg;
     private String mParam2;
 
     private EditText editUserName;
@@ -51,7 +54,16 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
+    private static final String PGInfo="PgInfo";
 
+    private String jsonString;
+    private Long applicantNum, aLong;
+    private String transId, amt;
+    Double tax;
+    private long appNumber;
+    private String receiptNumber, date, time, rtoCode, name;
+    private ProgressDialog progress;
+    private String userName, userPassword;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -95,7 +107,21 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
         editUserName = (EditText) view.findViewById(R.id.editWalletUser);
         editPassword = (EditText) view.findViewById(R.id.editWalletPassword);
         btnWallet = (Button) view.findViewById(R.id.btnWallet);
+        progress = new ProgressDialog(getActivity());
+        jsonString=sharedpreferences.getString(PGInfo,"");
 
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+            aLong = jsonObjectData.getLong("slotDate");
+            date = ConValidation.getDateString(aLong);
+            time = jsonObjectData.getString("slotTime");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         btnWallet.setOnClickListener(this);
 
@@ -104,7 +130,25 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        PayWalletRequest();
+        userName = editUserName.getText().toString();
+        userPassword = editPassword.getText().toString();
+        if(validate())
+        alertDialogNote();
+
+    }
+
+    private boolean validate()
+    {
+        if(editUserName.getText().length()<6){
+            Toast.makeText(getActivity(),"User name should length be greater then six characters ",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(editPassword.getText().length()==0)
+        {
+            Toast.makeText(getActivity(),"Password cannot be empty",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
 
@@ -115,15 +159,16 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
     private class sendWalletRequest extends AsyncTask<Void, Integer, Integer> {
 
         private final Context context;
-        private ProgressDialog progress;
+
         private static final int  MEGABYTE = 1024 * 1024;
+        String s;
 
         public sendWalletRequest(Context c) {
             this.context = c;
         }
 
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
+
             progress.setMessage("Please wait...");
             progress.setCancelable(false);
             progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -144,45 +189,12 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                 JSONObject jsonObject = new JSONObject();
 
                 JSONObject jsonData = new JSONObject();
-                JSONObject jsonlist = new JSONObject();
-                JSONObject jsonlist1 = new JSONObject();
-                JSONObject jsonlist2 = new JSONObject();
-                JSONObject jsonlist3 = new JSONObject();
 
-                jsonlist1.put("amount","1");
-                jsonlist1.put("code","11");
-                jsonlist1.put("hoa","1234456778898");
-
-
-                jsonlist2.put("amount","1");
-                jsonlist2.put("code","11");
-                jsonlist2.put("hoa","11455656");
-
-
-                jsonlist3.put("amount","1");
-                jsonlist3.put("code","11");
-                jsonlist3.put("hoa","1998878776676");
-
-                JSONArray arraylist = new JSONArray();
-                arraylist.put(jsonlist1);
-                arraylist.put(jsonlist2);
-                arraylist.put(jsonlist3);
-
-                jsonlist.put("list",arraylist);
-
-                jsonData.put("rto_code","01");
-                jsonData.put("vehicle_number","Rohit");
-                jsonData.put("applicant_name","Rohit");
-                jsonData.put("tax_type","6");
-                jsonData.put("rto_acc_no","0");
-                jsonData.put("rfu1","");
-                jsonData.put("rfu2","");
-                jsonData.put("rfu3","");
-
-                jsonData.put("ref",sharedpreferences.getString("receiptNum","").toString());
-                jsonData.put("usr","priyanka");
-                jsonData.put("pass","aes");
-                jsonData.put("data",jsonlist);
+                jsonData.put("ref",Long.toString(appNumber));
+                jsonData.put("usr",userName);
+                jsonData.put("pass",userPassword);
+                jsonData.put("tamt",Long.toString(calulateTax(1L)));
+//                jsonData.put("data",jsonlist);
 
                 String json =jsonData.toString();
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -194,7 +206,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(15000);
+                connection.setConnectTimeout(25000);
+                connection.setReadTimeout(15000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
@@ -224,6 +237,9 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                 System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
 
                 JSONObject  jsonObject1= new JSONObject(responseOutput.toString());
+                msg = jsonObject1.getString("message");
+                transId =jsonObject1.getString("transaction_id");
+                amt="1";
                 if(jsonObject1.get("status").equals("Success"))
                     return 1;
 
@@ -257,6 +273,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                     public void run() {
 //                        startActivity(new Intent(getActivity(),TestDebitPaymentActivity.class));
 //                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1")).commit();
+                        new PaymentReport(transId,"Paid",amt,date,time,receiptNumber,Long.toString(appNumber),rtoCode).savePayment();
+
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
 //                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, DebitCardFragment.newInstance("1","1")).commit();
                     }
@@ -265,9 +283,37 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
             }
             else
             {
-                Toast.makeText(getActivity(),"Payable payment failure",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
             }
         }
 
+    }
+
+    private void alertDialogNote()
+    {
+        final String[] items = {"Your amount will be Rs. "+calulateTax(1L)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                PayWalletRequest();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    private Long calulateTax(Long amt)
+    {
+        return amt;
     }
 }

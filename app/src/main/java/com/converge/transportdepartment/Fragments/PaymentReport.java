@@ -16,13 +16,18 @@ import java.net.URL;
  */
 public class PaymentReport {
 
-    String transId, status, amount;
+    String transId, status, amount, referenceId, date, time, receiptNum,rtoCode;
 
-    public PaymentReport(String transId, String status, String amount)
+    public PaymentReport(String transId, String status, String amount, String date, String time, String receiptNum, String referenceId, String rtoCode)
     {
         this.transId = transId;
         this.status = status;
         this.amount = amount;
+        this.date = date;
+        this.time = time;
+        this.receiptNum = receiptNum;
+        this.referenceId=referenceId;
+        this.rtoCode = rtoCode;
     }
 
     public void savePayment()
@@ -51,7 +56,7 @@ public class PaymentReport {
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/payment_log.php");
                 connection = (HttpURLConnection) url.openConnection();
 
-                String json = "trans_id="+transId+"&status="+status+"&payment="+amount;
+                String json = "trans_id="+transId+"&status="+status+"&payment="+amount+"&time="+time+"&date="+date+"&receiptNum="+receiptNum+"&referenceId="+referenceId+"&rtoCode="+rtoCode;
 
                 System.out.println(json);
 

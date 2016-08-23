@@ -675,7 +675,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         protected void onPreExecute() {
             progressSendMail = new ProgressDialog(this.context);
-            progressSendMail.setMessage("Please Wait");
+            progressSendMail.setMessage("Getting appointment slot please wait...");
             progressSendMail.setCancelable(false);
             progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressSendMail.setProgress(0);
@@ -794,7 +794,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                         Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         }
     }

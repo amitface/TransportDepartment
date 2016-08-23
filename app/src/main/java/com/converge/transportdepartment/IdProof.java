@@ -1043,7 +1043,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         protected void onPreExecute() {
 
-            progressDialog.setMessage("Please Wait");
+            progressDialog.setMessage("Submitting form please wait....");
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -1076,6 +1076,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
+                connection.setConnectTimeout(60000);
+                connection.setReadTimeout(60000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
@@ -1122,14 +1124,14 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                stringError=  e.toString();
                 return 0;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                stringError=  e.toString();
                 return 0;
             } catch (JSONException e) {
-                e.printStackTrace();
+                stringError=  e.toString();
                 return 0;
             }
 

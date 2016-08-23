@@ -26,6 +26,7 @@ import com.citrus.sdk.payment.PaymentType;
 import com.citrus.sdk.response.CitrusError;
 import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.Constants;
 
 import org.json.JSONException;
@@ -69,7 +70,11 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
     private String jsonString;
     private Long applicantNum;
     private String transId, amt;
+    private NetbankingOption netbankingOption;
     Double tax;
+    private long appNumber;
+    private String receiptNumber, date, time,rtoCode;
+    private long aLong;
 
 
     public NetbankingFragment() {
@@ -112,6 +117,20 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
                 Context.MODE_PRIVATE);
 
         jsonString=sharedpreferences.getString(PGInfo,"");
+
+
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+            aLong = jsonObjectData.getLong("slotDate");
+            date = ConValidation.getDateString(aLong);
+            time = jsonObjectData.getString("slotTime");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         final NetbankingAdapter netbankingAdapter = new NetbankingAdapter(getActivity(), mNetbankingOptionsList);
 
         RecyclerView recylerViewNetbanking = (RecyclerView) view.findViewById(R.id.my_recycler_view);
@@ -153,18 +172,17 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
         @Override
         public void onItemClick(View childView, int position) {
-            NetbankingOption netbankingOption = getItem(position);
+            netbankingOption = getItem(position);
 
             if(position==8)
             {
                 tax =1.70;
-                alertDialogNote(" 1.70% tax + 15% Service tax will be added to amount");
+                alertDialogNote(" 1.70% (Banking tax) + 15% Service tax will be added to amount", netbankingOption);
             }
             else{
                 tax = 1.55;
-                alertDialogNote(" 1.55% tax + 15% Service tax will be added to amount");
+                alertDialogNote(" 1.55% (Banking tax) + 15% Service tax will be added to amount", netbankingOption);
             }
-           makePayment(tax,netbankingOption);
 
         }
     }
@@ -190,7 +208,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
                     transId= jsonObject.getString("transactionId");
                     amt= jsonObject.getString("amount");
 
-                    new PaymentReport(transId,"Paid",amt).savePayment();
+                    new PaymentReport(transId,"Paid",amt,date,time,receiptNumber,Long.toString(appNumber), rtoCode).savePayment();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -203,8 +221,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void error(CitrusError error) {
-//                        ((UIActivity) getActivity()).showSnackBar(error.getMessage());
-                Toast.makeText(getActivity(),"Failure"+error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Payment Failed"+error.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         };
 
@@ -253,16 +270,22 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void alertDialogNote(String s)
+    private void alertDialogNote(String s, final NetbankingOption netbankingOption)
     {
-        final String[] items = {s,"Your final amount will be"+calulateTax(1.0,tax)};
+        final String[] items = {s,"Your final amount will be Rs "+calulateTax(1.0,tax)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");
         builder.setItems(items, null);
         builder.setCancelable(false);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                makePayment(tax,netbankingOption);
+            }
+        });
+
+        builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
 
             }
         });
@@ -274,7 +297,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
     private Double calulateTax(Double amt,Double tax)
     {
         amt = amt+(amt/100)*tax+(amt/100)*15;
-        return amt;
+        return (Math.round(amt * 100D)) / 100D;
     }
 }
 

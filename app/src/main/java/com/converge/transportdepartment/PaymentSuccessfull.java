@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 import org.json.JSONException;
@@ -146,6 +147,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        ConValidation.hideKeyboard(getContext());
         progressDialog = new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
         try {
@@ -166,7 +169,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText("Application Form : "+appNumber);
-        textReceipt.setText("Receipt No.      : R"+receiptNumber);
+        textReceipt.setText("Receipt No.      : "+receiptNumber);
         int fee= totalFee();
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
@@ -188,7 +191,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
                         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
                         {
-
                             new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
                         }
 
@@ -406,6 +408,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 
     public void downloadPdf() {
 //        showProgress();

@@ -249,6 +249,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        progressDialog = new ProgressDialog(getActivity());
 
         jsonString = sharedpreferences.getString(PGInfo, "");
         TextView textfee = (TextView) view.findViewById(R.id.textfee);
@@ -756,7 +757,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         }
 
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(this.context);
+
             progressDialog.setMessage("Please wait ...");
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

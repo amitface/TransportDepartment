@@ -1637,6 +1637,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
             js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
 
+
             js.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
             js.put("email",meditViewEmail.getText().toString());
         } catch (JSONException e) {

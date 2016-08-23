@@ -1,6 +1,5 @@
 package com.converge.transportdepartment;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,11 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.ActivityFragments.NoPaymentFragment;
 import com.converge.transportdepartment.Fragments.CreditCardFragment;
 import com.converge.transportdepartment.Fragments.DebitCardFragment;
 import com.converge.transportdepartment.Fragments.NetbankingFragment;
-import com.converge.transportdepartment.ActivityFragments.NoPaymentFragment;
-import com.converge.transportdepartment.Fragments.WalletWebViewFragment;
+import com.converge.transportdepartment.Fragments.WalletFragment;
 import com.converge.transportdepartment.Utility.ConValidation;
 
 import org.json.JSONArray;
@@ -116,7 +114,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        hideKeyboard(getContext());
+        ConValidation.hideKeyboard(getContext());
 
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         pgoption=0;
@@ -235,8 +233,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NetbankingFragment.newInstance("1","1"),"NetBanking").commit();
         }else if(pgoption==4)
         {
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletWebViewFragment.newInstance(sharedpreferences.getString("receiptNum",""),"1"),"Wallet").commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletFragment.newInstance("1","1"),"Wallet").commit();
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, WalletWebViewFragment.newInstance(sharedpreferences.getString("receiptNum",""),"1"),"Wallet").commit();
         }
     }
 
@@ -251,17 +249,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         return len;
     }
 
-    public static void hideKeyboard(Context ctx) {
-        InputMethodManager inputManager = (InputMethodManager) ctx
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        // check if no view has focus:
-        View v = ((Activity) ctx).getCurrentFocus();
-        if (v == null)
-            return;
-
-        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -469,7 +457,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
     public void sendMessage()
     {
-        new sendMsg(getActivity()).execute();
+//        new sendMsg(getActivity()).execute();
     }
 
     private class sendMsg extends AsyncTask<Void, Integer, Integer> {
