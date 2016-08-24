@@ -1061,22 +1061,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-            showToast("only digit allowed in Present Years");
+            showToast("only digits allowed in Present Years");
 
             showPremanent();
 
-            meditTextPermanentYear.setError("only digit allowed in Present Years");
+            meditTextPermanentYear.setError("only digits allowed in Present Years");
             meditTextPermanentYear.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit inPresent Months");
+            showToast("only digits allowed in Present Months");
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("only digit in Months");
+            meditTextPermanentMonth.setError("only digits allowed in Months");
             meditTextPermanentMonth.requestFocus();
 
             return false;
@@ -1103,31 +1103,31 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digits in Month");
+            showToast("only digits allowed in Present Month");
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("only digit in Present  Month");
+            meditTextPermanentMonth.setError("only digits allowed in Month");
             meditTextPermanentMonth.requestFocus();
 
             return false;
         }
         else if(meditTextPermanentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid Moblie Number ");
+            showToast("Mobile Number should have 10 digits");
 
             showPremanent();
 
-            meditTextPermanentMoblieNo.setError("Invalid Present Moblie Number");
+            meditTextPermanentMoblieNo.setError("Mobile Number should have 10 digits");
             meditTextPermanentMoblieNo.requestFocus();
 
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
         {
-            showToast("only digits allowed in Mobile number");
+            showToast("only digits allowed in Mobile Number");
             showPremanent();
-            meditTextPermanentMoblieNo.setError("only digits allowed in Mobile number");
+            meditTextPermanentMoblieNo.setError("only digits allowed in Mobile Number");
             meditTextPermanentMoblieNo.requestFocus();
             return false;
         }
@@ -1188,11 +1188,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(validation.hasText(meditTextPresentMonth) && !validation.isPhoneNumber(meditTextPresentMonth,true))
         {
-            showToast("only digit in Months");
+            showToast("only digits allowed in Months");
 
             showPresent();
 
-            meditTextPresentMonth.setError("only digit in Months");
+            meditTextPresentMonth.setError("only digits allowed in Months");
             meditTextPresentMonth.requestFocus();
 
             return false;
@@ -1214,18 +1214,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPresent();
 
-            meditTextPresentPinCode.setError("Digits only in Pincode ");
+            meditTextPresentPinCode.setError("Digits only in Pincode");
             meditTextPresentPinCode.requestFocus();
 
             return false;
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid Permanent Mobile Number ");
+            showToast("Mobile number should have 10 digits");
 
             showPresent();
 
-            meditTextPresentMoblieNo.setError("Invalid Permanent Mobile Number ");
+            meditTextPresentMoblieNo.setError("Mobile number should have 10 digits");
             meditTextPresentMoblieNo.requestFocus();
 
             return false;

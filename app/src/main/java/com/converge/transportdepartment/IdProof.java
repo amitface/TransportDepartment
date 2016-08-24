@@ -428,9 +428,17 @@ public class IdProof extends Fragment implements View.OnClickListener{
             {
                 rCNumber.setVisibility(View.VISIBLE);
                 inValidStatus=true;
+                break;
             }
         }
 
+        checkTrasport();
+        retrivesession();
+
+    }
+
+    private void checkTrasport()
+    {
         for(int i = 0; i<covTCode.length;i++)
         {
             for(int j =0;j<arrCov.length;j++)
@@ -439,12 +447,10 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     Toast.makeText(getActivity(),"Driving license is compulsory for Transport vehicle.",Toast.LENGTH_LONG).show();
                     Toast.makeText(getActivity(),"Driving license issue date should be, 1 year less than current date",Toast.LENGTH_LONG).show();
                     dlStatus= true;
+                    return;
                 }
         }
-        retrivesession();
-
     }
-
     private boolean validate() {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
