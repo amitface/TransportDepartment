@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
@@ -37,13 +35,6 @@ import com.converge.transportdepartment.Utility.ConValidation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -191,26 +182,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private ImageView buttonNextPersonalDetails;
     private ImageView buttonClearPersonalDetails;
     private ImageView buttonBackPersonalDetails;
-
-
-    private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
-    private String usr_email, usr_qualification, usr_dob, usr_gender;
-    private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
-
-
-    private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
-    private int int_apply_class, int_dob ;
-
-    private String vehicleClass[] = {"Motor cycle without gear for less then 50cc",
-            "Motor cycle without grear",
-            "Motor cycle withgear",
-            "Light Motor Vehicle Non Transport",
-            "Light Motor Vehicle-Auto Riksha Non Transport",
-            "LMC Trackor Trailer",
-            "IVC"};
-
-
-    private Spinner mspinner;
 
     private OnFragmentInteractionListener mListener;
     public static final String PREFS_NAME = "MyTransportFile";
@@ -429,18 +400,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             }
         });
 
-//        meditViewYear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickPersonalDetails(v);
-//            }
-//        });
-//        meditViewMonth.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickPersonalDetails(v);
-//            }
-//        });
     }
 
 
@@ -884,28 +843,26 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             meditViewApplicantLastName.setError("Enter applicant last name");
             meditViewApplicantLastName.requestFocus();
-//            meditViewApplicantLastName.requestFocus();
-
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
         {
-            showToast("Only aplhabets  allowed in Name ");
+            showToast("Only aplhabets  allowed in the Name ");
 
             showPersonalDetail();
 
-            meditViewApplicantFirstName.setError("Only aplhabets  allowed in Name ");
+            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name ");
             meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
         else if(mtextViewDate.getText().length()==0)
         {
-            showToast("Select DOB");
+            showToast("Enter Date of Birth");
 
             showPersonalDetail();
 
-            mtextViewDate.setError("Select DOB");
+            mtextViewDate.setError("Enter Date of Birth");
             mtextViewDate.requestFocus();
 
             return false;
@@ -913,42 +870,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(mspinnerGender.getSelectedItemPosition()==0)
         {
             showToast("Select Gender");
-
             showPersonalDetail();
-
-//            mspinnerGender.setError("Select Gender");
             mspinnerGender.requestFocus();
 
             return false;
         }
 
-//        else if(validation.hasText(meditViewPlaceOfBirth) && !validation.isPhoneNumber(meditViewPlaceOfBirth,true))
-//        {
-//                showToast("only digit in phone number");
-//                return false;
-//        }
-//        else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,false))
-//        {
-//            showToast("year & month only digit ");
-//
-//            showPersonalDetail();
-//
-//            meditViewYear.setError("year & month only digit");
-//            meditViewYear.requestFocus();
-//
-//            return false;
-//        }
-//        else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,false))
-//        {
-////            showToast("year & month only digit ");
-////
-////            showPersonalDetail();
-////
-////            meditViewMonth.setError("year & month only digit");
-////            meditViewMonth.requestFocus();
-////
-////            return false;
-//        }
         else if(mspinnerCountry.getSelectedItemPosition()==0)
         {
             showToast("Select Country of Birth");
@@ -984,22 +911,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditViewEmail.getText().length()==0)
         {
-            showToast("Enter email");
+            showToast("Enter valid Email Id");
 
             showPersonalDetail();
 
-            meditViewEmail.setError("Enter email");
+            meditViewEmail.setError("Enter Email");
             meditViewEmail.requestFocus();
 
             return false;
         }
         else if(!validation.isEmailAddress(meditViewEmail,true))
         {
-            showToast("Email not correct");
+            showToast("Enter valid Email Id");
 
             showPersonalDetail();
 
-            meditViewEmail.setError("Email not correct");
+            meditViewEmail.setError("Enter valid Email Id");
             meditViewEmail.requestFocus();
 
             return false;
@@ -1019,32 +946,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         else if(mspinnerGender.getSelectedItemPosition()==1 && mspinnerRelationshipType.getSelectedItemPosition()==2)
         {
             showToast("RelationType and Gender Does not match");
-
             showPersonalDetail();
-
-//            mspinnerGender.setError("RelationType and Gender Does not match");
             mspinnerGender.requestFocus();
-
             return false;
         }
-        /*else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
-        {
-            showToast("RelationType and Gender Does not match");
 
-            showPersonalDetail();
-
-//            mspinnerGender.setError("RelationType and Gender Does not match");
-            mspinnerGender.requestFocus();
-
-            return false;
-        }*/
         else if(meditViewApplicantRelationsName.getText().length()==0)
         {
-            showToast("Enter applicant relative name");
+            showToast("Enter applicant relative first name");
 
             showPersonalDetail();
 
-            meditViewApplicantRelationsName.setError("Enter applicant relative name");
+            meditViewApplicantRelationsName.setError("Enter applicant relative first name");
             meditViewApplicantRelationsName.requestFocus();
 
             return false;
@@ -1060,61 +973,54 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             return false;
         }
-        else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
+        else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) )
         {
-            showToast("Only aplhabets  allowed in Relations Name ");
+            showToast("Only aplhabets allowed in the Name");
 
             showPersonalDetail();
 
-            meditViewApplicantFirstName.setError("Only aplhabets  allowed");
+            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name");
             meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
+        else if(!validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()))
+        {
+            showToast("Only aplhabets allowed in the Name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsName.requestFocus();
+        }
+        else if(!validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
+        {
+            showToast("Only aplhabets allowed in the Name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsLastName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsLastName.requestFocus();
+        }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
-            showToast("At least one field required in Present Address");
+            showToast("Atleast one field required in Present Address");
 
             showPremanent();
 
-            meditTextPermanentFlatNum.setError("At least one field required in Present Address");
+            meditTextPermanentFlatNum.setError("Atleast one field required in Present Address");
             meditTextPermanentFlatNum.requestFocus();
 
-//            showToast("Flat number cannot be empty");
+
             return false;
         }
-//        else if(meditTextPermanentHouseName.getText().length()==0)
-//        {
-//            showToast("House name cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentHouseNum.getText().length()==0)
-//        {
-//            showToast("House number cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentStreet.getText().length()==0)
-//        {
-//            showToast("Street cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentLocality.getText().length()==0)
-//        {
-//            showToast("Locality cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentvillage.getText().length()==0)
-//        {
-//            showToast("Permanent village cannot be empty");
-//            return false;
-//        }
+
         else if( meditTextPermanentTaluka.getSelectedItemPosition()==0)
         {
             showToast("Present Taluka cannot be empty");
 
             showPremanent();
 
-//            meditTextPermanentTaluka.setError("Present Taluka cannot be empty");
             meditTextPermanentTaluka.requestFocus();
 
             return false;
@@ -1148,18 +1054,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("Years cannot be empty");
+            meditTextPermanentMonth.setError("Present month cannot be empty");
             meditTextPermanentMonth.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-            showToast("only digit in Present Years");
+            showToast("only digit allowed in Present Years");
 
             showPremanent();
 
-            meditTextPermanentYear.setError("only digit in Years");
+            meditTextPermanentYear.setError("only digit allowed in Present Years");
             meditTextPermanentYear.requestFocus();
 
             return false;
@@ -1197,7 +1103,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit in Month");
+            showToast("only digits in Month");
 
             showPremanent();
 
@@ -1219,58 +1125,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
         {
-            showToast("only digit in Mobile number");
-
+            showToast("only digits allowed in Mobile number");
             showPremanent();
-
-            meditTextPermanentMoblieNo.setError("only digit in Present Mobile number");
+            meditTextPermanentMoblieNo.setError("only digits allowed in Mobile number");
             meditTextPermanentMoblieNo.requestFocus();
-
             return false;
         }
 
         else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
             showToast("At least one field required in Permanent Address");
-
             showPresent();
-
             meditTextPresentFlatNum.setError("At least one field required in Permanent Address");
             meditTextPresentFlatNum.requestFocus();
-
-//            showToast("Flat number cannot be empty");
             return false;
         }
-//        else if(meditTextPresentHouseName.getText().length()==0)
-//        {
-//            showToast("House name cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentHouseNum.getText().length()==0)
-//        {
-//            showToast("House number cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentStreet.getText().length()==0)
-//        {
-//            showToast("Street cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentLocality.getText().length()==0)
-//        {
-//            showToast("Locality cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentvillage.getText().length()==0)
-//        {
-//            showToast("Present village cannot be empty");
-//            return false;
-//        }
-//        else if( meditTextPresentTaluka.getText().length()==0)
-//        {
-//            showToast("Present Taluka cannot be empty");
-//            return false;
-//        }
+
         else if(meditTextPresentDistrict.getText().length()==0)
         {
             showToast("Permanent District cannot be empty");
@@ -1284,20 +1154,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
-            showToast("Select  Permanent State ");
+            showToast("Select Permanent State ");
 
             showPresent();
 
-            spinnerPresentState_text.setError("Select  Permanent State");
+            spinnerPresentState_text.setError("Select Permanent State");
             spinnerPresentState_text.requestFocus();
 
             return false;
         }
-//        else if(meditTextPresentvillage.getText().length()==0)
-//        {
-//            showToast("Present village cannot be empty");
-//            return false;
-//        }
+
         else if(meditTextPresentYear.getText().length()==0)
         {
             showToast("Years cannot be empty");
@@ -1333,11 +1199,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPresentPinCode.getText().length()<6)
         {
-            showToast("Invalid Present Pincode ");
+            showToast("Invalid Permanent Pincode ");
 
             showPresent();
 
-            meditTextPresentPinCode.setError("Invalid Present Pincode ");
+            meditTextPresentPinCode.setError("Invalid Permanent Pincode ");
             meditTextPresentPinCode.requestFocus();
 
             return false;
@@ -1355,22 +1221,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid  Permanent Moblie Number ");
+            showToast("Invalid Permanent Mobile Number ");
 
             showPresent();
 
-            meditTextPresentMoblieNo.setError("Invalid  Permanent Moblie Number ");
+            meditTextPresentMoblieNo.setError("Invalid Permanent Mobile Number ");
             meditTextPresentMoblieNo.requestFocus();
 
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
         {
-            showToast("Digits only in mobile number ");
+            showToast("Only digits allowed in mobile number ");
 
             showPresent();
 
-            meditTextPresentMoblieNo.setError("Digits only in mobile number");
+            meditTextPresentMoblieNo.setError("Only digits allowed in mobile number");
             meditTextPresentMoblieNo.requestFocus();
 
             return false;
@@ -1415,7 +1281,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Select BloodGroup");
 
             showOtherInfo();
-
 //            mspinnerBloodGroup.setError("Select BloodGroup");
             mspinnerBloodGroup.requestFocus();
 
@@ -1646,29 +1511,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         return js.toString();
     }
 
-    private boolean textFieldValidation()
-    {
-        if(usr_fname.length()<1 ||  usr_lname.length() <1 ||  usr_father_name.length() <1 || usr_email.length()<1 || usr_mobile.length()<1 ||
-                usr_pincode.length()<1 || usr_address.length()<1 || usr_feeamnt.length()<1 || usr_city.length()<1 || usr_district.length()<1){
-            showToast("Enter All fields");
-            return false;
-        }
-        else if( int_relation_type == 0 || int_qualification== 0 || int_gender== 0 ||
-                int_idmark== 0 || int_blood_gr== 0 || int_blood_rh== 0
-                ){
-            showToast("Enter All Drop DownItem");
-            return false;
-        }
-        else if( usr_dob.length()<1)
-        {
-            showToast("Enter Date");
-            return false;
-        }
-
-
-        return true;
-
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -1882,101 +1724,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
-    public void sendPostRequest(View View) {
-        new PostClass(getActivity()).execute();
-    }
 
-    private class PostClass extends AsyncTask<String, Void, Void> {
-
-        private final Context context;
-
-        public PostClass(Context c) {
-            this.context = c;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Loading");
-            progress.show();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-
-
-                URL url = new URL("http://103.27.233.206/learningLicense/user_registration.php/");
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlParameters =
-                        "usr_fname=" + usr_fname + "&" + "usr_lname=" + usr_lname + "& " + "usr_relation_type=" + usr_relation_type + "&" + "usr_father_name=" + usr_father_name + "&" +
-                                "usr_address=" + usr_address + "&" + "usr_city= " + usr_city + "&" +
-                                "usr_district=" + usr_district + "&" + "usr_pincode=" + usr_pincode + "&" + "usr_apply_class=" + usr_apply_class + "&" + "usr_mobile=" + usr_mobile + "&" +
-                                "usr_email=" + usr_email + "&" + "usr_qualification=" + usr_qualification + "&" + "usr_dob=" + usr_dob + "&" + "usr_gender=" + usr_gender + "&"
-                                + "usr_blood_gr=" + usr_blood_gr + "&" + "usr_blood_rh=" + usr_blood_rh + "&" + "usr_idmark=" + usr_idmark + "& " + "usr_feeamnt=" + usr_feeamnt + "&" +
-                                "usr_status=" + usr_status;
-
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setDoOutput(true);
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
-                dStream.flush();
-                dStream.close();
-                int responseCode = connection.getResponseCode();
-
-
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                br.close();
-
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
-                String responseDetail= responseOutput.toString();
-                String detail[] =responseDetail.split(",");
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                String ref[] = detail[2].split(":");
-                editor.putString("receiptNum",ref[1].substring(0, 10));
-                String ref2[]=detail[1].split(":");
-                editor.putString("referenceId",ref2[1].substring(1,15));
-                editor.commit();
-                progress.dismiss();
-                Message msgObj = handler.obtainMessage();
-                Bundle b = new Bundle();
-                b.putInt("num", 1);
-                msgObj.setData(b);
-                handler.sendMessage(msgObj);
-//                getActivity().runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-////                        outputView.setText(output);
-////                        Toast.makeText(getActivity(),output.toString(),Toast.LENGTH_LONG).show();
-//                        Log.d("Rsponse   ", output.toString());
-//                        progress.dismiss();
-//                    }
-//                });
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 }
 
 

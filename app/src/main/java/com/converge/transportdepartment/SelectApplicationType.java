@@ -184,7 +184,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("1", "1")).commit();
                 }
                 else
-                Toast.makeText(getActivity(),"Select at least one class",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select atleast one class of vehicle",Toast.LENGTH_LONG).show();
                 break;
             case R.id.buttonClearSelectApplication:
                 clear(view);
@@ -481,8 +481,6 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         mCheckBox.put(17,false);
         mCheckBox.put(18,false);
         Save();
-        Toast.makeText(getActivity(),"clear",Toast.LENGTH_LONG).show();
-
     }
 
     @Override

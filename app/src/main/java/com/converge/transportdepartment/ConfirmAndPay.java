@@ -664,7 +664,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private boolean validate() {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
-            showToast("Please check internet connection ...");
+            showToast("No internet connection...");
             return false;
         }
         return true;
@@ -854,7 +854,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                     @Override
                     public void run() {
                         //Your code to run in GUI thread here
-                        showToast("failure");
+                        showToast("Payment failed");
                     }//public void run() {
                 });
             }

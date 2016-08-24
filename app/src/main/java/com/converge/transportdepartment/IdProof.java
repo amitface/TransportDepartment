@@ -448,7 +448,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private boolean validate() {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
-            showToast("Please check internet connection ...");
+            showToast("No internet connection...");
             return false;
         }
         if(inValidStatus==true && rCNumber.getText().length()<=6 )
@@ -537,7 +537,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     count++;
                     tableLayout4.setVisibility(View.VISIBLE);
                 } else if (count == 3) {
-                    showToast("Cannot Add More");
+                    showToast("Cannot exceed limit of 4 Id proof");
                 }
                 break;
             case R.id.buttonRemove:

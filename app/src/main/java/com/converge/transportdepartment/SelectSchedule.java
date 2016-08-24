@@ -341,11 +341,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
         if(statusServer==0)
         {
-            Toast.makeText(getActivity(),"Please use refresh button",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"No appointment slot available for selected date,time",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Please Refresh Data",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(slotDate==-1 || slotNumber==-1L || slotTime==null) {
-            Toast.makeText(getActivity(),"Please select at least one slot",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Please select atleast one slot",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

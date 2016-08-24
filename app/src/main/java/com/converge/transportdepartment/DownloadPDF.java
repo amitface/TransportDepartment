@@ -147,7 +147,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Please check network connection...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"No internet connection...",Toast.LENGTH_SHORT).show();
                 }
             }
         });

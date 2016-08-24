@@ -206,7 +206,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         if(Validation.isEmailAddress(editText,true)) {
                             emailToSend = editText.getText().toString();
                             new SendMail(getActivity()).execute();
-                            alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+                            alertDialogPostReport("1.Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
                         }
                     }
                 });
@@ -436,7 +436,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                alertDialogPostReport("Documents (PDF) for  Fee Receipt   can be accessed from your Mobile Device from this location – M-Parivahan");
+                alertDialogPostReport("Documents (PDF) for  Fee Receipt can be accessed from your Mobile Device from this location – M-Parivahan");
             }
         });
     }

@@ -118,16 +118,23 @@ public class RtoLocatorFragment extends Fragment implements View.OnClickListener
                             System.out.println("rtoLat[position]  ==" + rtoLat[position]);
                             System.out.println("rtoLong[position]  ==" + rtoLong[position]);
 
+
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
                         }
 
                     }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Latitude or Longitude parameter missing",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Please check network connection...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"No internet connection...",Toast.LENGTH_SHORT).show();
                 }
             }
 
