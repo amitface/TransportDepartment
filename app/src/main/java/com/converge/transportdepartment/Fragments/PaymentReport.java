@@ -2,6 +2,8 @@ package com.converge.transportdepartment.Fragments;
 
 import android.os.AsyncTask;
 
+import com.converge.transportdepartment.Utility.Links;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -38,22 +40,18 @@ public class PaymentReport {
     //For Converge server
     private class savePaymentToServer extends AsyncTask<Void, Integer, Long>
     {
-
-
-
         public savePaymentToServer() {
 
         }
-
         protected void onPreExecute() {
 
         }
-
         @Override
         protected Long doInBackground(Void... params) {
             HttpURLConnection connection=null;
             try{
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/payment_log.php");
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/payment_log.php");
+                URL url = new URL(Links.paymentReport);
                 connection = (HttpURLConnection) url.openConnection();
 
                 String json = "trans_id="+transId+"&status="+status+"&payment="+amount+"&time="+time+"&date="+date+"&receiptNum="+receiptNum+"&referenceId="+referenceId+"&rtoCode="+rtoCode;
@@ -101,7 +99,6 @@ public class PaymentReport {
                 e.printStackTrace();
                 return 0L;
             }
-
         }
 
         protected void onProgressUpdate(Integer... percent) {
@@ -109,7 +106,6 @@ public class PaymentReport {
         }
 
         protected void onPostExecute(Long result) {
-
 
         }
     }

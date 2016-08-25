@@ -583,8 +583,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             else
                 mspinnerPermanentState .setSelection(1);
 
-            meditTextPermanentMonth.setText(c.getString(25));
-            meditTextPermanentYear.setText(c.getString(26));
+            meditTextPermanentYear.setText(c.getString(25));
+            meditTextPermanentMonth.setText(c.getString(26));
             meditTextPermanentPinCode.setText(c.getString(27));
             meditTextPermanentMoblieNo.setText(c.getString(28));
 
@@ -603,8 +603,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             else
                 mspinnerPresentState.setSelection(1);
 
-            meditTextPresentMonth.setText(c.getString(38));
-            meditTextPresentYear.setText(c.getString(39));
+            meditTextPresentYear.setText(c.getString(38));
+            meditTextPresentMonth.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
             meditTextPresentMoblieNo.setText(c.getString(41));
 //
@@ -992,6 +992,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             meditViewApplicantRelationsName.setError("Only aplhabets allowed in the Name");
             meditViewApplicantRelationsName.requestFocus();
+            return false;
         }
         else if(!validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
         {
@@ -1001,6 +1002,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             meditViewApplicantRelationsLastName.setError("Only aplhabets allowed in the Name");
             meditViewApplicantRelationsLastName.requestFocus();
+            return false;
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
@@ -1010,8 +1012,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             meditTextPermanentFlatNum.setError("Atleast one field required in Present Address");
             meditTextPermanentFlatNum.requestFocus();
-
-
             return false;
         }
 
@@ -1050,11 +1050,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
         {
-            showToast("Present Years cannot be empty");
+            showToast("Present Month cannot be empty");
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("Present month cannot be empty");
+            meditTextPermanentMonth.setError("Present Month cannot be empty");
             meditTextPermanentMonth.requestFocus();
 
             return false;
@@ -1083,11 +1083,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
-            showToast("Invalid Present Pincode format");
+            showToast("Only digits allowed in Pincode");
 
             showPremanent();
 
-            meditTextPermanentPinCode.setError("Invalid Pincode format");
+            meditTextPermanentPinCode.setError("Only digits allowed in Pincode");
             meditTextPermanentPinCode.requestFocus();
 
             return false;
@@ -1224,10 +1224,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Mobile number should have 10 digits");
 
             showPresent();
-
             meditTextPresentMoblieNo.setError("Mobile number should have 10 digits");
             meditTextPresentMoblieNo.requestFocus();
-
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
@@ -1238,7 +1236,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
             meditTextPresentMoblieNo.setError("Only digits allowed in mobile number");
             meditTextPresentMoblieNo.requestFocus();
-
             return false;
         }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
@@ -1246,10 +1243,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Select Qualification");
 
             showOtherInfo();
-
             spinnerQualification_text.setError("Select Qualification");
             spinnerQualification_text.requestFocus();
-
             return false;
         }
         else if(mspinnerIdmark.getSelectedItemPosition()==0)
@@ -1257,10 +1252,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Select Id Mark");
 
             showOtherInfo();
-
             spinnerIdmark_text.setError("Select Id Mark");
             spinnerIdmark_text.requestFocus();
-
             return false;
         }
 
@@ -1281,9 +1274,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             showToast("Select BloodGroup");
 
             showOtherInfo();
-//            mspinnerBloodGroup.setError("Select BloodGroup");
             mspinnerBloodGroup.requestFocus();
-
             return false;
         }
         return true;

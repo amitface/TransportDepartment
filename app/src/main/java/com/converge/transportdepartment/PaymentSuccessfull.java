@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 import org.json.JSONException;
@@ -225,7 +226,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         downloadPdf();
                     }
                 });
-        deleteSession();
+//        deleteSession();
 
         return view;
     }
@@ -414,7 +415,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     public void downloadPdf() {
 //        showProgress();
 //        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+"LL_Cash_Receipt.pdf");
+        Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+appNumber+"LL_Cash_Receipt.pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -443,7 +444,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void downloadPdfForm() {
 //        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+".pdf");
+        Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+appNumber+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -580,8 +581,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try{
 
                 int  MEGABYTE = 1024 * 1024;
-//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
-                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
+
+//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
+                URL email = new URL(Links.sendMail);
                 String s="referenceId=" +appNumber+
                         "&email="+emailToSend;
 
@@ -977,8 +979,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void sendMessage(String s)
     {
-        new sendFormMsg(getActivity()).execute();
-        new sendRtoMsg(getActivity(),s).execute();
+        new sendFormMsg(getActivity()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new sendRtoMsg(getActivity(),s).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class sendRtoMsg extends AsyncTask<Void, Integer, Integer> {
@@ -1004,7 +1006,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+                URL url = new URL(Links.sendRtoSms);
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -1082,8 +1084,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-//                URL url = new URL(" http://103.27.233.206/sendsms/");
-                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+//                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+                URL url = new URL(Links.sendFormSms);
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -1168,7 +1170,8 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
 
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+                URL url = new URL(Links.getAddress);
 
                 String s="rtocode="+rtoCode;
 

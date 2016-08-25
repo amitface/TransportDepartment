@@ -163,7 +163,6 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     }
     private  void makePayment()
     {
-
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
         final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
@@ -187,7 +186,6 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
                 {
                     e.printStackTrace();
                 }
-
                 alertDialogPostReport();
             }
 

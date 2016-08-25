@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.BackGroundTasks;
 import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -312,12 +313,10 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 if (validate()) {
                     sendPostRequest();
 //                    saveSharedPreference();
-
-
                 }
                 break;
             case R.id.buttonBackConfirmAndPay:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2","1")).commit();
                 break;
             case R.id.imageViewDatePickerC:
                 DialogFragment newFragment = new DatePickerFragment();
@@ -614,8 +613,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
             if (c.getString(24).length() > 0)
                 mspinnerPermanentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(24))]);
 
-            meditTextPermanentMonth.setText(c.getString(25));
-            meditTextPermanentYear.setText(c.getString(26));
+            meditTextPermanentYear.setText(c.getString(25));
+            meditTextPermanentMonth.setText(c.getString(26));
             meditTextPermanentPinCode.setText(c.getString(27));
             meditTextPermanentMoblieNo.setText(c.getString(28));
 
@@ -631,12 +630,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
             if (c.getString(37).length() > 0)
                 mspinnerPresentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(37))]);
 
-            meditTextPresentMonth.setText(c.getString(38));
-            meditTextPresentYear.setText(c.getString(39));
+            meditTextPresentYear.setText(c.getString(38));
+            meditTextPresentMonth.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
             meditTextPresentMoblieNo.setText(c.getString(41));
-//
-//
+
             if (c.getString(42).length() > 0)
                 mspinnerCitizenship.setText(getResources().getStringArray(R.array.Citizenship)[Integer.parseInt(c.getString(42))]);
 
@@ -768,8 +766,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         @Override
         protected Integer doInBackground(String... params) {
             try {
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
-
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
+//                URL url = new URL("http://220.227.134.18:8081/m_parivahan_odisha/user_registration.php");
+                    URL url = new URL(Links.userRegistration);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                     JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));

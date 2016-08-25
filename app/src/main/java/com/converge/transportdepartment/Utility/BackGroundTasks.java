@@ -39,7 +39,8 @@ public class BackGroundTasks {
         protected Integer doInBackground(String... params) {
             try {
 
-                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_noreceipt.php?");
+//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_noreceipt.php");
+                URL email = new URL(Links.noReceiptMail);
 //                String s1 = "referenceId=" + appNumber +
 //                        "&email=amit.choudhary@cnvg.in";
 

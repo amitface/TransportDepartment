@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.HomeFragment;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 import com.converge.transportdepartment.Validation;
 
@@ -197,7 +198,7 @@ public class NoPaymentFragment extends Fragment {
             }
         });
 
-        deleteSession();
+//        deleteSession();
         return view;
     }
 
@@ -363,7 +364,7 @@ public class NoPaymentFragment extends Fragment {
     };
 
     public void downloadPdfForm() {
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+appNumber+".pdf");
+        Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+appNumber+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.
@@ -413,7 +414,7 @@ public class NoPaymentFragment extends Fragment {
         protected Long doInBackground(Void... params) {
             try{
 
-                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_noreceipt.php?");
+                URL email = new URL(Links.noReceiptMail);
                 String s="referenceId=" +appNumber+
                         "&email="+emailToSend;
 
@@ -524,7 +525,7 @@ public class NoPaymentFragment extends Fragment {
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+                URL url = new URL(Links.sendRtoSms);
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -603,7 +604,7 @@ public class NoPaymentFragment extends Fragment {
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
 //                URL url = new URL(" http://103.27.233.206/sendsms/");
-                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+                URL url = new URL(Links.sendFormSms);
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -688,7 +689,7 @@ public class NoPaymentFragment extends Fragment {
             try
             {
 
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
+                URL url = new URL(Links.getAddress);
 
                 String s="rtocode="+rtoCode;
 

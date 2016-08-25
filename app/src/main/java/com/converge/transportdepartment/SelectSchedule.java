@@ -734,6 +734,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                     JSONObject jsonObject = new JSONObject(responseOutput.toString());
                     if(jsonObject.getInt("errorCd")!=0)
                     {
+                        if(jsonObject.getInt("errorCd")==-2)
+                        {
+                            jsonDataSaveSlot = jsonObject.getString("msg");
+                            return 2L;
+                        }
                         jsonDataSaveSlot = jsonObject.getString("msg");
                         return 0L;
                     }
@@ -742,7 +747,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                         jsonDataSaveSlot = jsonObject.getString("msg");
                         return 1L;
                     }
-
             }catch (FileNotFoundException e) {
                 jsonDataSaveSlot =e.toString();
                 return 0L;
@@ -786,12 +790,24 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                     }
                 });
             }
+            else if(result==2)
+            {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new saveApplicantSlotToServer(getActivity(),0).execute();
+                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
             else
             {
 //                new saveApplicantSlotToServer(getActivity(),0).execute();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
                     }
                 });
