@@ -178,6 +178,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onStop()
+    {
+        super.onStop();
+        progress.dismiss();
+    }
+    @Override
     public void onDestroy()
     {
         super.onDestroy();
@@ -545,6 +551,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             HttpURLConnection connection=null;
             try{
 
+//                URL url = new URL(Links.saveSlotSCServer);
                 URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/fetch_slot.php");
 
                 connection = (HttpURLConnection) url.openConnection();

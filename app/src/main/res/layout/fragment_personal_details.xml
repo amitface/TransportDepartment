@@ -199,7 +199,8 @@
                             android:gravity="center_horizontal"
 
                             android:background="@drawable/edit_text_personal_details"
-                            />
+                            android:layout_toRightOf="@+id/imageViewDatePicker"
+                            android:layout_toEndOf="@+id/imageViewDatePicker" />
                     </RelativeLayout>
 
                     <Spinner
