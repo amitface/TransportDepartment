@@ -17,6 +17,7 @@
         android:text="@string/mandatory_fields"/>
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
@@ -44,6 +45,14 @@
                 android:background="@drawable/gradient_spinner"
                 android:spinnerMode="dialog"
                 android:layout_span="3" />
+
+            <EditText
+                android:id="@+id/setectRto_text"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="end"
+                android:text=""
+                android:layout_gravity="right" />
 
              <RelativeLayout
                 android:id="@+id/linearlayoutPersonalDetail"
@@ -159,13 +168,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
-
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
                         android:text="@string/gender"/>
 
                 </TableRow>
+
                 <TableRow>
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -190,7 +199,8 @@
                             android:gravity="center_horizontal"
 
                             android:background="@drawable/edit_text_personal_details"
-                            />
+                            android:layout_toRightOf="@+id/imageViewDatePicker"
+                            android:layout_toEndOf="@+id/imageViewDatePicker" />
                     </RelativeLayout>
 
                     <Spinner
@@ -259,6 +269,13 @@
 
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dialog" />
+
+                     <EditText
+                         android:id="@+id/spinnerCountry_text"
+                         android:layout_width="0dp"
+                         android:layout_height="0dp"
+                         android:text=""/>
+
                  </TableRow>
                  <!--Citizenship status-->
                  <TableRow
@@ -285,7 +302,16 @@
 
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dropdown" />
+
+
+
                  </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerCitizenship_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
                 <!--Migration time-->
                 <TableRow
                     android:layout_marginTop="8dp"
@@ -309,7 +335,7 @@
                         android:layout_span="1"
                         android:hint="Year"
                         android:layout_margin="2dp"
-                        android:inputType="number|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:maxLength="4"
@@ -323,7 +349,7 @@
                         android:hint="Month"
                         android:maxLength="2"
                         android:layout_margin="2dp"
-                        android:inputType="number|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:paddingLeft="5dp"
@@ -340,6 +366,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
+                        android:inputType="textEmailAddress"
                         android:paddingLeft="5dp"
                         android:text="@string/email"/>
                 </TableRow>
@@ -374,6 +401,16 @@
 
                         android:text="@string/relationship_type"/>
                 </TableRow>
+
+                 <TableRow>
+                     <EditText
+                         android:id="@+id/spinnerRelationshipType_text"
+                         android:layout_width="0dp"
+                         android:layout_height="0dp"
+                         android:text=""/>
+                 </TableRow>
+
+
                 <TableRow>
                     <Spinner
                         android:id="@+id/spinnerRelationshipType"
@@ -467,6 +504,7 @@
                  android:layout_marginLeft="2dp"
                  android:layout_marginRight="2dp">
                 <TextView
+                    android:id="@+id/textView_personalDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
@@ -535,7 +573,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
-                        android:inputType="textPersonName|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:layout_span="1" />
@@ -583,7 +621,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
-                        android:inputType="text|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
@@ -733,6 +771,13 @@
                         android:spinnerMode="dialog"
                         android:layout_span="3" />
 
+                    <EditText
+                        android:id="@+id/sPerDistrict_text"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text=""/>
+
+
                     <!--<EditText-->
                         <!--android:id="@+id/editTextPermanentDistrict"-->
                         <!--android:layout_width="match_parent"-->
@@ -774,6 +819,13 @@
                         android:paddingLeft="5dp"
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
+
+                    <EditText
+                        android:id="@+id/spinnerPermanentState_text"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text=""/>
+
                 </TableRow>
 
 
@@ -851,7 +903,7 @@
                         android:layout_margin="2dp"
                         android:layout_span="1"
                         android:maxLength="6"
-                        android:inputType="phone"
+                        android:inputType="number"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
                     <EditText
@@ -863,7 +915,7 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
                         android:paddingLeft="5dp"
-                        android:inputType="phone" />
+                        android:inputType="number" />
 
                 </TableRow>
             </TableLayout>
@@ -884,12 +936,11 @@
                         android:layout_margin="2dp"
                         android:text="Permanent address same as Present address."/>
                 </LinearLayout>
-             <!--Present  Address-->
+            <!--permanent Address-->
              <RelativeLayout
                 android:id="@+id/linearlayoutPresentAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:orientation="horizontal"
                  android:layout_marginTop="10dp"
@@ -963,7 +1014,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
-                        android:inputType="textPersonName|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
@@ -1011,7 +1062,7 @@
                         android:layout_height="36dp"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
-                        android:inputType="textPersonName|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
@@ -1178,6 +1229,13 @@
                         android:layout_margin="2dp"
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
+                    <EditText
+                        android:id="@+id/spinnerPresentState_text"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text=""/>
+
+
                 </TableRow>
 
 
@@ -1205,7 +1263,7 @@
                         android:hint="Year*"
                         android:layout_margin="2dp"
                         android:paddingLeft="5dp"
-                        android:inputType="number|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -1216,7 +1274,7 @@
                         android:layout_span="1"
                         android:hint="Month*"
                         android:layout_margin="2dp"
-                        android:inputType="number|textCapCharacters"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -1255,7 +1313,7 @@
                         android:layout_span="1"
                         android:paddingLeft="5dp"
                         android:maxLength="6"
-                        android:inputType="phone"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -1271,7 +1329,7 @@
 
                         android:singleLine="true"
                         android:imeOptions="actionNext"
-                        android:inputType="phone" />
+                        android:inputType="number" />
                 </TableRow>
             </TableLayout>
              <!--Other Info-->
@@ -1337,7 +1395,13 @@
                         android:layout_span="3"
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
+
                 </TableRow>
+                 <EditText
+                     android:id="@+id/spinnerQualification_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
             <!--Id mark -->
             <TableRow
                 android:layout_marginTop="10dp"
@@ -1362,7 +1426,16 @@
                     android:entries="@array/idMark"
                     android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
+
+
+
             </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerIdmark_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
 
                  <!--Id mark 2 -->
                  <TableRow
@@ -1389,7 +1462,16 @@
                          android:entries="@array/idMark"
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dialog" />
+
+
+
                  </TableRow>
+
+                 <EditText
+                     android:id="@+id/spinnerIdmark2_text"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:text=""/>
                 <!-- BloodGroup Rh-->
                 <TableRow
                     android:layout_marginTop="8dp"
@@ -1406,6 +1488,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:visibility="gone"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
@@ -1419,8 +1502,10 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Blood"
                         android:layout_marginRight="2dp"
+
                         android:background="@drawable/gradient_spinner"
                         android:spinnerMode="dialog" />
+
                     <Spinner
                         android:id="@+id/spinnerRH"
                         android:layout_width="match_parent"
@@ -1428,96 +1513,12 @@
                         android:paddingLeft="4dp"
                         android:entries="@array/Rh"
                         android:background="@drawable/gradient_spinner"
+                        android:visibility="gone"
                         android:layout_marginRight="2dp"
                         />
 
                 </TableRow>
-                <!--PhotoId -->
-                <TableRow    android:visibility="gone"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_span="2"
-                        android:text="Id Proof 4"/>
-                </TableRow>
-                <TableRow    android:visibility="gone"  >
-                    <Spinner
-                        android:id="@+id/spinnerIdcard"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:paddingLeft="4dp"
-                        android:background="@drawable/gradient_spinner"
-                        android:layout_span="3"
-                        android:entries="@array/IdProof"/>
-                </TableRow>
-                <!--Photo Id Detail-->
-                <TableRow
-                    android:visibility="gone"
-                    android:layout_marginTop="6dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-                        android:text="@string/document_number"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
 
-                        android:text="@string/issuing_authority"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-
-                        android:text="@string/date_of_issue"/>
-
-                </TableRow>
-                <TableRow
-                    android:visibility="gone">
-                    <EditText
-                        android:id="@+id/editTextDocumentNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-                    <EditText
-                        android:id="@+id/editTextIssuingAuthority"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        android:layout_span="1"
-
-                        />
-                    <EditText
-                        android:id="@+id/editTextDateofIssue"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:textSize="12dp"
-                        android:layout_margin="2dp"
-                        android:inputType="text|textCapCharacters"
-                        android:singleLine="true"
-                        android:imeOptions="actionNext"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
