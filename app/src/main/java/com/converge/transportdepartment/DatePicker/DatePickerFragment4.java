@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.IdProof;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by root on 1/6/16.
@@ -17,7 +18,7 @@ import java.util.Calendar;
 public   class DatePickerFragment4 extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
         StringBuilder br;
-       Calendar c;
+        Calendar c;
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -27,7 +28,15 @@ public   class DatePickerFragment4 extends DialogFragment
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+
+            Calendar calendar = new GregorianCalendar(year,month,day);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+
+//        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+            return datePickerDialog;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {

@@ -37,9 +37,8 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static Map<Integer,Boolean> mCheckBox = new HashMap<>(19);
+
     private String covCode[]={"3","5" ,"8", "9","4","7","6","10","12","13","2","53","54","16","15","17","58","59","65"};
-
-
 
     //Check Box Buttons
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7;
@@ -185,7 +184,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("1", "1")).commit();
                 }
                 else
-                Toast.makeText(getActivity(),"Select at least one class",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Select atleast one class of vehicle",Toast.LENGTH_LONG).show();
                 break;
             case R.id.buttonClearSelectApplication:
                 clear(view);
@@ -482,8 +481,6 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         mCheckBox.put(17,false);
         mCheckBox.put(18,false);
         Save();
-        Toast.makeText(getActivity(),"clear",Toast.LENGTH_LONG).show();
-
     }
 
     @Override

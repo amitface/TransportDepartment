@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.converge.transportdepartment.Adapter.RtoLocatorAdapter;
 import com.converge.transportdepartment.Been.RtoLocatorBeen;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -87,6 +88,8 @@ public class RtoLocatorFragment extends Fragment implements View.OnClickListener
         rtoLat=getResources().getStringArray(R.array.Rto_Lat);
         rtoLong=getResources().getStringArray(R.array.Rto_Long);
 
+        System.out.println("rtoLat  =="+ rtoLat);
+        System.out.println("rtoLong  =="+ rtoLong);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -101,19 +104,37 @@ public class RtoLocatorFragment extends Fragment implements View.OnClickListener
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if(!rtoLat[position].equals("nodata"))
-                {
-                    try
+
+                if(ConValidation.isNetworkAvailable(getActivity())) {
+
+                    if (!rtoLat[position].equals("nodata")) {
+                        try {
+                            String geoUri = "http://maps.google.com/maps?q=loc:" + Double.parseDouble(rtoLat[position]) + "," + Double.parseDouble(rtoLong[position]);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+                            startActivity(intent);
+
+                            System.out.println("geoUri  ==" + Uri.parse(geoUri));
+
+                            System.out.println("rtoLat[position]  ==" + rtoLat[position]);
+                            System.out.println("rtoLong[position]  ==" + rtoLong[position]);
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    else
                     {
-                        String geoUri = "http://maps.google.com/maps?q=loc:" + Double.parseDouble(rtoLat[position]) + "," + Double.parseDouble(rtoLong[position]) + "RTO Office, ITI Square, Balasore";
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
-                        startActivity(intent);
-                    }catch (Exception e)
-                    {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(),"Error",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Latitude or Longitude parameter missing",Toast.LENGTH_SHORT).show();
                     }
 
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"No internet connection...",Toast.LENGTH_SHORT).show();
                 }
             }
 

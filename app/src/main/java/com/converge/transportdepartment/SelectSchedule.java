@@ -9,22 +9,27 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.converge.transportdepartment.Fragments.SuperAwesomeCardFragment;
+import com.converge.transportdepartment.ActivityFragments.SuperAwesomeCardFragment;
+import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -62,10 +67,17 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String PGInfo = "PgInfo";
+    private static final String SLOTNUMBER = "SLOTNUMBER";
+    private static final String SLOTDATE = "SLOTDATE";
+    private static  Integer statusServer =0;
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
+    private ProgressDialog progress;
+    private String rtoCode=null;
+
 
 
     // TODO: Rename and change types of parameters
@@ -78,12 +90,18 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private CheckBox checkBoxLastClicked;
     private int lastCheckBoxId = 0;
     private int currentChecked = 0;
-    private String jsonData;
+    private String jsonData, jsonDataSaveSlot;
     //Start is 12/08/2016 & format dd/mm/yyyy
-    private Long [] dateSetArray= {1470960000000L,1471046400000L,1471132800000L,1471219200000L,1471305600000L,1471392000000L,1471478400000L,1471564800000L,1471651200000L,1471737600000L,1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L};
+    private Long [] dateSetArray= {1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L,1472688000000L,1472774400000L,1472860800000L,1472947200000L,1473033600000L,1473120000000L,1473206400000L,1473292800000L,1473379200000L,1473552000000L,1473638400000L,1473724800000L,1473811200000L,1473897600000L,1473984000000L,1474070400000L,1474156800000L,1474243200000L,1474329600000L,1474416000000L};
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
+    public static volatile Integer slotNumber=-1;
+    public static volatile Long slotDate=-1L;
+    public static volatile String slotTime=null;
+
+    private Button buttonRefresh;
+    private Long appNumber;
 
     public SelectSchedule() {
         // Required empty public constructor
@@ -124,10 +142,18 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_select_schedule, container, false);
         hideKeyboard(getContext());
-
+//        sharedpreferences;
         pager = (ViewPager) view.findViewById(R.id.pager);
+        buttonRefresh = (Button) view.findViewById(R.id.buttonRefreshSelectSchedule);
+        buttonRefresh.setOnClickListener(this);
 
-
+        try {
+            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
+            rtoCode = jsonObject.getString("rtocodeReal");
+            appNumber = jsonObject.getLong("applicantNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Bind the tabs to the ViewPager
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
@@ -137,7 +163,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         Calendar c= Calendar.getInstance();
 
         Log.d("**slotDt**","Current Date: " + c.getTimeInMillis());
-        getSlot();
+        if(ConValidation.isNetworkAvailable(getActivity()))
+            getSlot();
+        else
+            Toast.makeText(getActivity(),"Please check network connection...",Toast.LENGTH_SHORT).show();
         return view;
     }
 
@@ -147,6 +176,19 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        progress.dismiss();
+    }
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progress.dismiss();
     }
 
 
@@ -170,16 +212,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
-        List<SlotData> data,data1,data2,data3,data4,data5,data6,data7;
+        List<SlotData> data;
         List<Long> Title;
         Calendar c ;
         SimpleDateFormat ft;
-
-//        private final String[] TITLES = {"13 Aug", "16 Aug", "17 Aug", "19 Aug",
-//                "20 Aug", "21 Aug" };
-//        private String[] TITLES;
 
         public MyPagerAdapter(FragmentManager fm, List<SlotData> posts) {
             super(fm);
@@ -208,40 +246,18 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                 for(int i=0;i<data.size();i++)
                 {
                     if(data.get(i)!=null)
+                    {
+                        if(dateSetArray[j]<=data.get(i).getSlotdate() && data.get(i).getSlotdate()<dateSetArray[j+1])
                         {
-                            if(dateSetArray[j]<=data.get(i).getslotdate() && data.get(i).getslotdate()<dateSetArray[j+1])
-                            {
                                 temp.add(dateSetArray[j]);
-                                Log.d("unique Date",""+data.get(i).getslotdate());
+                                Log.d("unique Date",""+data.get(i).getSlotdate());
                                 if(temp.size()==7)
                                     return temp;
                                 break;
-                            }
                         }
+                    }
                 }
             }
-            return temp;
-        }
-
-        private List<SlotData> getDataAtDate(Long l)
-        {
-            List<SlotData> temp = new ArrayList<>();
-              for(int i=0;i<data.size();i++)
-                {
-                    int count=0;
-                    if(data.get(i)!=null)
-                    {
-                        if(l==data.get(i).getslotdate())
-                        {
-                            temp.add(data.get(i));
-                            count++;
-                        }
-                    }
-                    if(count==20)
-                    {
-                        break;
-                    }
-                }
             return temp;
         }
 
@@ -259,11 +275,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         @Override
         public Fragment getItem(int position) {
 
-            return SuperAwesomeCardFragment.newInstance(position);
+            return SuperAwesomeCardFragment.newInstance(jsonData,Title.get(position),position);
+//            return SuperAwesomeCardFragment.newInstance(position);
         }
-
     }
-
 
     @Override
     public void onDetach() {
@@ -271,12 +286,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
-
     public void Save() {
 //        SharedPreferences.Editor editor = sharedpreferences.edit();
 //        editor.putInt(CheckBoxSchedule,currentChecked);
 //        editor.commit();
-
     }
 
     @Override
@@ -285,14 +298,65 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         switch (view.getId())
         {
             case R.id.buttonNextSelectSchedule:
-
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                if(val())
+                {
+//                    Toast.makeText(getActivity(),"dateSlot= "+slotDate+" || slot Number= "+slotNumber,Toast.LENGTH_SHORT).show();
+                    saveSlot(1,"",appNumber);
+                }
                 break;
 
             case R.id.buttonBackSelectSchedule:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("2", "1")).commit();
                 break;
+
+            case R.id.buttonRefreshSelectSchedule:
+                if(statusServer==0)
+                {
+                    getSlot();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"No need to refresh",Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
+    }
+
+    private String jsonString() {
+        JSONObject js=null;
+
+        try {
+            js = new JSONObject(sharedpreferences.getString(PGInfo,""));
+            js.put("slotDate",slotDate);
+            js.put("slotNumber",slotNumber);
+            js.put("slotTime",slotTime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e)
+        {
+            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
+        }
+
+        return js.toString();
+    }
+
+    private boolean val() {
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            Toast.makeText(getActivity(),"No internet avaliable",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(statusServer==0)
+        {
+            Toast.makeText(getActivity(),"No appointment slot available for selected date,time",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Please Refresh Data",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(slotDate==-1 || slotNumber==-1L || slotTime==null) {
+            Toast.makeText(getActivity(),"Please select atleast one slot",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -312,12 +376,13 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
     private void getSlot()
     {
-        new scheduleSlot(getActivity()).execute();
+//        new scheduleSlot(getActivity()).execute();
+        new scheduleSlotServer(getActivity()).execute();
     }
 
+    //for Nic server
     private class scheduleSlot extends AsyncTask<Void, Integer, Long>
     {
-        private ProgressDialog progress;
         private final Context context;
         private ProgressDialog progressSendMail;
 
@@ -325,12 +390,12 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             this.context = c;
         }
         protected void onPreExecute() {
-            progressSendMail = new ProgressDialog(this.context);
-            progressSendMail.setMessage("Please Wait");
-            progressSendMail.setCancelable(false);
-            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressSendMail.setProgress(0);
-            progressSendMail.show();
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Please Wait");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
         }
 
         @Override
@@ -347,7 +412,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("Applno", 102532);
+            jsonObject.put("applno", 102532);
             jsonObject.put("dob", "20/08/1984");
             jsonObject.put("servType", "LL");
             jsonObject.put("usrName", "smartchip");
@@ -362,7 +427,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             jsonObject1.put("agentId", "smartchip");
             jsonObject1.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
             jsonObject1.put("serviceName","LLSlotBook");
-            jsonObject1.put("rtocode","OD01");
+            jsonObject1.put("rtocode",rtoCode);
 
             JSONObject jsonObject2 = new JSONObject();
 
@@ -404,7 +469,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             }
             br.close();
 //                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//            System.out.println(responseOutput.toString());
+            System.out.println(responseOutput.toString());
             jsonData=responseOutput.toString();
             return 1L;
         }catch (FileNotFoundException e) {
@@ -422,8 +487,416 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             e.printStackTrace();
             return 0L;
         }
-
     }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        statusServer=1;
+                        buttonRefresh.setEnabled(false);
+
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<List<SlotData>>(){}.getType();
+                        List<SlotData> posts = (List<SlotData>) gson.fromJson(jsonData, listType);
+
+                        pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager(),posts));
+                        tabs.setViewPager(pager);
+                        progress.hide();
+                    }
+                });
+            }
+            else
+            {
+                statusServer=0;
+                buttonRefresh.setEnabled(true);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.hide();
+                        Toast.makeText(getActivity(),"Cannot Fetch data from Server. Please wait for sometime then refresh",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }
+    }
+
+    //For converge server
+    private class scheduleSlotServer extends AsyncTask<Void, Integer, Long>
+    {
+        private final Context context;
+        private ProgressDialog progressSendMail;
+
+        public scheduleSlotServer(Context c) {
+            this.context = c;
+        }
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Please Wait");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+
+                URL url = new URL(Links.saveSlotSCServer);
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/fetch_slot.php");
+
+                connection = (HttpURLConnection) url.openConnection();
+                //Creating json object.
+
+                String json ="rtocode="+rtoCode;
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+                jsonData=responseOutput.toString();
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0L;
+            }
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progress.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Gson gson = new Gson();
+                            Type listType = new TypeToken<List<SlotData>>() {
+                            }.getType();
+                            List<SlotData> posts = (List<SlotData>) gson.fromJson(jsonData, listType);
+
+                            pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager(), posts));
+                            tabs.setViewPager(pager);
+                            progress.hide();
+                            statusServer = 1;
+                            buttonRefresh.setEnabled(false);
+                        } catch (Exception e) {
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progress.hide();
+                                    Toast.makeText(getActivity(),"Data Not available",Toast.LENGTH_SHORT).show();
+                                    statusServer=0;
+                                    buttonRefresh.setEnabled(false);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            else
+            {
+                statusServer=0;
+                buttonRefresh.setEnabled(true);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.hide();
+                        Toast.makeText(getActivity(),"Cannot Fetch data from Server. Please wait for sometime then refresh",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }
+    }
+
+
+    private void saveSlot(int i, String dob, long l)
+    {
+        new saveApplicantSlot(getActivity(),i,dob,l).execute();
+    }
+
+    //For Nic server
+    private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
+        private Long appNum;
+
+        public saveApplicantSlot(Context c, int i, String dob, Long appNum) {
+            this.context = c;
+            this.i=i;
+            this.dob=dob;
+            this.appNum=appNum;
+        }
+
+        protected void onPreExecute() {
+            progressSendMail = new ProgressDialog(this.context);
+            progressSendMail.setMessage("Getting appointment slot please wait...");
+            progressSendMail.setCancelable(false);
+            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressSendMail.setProgress(0);
+            progressSendMail.show();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+                connection = (HttpURLConnection) url.openConnection();
+
+                //Creating json object.
+                JSONObject jsonObject2 = new JSONObject();
+
+                jsonObject2.put("applno", appNum);
+                jsonObject2.put("serviceType", "LL");
+                jsonObject2.put("agentId", "smartchip");
+                jsonObject2.put("pwd", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject2.put("serviceName","LLSlotBook");
+                jsonObject2.put("rtocode",rtoCode);
+                jsonObject2.put("slotDate",slotDate);
+                jsonObject2.put("slotNo",slotNumber);
+
+                String json = jsonObject2.toString();
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(30000);
+                connection.setReadTimeout(30000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println(responseOutput.toString());
+
+                    JSONObject jsonObject = new JSONObject(responseOutput.toString());
+                    if(jsonObject.getInt("errorCd")!=0)
+                    {
+                        if(jsonObject.getInt("errorCd")==-2)
+                        {
+                            jsonDataSaveSlot = jsonObject.getString("msg");
+                            return 2L;
+                        }
+                        jsonDataSaveSlot = jsonObject.getString("msg");
+                        return 0L;
+                    }
+                    else
+                    {
+                        jsonDataSaveSlot = jsonObject.getString("msg");
+                        return 1L;
+                    }
+            }catch (FileNotFoundException e) {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            } catch (MalformedURLException e) {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            } catch (IOException e) {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            } catch (JSONException e) {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                jsonDataSaveSlot =e.toString();
+                return 0L;
+            }
+
+        }
+
+        protected void onProgressUpdate(Integer... percent) {
+//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
+            progressSendMail.setProgress(percent[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            progressSendMail.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+
+                        new saveApplicantSlotToServer(getActivity(),1).execute();
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(PGInfo,jsonString());
+                        editor.apply();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home,LicenseApplication.newInstance("4", "1")).commit();
+                    }
+                });
+            }
+            else if(result==2)
+            {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new saveApplicantSlotToServer(getActivity(),0).execute();
+                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else
+            {
+//                new saveApplicantSlotToServer(getActivity(),0).execute();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(getActivity(),jsonDataSaveSlot,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+
+    //For Converge server
+    private class saveApplicantSlotToServer extends AsyncTask<Void, Integer, Long>
+    {
+        private ProgressDialog progress;
+        private final Context context;
+        private ProgressDialog progressSendMail;
+        private int i;
+        private String dob;
+        private Long appNum;
+
+        public saveApplicantSlotToServer(Context c, int i) {
+            this.context = c;
+            this.i=i;
+        }
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            HttpURLConnection connection=null;
+            try{
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/assgn_slot.php?");
+                URL url = new URL(Links.updateSlotSCServer);
+                connection = (HttpURLConnection) url.openConnection();
+
+                String json = "rtocode="+rtoCode+"&slotNum="+slotNumber+"&slotdate="+slotDate+"&code="+i;
+
+                System.out.println(json);
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+//                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(200000);
+                connection.setReadTimeout(200000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+//                responseOutput.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.println("Converge Server "+responseOutput.toString());
+                return 1L;
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return 0L;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0L;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return 0L;
+            }
+
+        }
 
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
@@ -434,18 +907,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
             if(result==1)
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Gson gson = new Gson();
-                        Type listType = new TypeToken<List<SlotData>>(){}.getType();
-                        List<SlotData> posts = (List<SlotData>) gson.fromJson(jsonData, listType);
-
-                        pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager(),posts));
-                        tabs.setViewPager(pager);
-                        progressSendMail.hide();
-                    }
-                });
 
             }
             else
@@ -454,5 +915,6 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             }
         }
     }
+
 }
 

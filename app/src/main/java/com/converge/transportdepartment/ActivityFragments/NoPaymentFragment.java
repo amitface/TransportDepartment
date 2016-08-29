@@ -1,4 +1,5 @@
-package com.converge.transportdepartment;
+package com.converge.transportdepartment.ActivityFragments;
+
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -9,13 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
-import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.HomeFragment;
+import com.converge.transportdepartment.R;
 import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
+import com.converge.transportdepartment.Validation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,40 +37,29 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PaymentSuccessfull.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PaymentSuccessfull#newInstance} factory method to
+ * Use the {@link NoPaymentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentSuccessfull extends Fragment implements View.OnClickListener{
+public class NoPaymentFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private DownloadManager mgr=null;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private ProgressDialog progressDialog;
 
     private String jsonString;
@@ -83,19 +73,28 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-
-
-
-    private OnFragmentInteractionListener mListener;
+    private String emailToSend;
     private long lastDownload = -1L;
-    private static String emailToSend;
-    private HashMap<String,String> hashMap=new HashMap<>();
     private long appNumber;
-    private String receiptNumber;
     private String rtoCode, msg;
 
-    public PaymentSuccessfull() {
+    private DownloadManager mgr=null;
+
+    private HashMap<String,String> hashMap=new HashMap<>();
+
+
+    public NoPaymentFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
+        getActivity().registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
     }
 
     /**
@@ -104,11 +103,11 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PaymentSuccessfull.
+     * @return A new instance of fragment NoPaymentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PaymentSuccessfull newInstance(String param1, String param2) {
-        PaymentSuccessfull fragment = new PaymentSuccessfull();
+    public static NoPaymentFragment newInstance(String param1, String param2) {
+        NoPaymentFragment fragment = new NoPaymentFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -125,54 +124,42 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        mgr=(DownloadManager)getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
-        getActivity().registerReceiver(onComplete,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-    }
-
     @Override
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(onComplete);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
+        View view = inflater.inflate(R.layout.fragment_no_payment, container, false);
+        
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
-        ConValidation.hideKeyboard(getContext());
-        progressDialog = new ProgressDialog(getActivity());
+        progressDialog=new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
         try {
             JSONObject jsonObjectData= new JSONObject(jsonString);
             appNumber= jsonObjectData.getLong("applicantNum");
-            receiptNumber = jsonObjectData.getString("receiptNum");
             rtoCode = jsonObjectData.getString("rtocodeReal");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         new getAddress(getActivity()).execute();
+
         TextView textView2 = (TextView) view.findViewById(R.id.textViewForm);
         TextView textFee = (TextView) view.findViewById(R.id.textViewFee);
-        TextView textReceipt  = (TextView) view.findViewById(R.id.textViewReceipt);
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText("Application Form : "+appNumber);
-        textReceipt.setText("Receipt No.      : "+receiptNumber);
+
         int fee= totalFee();
-        textFee.setText("Payment Successful for amount Rs. "+fee);
+        textFee.setText("Pay at RTO amount of Rs. "+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
         {
@@ -181,57 +168,39 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
         ImageView buttonEmail = (ImageView) view.findViewById(R.id.buttonEmail);
 
-
         ImageView buttonDownload = (ImageView) view.findViewById(R.id.buttonDownload);
         ImageView saveReceipt = (ImageView) view.findViewById(R.id.saveReceipt);
 
+        buttonDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                buttonDownload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
+                {
+                    new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
+                }
 
-                        if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
-                        {
-                            new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
-                        }
+                String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                File folder = new File(extStorageDirectory, "M-Parivahan");
+                folder.mkdir();
+                downloadPdfForm();
+            }
+        });
 
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory, "M-Parivahan");
-                        folder.mkdir();
-                        downloadPdfForm();
-                    }
-                });
-                buttonEmail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(Validation.isEmailAddress(editText,true)) {
-                            emailToSend = editText.getText().toString();
-                            new SendMail(getActivity()).execute();
-                            alertDialogPostReport("1.Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
-                        }
-                    }
-                });
+        buttonEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Validation.isEmailAddress(editText,true)) {
+                    emailToSend = editText.getText().toString();
+                    new SendMail(getActivity()).execute();
+                    alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+                }
+            }
+        });
 
-                saveReceipt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
-                        {
-                            new MarshMallowPermission(getActivity()).requestPermissionForExternalStorage();
-                        }
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory, "M-Parivahan");
-                        folder.mkdir();
-                        downloadPdf();
-                    }
-                });
 //        deleteSession();
-
         return view;
     }
-
-
 
     private int totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
@@ -252,19 +221,16 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         editor.putString(mFinalString1,"");
         editor.putString(mFinalString2,"");
         editor.putString(mFinalStringCov,"");
+
         editor.putInt(CheckBoxSchedule,0);
         editor.commit();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    private void pgInfo()
+    {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(PGInfo,"");
+        editor.commit();
     }
 
     private void saveSessionPersonalDetails()
@@ -385,65 +351,19 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onStop()
+    {
+        super.onStop();
+        progressDialog.dismiss();
     }
 
-    @Override
-    public void onClick(View view) {
+    BroadcastReceiver onComplete=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
 
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-
-
-    public void downloadPdf() {
-//        showProgress();
-//        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+appNumber+"LL_Cash_Receipt.pdf");
-        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
-        //Restrict the types of networks over which this download may proceed.
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        //Set whether this download may proceed over a roaming connection.
-        request.setAllowedOverRoaming(true);
-        //Set the title of this download, to be displayed in notifications (if enabled).
-        request.setTitle("Receipt");
-        //Set a description of this download, to be displayed in notifications (if enabled)
-        request.setDescription("Downloading");
-        //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir("M-Parivahan", "Receipt" + System.currentTimeMillis() + ".pdf");
-
-
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        //Enqueue a new download and same the referenceId
-        lastDownload = mgr.enqueue(request);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialogPostReport("Documents (PDF) for  Fee Receipt can be accessed from your Mobile Device from this location – M-Parivahan");
-            }
-        });
-    }
+        }
+    };
 
     public void downloadPdfForm() {
-//        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId="+sharedpreferences.getString("receiptNum",""));
         Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+appNumber+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
@@ -471,92 +391,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         });
     }
 
-    public void startDownload(View v) {
-        Uri uri=Uri.parse("http://103.27.233.206/learningLicense/LL_Cash_Receipt.php?referenceId="+sharedpreferences.getString("ref_num",""));
-
-        Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .mkdirs();
-
-        lastDownload=
-                mgr.enqueue(new DownloadManager.Request(uri)
-                        .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                                DownloadManager.Request.NETWORK_MOBILE)
-                        .setAllowedOverRoaming(false)
-                        .setTitle("Demo")
-                        .setDescription("Something useful. No, really.")
-                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
-                                "Receipt.pdf"));
-
-//        v.setEnabled(false);
-//        findViewById(R.id.query).setEnabled(true);
-    }
-
-    public void queryStatus(View v) {
-        Cursor c=mgr.query(new DownloadManager.Query().setFilterById(lastDownload));
-
-        if (c==null) {
-           showToast("Download not found!");
-        }
-        else {
-            c.moveToFirst();
-
-            Log.d(getClass().getName(), "COLUMN_ID: "+
-                    c.getLong(c.getColumnIndex(DownloadManager.COLUMN_ID)));
-            Log.d(getClass().getName(), "COLUMN_BYTES_DOWNLOADED_SO_FAR: "+
-                    c.getLong(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)));
-            Log.d(getClass().getName(), "COLUMN_LAST_MODIFIED_TIMESTAMP: "+
-                    c.getLong(c.getColumnIndex(DownloadManager.COLUMN_LAST_MODIFIED_TIMESTAMP)));
-            Log.d(getClass().getName(), "COLUMN_LOCAL_URI: "+
-                    c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)));
-            Log.d(getClass().getName(), "COLUMN_STATUS: "+
-                    c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS)));
-            Log.d(getClass().getName(), "COLUMN_REASON: "+
-                    c.getInt(c.getColumnIndex(DownloadManager.COLUMN_REASON)));
-
-            showToast( statusMessage(c));
-        }
-    }
-
-    private void showToast(String s) {
-        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
-    }
-
-    public void viewLog(View v) {
-        startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-    }
-
-    private String statusMessage(Cursor c) {
-        String msg="???";
-
-        switch(c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
-            case DownloadManager.STATUS_FAILED:
-                msg="Download failed!";
-                break;
-
-            case DownloadManager.STATUS_PAUSED:
-                msg="Download paused!";
-                break;
-
-            case DownloadManager.STATUS_PENDING:
-                msg="Download pending!";
-                break;
-
-            case DownloadManager.STATUS_RUNNING:
-                msg="Download in progress!";
-                break;
-
-            case DownloadManager.STATUS_SUCCESSFUL:
-                msg="Download complete!";
-                break;
-
-            default:
-                msg="Download is nowhere in sight";
-                break;
-        }
-
-        return(msg);
-    }
 
     private class SendMail extends AsyncTask<Void, Integer, Long>
     {
@@ -573,17 +407,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             progressSendMail.setCancelable(true);
             progressSendMail.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressSendMail.setProgress(0);
-
+//            progressSendMail.show();
         }
 
         @Override
         protected Long doInBackground(Void... params) {
             try{
 
-                int  MEGABYTE = 1024 * 1024;
-
-//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                URL email = new URL(Links.sendMail);
+                URL email = new URL(Links.noReceiptMail);
                 String s="referenceId=" +appNumber+
                         "&email="+emailToSend;
 
@@ -633,354 +464,42 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
         protected void onPostExecute(Long result) {
 
-
-            if(result==1)
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-            }
-            else
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        showToast("failure");
-                    }//public void run() {
-                });
-
-            }
         }
     }
-
-    private class DownloadFile extends AsyncTask<Void, Integer, Long> {
-
-        private final Context context;
-        private ProgressDialog progress;
-        private static final int  MEGABYTE = 1024 * 1024;
-
-        public DownloadFile(Context c) {
-            this.context = c;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Downloading");
-            progress.setCancelable(false);
-            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progress.setProgress(0);
-//            progress.show();
-
-        }
-
-        @Override
-        protected Long doInBackground(Void... params)
-        {
-            Long l=0L;
-            try
-                {
-                        URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/LL_Application.php?referenceId=" + sharedpreferences.getString("receiptNum", ""));
-
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory, "M-Parivahan");
-                        folder.mkdir();
-
-                        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-                        String hjkl = currentDateTimeString.replaceAll(" ", "_");
-                        String hiop = hjkl.replaceAll(":", "-");
-
-                        File pdfFile = new File(folder, "Form_" + hiop+".html" +
-                                "");
-
-                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                        //urlConnection.setRequestMethod("GET");
-                        //urlConnection.setDoOutput(true);
-                        urlConnection.connect();
-
-                        InputStream inputStream = urlConnection.getInputStream();
-                        FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
-                        int totalSize = urlConnection.getContentLength();
-                        publishProgress(70);
-                        byte[] buffer = new byte[MEGABYTE];
-                        int bufferLength = 0;
-                        while ((bufferLength = inputStream.read(buffer)) > 0) {
-                            fileOutputStream.write(buffer, 0, bufferLength);
-                        }
-
-                        for (int i = 1; i < 101; i++) {
-                            publishProgress(i);
-                        }
-
-                        fileOutputStream.close();
-                        l = 1L;
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-            return l;
-        }
-
-    protected void onProgressUpdate(Integer... percent) {
-//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-        progress.setProgress(percent[0]);
-    }
-        protected void onPostExecute(Long result) {
-           
-            progress.dismiss();
-            if(result==1)
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
-//                        showToast("success");
-//                        showToast("Check M-Parivahan folder in directory for HTML");
-//                        showToast("Back press to go home");
-                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
-                    }//public void run() {
-                });
-            }
-            else
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
-                        showToast("failure");
-                    }//public void run() {
-                });
-
-            }
-        }
-
-    }
-
-    private class DownloadReceipt extends AsyncTask<Void, Integer, Long> {
-
-        private final Context context;
-        private ProgressDialog progress;
-        private static final int  MEGABYTE = 1024 * 1024;
-
-        public DownloadReceipt(Context c) {
-            this.context = c;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Downloading");
-            progress.setCancelable(false);
-            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progress.setProgress(0);
-            progress.show();
-
-        }
-
-        @Override
-        protected Long doInBackground(Void... params)
-        {
-            Long l=0L;
-            try
-            {
-                URL url = new URL("http://103.27.233.206/M-Parivahan/LL_Cash_Receipt.php?referenceId=" + sharedpreferences.getString("receiptNum", ""));
-
-                String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                File folder = new File(extStorageDirectory, "M-Parivahan");
-                folder.mkdir();
-
-                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-                String hjkl = currentDateTimeString.replaceAll(" ", "_");
-                String hiop = hjkl.replaceAll(":", "-");
-
-                File pdfFile = new File(folder, "Receipt_" + hiop+".pdf");
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                //urlConnection.setRequestMethod("GET");
-                urlConnection.setDoOutput(true);
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
-                int totalSize = urlConnection.getContentLength();
-                publishProgress(70);
-                byte[] buffer = new byte[MEGABYTE];
-                int bufferLength = 0;
-                while ((bufferLength = inputStream.read(buffer)) > 0) {
-                    fileOutputStream.write(buffer, 0, bufferLength);
-                }
-
-                for (int i = 1; i < 101; i++) {
-                    publishProgress(i);
-                }
-
-                fileOutputStream.close();
-                l = 1L;
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            return l;
-        }
-
-        protected void onProgressUpdate(Integer... percent) {
-//        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-            progress.setProgress(percent[0]);
-        }
-        protected void onPostExecute(Long result) {
-
-            progress.dismiss();
-            if(result==1)
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
-//                        showToast("success");
-//                        showToast("Check M-Parivahan folder in directory for HTML");
-//                        showToast("Back press to go home");
-                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
-                    }//public void run() {
-                });
-            }
-            else
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Your code to run in GUI thread here
-                        showToast("failure");
-                    }//public void run() {
-                });
-
-            }
-        }
-
-    }
-
-    public static class FileDownloader {
-
-        private static final int  MEGABYTE = 1024 * 1024;
-        public  static void downloadFile(String fileUrl, File directory){
-            try {
-
-                URL url = new URL(fileUrl);
-                HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-//                urlConnection.setRequestMethod("GET");
-//                urlConnection.setDoOutput(true);
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(directory);
-                int totalSize = urlConnection.getContentLength();
-
-                byte[] buffer = new byte[MEGABYTE];
-                int bufferLength = 0;
-                while((bufferLength = inputStream.read(buffer))>0 ){
-                    fileOutputStream.write(buffer, 0, bufferLength);
-                }
-                fileOutputStream.close();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        progressDialog.dismiss();
-    }
-
-    BroadcastReceiver onComplete=new BroadcastReceiver() {
-        public void onReceive(Context ctxt, Intent intent) {
-//            getActivity().findViewById(R.id.start).setEnabled(true);
-//            hideProgress();
-
-//            alertDialogPostReport();
-//            showToast("press back button to go home");
-
-
-        }
-    };
-
-    BroadcastReceiver onNotificationClick=new BroadcastReceiver() {
-        public void onReceive(Context ctxt, Intent intent) {
-
-        }
-    };
-
-    BroadcastReceiver onCompleteDownload=new BroadcastReceiver() {
-        public void onReceive(Context ctxt, Intent intent) {
-
-        }
-    };
-
-    BroadcastReceiver onNotificationClickDownload=new BroadcastReceiver() {
-        public void onReceive(Context ctxt, Intent intent) {
-
-
-        }
-    };
 
     public void alertDialogPostReport(String s)
     {
-            final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
-            };
+        final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
+        };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-             builder.setTitle("M-Parivahan ");
-            builder.setItems(items, null);
-            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
+                    pgInfo();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
-                }
-            });
-            builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 //                    if(getActivity().getSupportFragmentManager().findFragmentByTag("HomeFragment")==null)
 //                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, HomeFragment.newInstance("1", "1"), "HomeFragment").commit();
-                }
-            });
-            builder.show();
+            }
+        });
+        builder.show();
 
+    }
+
+    private void showToast(String s) {
+        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
     }
 
     public void sendMessage(String s)
     {
-        new sendFormMsg(getActivity()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new sendRtoMsg(getActivity(),s).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new sendFormMsg(getActivity()).execute();
+        new sendRtoMsg(getActivity(),s).execute();
     }
 
     private class sendRtoMsg extends AsyncTask<Void, Integer, Integer> {
@@ -1084,7 +603,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-//                URL url = new URL("http://210.210.26.40/newsendsms/push_sms_new.php");
+//                URL url = new URL(" http://103.27.233.206/sendsms/");
                 URL url = new URL(Links.sendFormSms);
 
 
@@ -1170,7 +689,6 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
             try
             {
 
-//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/sendsms/index.php");
                 URL url = new URL(Links.getAddress);
 
                 String s="rtocode="+rtoCode;
@@ -1234,9 +752,9 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
         @Override
         protected void onPostExecute(Integer result) {
+            progressDialog.hide();
             if(result==1)
             {
-                progressDialog.hide();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1247,4 +765,3 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         }
     }
 }
-

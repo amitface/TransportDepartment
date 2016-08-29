@@ -26,7 +26,11 @@ import com.citrus.sdk.payment.PaymentType;
 import com.citrus.sdk.response.CitrusError;
 import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -48,10 +52,6 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
     private Constants constants;
 
-    public static final String PREFS_NAME = "MyTransportFile";
-    public static final String mypreference = "mypref";
-    private SharedPreferences sharedpreferences;
-
 
     private ArrayList<NetbankingOption> mNetbankingOptionsList;
 
@@ -63,6 +63,18 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
     private CitrusClient citrusClient;
     private PaymentType paymentType;
     private PaymentType pgPayment;
+
+    private static final String PGInfo="PgInfo";
+    public static final String mypreference = "mypref";
+    private SharedPreferences sharedpreferences;
+    private String jsonString;
+    private Long applicantNum;
+    private String transId, amt;
+    private NetbankingOption netbankingOption;
+    Double tax;
+    private long appNumber;
+    private String receiptNumber, date, time,rtoCode;
+    private long aLong;
 
 
     public NetbankingFragment() {
@@ -103,9 +115,22 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_netbanking, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-//        testClick = (TextView) view.findViewById(R.id.testClick);
-//        testClick.setOnClickListener(this);
 
+        jsonString=sharedpreferences.getString(PGInfo,"");
+
+
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+            aLong = jsonObjectData.getLong("slotDate");
+            date = ConValidation.getDateString(aLong);
+            time = jsonObjectData.getString("slotTime");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         final NetbankingAdapter netbankingAdapter = new NetbankingAdapter(getActivity(), mNetbankingOptionsList);
 
         RecyclerView recylerViewNetbanking = (RecyclerView) view.findViewById(R.id.my_recycler_view);
@@ -141,80 +166,71 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
-    public  void makePayment()
-    {
 
-//        citrusClient.enableAutoOtpReading(true);
-        // No need to call init on CitrusClient if already done.
-
-        NetbankingOption netbankingOption = new NetbankingOption("ICICI Bank","CID001");
-
-        // Init Net Banking PaymentType
-        Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
-            @Override
-            public void success(TransactionResponse transactionResponse) {
-                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void error(CitrusError error) {
-                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
-            }
-        };
-
-        Amount amount = new Amount("5");
-        PaymentType.PGPayment pgPayment = null;
-        try {
-            pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref=23456701", netbankingOption, null);
-            citrusClient.simpliPay(pgPayment, callback);
-        } catch (CitrusException e) {
-            e.printStackTrace();
-        }
-    }
 
     private class OnItemClickListener extends RecyclerItemClickListener.SimpleOnItemClickListener {
 
         @Override
         public void onItemClick(View childView, int position) {
-            NetbankingOption netbankingOption = getItem(position);
-            CitrusClient client = CitrusClient.getInstance(getActivity());
+            netbankingOption = getItem(position);
 
-            amount=new Amount("1");
+            if(position==8)
+            {
+                tax =1.70;
+                alertDialogNote(" 1.70% (Banking tax) + 15% Service tax will be added to amount", netbankingOption);
+            }
+            else{
+                tax = 1.55;
+                alertDialogNote(" 1.55% (Banking tax) + 15% Service tax will be added to amount", netbankingOption);
+            }
 
-                PaymentType paymentType1;
-                Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
-                    @Override
-                    public void success(TransactionResponse transactionResponse) {
-//                        ((UIActivity) getActivity()).onPaymentComplete(paymentType, transactionResponse);
-//                        Toast.makeText(getActivity(),"success",Toast.LENGTH_LONG).show();
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
-//                            }
-//                        });
-                        alertDialogPostReport();
-                    }
+        }
+    }
 
-                    @Override
-                    public void error(CitrusError error) {
-//                        ((UIActivity) getActivity()).showSnackBar(error.getMessage());
-                        Toast.makeText(getActivity(),"Failure"+error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                };
+    private void makePayment(Double tax,NetbankingOption netbankingOption) {
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            applicantNum=jsonObjectData.getLong("applicantNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        CitrusClient client = CitrusClient.getInstance(getActivity());
+
+        amount=new Amount(Double.toString(calulateTax(1.0,tax)));
+
+        PaymentType paymentType1;
+        Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
+            @Override
+            public void success(TransactionResponse transactionResponse) {
                 try {
+                    JSONObject jsonObject = new JSONObject(transactionResponse.getJsonResponse().toString());
+                    transId= jsonObject.getString("transactionId");
+                    amt= jsonObject.getString("amount");
 
-//                        paymentType1 = new PaymentType.PGPayment(amount, Constants.BILL_URL, netbankingOption, null);
-                        pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+sharedpreferences.getString("receiptNum",""), netbankingOption, null);
-                        client.simpliPay(pgPayment, callback);
-
-                } catch (CitrusException e) {
+                    new PaymentReport(transId,"Paid",amt,date,time,receiptNumber,Long.toString(appNumber), rtoCode).savePayment();
+                } catch (JSONException e) {
                     e.printStackTrace();
-
-
                 }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                alertDialogPostReport();
+            }
 
+            @Override
+            public void error(CitrusError error) {
+                Toast.makeText(getActivity(),"Payment Failed"+error.getMessage().toString(),Toast.LENGTH_LONG).show();
+            }
+        };
+
+        try {
+//                        paymentType1 = new PaymentType.PGPayment(amount, Constants.BILL_URL, netbankingOption, null);
+            pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+applicantNum, netbankingOption, null);
+            client.simpliPay(pgPayment, callback);
+        } catch (CitrusException e) {
+            e.printStackTrace();
         }
     }
 
@@ -231,7 +247,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        makePayment();
+//        makePayment();
     }
 
     public void alertDialogPostReport()
@@ -253,4 +269,64 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
         builder.show();
 
     }
+
+    private void alertDialogNote(String s, final NetbankingOption netbankingOption)
+    {
+        final String[] items = {s,"Your final amount will be Rs "+calulateTax(1.0,tax)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan ");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                makePayment(tax,netbankingOption);
+            }
+        });
+
+        builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+
+            }
+        });
+
+        builder.show();
+    }
+
+
+    private Double calulateTax(Double amt,Double tax)
+    {
+        amt = amt+(amt/100)*tax+(amt/100)*15;
+        return (Math.round(amt * 100D)) / 100D;
+    }
 }
+
+//    public  void makePayment()
+//    {
+//        // citrusClient.enableAutoOtpReading(true);
+//        // No need to call init on CitrusClient if already done.
+//
+//        NetbankingOption netbankingOption = new NetbankingOption("ICICI Bank","CID001");
+//
+//        // Init Net Banking PaymentType
+//        Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
+//            @Override
+//            public void success(TransactionResponse transactionResponse) {
+//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void error(CitrusError error) {
+//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
+//            }
+//        };
+//
+//        Amount amount = new Amount("5");
+//        PaymentType.PGPayment pgPayment = null;
+//        try {
+//            pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref=23456701", netbankingOption, null);
+//            citrusClient.simpliPay(pgPayment, callback);
+//        } catch (CitrusException e) {
+//            e.printStackTrace();
+//        }
+//    }

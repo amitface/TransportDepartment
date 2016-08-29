@@ -2,25 +2,29 @@
 <resources>
     <string-array name="Gender">
         <item>--Select*--</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
+        <item>male</item>
+        <item>female</item>
+        <item>others</item>
     </string-array>
 
     <string-array name="RelationType">
         <item>Select</item>
-        <item>S/O </item>
-        <item>W/O </item>
-        <item>D/O </item>
+        <item>father</item>
+        <item>husband</item>
+        <item>mother</item>
+        <item>gaurdian</item>
     </string-array>
 
     <string-array name="Blood">
         <item>--select--</item>
-        <item>A</item>
-        <item>B</item>
-        <item>AB</item>
-        <item>O</item>
-        <item>None</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
     </string-array>
 
     <string-array name="Rh">
@@ -88,7 +92,7 @@
     </string-array>
 
     <string-array name="Qualification">
-         <item>Select</item>
+        <item>Select</item>
         <item> Illiterate</item>
         <item> Not specified </item>
         <item> Below 8 th </item>
@@ -125,8 +129,45 @@
         <item> M. Ch. ( Surgery )/ D.M. ( Medicine )</item>
     </string-array>
 
-    <string-array name="states">
+    <string-array name="qualificationCode">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6 </item>
+        <item>7</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>39</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>70</item>
+        <item>80</item>
+        <item>81</item>
+        <item>82</item>
+        <item>90</item>
+    </string-array>
 
+
+    <string-array name="states">
         <item>--State*--</item>
         <item>Odisha</item>
         <item>Andaman and Nicobar</item>
@@ -168,6 +209,48 @@
         <item>UA-Uttarakhand</item>
     </string-array>
 
+    <string-array name="statesCode">
+        <item>OD</item>
+        <item>AN</item>
+        <item>AP</item>
+        <item>AR</item>
+        <item>AS</item>
+        <item>BR</item>
+        <item>CG</item>
+        <item>CH</item>
+        <item>DL</item>
+        <item>DN</item>
+        <item>GA</item>
+        <item>GJ</item>
+        <item>HP</item>
+        <item>HR</item>
+        <item>JK</item>
+        <item>JH</item>
+        <item>KA</item>
+        <item>KL</item>
+        <item>LD</item>
+        <item>MH</item>
+        <item>ML</item>
+        <item>MN</item>
+        <item>MP</item>
+        <item>MZ</item>
+        <item>NL</item>
+        <item>OD</item>
+        <item>PB</item>
+        <item>PY</item>
+        <item>RJ</item>
+        <item>SK</item>
+        <item>TN</item>
+        <item>TR</item>
+        <item>UP</item>
+        <item>WB</item>
+        <item>XX</item>
+        <item>DD</item>
+        <item>UK</item>
+        <item>UA</item>
+    </string-array>
+
+
     <string-array name="idMark">
         <item>Select</item>
         <item>NONE</item>
@@ -183,11 +266,11 @@
 
     <string-array name="Citizenship">
         <item>Select</item>
-        <item>Birth</item>
-        <item>Registration</item>
-        <item>Descent</item>
-        <item>Naturalization</item>
-        <item>Non Indian</item>
+        <item>birth</item>
+        <item>registration</item>
+        <item>descent</item>
+        <item>naturalization</item>
+        <item>non indian</item>
     </string-array>
 
     <string-array name="IdProof">
@@ -218,7 +301,7 @@
 
         <item>Country</item>
         <item>India    </item>
-        <item> Afghanistan</item>
+        <item>Afghanistan</item>
         <item>Albania   </item>
         <item>Algeria   </item>
         <item>Andorra   </item>
@@ -591,6 +674,47 @@
         <item>35</item>
     </string-array>
 
+    <string-array name="Rto_code_Real">
+        <item>OD19</item>
+        <item>OD09B</item>
+        <item>OD01</item>
+        <item>OD17</item>
+        <item>OD22</item>
+        <item>OD32</item>
+        <item>OD02</item>
+        <item>OD33</item>
+        <item>OD03</item>
+        <item>OD27</item>
+        <item>OD04</item>
+        <item>OD05</item>
+        <item>OD28</item>
+        <item>OD06</item>
+        <item>OD20</item>
+        <item>OD07</item>
+        <item>OD21</item>
+        <item>OD34</item>
+        <item>OD23</item>
+        <item>OD08</item>
+        <item>OD29</item>
+        <item>OD09</item>
+        <item>OD10</item>
+        <item>OD02K</item>
+        <item>OD30</item>
+        <item>OD11</item>
+        <item>OD24</item>
+        <item>OD25</item>
+        <item>OD26</item>
+        <item>OD12</item>
+        <item>OD13</item>
+        <item>OD11R</item>
+        <item>OD18</item>
+        <item>OD14</item>
+        <item>OD15</item>
+        <item>OD16</item>
+        <item>OD31</item>
+        <item>OD35</item>
+    </string-array>
+
     <string-array name="district">
         <item>--Select District--</item>
         <item>Angul</item>
@@ -659,7 +783,7 @@
         <item>Athmallik</item>
         <item>Banarpal</item>
         <item>Bantala</item>
-    </string-array>e
+    </string-array>
 
     <string-array name="theesil2">
         <item>--Select Taluka--</item>
@@ -1345,6 +1469,7 @@
     </string-array>
 
     <string-array name="Rto_Lat">
+        <item>21.4896639</item>
         <item>20.2963141</item>
         <item>20.6871409</item>
         <item>20.7059895</item>
@@ -1384,8 +1509,6 @@
         <item>nodata</item>
     </string-array>
 
-
-
     <string-array name="Rto_Long">
         <item>86.9133534</item>
         <item>85.8335172</item>
@@ -1412,6 +1535,7 @@
         <item>83.9899136</item>
         <item>82.5468533</item>
         <item>85.0846053</item>
+        <item>nodata</item>
         <item>nodata</item>
         <item>nodata</item>
         <item>nodata</item>

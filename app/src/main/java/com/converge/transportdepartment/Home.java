@@ -28,6 +28,7 @@ import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.classes.CitrusConfig;
 import com.converge.transportdepartment.ActivityFragments.RtoLocatorFragment;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.Constants;
 
 import java.util.Locale;
@@ -48,6 +49,11 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setLocale("or");
         setContentView(R.layout.activity_home);
+
+        /*if(ConValidation.isNetworkAvailable(this))
+        {
+            showToast("yes Network is available...");
+        }*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

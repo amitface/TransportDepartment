@@ -26,6 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.BackGroundTasks;
+import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -34,6 +40,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -45,7 +53,7 @@ import java.util.HashMap;
  * Use the {@link ConfirmAndPay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConfirmAndPay extends Fragment implements View.OnClickListener{
+public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,9 +63,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-    private String mFinalString1="mFinalString1";
-    private final String mFinalString2="mFinalString2";
-    private final String mFinalStringCov="mFinalStringCov";
+    private String mFinalString1 = "mFinalString1";
+    private final String mFinalString2 = "mFinalString2";
+    private final String mFinalStringCov = "mFinalStringCov";
+    private final String NICjson = "NICjson";
+    private final String NICDetail = "NICDetail";
 
     private static boolean permanent = false;
     private static boolean present = false;
@@ -73,20 +83,22 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
     private static Handler handler;
-    private static boolean aBooleanstop=false;
+    private static boolean aBooleanstop = false;
 
-    ImageView imageViewPermanent ;
-    ImageView imageViewPresent ;
-    ImageView imageViewPersonal ;
+    private ProgressDialog progressDialog;
+
+    ImageView imageViewPermanent;
+    ImageView imageViewPresent;
+    ImageView imageViewPersonal;
     ImageView imageViewOther;
     CheckBox checkboxSameAddress;
 
-    private int arrTaluka[]={R.array.theesil,R.array.theesil1,R.array.theesil2,R.array.theesil3,R.array.theesil4,R.array.theesil5,R.array.theesil6,
-            R.array.theesil7,R.array.theesil8,R.array.theesil9,R.array.theesil10,
-            R.array.theesil11,R.array.theesil12,R.array.theesil13,R.array.theesil14,R.array.theesil15,R.array.theesil16,R.array.theesil17,
-            R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
-            R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
-            R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
+    private int arrTaluka[] = {R.array.theesil, R.array.theesil1, R.array.theesil2, R.array.theesil3, R.array.theesil4, R.array.theesil5, R.array.theesil6,
+            R.array.theesil7, R.array.theesil8, R.array.theesil9, R.array.theesil10,
+            R.array.theesil11, R.array.theesil12, R.array.theesil13, R.array.theesil14, R.array.theesil15, R.array.theesil16, R.array.theesil17,
+            R.array.theesil18, R.array.theesil19, R.array.theesil20, R.array.theesil21, R.array.theesil22, R.array.theesil23, R.array.theesil24,
+            R.array.theesil25, R.array.theesil26, R.array.theesil27, R.array.theesil28, R.array.theesil29, R.array.theesil30, R.array.theesil31,
+            R.array.theesil32, R.array.theesil33, R.array.theesil34, R.array.theesil35, R.array.theesil36, R.array.theesil37, R.array.theesil38};
 
 
     private String mtextViewDateString = "mtextViewDate";
@@ -133,6 +145,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private TextView meditTextPresentYear;
     private TextView meditTextPresentPinCode;
     private TextView meditTextPresentMoblieNo;
+    private TextView mTxtAppointmentDate;
+    private TextView mTxtAppointmentTime;
 
 
     private TextView meditViewFee;
@@ -150,23 +164,23 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     public static TextView mtextViewDate;
     Thread th;
 
-    String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
-            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
+    String statecode[] = {"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
+            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ", "TR ", "UP ", "WB ",
             "XX ", "DD ", "UK ", "UA ", "OD "};
 
-    String qualificatinCode[] = {"0 ", "1 ","2 ","3 ", "4 ","6 ", "7 ", "10","11", "12",
-            "13","14","30","31","32","33","34","35","39","50","51",
-            "52", "53", "54","55","56","57", "58","59", "70", "80", "81","82","90"};
-    String rtoCode []=  { "OD01 ",  "OD02 ", " OD02K","OD03 ",    "OD04 ", "OD05 ",  "OD06 ", "OD07 ", "OD08 ", "OD09 ",  "OD09B", "OD10 ",  "OD11 ", "OD11R",
-            "OD12 ",  "OD13 ","OD13 ",     " OD15 ","OD16 ",  "OD17 ","OD18 ",
-            " OD19","OD20 ",     "OD21 ",  "OD22 ","OD23 ","OD24 ", "OD25 ", "OD12 ",
-            "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ","OD31 ",  "OD32 ", "OD33 ",
+    String qualificatinCode[] = {"0 ", "1 ", "2 ", "3 ", "4 ", "6 ", "7 ", "10", "11", "12",
+            "13", "14", "30", "31", "32", "33", "34", "35", "39", "50", "51",
+            "52", "53", "54", "55", "56", "57", "58", "59", "70", "80", "81", "82", "90"};
+    String rtoCode[] = {"OD01 ", "OD02 ", " OD02K", "OD03 ", "OD04 ", "OD05 ", "OD06 ", "OD07 ", "OD08 ", "OD09 ", "OD09B", "OD10 ", "OD11 ", "OD11R",
+            "OD12 ", "OD13 ", "OD13 ", " OD15 ", "OD16 ", "OD17 ", "OD18 ",
+            " OD19", "OD20 ", "OD21 ", "OD22 ", "OD23 ", "OD24 ", "OD25 ", "OD12 ",
+            "OD26 ", "OD27 ", "OD28 ", " OD29", "OD30 ", "OD31 ", "OD32 ", "OD33 ",
             "OD34 ", "OD35 "};
 
-    private TextView mspinnerSDate,mspinnerSTime;
+    private TextView mspinnerSDate, mspinnerSTime;
     private TextView mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
-    private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
-    private TextView mspinnerCitizenship, mspinnerCountry,mspinnerIdmark2;
+    private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState, mspinnerPresentState;
+    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2;
 
     private ImageView mimageViewDatePicker;
 
@@ -179,8 +193,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     private String usr_email, usr_qualification, usr_dob, usr_gender;
     private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
 
-    private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
-    private int int_apply_class, int_dob ;
+    private int int_relation_type, int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
+    private int int_apply_class, int_dob;
 
     private String vehicleClass[] = {"Motor cycle without gear for less then 50cc",
             "Motor cycle without grear",
@@ -192,6 +206,10 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
 
     private TextView mspinner;
+    private String jsonString;
+    private static final String PGInfo = "PgInfo";
+    private long appNumber;
+
     public ConfirmAndPay() {
         // Required empty public constructor
     }
@@ -232,10 +250,13 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        TextView textfee= (TextView)view.findViewById(R.id.textfee);
-        TextView textTotal=(TextView)view.findViewById(R.id.textTotal);
-        textfee.setText("Application Fee : Rs. "+(totalFee()-20));
-        textTotal.setText("Total Fee : Rs. "+totalFee());
+        progressDialog = new ProgressDialog(getActivity());
+
+        jsonString = sharedpreferences.getString(PGInfo, "");
+        TextView textfee = (TextView) view.findViewById(R.id.textfee);
+        TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
+        textfee.setText("Application Fee : Rs. " + (totalFee() - 20));
+        textTotal.setText("Total Fee : Rs. " + totalFee());
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);
@@ -260,15 +281,16 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
     private int totalFee() {
-        String s= sharedpreferences.getString("mFinalStringCov","");
-        String arr[]=s.split(",");
-        int len =arr.length;
-        if(arr[0].length()>0)
-        len = len*30+20;
+        String s = sharedpreferences.getString("mFinalStringCov", "");
+        String arr[] = s.split(",");
+        int len = arr.length;
+        if (arr[0].length() > 0)
+            len = len * 30 + 20;
         else
-        len=0;
+            len = 0;
         return len;
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -288,39 +310,38 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.button_confirm_and_pay:
 //                getFieldData();
-                if(validate()) {
+                if (validate()) {
                     sendPostRequest();
 //                    saveSharedPreference();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1","1")).commit();
                 }
                 break;
             case R.id.buttonBackConfirmAndPay:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3","1")).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2","1")).commit();
                 break;
             case R.id.imageViewDatePickerC:
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.linearlayoutPermanantC:
-                if(permanent==true)
+                if (permanent == true)
                     hidePermanent();
                 else
                     showPremanent();
                 break;
             case R.id.linearlayoutPresentAddressC:
-                if(present==true)
+                if (present == true)
                     hidePresent();
                 else
                     showPresent();
                 break;
             case R.id.linearlayoutOtherInfoC:
-                if(otherInfo==true)
+                if (otherInfo == true)
                     hideOtherInfo();
                 else
                     showOtherInfo();
                 break;
             case R.id.linearlayoutPersonalDetailC:
-                if(personalDetail==true)
+                if (personalDetail == true)
                     hidePersonalDetail();
                 else
                     showPersonalDetail();
@@ -335,7 +356,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -371,16 +392,15 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
     }
 
 
-
     private void initailizeFelids(View rootView) {
 
 //        mspinnerSDate=(Spinner) rootView.findViewById(R.id.spinnerSDate);
 //        mspinnerSTime=(Spinner) rootView.findViewById(R.id.spinnerSTime);
 
-        imageViewPermanent=(ImageView) rootView.findViewById(R.id.imagePermanentC);
-        imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresentC);
-        imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonalC);
-        imageViewOther=(ImageView) rootView.findViewById(R.id.imageOtherC);
+        imageViewPermanent = (ImageView) rootView.findViewById(R.id.imagePermanentC);
+        imageViewPresent = (ImageView) rootView.findViewById(R.id.imagePresentC);
+        imageViewPersonal = (ImageView) rootView.findViewById(R.id.imagePersonalC);
+        imageViewOther = (ImageView) rootView.findViewById(R.id.imageOtherC);
 
         meditViewApplicantFirstName = (TextView) rootView.findViewById(R.id.editTextViewApplicantFirstNameC);
         meditViewApplicantMiddleName = (TextView) rootView.findViewById(R.id.editTextViewApplicantMiddleNameC);
@@ -389,7 +409,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditViewEmail = (TextView) rootView.findViewById(R.id.editTextEmailC);
         mimageViewDatePicker = (ImageView) rootView.findViewById(R.id.imageViewDatePickerC);
         mtextViewDate = (TextView) rootView.findViewById(R.id.textViewDateC);
-        meditViewPlaceOfBirth= (TextView) rootView.findViewById(R.id.editTextPlaceofBirthC);
+        meditViewPlaceOfBirth = (TextView) rootView.findViewById(R.id.editTextPlaceofBirthC);
         meditViewYear = (TextView) rootView.findViewById(R.id.editTextYearC);
         meditViewMonth = (TextView) rootView.findViewById(R.id.editTextMonthC);
 
@@ -409,7 +429,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentYear = (TextView) rootView.findViewById(R.id.editTextPermanentYear);
         meditTextPermanentPinCode = (TextView) rootView.findViewById(R.id.editTextPermanentPinCode);
         meditTextPermanentMoblieNo = (TextView) rootView.findViewById(R.id.editTextPermanentMoblieNo);
-
 
 
         meditTextPresentFlatNum = (TextView) rootView.findViewById(R.id.editTextPresentFlatNum);
@@ -442,25 +461,38 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         mspinnerCitizenship = (TextView) rootView.findViewById(R.id.spinnerCitizenshipC);
 
 
+        mlinearlayoutPersonalDetail = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetailC);
+        mlinearlayoutPremanentAddress = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanantC);
+        mlinearlayoutPresentAddress = (RelativeLayout) rootView.findViewById(R.id.linearlayoutPresentAddressC);
+        mlinearlayoutOtherInfo = (RelativeLayout) rootView.findViewById(R.id.linearlayoutOtherInfoC);
 
-        mlinearlayoutPersonalDetail =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPersonalDetailC);
-        mlinearlayoutPremanentAddress=(RelativeLayout) rootView.findViewById(R.id.linearlayoutPermanantC);
-        mlinearlayoutPresentAddress =(RelativeLayout) rootView.findViewById(R.id.linearlayoutPresentAddressC);
-        mlinearlayoutOtherInfo =(RelativeLayout) rootView.findViewById(R.id.linearlayoutOtherInfoC);
 
-
-        mtablelayoutPersonalDetail = (TableLayout)rootView.findViewById(R.id.tablelayoutPersonalDetailC);
-        mtablelayoutPresentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPresentAddressC);
-        mtablelayoutPremanentAddress = (TableLayout)rootView.findViewById(R.id.tablelayoutPermanenetAddressC);
-        mtablelayoutOtherInfo = (TableLayout)rootView.findViewById(R.id.tablelayoutOtherInfoC);
+        mtablelayoutPersonalDetail = (TableLayout) rootView.findViewById(R.id.tablelayoutPersonalDetailC);
+        mtablelayoutPresentAddress = (TableLayout) rootView.findViewById(R.id.tablelayoutPresentAddressC);
+        mtablelayoutPremanentAddress = (TableLayout) rootView.findViewById(R.id.tablelayoutPermanenetAddressC);
+        mtablelayoutOtherInfo = (TableLayout) rootView.findViewById(R.id.tablelayoutOtherInfoC);
 
 
         buttonNext = (ImageView) rootView.findViewById(R.id.button_confirm_and_pay);
 //        buttonClearPersonalDetails = (Button) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackConfirmAndPay = (ImageView) rootView.findViewById(R.id.buttonBackConfirmAndPay);
 
+        mTxtAppointmentDate = (TextView) rootView.findViewById(R.id.txtAppiontmentDate);
+        mTxtAppointmentTime = (TextView) rootView.findViewById(R.id.txtAppiontmentTime);
+        try {
+            JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo, ""));
+            mTxtAppointmentTime.setText("Appointment time : " + jsonObject.getString("slotTime"));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
+            Calendar calendar = Calendar.getInstance();
+            Long aLong = jsonObject.getLong("slotDate");
+            calendar.setTimeInMillis(aLong);
+            dateFormat.format(calendar.getTime());
+            System.out.println(dateFormat.format(calendar.getTime()));
+            mTxtAppointmentDate.setText("Appointment time : " + dateFormat.format(calendar.getTime()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         retrivesession();
-
     }
 
     private void disableField(View rootView) {
@@ -493,7 +525,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         meditTextPermanentYear.setEnabled(false);
         meditTextPermanentPinCode.setEnabled(false);
         meditTextPermanentMoblieNo.setEnabled(false);
-
 
 
         meditTextPresentFlatNum.setEnabled(false);
@@ -530,8 +561,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
         //---get all contacts---
         db.open();
         Cursor c = db.getAllDetails();
-        if(c.moveToFirst()) {
-            if(c.getString(1).length()>0)
+        if (c.moveToFirst()) {
+            if (c.getString(1).length() > 0)
                 mspinnerRTO.setText(getResources().getStringArray(R.array.RTO)[Integer.parseInt(c.getString(1))]);
 
             meditViewApplicantFirstName.setText(c.getString(2));
@@ -539,26 +570,26 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditViewApplicantLastName.setText(c.getString(4));
 
             mtextViewDate.setText(c.getString(5));
-            if(c.getString(6).length()>0)
+            if (c.getString(6).length() > 0)
                 mspinnerGender.setText(getResources().getStringArray(R.array.Gender)[Integer.parseInt(c.getString(6))]);
 
             meditViewPlaceOfBirth.setText(c.getString(7));
-            if(c.getString(8).equals(""))
+            if (c.getString(8).equals(""))
                 meditViewYear.setText("0");
             else
                 meditViewYear.setText(c.getString(8));
 
-            if(c.getString(9).equals(""))
+            if (c.getString(9).equals(""))
                 meditViewMonth.setText("0");
             else
                 meditViewMonth.setText(c.getString(9));
 
-            if(c.getString(10).length()>0)
+            if (c.getString(10).length() > 0)
                 mspinnerCountry.setText(getResources().getStringArray(R.array.Country)[Integer.parseInt(c.getString(10))]);
 
             meditViewEmail.setText(c.getString(11));
 
-            if(c.getString(12).length()>0)
+            if (c.getString(12).length() > 0)
                 mspinnerRelationshipType.setText(getResources().getStringArray(R.array.RelationType)[Integer.parseInt(c.getString(12))]);
 
             meditViewApplicantRelationsName.setText(c.getString(13));
@@ -571,19 +602,19 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPermanentStreet.setText(c.getString(19));
             meditTextPermanentLocality.setText(c.getString(20));
             meditTextPermanentvillage.setText(c.getString(21));
-            if(c.getString(22).length()>0)
-            meditTextPermanentTaluka.setText(getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))])[Integer.parseInt(c.getString(22))]);
+            if (c.getString(22).length() > 0)
+                meditTextPermanentTaluka.setText(getResources().getStringArray(arrTaluka[Integer.parseInt(c.getString(23))])[Integer.parseInt(c.getString(22))]);
 //            meditTextPermanentTaluka.setText(c.getString(22));
 
-            if(c.getString(23).length()>0)
+            if (c.getString(23).length() > 0)
                 meditTextPermanentDistrict.setText(getResources().getStringArray(R.array.district)[Integer.parseInt(c.getString(23))]);
 //            meditTextPermanentDistrict.setText(c.getString(23));
 
-            if(c.getString(24).length()>0)
+            if (c.getString(24).length() > 0)
                 mspinnerPermanentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(24))]);
 
-            meditTextPermanentMonth.setText(c.getString(25));
-            meditTextPermanentYear.setText(c.getString(26));
+            meditTextPermanentYear.setText(c.getString(25));
+            meditTextPermanentMonth.setText(c.getString(26));
             meditTextPermanentPinCode.setText(c.getString(27));
             meditTextPermanentMoblieNo.setText(c.getString(28));
 
@@ -596,204 +627,155 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
             meditTextPresentTaluka.setText(c.getString(35));
             meditTextPresentDistrict.setText(c.getString(36));
 
-            if(c.getString(37).length()>0)
+            if (c.getString(37).length() > 0)
                 mspinnerPresentState.setText(getResources().getStringArray(R.array.states)[Integer.parseInt(c.getString(37))]);
 
-            meditTextPresentMonth.setText(c.getString(38));
-            meditTextPresentYear.setText(c.getString(39));
+            meditTextPresentYear.setText(c.getString(38));
+            meditTextPresentMonth.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
             meditTextPresentMoblieNo.setText(c.getString(41));
-//
-//
-            if(c.getString(42).length()>0)
+
+            if (c.getString(42).length() > 0)
                 mspinnerCitizenship.setText(getResources().getStringArray(R.array.Citizenship)[Integer.parseInt(c.getString(42))]);
 
 
-            if(c.getString(43).length()>0)
+            if (c.getString(43).length() > 0)
                 mspinnerQualification.setText(getResources().getStringArray(R.array.Qualification)[Integer.parseInt(c.getString(43))]);
 
-            if(c.getString(44).length()>0)
+            if (c.getString(44).length() > 0)
                 mspinnerIdmark.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(44))]);
-            if(c.getString(45).length()>0)
-                mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(45))]);
+
+            if (c.getString(45).length() > 0)
+                mspinnerIdmark2.setText(getResources().getStringArray(R.array.idMark)[Integer.parseInt(c.getString(45))]);
+
+            if (c.getString(46).length() > 0)
+                mspinnerBloodGroup.setText(getResources().getStringArray(R.array.Blood)[Integer.parseInt(c.getString(46))]);
 
 
-            if(c.getString(46).length()>0)
-                mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(46))]);
+            if (c.getString(47).length() > 0)
+                mspinnerRH.setText(getResources().getStringArray(R.array.Rh)[Integer.parseInt(c.getString(47))]);
         }
         db.close();
 
     }
 
-
-
-
-
     private boolean validate() {
-//        if(mspinnerSDate.getSelectedItemPosition()==0)
-//        {
-//            showToast("Enter Date");
-//            return false;
-//        }
-//        else if(mspinnerSTime.getSelectedItemPosition()==0)
-//        {
-//            showToast("Enter Time");
-//            return false;
-//        }
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            showToast("No internet connection...");
+            return false;
+        }
         return true;
     }
 
-    private void checkPresentAddress() {
-//
-//        meditTextPresentFlatNum.setText(meditTextPermanentFlatNum.getText().toString());
-//        meditTextPresentHouseName.setText(meditTextPermanentHouseName.getText().toString());
-//        meditTextPresentHouseNum.setText(meditTextPermanentHouseNum.getText().toString());
-//        meditTextPresentStreet.setText(meditTextPermanentStreet.getText().toString());
-//        meditTextPresentLocality.setText(meditTextPermanentLocality.getText().toString());
-//        meditTextPresentvillage.setText(meditTextPermanentvillage.getText().toString());
-//        meditTextPresentTaluka.setText(meditTextPermanentTaluka.getText().toString());
-//        meditTextPresentDistrict.setText(meditTextPermanentDistrict.getText().toString());
-//        meditTextPresentMonth.setText(meditTextPermanentMonth.getText().toString());
-//        meditTextPresentYear.setText(meditTextPermanentYear.getText().toString());
-//        meditTextPresentPinCode.setText(meditTextPermanentPinCode.getText().toString());
-//        meditTextPresentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString());
-//
-//        mspinnerPresentState.setSelection(mspinnerPermanentState.getSelectedItemPosition());
-//
-//        meditTextPresentFlatNum.setEnabled(false);
-//        meditTextPresentHouseName.setEnabled(false);
-//        meditTextPresentHouseNum.setEnabled(false);
-//        meditTextPresentStreet.setEnabled(false);
-//        meditTextPresentLocality.setEnabled(false);
-//        meditTextPresentvillage.setEnabled(false);
-//        meditTextPresentTaluka.setEnabled(false);
-//        meditTextPresentDistrict.setEnabled(false);
-//        meditTextPresentMonth.setEnabled(false);
-//        meditTextPresentYear.setEnabled(false);
-//        meditTextPresentPinCode.setEnabled(false);
-//        meditTextPresentMoblieNo.setEnabled(false);
-//
-//        mspinnerPresentState.setEnabled(false);
-    }
-
-    private void uncheckPresentAddress() {
-        meditTextPresentFlatNum.setEnabled(true);
-        meditTextPresentHouseName.setEnabled(true);
-        meditTextPresentHouseNum.setEnabled(true);
-        meditTextPresentStreet.setEnabled(true);
-        meditTextPresentLocality.setEnabled(true);
-        meditTextPresentvillage.setEnabled(true);
-        meditTextPresentTaluka.setEnabled(true);
-        meditTextPresentDistrict.setEnabled(true);
-        meditTextPresentMonth.setEnabled(true);
-        meditTextPresentYear.setEnabled(true);
-        meditTextPresentPinCode.setEnabled(true);
-        meditTextPresentMoblieNo.setEnabled(true);
-
-        mspinnerPresentState.setEnabled(true);
-    }
 
 
-
-    private void hidePersonalDetail()
-    {
+    private void hidePersonalDetail() {
         mtablelayoutPersonalDetail.setVisibility(View.GONE);
         personalDetail = false;
-        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
 
-    private void showPersonalDetail()
-    {
+    private void showPersonalDetail() {
         mtablelayoutPersonalDetail.setVisibility(View.VISIBLE);
         personalDetail = true;
-        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
+
     private void hideOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.GONE);
         otherInfo = false;
-        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
+
     private void showOtherInfo() {
         mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
         otherInfo = true;
-        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
 
-    private void hidePermanent()
-    {
+    private void hidePermanent() {
         mtablelayoutPremanentAddress.setVisibility(View.GONE);
-        permanent=false;
-        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        permanent = false;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
 
-    private void showPremanent()
-    {
+    private void showPremanent() {
         mtablelayoutPremanentAddress.setVisibility(View.VISIBLE);
-        permanent=true;
-        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        permanent = true;
+        imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
 
     }
-    private void hidePresent()
-    {
+
+    private void hidePresent() {
         mtablelayoutPresentAddress.setVisibility(View.GONE);
-        present=false;
-        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+        present = false;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_p, null));
     }
-    private void showPresent()
-    {
+
+    private void showPresent() {
         mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
-        present=true;
-        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
+        present = true;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.iocn_m, null));
     }
 
     @Override
-    public void onPause ()
-    {
+    public void onPause() {
         super.onPause();
-        Log.d("onPause :"," saving session");
+        Log.d("onPause :", " saving session");
 //        saveSession();
-        Log.d("Session :"," saved session");
+        Log.d("Session :", " saved session");
     }
+
     @Override
-    public void onResume ()
-    {
+    public void onResume() {
         super.onResume();
-        Log.d("onResume :"," retrieving  session");
+        Log.d("onResume :", " retrieving  session");
         retrivesession();
-        Log.d("Session :"," session retrieved");
+        Log.d("Session :", " session retrieved");
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progressDialog.dismiss();
     }
 
     public void sendPostRequest() {
         new PostClass(getActivity()).execute();
     }
 
-    private class PostClass extends AsyncTask<String, Void, Void> {
+    private class PostClass extends AsyncTask<String, Void, Integer> {
 
         private final Context context;
-        private ProgressDialog progressDialog;
+
 
         public PostClass(Context c) {
             this.context = c;
         }
 
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(this.context);
+
             progressDialog.setMessage("Please wait ...");
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
-//            progressDialog.show();
+            progressDialog.show();
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Integer doInBackground(String... params) {
             try {
-
-
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
-
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/user_registration.php");
+//                URL url = new URL("http://220.227.134.18:8081/m_parivahan_odisha/user_registration.php");
+                    URL url = new URL(Links.userRegistration);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlString =sharedpreferences.getString(mFinalString1,"")+sharedpreferences.getString(mFinalString2,"")+"&covs="+(sharedpreferences.getString(mFinalStringCov,""));
+
+                    JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo,""));
+
+                    appNumber = jsonObject.getLong("applicantNum");
+
+                String urlString ="ref_num="+appNumber+sharedpreferences.getString(mFinalString1, "") + sharedpreferences.getString(mFinalString2, "") + "&covs=" + (sharedpreferences.getString(mFinalStringCov, ""));
 
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
@@ -823,95 +805,55 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 //                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
-                String responseDetail= responseOutput.toString();
-                System.out.println(responseDetail+"\n");
-                String detail[] =responseDetail.split(":");
+                String responseDetail = responseOutput.toString();
+                System.out.println("Response output "+responseDetail);
+                JSONObject jsonObject2 = new JSONObject(responseDetail);
+                String s = jsonObject2.getString("receiptNum");
+                System.out.println("Receipt No." + s);
+                JSONObject jsonObject1 = new JSONObject(jsonString);
+                jsonObject1.put("receiptNum", s);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
 
-//                SharedPreferences.Editor editor = sharedpreferences.edit();
-//                editor.putString("receiptNum",detail[1].substring(1, 8));
-//                editor.commit();
+                editor.putString(PGInfo, jsonObject1.toString());
+                editor.apply();
 
-                if(Integer.parseInt(detail[1].substring(1, 8))>0)
-                {
-                    int  MEGABYTE = 1024 * 1024;
-//                URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/send_mail.php");
-                    URL email = new URL("http://103.27.233.206/M-Parivahan-Odisha/ll_app.php?");
-                    String s="referenceId=" +sharedpreferences.getString("receiptNum","")+
-                            "&email=amit.choudhary@cnvg.in";
-
-                    HttpURLConnection connection1 = (HttpURLConnection) email.openConnection();
-
-                    connection1.setRequestMethod("POST");
-                    connection1.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                    connection1.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                    connection1.setConnectTimeout(25000);
-                    connection1.setDoInput(true);
-                    connection1.setDoOutput(true);
-                    DataOutputStream dStream1 = new DataOutputStream(connection1.getOutputStream());
-
-                    dStream1.writeBytes(s);
-                    dStream1.flush();
-                    dStream1.close();
-                    responseCode = connection1.getResponseCode();
-//                    BufferedReader br1 = new BufferedReader(new InputStreamReader(connection1.getInputStream()));
-//                    StringBuilder responseOutput2 = new StringBuilder();
-//                    System.out.println("output===============" + br1);
-//                    while ((line = br1.readLine()) != null) {
-//                        responseOutput2.append(line);
-//                    }
-//                    br.close();
-//                    System.out.println("email Response "+responseOutput2.toString());
-                }
-                else
-                {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-//                        showToast("Email sent");
-                        }//public void run() {
-                    });
+                if (Integer.parseInt(s) > 0) {
+                    BackGroundTasks.sendMail(appNumber);
                 }
 
-
+                return 1;
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                return 0;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }catch (Exception e)
-            {
+                return 0;
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
-                progressDialog.hide();
+                return 0;
             }
 
-            return null;
         }
 
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Integer result) {
 
             progressDialog.dismiss();
-            if(result==1)
-            {
+            if (result == 1) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Your code to run in GUI thread here
-
-//                        showToast("Email sent");
-                    }//public void run() {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PayablePayment.newInstance("1", "1")).commit();
+                    }
                 });
-            }
-            else
-            {
+            } else {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //Your code to run in GUI thread here
-                        showToast("failure");
+                        showToast("Payment failed");
                     }//public void run() {
                 });
             }
@@ -919,3 +861,5 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener{
 
     }
 }
+
+

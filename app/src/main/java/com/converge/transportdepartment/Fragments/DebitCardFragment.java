@@ -28,7 +28,11 @@ import com.citrus.widgets.CardNumberEditText;
 import com.citrus.widgets.ExpiryDate;
 import com.converge.transportdepartment.PaymentSuccessfull;
 import com.converge.transportdepartment.R;
+import com.converge.transportdepartment.Utility.ConValidation;
 import com.converge.transportdepartment.Utility.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -43,8 +47,9 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
+    private String transId, amt;
+
     private CitrusClient citrusClient;
     private Constants constants;
 
@@ -53,10 +58,16 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private EditText editCVV;
     private EditText editExpiryDate;
 
-    public static final String PREFS_NAME = "MyTransportFile";
+
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
-
+    private static final String PGInfo="PgInfo";
+    private String jsonString;
+    private Long applicantNum;
+    private String cardHolderName, cardNumber, cardCVV, md[];
+    private long appNumber;
+    private String receiptNumber, date, time, rtoCode;
+    private long aLong;
 
     public DebitCardFragment() {
         // Required empty public constructor
@@ -96,11 +107,24 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_debit_card, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        jsonString=sharedpreferences.getString(PGInfo,"");
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
+            aLong = jsonObjectData.getLong("slotDate");
+            date = ConValidation.getDateString(aLong);
+            time = jsonObjectData.getString("slotTime");
+            rtoCode = jsonObjectData.getString("rtocodeReal");
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         TextView pay = (TextView) view.findViewById(R.id.textDebitload);
 
         editCardNumber = (CardNumberEditText) view
                 .findViewById(R.id.cardHolderNumber);
+
         editExpiryDate = (ExpiryDate) view.findViewById(R.id.cardExpiry);
         editCardHolderName = (EditText) view.findViewById(R.id.cardHolderName);
 //        cardHolderNickName = (EditText) view.findViewById(R.id.cardHolderNickName);
@@ -115,40 +139,59 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
     }
-    private  void makePayment()
+
+    private boolean validate()
     {
+        try {
+            JSONObject jsonObjectData= new JSONObject(jsonString);
+            applicantNum=jsonObjectData.getLong("applicantNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        String cardHolderName = editCardHolderName.getText().toString();
-        String cardNumber = editCardNumber.getText().toString();
-        String cardCVV = editCVV.getText().toString();
+         cardHolderName = editCardHolderName.getText().toString();
+         cardNumber = editCardNumber.getText().toString();
+         cardCVV = editCVV.getText().toString();
 
-        String md []=editExpiryDate.getText().toString().split("/");
+         md = editExpiryDate.getText().toString().split("/");
         if(cardHolderName.length()<5 || cardCVV.length()!=3 || cardNumber.length()<10 || editExpiryDate.length()==0)
         {
             Toast.makeText(getActivity(),"Enter all fields correctly",Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
+        return true;
+    }
+    private  void makePayment()
+    {
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        Amount amount = new Amount("1");
+        final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
             @Override
             public void success(TransactionResponse transactionResponse) {
-//                Toast.makeText(getActivity(),"Payment Success",Toast.LENGTH_LONG).show();
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, PaymentSuccessfull.newInstance("1","1")).commit();
-//                    }
-//                });
+
+                try {
+                    JSONObject jsonObject = new JSONObject(transactionResponse.getJsonResponse().toString());
+                    transId= jsonObject.getString("transactionId");
+                    amt= jsonObject.getString("amount");
+
+                    //Log of payment and receipt generation.
+                     new PaymentReport(transId,"Paid",amt,date,time,receiptNumber,Long.toString(appNumber), rtoCode).savePayment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
                 alertDialogPostReport();
             }
 
             @Override
             public void error(CitrusError error) {
-                Toast.makeText(getActivity(),"Payment Failed"+error.getTransactionResponse().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Payment Failed"+error.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         };
         // Init PaymentType
@@ -156,7 +199,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
                 try {
 //                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, new CitrusUser("amit.choudhary@cnvg.com","9981950533"));
 //                 pgPayment = new PaymentType.PGPayment(amount, "https://27.251.76.25:9012/BillUrl.jsp?ref=12345678", debitCardOption, null);
-                 pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+sharedpreferences.getString("receiptNum",""), debitCardOption, null);
+                 pgPayment = new PaymentType.PGPayment(amount, "http://27.251.76.25:9012/DemoWebServices/BillUrl.jsp?ref="+applicantNum, debitCardOption, null);
 
 //                paymentType = new PaymentType.PGPayment(amount, Constants.BILL_URL, debitCardOption, null);
                 citrusClient.simpliPay(pgPayment, callback);
@@ -168,7 +211,9 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        makePayment();
+        if(validate())
+        alertDialogNote();
+
     }
 
     public void alertDialogPostReport()
@@ -188,6 +233,37 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
         });
 
         builder.show();
-
     }
+
+    private void alertDialogNote()
+    {
+        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax((double) 1)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("M-Parivahan");
+        builder.setItems(items, null);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                makePayment();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.show();
+    }
+
+    private Double calulateTax(Double amt)
+    {
+        amt = amt+(amt/100)*0.75+(amt/100)*15;
+
+        return (Math.round(amt * 100D)) / 100D;
+    }
+
+
 }
+

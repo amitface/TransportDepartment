@@ -5,18 +5,16 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import com.converge.transportdepartment.DownloadPDF;
+import com.converge.transportdepartment.CheckStatus;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Created by converge on 1/7/16.
+ * Created by converge on 22/8/16.
  */
-
-public class DatePickerFragmentDownload extends DialogFragment
+public class DatePickerFragmentStatus extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
     StringBuilder br;
     Calendar c;
@@ -28,13 +26,12 @@ public class DatePickerFragmentDownload extends DialogFragment
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it
+        year = year-16;
 
         Calendar calendar = new GregorianCalendar(year,month,day);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
 
-//        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
 
         return datePickerDialog;
@@ -59,15 +56,11 @@ public class DatePickerFragmentDownload extends DialogFragment
         else
             dayFormat = Integer.toString(day);
 
+
         br = new StringBuilder();
-        br.append(dayFormat).append("/").append(monthFormat).append("/").append(Integer.toString(year));
+        br.append(dayFormat).append("-").append(monthFormat).append("-").append(Integer.toString(year));
 
-        DownloadPDF.editDownloadPdfDate.setText(br.toString());
-
+        CheckStatus.textDateofIssueStatus.setText(br.toString());
     }
 
-    private void showToast(String s)
-    {
-        Toast.makeText(getActivity(),s,Toast.LENGTH_LONG).show();
-    }
 }

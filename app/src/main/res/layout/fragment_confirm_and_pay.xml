@@ -18,6 +18,107 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+            <!--Fee Information-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:padding="5dp"
+                android:text="Fee Information"
+                android:background="@color/colorPrimaryTransportDepartment"/>
+
+
+                <TextView
+                    android:id="@+id/textfee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:text="Application Fee : Rs. 0"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:padding="5dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Postal fee: Rs.0"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:padding="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:text="PaperDoc fee+tax : Rs. 20"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:padding="5dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Smart Card fee : Rs.0"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:padding="5dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:text="Smartchip fee+tax : Rs. 0"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:padding="5dp"/>
+
+
+                <TextView
+                    android:id="@+id/textTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount :Rs 290"
+                    android:background="@drawable/edit_text_personal_details"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dip"
+                    android:layout_marginRight="6dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip"
+                    android:textColor="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:padding="5dp"/>
+
             <TableLayout
                 android:id="@+id/tablelayoutFee"
                 android:layout_width="match_parent"
@@ -27,67 +128,6 @@
                 android:stretchColumns="*"
                 android:visibility="visible"
                 android:padding="6dip">
-            <!--Fee Information-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:padding="5dp"
-                android:text="@string/fee_information"
-                android:background="@color/colorPrimaryTransportDepartment"/>
-
-            <TableRow
-                android:layout_marginTop="5dp">
-                <TextView
-                    android:id="@+id/textfee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="@string/application_fee_rs_0"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:padding="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Postal fee: Rs.0"
-                    android:textSize="10sp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:padding="5dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="@string/paperdoc_fee_tax_rs_20"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:padding="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/smart_card_fee_rs_0"
-                    android:textSize="10sp"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:padding="5dp"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="Smartchip fee+tax : Rs. 0"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:padding="5dp"/>
-                <TextView
-                    android:id="@+id/textTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Amount :Rs 290"
-                    android:background="@drawable/edit_text_personal_details"
-                    android:textSize="10sp"
-                    android:padding="5dp"/>
-            </TableRow>
             </TableLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -96,7 +136,7 @@
                 android:layout_gravity="start"
                 android:textColor="@android:color/white"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:layout_margin="2dp"
+                android:layout_margin="6dip"
                 android:padding="8dp"
                 android:text=" RTO"
                 android:layout_marginTop="3dp" />
@@ -104,11 +144,15 @@
             <TextView
                 android:id="@+id/spinnerRTOC"
                 android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:paddingLeft="4dp"
-                android:layout_marginRight="2dp"
+                android:layout_height="36dp"
+
+                android:padding="5dp"
                 android:entries="@array/RTO"
                 android:background="@drawable/edit_text_personal_details"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textColorHighlight="@android:color/black"
+                android:layout_margin="6dip"
                 android:spinnerMode="dialog"
                 android:layout_span="3"
                 android:layout_marginTop="5dp" />
@@ -126,27 +170,35 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/appointment_schedule"
+                    android:text="Appointment Schedule"
                     android:textSize="12sp"
                     android:padding="2dp"
                     android:layout_marginTop="5dp"/>
                 <TableRow
                     android:layout_marginTop="2dp">
                     <TextView
+                        android:id="@+id/txtAppiontmentDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
+
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:text="Appointment date : 5/8/16"
                         android:background="@drawable/edit_text_personal_details"
                         android:padding="5dp"/>
 
                 </TableRow>
-                <TableRow>
+                <TableRow
+                    android:layout_marginTop="4dp">
                     <TextView
+                        android:id="@+id/txtAppiontmentTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Appointment time : 11:30 to 11:50"
-                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textColorHighlight="@android:color/black"
                         android:background="@drawable/edit_text_personal_details"
                         android:padding="5dp"/>
                 </TableRow>
@@ -168,7 +220,7 @@
                     android:layout_margin="2dp"
                     android:layout_gravity="center_vertical|start"
                     android:layout_centerVertical="true"
-                    android:text="@string/personal_detail"/>
+                    android:text="Personal Detail"/>
                 <ImageView
                     android:id="@+id/imagePersonalC"
                     android:layout_width="30dp"
@@ -199,21 +251,21 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="@string/applicant_name"/>
+                        android:text="Applicant Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="@string/midddle_name"/>
+                        android:text="Midddle Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/last_name"/>
+                        android:text="Last Name"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -270,7 +322,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="2"
-                        android:text="@string/date_of_birth"/>
+                        android:text="Date of Birth"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -336,7 +388,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="@string/place_of_birth"/>
+                        android:text="Place of Birth"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -364,7 +416,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="@string/if_place_of_birth_is_out_side_india_month_and_year_when_migrated_to_india"/>
+                        android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -429,7 +481,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="@string/country_by_birth"/>
+                        android:text="Country by Birth"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -490,7 +542,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="@string/relationship_type"/>
+                        android:text="Relationship Type"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -518,7 +570,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="@string/relation_s_name"/>
+                        android:text="Relation's Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -527,7 +579,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="@string/midddle_name"/>
+                        android:text=" Middle Name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -536,7 +588,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="@string/last_name"/>
+                        android:text="Last Name"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -601,7 +653,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_centerVertical="true"
                     android:textColor="@android:color/white"
-                    android:text="@string/present_address"/>
+                    android:text="Present Address"/>
                 <ImageView
                     android:id="@+id/imagePermanentC"
                     android:layout_width="30dp"
@@ -631,14 +683,14 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="@string/flat_number"/>
+                        android:text="Flat Number"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/flat_house_name"/>
+                        android:text="Flat / House Name"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress2" >
@@ -682,7 +734,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="@string/house_number_plot_no"/>
+                        android:text="House Number/Plot No"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -761,7 +813,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/village_town_city"/>
+                        android:text="Village / Town / City"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress8">
@@ -794,7 +846,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/taluka_mandal"/>
+                        android:text="Taluka / Mandal"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress10" >
@@ -826,7 +878,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/district"/>
+                        android:text=" District"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress12">
@@ -1007,7 +1059,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="@string/permanent_address"/>
+                    android:text="Permanent Address"/>
                 <ImageView
                     android:id="@+id/imagePresentC"
                     android:layout_width="30dp"
@@ -1038,14 +1090,14 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="@string/flat_number"/>
+                        android:text="Flat Number"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/flat_house_name"/>
+                        android:text="Flat / House Name"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress2" >
@@ -1089,7 +1141,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="@string/house_number_plot_no"/>
+                        android:text="House Number/Plot No"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1173,7 +1225,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/village_town_city"/>
+                        android:text="Village / Town / City"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress8">
@@ -1205,7 +1257,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/taluka_mandal"/>
+                        android:text="Taluka / Mandal"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress10">
@@ -1237,7 +1289,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="@string/district"/>
+                        android:text=" District"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress12">
@@ -1437,7 +1489,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="@string/citizenship_status_by"/>
+                        android:text="Citizenship status by"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -1466,7 +1518,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="@string/educational_qualification"/>
+                        android:text="Educational Qualification"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -1495,7 +1547,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="@string/id_mark_1"/>
+                        android:text="Id Mark 1"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1526,7 +1578,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="@string/id_mark_2"/>
+                        android:text="Id Mark 2"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1556,7 +1608,7 @@
                         android:layout_gravity="start"
 
                         android:layout_span="1"
-                        android:text="@string/blood_group"/>
+                        android:text="Blood Group"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1564,7 +1616,8 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="@string/rh"/>
+                        android:visibility="gone"
+                        android:text="RH"/>
                 </TableRow>
                 <TableRow >
                     <TextView
@@ -1580,6 +1633,7 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:textAlignment="textStart"
                         android:padding="5dp"
+
                         android:spinnerMode="dialog" />
                     <TextView
                         android:id="@+id/spinnerRH"
@@ -1592,91 +1646,12 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:textAlignment="textStart"
                         android:padding="5dp"
+                        android:visibility="gone"
                         android:layout_marginRight="2dp"
                         />
 
                 </TableRow>
-                <!--PhotoId -->
-                <TableRow    android:visibility="gone"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_span="2"
-                        android:text="@string/id_proof"/>
-                </TableRow>
-                <TableRow    android:visibility="gone"  >
-                    <TextView
-                        android:id="@+id/spinnerIdcard"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:paddingLeft="4dp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:textColorHighlight="@android:color/black"
-                        android:background="@drawable/edit_text_personal_details"
-                        android:layout_span="3"
-                        android:entries="@array/IdProof"/>
-                </TableRow>
-                <!--Photo Id Detail-->
-                <TableRow
-                    android:visibility="gone"
-                    android:layout_marginTop="6dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-                        android:text="@string/document_number"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
 
-                        android:text="@string/issuing_authority"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="2dp"
-
-                        android:text="@string/date_of_issue"/>
-
-                </TableRow>
-                <TableRow
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/editTextDocumentNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:textColorHighlight="@android:color/black"
-                        android:background="@drawable/edit_text_personal_details"
-                        />
-                    <TextView
-                        android:id="@+id/editTextIssuingAuthority"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"
-                        android:layout_span="1"
-                        />
-                    <TextView
-                        android:id="@+id/editTextDateofIssue"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:textSize="12dp"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/edit_text_personal_details"/>
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
@@ -1691,14 +1666,13 @@
         android:layout_weight=".1">
 
         <TableRow>
-
             <ImageView
                 android:id="@+id/buttonBackConfirmAndPay"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="@string/back"
+                android:text="Back"
                 android:src="@drawable/back"
                 android:layout_margin="2dp"
                 android:padding="2dp"

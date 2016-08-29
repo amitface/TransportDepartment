@@ -1,12 +1,15 @@
 package com.converge.transportdepartment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +26,19 @@ import com.converge.transportdepartment.DatePicker.DatePickerFragment1;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment2;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment3;
 import com.converge.transportdepartment.DatePicker.DatePickerFragment4;
+import com.converge.transportdepartment.Utility.ConValidation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 
@@ -38,10 +53,16 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private ProgressDialog progressDialog;
+
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
+    private EditText rCNumber;
+
+    private boolean  inValidStatus = false, dlStatus = false;
+
+    private String covTCode[]={"8", "9","7","10","53","54","16","15","17","58","59"};
 
     private Spinner spinnerIdcard1, spinnerIdcard2, spinnerIdcard3, spinnerIdcard4;
     private EditText editTextDocumentNum1,editTextIssuingAuthority1;
@@ -56,9 +77,14 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
 
 
-    private String mFinalString1="mFinalString1";
+    private final String mFinalString1="mFinalString1";
+    private final String NICjson= "NICjson";
+    private final String NICDetail= "NICDetail";
 
-    String s1,s2;
+    private String jsonString;
+    private static final String PGInfo = "PgInfo";
+
+    String s1,s2, stringError;
     String idCode[]={"","B", "C", "D", "F","H","I","L","T","V","Z","E", "A", "1",
             "2", "3", "P", "4", "5", "6", "7"};
 
@@ -68,9 +94,196 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private static int count=0;
     private SharedPreferences sharedpreferences;
     private final String mFinalString2="mFinalString2";
+    private final String mFinalStringCov="mFinalStringCov";
+
+    private String []arrCov;
 
     private String s3;
-    private HashMap<String,String> hashMap = new HashMap<String, String>();;
+    private HashMap<String,String> hashMap = new HashMap<String, String>();
+
+    String sTest="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+            "<applicants>"
+            +
+            "<applicant refno=\"19\">" +
+
+            "<statecode>OD</statecode>" +
+
+            "<rtocode>OD22</rtocode>" +
+
+            "<licence-type>l</licence-type>" +
+
+            "<applicant-name>" +
+
+            "<first-name>JIGNESH</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name>S S</last-name>" +
+
+            "</applicant-name>" +
+
+            "<dob>14-06-1989</dob>" +
+
+            "<gender type=\"male\"/>" +
+
+            "<relation type=\"father\" />" +
+
+            "<parent-name>" +
+
+            "<first-name>NARAYANA</first-name>" +
+
+            "<middle-name>RAO</middle-name>" +
+
+            "<last-name />" +
+
+            "</parent-name>" +
+
+            "<edu-qualification>31</edu-qualification>" +
+
+            "<identification-marks >A mole on right hand</identification-marks>" +
+
+            "<identification-marks />" +
+
+            "<blood-group>O-</blood-group>" +
+
+            "<permanent-address>" +
+
+            "<p-flat-house-no>Flat-102, SAI APTS</p-flat-house-no>" +
+
+            "<p-street-locality>39, 19th crs, muneeswar nagar</p-street-locality>" +
+
+            "<p-village-city>tc palya main road</p-village-city>" +
+
+            "<p-district>Bhadrak</p-district>" +
+
+            "<p-state>OD</p-state>" +
+
+            "<p-pin>760016</p-pin>" +
+
+            "<p-phone-no />" +
+
+            "<p-mobile-no>9573443091</p-mobile-no>" +
+
+            "<p-durationofstay>" +
+
+            "<p-years />" +
+
+            "<p-months />" +
+
+            "</p-durationofstay>" +
+
+            "</permanent-address>" +
+
+            "<temporary-address>" +
+
+            "<t-flat-house-no>Flat-102, SAI APTS</t-flat-house-no>" +
+
+            "<t-street-locality>39, 19th crs, muneeswar nagar</t-street-locality>" +
+
+            "<t-village-city>tc palya main road</t-village-city>" +
+
+            "<t-district>Bhadrak</t-district>" +
+
+            "<t-state>OD</t-state>" +
+
+            "<t-pin>760016</t-pin>" +
+
+            "<t-phone-no />" +
+
+            "<t-durationofstay>" +
+
+            "<t-years />" +
+
+            "<t-months />" +
+
+            "</t-durationofstay>" +
+
+            "</temporary-address>" +
+
+            "<citizenship-status type=\"birth\" />" +
+
+            "<birth-place>Bhadrak</birth-place>" +
+
+            "<migration>" +
+
+            "<year />" +
+
+            "<month />" +
+
+            "</migration>" +
+
+            "<birth-country>IND</birth-country>" +
+
+            "<email-id>amit.choudhary@cnvg.in</email-id>" +
+
+            "<list-of-proofs>" +
+
+            "<doc>" +
+
+            "<proofcode>1</proofcode>" +
+
+            "<licence-certificate-badge-no>c1</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i1</issuing-authority>" +
+
+            "<date-of-issue>02-12-1992</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>3</proofcode>" +
+
+            "<licence-certificate-badge-no>c2</licence-certificate-badge-no>" +
+
+            "<issuing-authority>i2</issuing-authority>" +
+
+            "<date-of-issue>02-12-2011</date-of-issue>" +
+
+            "</doc>" +
+
+            "<doc>" +
+
+            "<proofcode>O</proofcode>" +
+
+            "<licence-certificate-badge-no />" +
+
+            "<issuing-authority />" +
+
+            "<date-of-issue>02-12-2014</date-of-issue>" +
+
+            "</doc>" +
+
+            "</list-of-proofs>" +
+
+            "<covs>3,4,2,10,53</covs>" +
+
+            "<rcnumber />" +
+
+            "<parentleterforbelow18age type=\"n\" />" +
+
+            "<allnecessarycertificates type=\"y\" />" +
+
+            "<exemptedmedicaltest type=\"n\" />" +
+
+            "<exemptedpreliminarytest type=\"n\" />" +
+
+            "<convicted type=\"n\" />" +
+
+            "<attachdoc>" +
+
+            "<attdlnumber />" +
+
+            "<attdtofconviction />" +
+
+            "<attreason />" +
+
+            "</attachdoc>" +
+
+            "</applicant>" +
+
+            "</applicants>";
 
     public IdProof() {
         // Required empty public constructor
@@ -111,11 +324,21 @@ public class IdProof extends Fragment implements View.OnClickListener{
             count=0;
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        progressDialog = new ProgressDialog(getActivity());
+        jsonString = sharedpreferences.getString(PGInfo, "");
         View view =  inflater.inflate(R.layout.fragment_id_proof, container, false);
         ImageView button = (ImageView)view.findViewById(R.id.buttonNextIdProof);
         ImageView buttonback = (ImageView)view.findViewById(R.id.buttonBackIdProof);
         ImageView buttonClear = (ImageView)view.findViewById(R.id.buttonClearIdProof);
 
+
+        sharedpreferences = getActivity().getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        String temp = sharedpreferences.getString(mFinalStringCov,"");
+        arrCov =temp.split(",");
+
+        System.out.println("arrCov  ==="+ arrCov[0]);
 
         buttonback.setOnClickListener(this);
         button.setOnClickListener(this);
@@ -145,6 +368,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
         retrivesession();
         Log.d("Session :"," Id proof session retrieved");
     }
+
     private void setListner(View view) {
         imageViewDatePicker1.setOnClickListener(this);
         imageViewDatePicker2.setOnClickListener(this);
@@ -153,8 +377,6 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         img1.setOnClickListener(this);
         img2.setOnClickListener(this);
-
-
     }
 
 
@@ -188,16 +410,61 @@ public class IdProof extends Fragment implements View.OnClickListener{
         imageViewDatePicker2 = (ImageView) view.findViewById(R.id.imageViewDatePicker2);
         imageViewDatePicker3 = (ImageView) view.findViewById(R.id.imageViewDatePicker3);
         imageViewDatePicker4 = (ImageView) view.findViewById(R.id.imageViewDatePicker4);
+
+
+        rCNumber = (EditText) view.findViewById(R.id.rCNumber);
+
+
+        /*if(arrCov[9].equals("12"))
+        {
+            refNumber.setVisibility(View.VISIBLE);
+        }*/
+
+        System.out.println("arrCov.length == "+arrCov.length);
+
+        for(int i=0; i<arrCov.length; i++)
+        {
+            if(arrCov[i].equals("12"))
+            {
+                rCNumber.setVisibility(View.VISIBLE);
+                inValidStatus=true;
+                break;
+            }
+        }
+
+        checkTrasport();
         retrivesession();
 
     }
 
-    public void onClickIdProof(View view) {
-
+    private void checkTrasport()
+    {
+        for(int i = 0; i<covTCode.length;i++)
+        {
+            for(int j =0;j<arrCov.length;j++)
+                if(covTCode[i].equals(arrCov[j]))
+                {
+                    Toast.makeText(getActivity(),"Driving license is compulsory for Transport vehicle.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Driving license issue date should be, 1 year less than current date",Toast.LENGTH_LONG).show();
+                    dlStatus= true;
+                    return;
+                }
+        }
     }
 
     private boolean validate() {
-        if(spinnerIdcard1.getSelectedItemPosition()==0)
+        if(!ConValidation.isNetworkAvailable(getActivity()))
+        {
+            showToast("No internet connection...");
+            return false;
+        }
+        if(inValidStatus==true && rCNumber.getText().length()<=6 )
+        {
+            showToast("Registration number required for INVALID CARRIAGE VEHICLE");
+            rCNumber.setError("Enter Registration number");
+            return false;
+        }
+        else if(spinnerIdcard1.getSelectedItemPosition()==0)
         {
             showToast("Enter Id proof");
             return false;
@@ -214,6 +481,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
             showToast("Enter Date of Issue");
             return false;
         }
+
         return true;
     }
 
@@ -224,14 +492,16 @@ public class IdProof extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.buttonNextIdProof:
                 if (validate()) {
+//                    detailNIC();
                     saveSharedPreference();
+                    sendPostNICRequest();
                     if (sharedpreferences.contains(mFinalString1)) {
                         s1 = sharedpreferences.getString(mFinalString1, "");
                         s2 = detailString();
                     }
 //                    sendPostRequest();
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
                 }
                 break;
             case R.id.buttonBackIdProof:
@@ -274,7 +544,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     count++;
                     tableLayout4.setVisibility(View.VISIBLE);
                 } else if (count == 3) {
-                    showToast("Cannot Add More");
+                    showToast("Cannot exceed limit of 4 Id proof");
                 }
                 break;
             case R.id.buttonRemove:
@@ -352,11 +622,22 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        progressDialog.dismiss();
+    }
+
     private void saveSharedPreference() {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString2, detailString());
         editor.commit();
+//        editor.putString(NICjson,jsonNIC());
+        editor.putString(NICDetail,detailNIC());
+        editor.apply();
     }
+
 
     private String detailString()
     {
@@ -393,8 +674,260 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 "&date_of_issue%5B%5D="+editTextDateofIssue1.getText().toString()+
                 "&date_of_issue%5B%5D="+editTextDateofIssue2.getText().toString()+
                 "&date_of_issue%5B%5D="+editTextDateofIssue3.getText().toString()+
-                "&date_of_issue%5B%5D="+editTextDateofIssue4.getText().toString();
+                "&date_of_issue%5B%5D="+editTextDateofIssue4.getText().toString()+"&rc_number="+rCNumber.getText().toString().toUpperCase();
         return idProof;
+    }
+
+    private String jsonNIC() {
+        JSONObject jsNic = new JSONObject();
+        try {
+
+           jsNic.put("proofcode",3);
+           jsNic.put("licence-certificate-badge-no",3);
+           jsNic.put("issuing-authority",3);
+           jsNic.put("date-of-issue",3);
+
+            return jsNic.toString();
+
+        }catch (JSONException e)
+        {
+            //s2 is working
+
+        }
+        return jsNic.toString();
+    }
+
+    private String detailNIC()
+    {
+        String testNic=null;
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(sharedpreferences.getString(NICjson, "").toString());
+
+            String rcStringNumber, dlStringNumber;
+            if(inValidStatus==true)
+            {
+                rcStringNumber = "<rcnumber >"+rCNumber.getText().toString()+"</rcnumber >";
+            }else
+                rcStringNumber= "<rcnumber />";
+
+            String proof1=idCode[spinnerIdcard1.getSelectedItemPosition()];
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append("<proofcode>").append(proof1).append("</proofcode>");
+            stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum1.getText().toString()).append("</licence-certificate-badge-no>");
+            stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority1.getText().toString()).append("</issuing-authority>");
+            stringBuffer.append("<date-of-issue>").append(editTextDateofIssue1.getText().toString().replace("/","-")).append("</date-of-issue>");
+            proof1= stringBuffer.toString();
+
+            stringBuffer.delete(0,stringBuffer.length());
+            String proof2=new String();
+            if(spinnerIdcard2.getSelectedItemPosition()!=0)
+            {
+                proof2 =idCode[spinnerIdcard2.getSelectedItemPosition()];
+                stringBuffer.append("<doc>");
+                stringBuffer.append("<proofcode>").append(proof2).append("</proofcode>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum2.getText().toString()).append("</licence-certificate-badge-no>");
+                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority2.getText().toString()).append("</issuing-authority>");
+                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue2.getText().toString().replace("/","-")).append("</date-of-issue>");
+                stringBuffer.append("</doc>");
+                proof2=stringBuffer.toString();
+            }else
+                proof2="";
+
+            stringBuffer.delete(0,stringBuffer.length());
+            String proof3=new String();
+            if(spinnerIdcard3.getSelectedItemPosition()!=0)
+            {
+                proof3 =idCode[spinnerIdcard3.getSelectedItemPosition()];
+                stringBuffer.append("<doc>");
+                stringBuffer.append("<proofcode>").append(proof3).append("</proofcode>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum3.getText().toString()).append("</licence-certificate-badge-no>");
+                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority3.getText().toString()).append("</issuing-authority>");
+                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue3.getText().toString().replace("/","-")).append("</date-of-issue>");
+                stringBuffer.append("</doc>");
+                proof3=stringBuffer.toString();
+            }else
+                proof3="";
+
+            stringBuffer.delete(0,stringBuffer.length());
+            String proof4=new String();
+            if(spinnerIdcard4.getSelectedItemPosition()!=0)
+            {
+                proof4 =idCode[spinnerIdcard4.getSelectedItemPosition()];
+                stringBuffer.append("<doc>");
+                stringBuffer.append("<proofcode>").append(proof4).append("</proofcode>");
+                stringBuffer.append("<licence-certificate-badge-no>").append(editTextDocumentNum4.getText().toString()).append("</licence-certificate-badge-no>");
+                stringBuffer.append("<issuing-authority>").append(editTextIssuingAuthority4.getText().toString()).append("</issuing-authority>");
+                stringBuffer.append("<date-of-issue>").append(editTextDateofIssue4.getText().toString().replace("/","-")).append("</date-of-issue>");
+                stringBuffer.append("</doc>");
+                proof4=stringBuffer.toString();
+            }
+            else
+                proof4="";
+
+            testNic = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                    "<!DOCTYPE applicants PUBLIC \"//National Informatics Center/\" \"../../files_uc09/llform.dtd\">" +
+                    "<applicants>"
+                    +
+                    "<applicant refno=\"" + jsonObject.getString("refno")+"\">" +
+
+                    "<statecode>"+jsonObject.getString("statecode")+"</statecode>" +
+
+                    "<rtocode>"+jsonObject.getString("rtocodeReal")+"</rtocode>" +
+
+                    "<licence-type>l</licence-type>" +
+
+                    "<applicant-name>" +
+
+                    "<first-name>"+jsonObject.getString("aFName")+"</first-name>" +
+
+                    "<middle-name>"+jsonObject.getString("aFMiddle")+"</middle-name>" +
+
+                    "<last-name>"+jsonObject.getString("aFLast")+"</last-name>" +
+
+                    "</applicant-name>" +
+
+                    "<dob>"+jsonObject.getString("dob")+"</dob>" +
+
+                    "<gender type=\""+jsonObject.getString("gender")+"\"/>" +
+
+                    "<relation type=\""+jsonObject.getString("relation-type")+"\" />" +
+
+                    "<parent-name>" +
+
+                    "<first-name>"+jsonObject.getString("pFName")+"</first-name>" +
+
+                    "<middle-name>"+jsonObject.getString("pFMiddle")+"</middle-name>" +
+
+                    "<last-name />" +
+
+                    "</parent-name>" +
+
+
+                    "<edu-qualification>"+jsonObject.getString("qualification")+"</edu-qualification>" +
+
+                    "<identification-marks >"+jsonObject.getString("identification-marks")+"</identification-marks>" +
+
+                    "<identification-marks >"+jsonObject.getString("identification-marks2")+"</identification-marks>" +
+
+                    "<blood-group>"+jsonObject.getString("blood-group")+"</blood-group>" +
+
+                    "<permanent-address>" +
+
+                    "<p-flat-house-no>"+jsonObject.getString("tFlatHouseNo")+"</p-flat-house-no>" +
+
+                    "<p-street-locality>"+jsonObject.getString("tStreetLocality")+"</p-street-locality>" +
+
+                    "<p-village-city>"+jsonObject.getString("tVillageCity")+"</p-village-city>" +
+
+                    "<p-district>"+jsonObject.getString("tDistrict")+"</p-district>" +
+
+                    "<p-state>"+jsonObject.getString("pState")+"</p-state>" +
+
+                    "<p-pin>"+jsonObject.getString("pPin")+"</p-pin>" +
+
+                    "<p-phone-no />" +
+
+                    "<p-mobile-no>"+jsonObject.getString("pMobileNo")+"</p-mobile-no>" +
+
+                    "<p-durationofstay>" +
+
+                    "<p-years >"+jsonObject.getString("pYears")+"</p-years>"+
+
+                    "<p-months >"+jsonObject.getString("pMonths")+"</p-months >"+
+
+                    "</p-durationofstay>" +
+
+                    "</permanent-address>" +
+
+                    "<temporary-address>" +
+
+                    "<t-flat-house-no>"+jsonObject.getString("tFlatHouseNo")+"</t-flat-house-no>" +
+
+                    "<t-street-locality>"+jsonObject.getString("tStreetLocality")+"</t-street-locality>" +
+
+                    "<t-village-city>"+jsonObject.getString("tVillageCity")+"</t-village-city>" +
+
+                    "<t-district>"+jsonObject.getString("tDistrict")+"</t-district>" +
+
+                    "<t-state>"+jsonObject.getString("tState")+"</t-state>" +
+
+                    "<t-pin>"+jsonObject.getString("tPin")+"</t-pin>" +
+
+                    "<t-phone-no >"+jsonObject.getString("tPhoneNo")+"</t-phone-no>"+
+
+                    "<t-durationofstay>" +
+
+                    "<t-years >"+jsonObject.getString("tYears")+"</t-years>" +
+
+                    "<t-months >"+jsonObject.getString("tMonths")+"</t-months>" +
+
+                    "</t-durationofstay>" +
+
+                    "</temporary-address>" +
+
+                    "<citizenship-status type=\""+jsonObject.getString("citizenship-status")+"\" />" +
+
+                    "<birth-place>"+jsonObject.getString("birth-place")+"</birth-place>" +
+
+                    "<migration>" +
+
+                    "<year >" +jsonObject.getString("year")+"</year>"+
+
+                    "<month >" +jsonObject.getString("month")+"</month>"+
+
+                    "</migration>" +
+
+                    "<birth-country>"+jsonObject.getString("birth-country")+"</birth-country>" +
+
+                    "<email-id>"+jsonObject.getString("email-id")+"</email-id>" +
+//                    complete till here
+                    "<list-of-proofs>" +
+
+                    "<doc>" +
+                    proof1+
+                    "</doc>" +
+
+                    proof2 +
+
+                    proof3 +
+
+                    proof4+
+                    "</list-of-proofs>" +
+
+                    "<covs>"+sharedpreferences.getString("mFinalStringCov","")+"</covs>" +
+
+                    rcStringNumber +
+
+                    "<parentleterforbelow18age type=\"n\" />" +
+
+                    "<allnecessarycertificates type=\"y\" />" +
+
+                    "<exemptedmedicaltest type=\"n\" />" +
+
+                    "<exemptedpreliminarytest type=\"n\" />" +
+
+                    "<convicted type=\"n\" />" +
+
+                    "<attachdoc>" +
+
+                    "<attdlnumber />" +
+
+                    "<attdtofconviction />" +
+
+                    "<attreason />" +
+
+                    "</attachdoc>" +
+
+                    "</applicant>" +
+
+                    "</applicants>";
+        }catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return testNic;
     }
 
     private void showToast(String s)
@@ -494,4 +1027,156 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
     }
 
+
+    public void sendPostNICRequest() {
+        new PostClassNIC(getActivity()).execute();
+    }
+
+    //Class to Post Data in Background
+    public class PostClassNIC extends AsyncTask<String, Void, Integer> {
+
+        private final Context context;
+
+        //Method to Encode to Base64
+        private String endcodetoBase64(String s) throws UnsupportedEncodingException {
+            byte[] byteArray = s.getBytes("UTF-8");
+            return Base64.encodeToString(byteArray,0);
+        }
+
+        public PostClassNIC(Context c) {
+            this.context = c;
+
+        }
+
+        protected void onPreExecute() {
+
+            progressDialog.setMessage("Submitting form please wait....");
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpURLConnection connection=null;
+            try {
+
+//                final TextView outputView = (TextView) findViewById(R.id.showOutput);
+                URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
+//                URL url = new URL("http://www.sarathi.nic.in:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
+                connection = (HttpURLConnection) url.openConnection();
+
+                //Creating json object.
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.put("base64file", endcodetoBase64(detailNIC()));
+//                jsonObject.put("base64file", endcodetoBase64(sTest));
+                jsonObject.put("agentID", "smartchip");
+                jsonObject.put("password", "3998151263B55EB10F7AE1A974FD036E");
+                jsonObject.put("seckey","");
+
+                String json = jsonObject.toString();
+
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestMethod("POST");
+                connection.setConnectTimeout(60000);
+                connection.setReadTimeout(60000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(json);
+                dStream.flush();
+                dStream.close();
+                int responseCode = connection.getResponseCode();
+                System.out.print("ResponseCode ====  "+responseCode+"\nRespone === " +connection.getResponseMessage()+"\n");
+
+                final StringBuilder output = new StringBuilder("Request URL " + url);
+                output.append(System.getProperty("line.separator") + "Response Code" + responseCode);
+                output.append(System.getProperty("line.separator") + "Response Message " +connection.getResponseMessage());
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                br.close();
+
+                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                System.out.print("Resposne out put ====  "+responseOutput.toString()+"\n");
+                 String str [] = responseOutput.toString().split("\\|");
+
+                if(str[0].equals("Success"))
+                {
+                    JSONObject jsonObject1 = new JSONObject(jsonString);
+                    jsonObject1.put("applicantNum",Long.parseLong(str[1]));
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(PGInfo,jsonObject1.toString());
+                    editor.apply();
+                    stringError=responseOutput.toString();
+                    return 1;
+                }
+                else
+                {
+                    stringError=responseOutput.toString();
+                    return 0;
+                }
+
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                stringError=  e.toString();
+                return 0;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                stringError=  e.toString();
+                return 0;
+            } catch (JSONException e) {
+                stringError=  e.toString();
+                return 0;
+            }
+
+        }
+        protected void onPostExecute(Integer result) {
+            progressDialog.hide();
+            if(result==1)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),stringError,Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("3", "1")).commit();
+                    }
+                });
+
+            }
+            else if(result==2)
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), stringError, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), stringError, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
+    }
 }
+
+

@@ -6,15 +6,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -24,24 +23,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
+import com.converge.transportdepartment.Utility.ConValidation;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -81,11 +74,28 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     ImageView imageViewPersonal ;
     ImageView imageViewOther;
     CheckBox  checkboxSameAddress;
+    EditText setectRto_text;
+    EditText spinnerRelationshipType_text;
+    EditText spinnerCountry_text;
+    EditText spinnerCitizenship_text;
+    EditText sPerDistrict_text;
+    EditText spinnerPermanentState_text;
+    EditText spinnerPresentState_text;
+    EditText spinnerQualification_text;
+    EditText spinnerIdmark_text;
+    EditText spinnerIdmark2_text;
+    EditText spinnerBloodGroup_text;
+    EditText spinnerRH_text;
 
+    private String []arrCov;
+    private final String mFinalStringCov="mFinalStringCov";
 
     private String mtextViewDateString = "mtextViewDate";
     private String mtextViewDateInt = "mtextViewDateInt";
 
+    ScrollView scrollView;
+    private TextView textView_personalDetail;
+    private TextView textView13;
 
     // TextView and Spinner
     private EditText meditViewApplicantFirstName;
@@ -143,8 +153,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     Thread th;
 
     String statecode[]={"AN", "N", "AP ", "AR ", "AS ", "BR ", "CG", "CH ", "DL ", "DN ", "GA ", "GJ ", "HP ", "HR ", "JK ", "JH ", "KA ",
-                        "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
-                        "XX ", "DD ", "UK ", "UA ", "OD "};
+            "KL ", "LD ", "MH ", "ML ", "MN ", "MP ", "MZ ", "NL ", "PB ", "PY ", "RJ ", "SK ", "TN ",  "TR ", "UP ", "WB ",
+            "XX ", "DD ", "UK ", "UA ", "OD "};
 
     String qualificatinCode[] = {"0 ", "1 ","2 ","3 ", "4 ","6 ", "7 ", "10","11", "12",
             "13","14","30","31","32","33","34","35","39","50","51",
@@ -161,7 +171,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             R.array.theesil18,R.array.theesil19,R.array.theesil20,R.array.theesil21,R.array.theesil22,R.array.theesil23,R.array.theesil24,
             R.array.theesil25,R.array.theesil26,R.array.theesil27,R.array.theesil28,R.array.theesil29,R.array.theesil30,R.array.theesil31,
             R.array.theesil32,R.array.theesil33,R.array.theesil34,R.array.theesil35,R.array.theesil36,R.array.theesil37,R.array.theesil38};
-    String rtoC[];
+    String rtoC[], rtoRealCode[], qualificateCode[], stateCode[];
 
     private Spinner mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private Spinner mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState,mspinnerPresentState;
@@ -173,33 +183,14 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private ImageView buttonClearPersonalDetails;
     private ImageView buttonBackPersonalDetails;
 
-
-    private String usr_fname, usr_lname, usr_relation_type, usr_father_name, usr_address, usr_city, usr_district, usr_pincode, usr_apply_class, usr_mobile;
-    private String usr_email, usr_qualification, usr_dob, usr_gender;
-    private String usr_blood_gr, usr_blood_rh, usr_idmark, usr_feeamnt, usr_status;
-
-
-    private int int_relation_type,int_qualification, int_gender, int_idmark, int_blood_gr, int_blood_rh;
-    private int int_apply_class, int_dob ;
-
-    private String vehicleClass[] = {"Motor cycle without gear for less then 50cc",
-            "Motor cycle without grear",
-            "Motor cycle withgear",
-            "Light Motor Vehicle Non Transport",
-            "Light Motor Vehicle-Auto Riksha Non Transport",
-            "LMC Trackor Trailer",
-            "IVC"};
-
-
-    private Spinner mspinner;
-
     private OnFragmentInteractionListener mListener;
     public static final String PREFS_NAME = "MyTransportFile";
     public static final String mypreference = "mypref";
     private SharedPreferences sharedpreferences;
     private static final String mFinalString1="mFinalString1";
     private static final String PGInfo="PgInfo";
-
+    private final String NICjson= "NICjson";
+    private int num;
 
 
     public PersonalDetails() {
@@ -241,6 +232,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         rtoC=getResources().getStringArray(R.array.Rto_code);
+        rtoRealCode=getResources().getStringArray(R.array.Rto_code_Real);
+        qualificateCode=getResources().getStringArray(R.array.qualificationCode);
+        stateCode=getResources().getStringArray(R.array.statesCode);
+        Random rand = new Random();
+        num = rand.nextInt(9000000) + 1000000;
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
         hidePermanent();
@@ -253,12 +249,16 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.buttonNextPersonalDetail:
 //                getFieldData();
+                removeSpace();
                 if(validate()) {
                     aBooleanstop=true;
                     saveSession();
                     String s = detailString();
                     saveSharedPreference();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, LicenseApplication.newInstance("2", "1")).commit();
+                }else
+                {
+
                 }
                 break;
             case R.id.editTextYear:
@@ -283,6 +283,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 break;
             case R.id.imageViewDatePicker:
                 DialogFragment newFragment = new DatePickerFragment();
+
+
+
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.linearlayoutPermanant:
@@ -290,6 +293,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                     hidePermanent();
                 else
                     showPremanent();
+
                 break;
             case R.id.linearlayoutPresentAddress:
                 if(present==true)
@@ -318,9 +322,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(mFinalString1, detailString());
         editor.putString(PGInfo,jsonString());
+        editor.putString(NICjson,jsonNIC());
         editor.putString("EmailZ",meditViewEmail.getText().toString());
         editor.commit();
-     }
+    }
 
 
     private void showToast(String s) {
@@ -348,7 +353,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        buttonNextPersonalDetails.setOnClickListener(new View.OnClickListener() {
+        buttonNextPersonalDetails.setOnClickListener(new View.OnClickListener()
+                                                     {
                                                          @Override
                                                          public void onClick(View view) {
                                                              onClickPersonalDetails(view);
@@ -394,18 +400,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             }
         });
 
-//        meditViewYear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickPersonalDetails(v);
-//            }
-//        });
-//        meditViewMonth.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickPersonalDetails(v);
-//            }
-//        });
     }
 
 
@@ -416,6 +410,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         imageViewPresent=(ImageView) rootView.findViewById(R.id.imagePresent);
         imageViewPersonal=(ImageView) rootView.findViewById(R.id.imagePersonal);
         imageViewOther=(ImageView) rootView.findViewById(R.id.imageOther);
+
 
         meditViewApplicantFirstName = (EditText) rootView.findViewById(R.id.editTextViewApplicantFirstName);
         meditViewApplicantMiddleName = (EditText) rootView.findViewById(R.id.editTextViewApplicantMiddleName);
@@ -497,9 +492,35 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         buttonClearPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonClearPersonalDetail);
         buttonBackPersonalDetails = (ImageView) rootView.findViewById(R.id.buttonBackPersonalDetail);
 
+
+        scrollView=(ScrollView) rootView.findViewById(R.id.scrollView);
+        textView_personalDetail = (TextView) rootView.findViewById(R.id.textView_personalDetail);
+        textView13 = (TextView) rootView.findViewById(R.id.textView13);
+        setectRto_text = (EditText) rootView.findViewById(R.id.setectRto_text);
+        spinnerRelationshipType_text = (EditText) rootView.findViewById(R.id.spinnerRelationshipType_text);
+        spinnerCountry_text = (EditText) rootView.findViewById(R.id.spinnerCountry_text);
+        spinnerCitizenship_text = (EditText) rootView.findViewById(R.id.spinnerCitizenship_text);
+        sPerDistrict_text = (EditText) rootView.findViewById(R.id.sPerDistrict_text);
+        spinnerPermanentState_text = (EditText) rootView.findViewById(R.id.spinnerPermanentState_text);
+        spinnerPresentState_text = (EditText) rootView.findViewById(R.id.spinnerPresentState_text);
+        spinnerQualification_text = (EditText) rootView.findViewById(R.id.spinnerQualification_text);
+        spinnerIdmark_text = (EditText) rootView.findViewById(R.id.spinnerIdmark_text);
+        spinnerIdmark2_text = (EditText) rootView.findViewById(R.id.spinnerIdmark2_text);
+//        spinnerBloodGroup_text = (EditText) rootView.findViewById(R.id.spinnerBloodGroup_text);
+//        spinnerRH_text = (EditText) rootView.findViewById(R.id.spinnerRH_text);
+
         addListenerOnSpinnerItemSelection();
         addListenerOnSpinnerEducationQualification();
         retrivesession();
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                scrollView.clearFocus();
+                return false;
+            }
+        });
+
     }
 
     private void retrivesession() {
@@ -562,8 +583,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             else
                 mspinnerPermanentState .setSelection(1);
 
-            meditTextPermanentMonth.setText(c.getString(25));
-            meditTextPermanentYear.setText(c.getString(26));
+            meditTextPermanentYear.setText(c.getString(25));
+            meditTextPermanentMonth.setText(c.getString(26));
             meditTextPermanentPinCode.setText(c.getString(27));
             meditTextPermanentMoblieNo.setText(c.getString(28));
 
@@ -582,8 +603,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             else
                 mspinnerPresentState.setSelection(1);
 
-            meditTextPresentMonth.setText(c.getString(38));
-            meditTextPresentYear.setText(c.getString(39));
+            meditTextPresentYear.setText(c.getString(38));
+            meditTextPresentMonth.setText(c.getString(39));
             meditTextPresentPinCode.setText(c.getString(40));
             meditTextPresentMoblieNo.setText(c.getString(41));
 //
@@ -591,22 +612,25 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             if(c.getString(42).length()>0)
                 mspinnerCitizenship.setSelection(Integer.parseInt(c.getString(42)));
 
-
             if(c.getString(43).length()>0)
-            mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
+                mspinnerQualification.setSelection(Integer.parseInt(c.getString(43)));
 
             if(c.getString(44).length()>0)
-            mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
-            if(c.getString(45).length()>0)
-            mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(45)));
+                mspinnerIdmark.setSelection(Integer.parseInt(c.getString(44)));
 
+            if(c.getString(45).length()>0)
+                mspinnerIdmark2.setSelection(Integer.parseInt(c.getString(45)));
 
             if(c.getString(46).length()>0)
-            mspinnerRH.setSelection(Integer.parseInt(c.getString(46)));
+                mspinnerBloodGroup.setSelection(Integer.parseInt(c.getString(46)));
+
+            if(c.getString(47).length()>0)
+                mspinnerRH.setSelection(Integer.parseInt(c.getString(47)));
         }
         db.close();
         addListenerOnSpinnerRtoSelection();
         addListenerOnSpinnerDistrictSelection();
+//        addListenerOnSpinnerQuaSelection();
     }
 
     private void saveSession()
@@ -632,8 +656,6 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         hashMap.put("p_first_name",meditViewApplicantRelationsName.getText().toString());
         hashMap.put("p_middle_name",meditViewApplicantMiddleName.getText().toString());
         hashMap.put("p_last_name",meditViewApplicantRelationsLastName.getText().toString());
-
-
 
 //        hashMap.put("permanent_address","");
         hashMap.put("p_flat_no",meditTextPermanentFlatNum.getText().toString());
@@ -673,35 +695,23 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         hashMap.put("citizenship_status",Integer.toString(mspinnerCitizenship.getSelectedItemPosition()));
         hashMap.put("edu_qualification",Integer.toString(mspinnerQualification.getSelectedItemPosition()));
         hashMap.put("identification_marks",Integer.toString(mspinnerIdmark.getSelectedItemPosition()));
+        hashMap.put("identification_marks2",Integer.toString(mspinnerIdmark2.getSelectedItemPosition()));
         hashMap.put("blood_group",Integer.toString(mspinnerBloodGroup.getSelectedItemPosition()));
         hashMap.put("blood_group_rh",Integer.toString(mspinnerRH.getSelectedItemPosition()));
-
-//        hashMap.put("migration","");
-
-//        hashMap.put("covs","3,4");
-//        hashMap.put("rcnumber","");
-//        hashMap.put("parentletterforbelow18age","");
-//        hashMap.put("allnecessarycertificates","y");
-//        hashMap.put("exemptedmedicaltest","");
-//        hashMap.put("exemptedpreliminarytest","");
-//        hashMap.put("convicted","n");
-//        hashMap.put("attdlnumber","");
-//        hashMap.put("attdtofconviction","");
-//        hashMap.put("attreason","");
         try{
 
 
-        DBAdapter db = new DBAdapter(getActivity());
+            DBAdapter db = new DBAdapter(getActivity());
 
-        //---get all contacts---
-        db.open();
-        if(db.updateData(hashMap))
-        {
-            System.out.println("date Saved----------");
-        }
+            //---get all contacts---
+            db.open();
+            if(db.updateData(hashMap))
+            {
+                System.out.println("date Saved----------");
+            }
             else {
-            System.out.println("date cannot be Saved----------");
-        }
+                System.out.println("date cannot be Saved----------");
+            }
         }catch (Exception e)
         {
             System.out.println("ErrorSaving");
@@ -716,6 +726,9 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         meditViewApplicantRelationsName.setText("");
         meditViewApplicantRelationsMiddleName.setText("");
         meditViewApplicantRelationsLastName.setText("");
+
+        meditViewPlaceOfBirth.setText("");
+        meditViewEmail.setText("");
 
         meditTextPermanentFlatNum.setText("");
         meditTextPermanentHouseName.setText("");
@@ -758,6 +771,42 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         mtextViewDate.setText("");
     }
 
+    private void removeSpace() {
+        meditViewApplicantFirstName.setText(meditViewApplicantFirstName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantMiddleName.setText(meditViewApplicantMiddleName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantLastName.setText(meditViewApplicantLastName.getText().toString().replaceAll("\\s",""));
+
+        meditViewApplicantRelationsName.setText(meditViewApplicantRelationsName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantRelationsMiddleName.setText(meditViewApplicantRelationsMiddleName.getText().toString().replaceAll("\\s",""));
+        meditViewApplicantRelationsLastName.setText(meditViewApplicantRelationsLastName.getText().toString().replaceAll("\\s",""));
+
+        meditViewPlaceOfBirth.setText(meditViewPlaceOfBirth.getText().toString().replaceAll("\\s",""));
+        meditViewEmail.setText(meditViewEmail.getText().toString().replaceAll("\\s",""));
+
+        meditTextPermanentFlatNum.setText(meditTextPermanentFlatNum.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentHouseName.setText(meditTextPermanentHouseName.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentHouseNum.setText(meditTextPermanentHouseNum.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentStreet.setText(meditTextPermanentStreet.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentLocality.setText(meditTextPermanentLocality.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentvillage.setText(meditTextPermanentvillage.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentMonth.setText(meditTextPermanentMonth.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentYear.setText(meditTextPermanentYear.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentPinCode.setText(meditTextPermanentPinCode.getText().toString().replaceAll("\\s",""));
+        meditTextPermanentMoblieNo.setText(meditTextPermanentMoblieNo.getText().toString().replaceAll("\\s",""));
+
+        meditTextPresentFlatNum.setText(meditTextPresentFlatNum.getText().toString().replaceAll("\\s",""));
+        meditTextPresentHouseName.setText(meditTextPresentHouseName.getText().toString().replaceAll("\\s",""));
+        meditTextPresentHouseNum.setText(meditTextPresentHouseNum.getText().toString().replaceAll("\\s",""));
+        meditTextPresentStreet.setText(meditTextPresentStreet.getText().toString().replaceAll("\\s",""));
+        meditTextPresentLocality.setText(meditTextPresentLocality.getText().toString().replaceAll("\\s",""));
+        meditTextPresentvillage.setText(meditTextPresentvillage.getText().toString().replaceAll("\\s",""));
+        meditTextPresentTaluka.setText(meditTextPresentTaluka.getText().toString().replaceAll("\\s",""));
+        meditTextPresentDistrict.setText(meditTextPresentDistrict.getText().toString().replaceAll("\\s",""));
+        meditTextPresentMonth.setText(meditTextPresentMonth.getText().toString().replaceAll("\\s",""));
+        meditTextPresentYear.setText(meditTextPresentYear.getText().toString().replaceAll("\\s",""));
+        meditTextPresentPinCode.setText(meditTextPresentPinCode.getText().toString().replaceAll("\\s",""));
+        meditTextPresentMoblieNo.setText(meditTextPresentMoblieNo.getText().toString().replaceAll("\\s",""));
+    }
 
     private boolean validate() {
         String s="000";
@@ -769,292 +818,463 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         if( mspinnerRTO.getSelectedItemPosition()==0)
         {
             showToast("Select RTO");
+
+            setectRto_text.setError("Select RTO");
+            setectRto_text.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantFirstName.getText().length()==0)
         {
             showToast("Enter applicant first name");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Enter applicant first name");
+            meditViewApplicantFirstName.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantLastName.getText().length()==0)
         {
             showToast("Enter applicant last name");
+
+            showPersonalDetail();
+
+            meditViewApplicantLastName.setError("Enter applicant last name");
+            meditViewApplicantLastName.requestFocus();
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
         {
-            showToast("Only aplhabets  allowed in Name ");
+            showToast("Only aplhabets  allowed in the Name ");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name ");
+            meditViewApplicantFirstName.requestFocus();
+
             return false;
         }
         else if(mtextViewDate.getText().length()==0)
         {
-            showToast("Select DOB");
+            showToast("Enter Date of Birth");
+
+            showPersonalDetail();
+
+            mtextViewDate.setError("Enter Date of Birth");
+            mtextViewDate.requestFocus();
+
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()==0)
         {
             showToast("Select Gender");
+            showPersonalDetail();
+            mspinnerGender.requestFocus();
+
             return false;
         }
 
-//        else if(validation.hasText(meditViewPlaceOfBirth) && !validation.isPhoneNumber(meditViewPlaceOfBirth,true))
-//        {
-//                showToast("only digit in phone number");
-//                return false;
-//        }
-        else if(validation.hasText(meditViewYear) && !validation.isPhoneNumber(meditViewYear,true))
-        {
-            showToast("year & month only digit ");
-            return false;
-        }
-        else if(validation.hasText(meditViewMonth) && !validation.isPhoneNumber(meditViewMonth,true))
-        {
-            showToast("year & month only digit ");
-            return false;
-        }
         else if(mspinnerCountry.getSelectedItemPosition()==0)
         {
             showToast("Select Country of Birth");
+
+            showPersonalDetail();
+
+            spinnerCountry_text.setError("Select Country of Birth");
+            spinnerCountry_text.requestFocus();
+
+            return false;
+        }
+        else if(mspinnerCitizenship.getSelectedItemPosition()==0)
+        {
+            showToast("Select Citizenship");
+
+            showPersonalDetail();
+
+            spinnerCitizenship_text.setError("Select Citizenship");
+            spinnerCitizenship_text.requestFocus();
+
+            return false;
+        }
+        else if(meditViewPlaceOfBirth.getText().length()==0)
+        {
+            showToast("Enter place of birth");
+
+            showPersonalDetail();
+
+            meditViewPlaceOfBirth.setError("Enter place of birth");
+            meditViewPlaceOfBirth.requestFocus();
+
             return false;
         }
         else if(meditViewEmail.getText().length()==0)
         {
-            showToast("Enter email");
+            showToast("Enter valid Email Id");
+
+            showPersonalDetail();
+
+            meditViewEmail.setError("Enter Email");
+            meditViewEmail.requestFocus();
+
             return false;
         }
         else if(!validation.isEmailAddress(meditViewEmail,true))
         {
-                showToast("Email not correct");
-                return false;
+            showToast("Enter valid Email Id");
+
+            showPersonalDetail();
+
+            meditViewEmail.setError("Enter valid Email Id");
+            meditViewEmail.requestFocus();
+
+            return false;
 
         }
         else if(mspinnerRelationshipType.getSelectedItemPosition()==0)
         {
             showToast("Select RelationType");
+
+            showPersonalDetail();
+
+            spinnerRelationshipType_text.setError("Select RelationType");
+            spinnerRelationshipType_text.requestFocus();
+
             return false;
         }
-        else if(mspinnerGender.getSelectedItemPosition()<=1 && mspinnerRelationshipType.getSelectedItemPosition()>1)
+        else if(mspinnerGender.getSelectedItemPosition()==1 && mspinnerRelationshipType.getSelectedItemPosition()==2)
         {
             showToast("RelationType and Gender Does not match");
+            showPersonalDetail();
+            mspinnerGender.requestFocus();
             return false;
         }
-        else if(mspinnerGender.getSelectedItemPosition()>1 && mspinnerRelationshipType.getSelectedItemPosition()<=1)
-        {
-            showToast("RelationType and Gender Does not match");
-            return false;
-        }
+
         else if(meditViewApplicantRelationsName.getText().length()==0)
         {
-            showToast("Enter applicant first name");
+            showToast("Enter applicant relative first name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsName.setError("Enter applicant relative first name");
+            meditViewApplicantRelationsName.requestFocus();
+
             return false;
         }
         else if(meditViewApplicantRelationsLastName.getText().length()==0)
         {
-            showToast("Enter applicant Last name");
+            showToast("Enter applicant relative Last name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsLastName.setError("Enter applicant relative Last name");
+            meditViewApplicantRelationsLastName.requestFocus();
+
             return false;
         }
-        else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()) || !validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
+        else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) )
         {
-                showToast("Only aplhabets  allowed in Relations Name ");
-                return false;
+            showToast("Only aplhabets allowed in the Name");
+
+            showPersonalDetail();
+
+            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantFirstName.requestFocus();
+
+            return false;
+        }
+        else if(!validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()))
+        {
+            showToast("Only aplhabets allowed in the Name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsName.requestFocus();
+            return false;
+        }
+        else if(!validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
+        {
+            showToast("Only aplhabets allowed in the Name");
+
+            showPersonalDetail();
+
+            meditViewApplicantRelationsLastName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsLastName.requestFocus();
+            return false;
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
-            showToast("At least one field required in Present Address");
-//            showToast("Flat number cannot be empty");
+            showToast("Atleast one field required in Present Address");
+
+            showPremanent();
+
+            meditTextPermanentFlatNum.setError("Atleast one field required in Present Address");
+            meditTextPermanentFlatNum.requestFocus();
             return false;
         }
-//        else if(meditTextPermanentHouseName.getText().length()==0)
-//        {
-//            showToast("House name cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentHouseNum.getText().length()==0)
-//        {
-//            showToast("House number cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentStreet.getText().length()==0)
-//        {
-//            showToast("Street cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentLocality.getText().length()==0)
-//        {
-//            showToast("Locality cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPermanentvillage.getText().length()==0)
-//        {
-//            showToast("Permanent village cannot be empty");
-//            return false;
-//        }
+
         else if( meditTextPermanentTaluka.getSelectedItemPosition()==0)
         {
             showToast("Present Taluka cannot be empty");
+
+            showPremanent();
+
+            meditTextPermanentTaluka.requestFocus();
+
             return false;
         }
         else if(mSPerDistrict.getSelectedItemPosition()==0)
         {
             showToast("Present District cannot be empty");
+
+            showPremanent();
+
+            sPerDistrict_text.setError("Present District cannot be empty");
+            sPerDistrict_text.requestFocus();
+
             return false;
         }
         else if(mspinnerPermanentState.getSelectedItemPosition()==0)
         {
             showToast("Select Present State");
+
+            showPremanent();
+
+            spinnerPermanentState_text.setError("Select Present State");
+            spinnerPermanentState_text.requestFocus();
+
             return false;
         }
 
         else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
         {
-            showToast("Years cannot be empty");
+            showToast("Present Month cannot be empty");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("Present Month cannot be empty");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-                showToast("only digit in Years");
-                return false;
+            showToast("only digits allowed in Present Years");
+
+            showPremanent();
+
+            meditTextPermanentYear.setError("only digits allowed in Present Years");
+            meditTextPermanentYear.requestFocus();
+
+            return false;
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit in Months");
+            showToast("only digits allowed in Present Months");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("only digits allowed in Months");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
-            showToast("Invalid Pincode ");
+            showToast("Only digits allowed in Pincode");
+
+            showPremanent();
+
+            meditTextPermanentPinCode.setError("Only digits allowed in Pincode");
+            meditTextPermanentPinCode.requestFocus();
+
             return false;
         }
         else if(!(s.equals("77") || s.equals("76") || s.equals("75")))
         {
             showToast("Present Pincode not vaild");
+
+            showPremanent();
+            meditTextPermanentPinCode.setError("Invalid Pincode");
+            meditTextPermanentPinCode.requestFocus();
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digit in Month");
+            showToast("only digits allowed in Present Month");
+
+            showPremanent();
+
+            meditTextPermanentMonth.setError("only digits allowed in Month");
+            meditTextPermanentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPermanentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid Moblie Number ");
+            showToast("Mobile Number should have 10 digits");
+
+            showPremanent();
+
+            meditTextPermanentMoblieNo.setError("Mobile Number should have 10 digits");
+            meditTextPermanentMoblieNo.requestFocus();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
         {
-            showToast("only digit in Mobile number");
+            showToast("only digits allowed in Mobile Number");
+            showPremanent();
+            meditTextPermanentMoblieNo.setError("only digits allowed in Mobile Number");
+            meditTextPermanentMoblieNo.requestFocus();
             return false;
         }
 
         else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
             showToast("At least one field required in Permanent Address");
-//            showToast("Flat number cannot be empty");
+            showPresent();
+            meditTextPresentFlatNum.setError("At least one field required in Permanent Address");
+            meditTextPresentFlatNum.requestFocus();
             return false;
         }
-//        else if(meditTextPresentHouseName.getText().length()==0)
-//        {
-//            showToast("House name cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentHouseNum.getText().length()==0)
-//        {
-//            showToast("House number cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentStreet.getText().length()==0)
-//        {
-//            showToast("Street cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentLocality.getText().length()==0)
-//        {
-//            showToast("Locality cannot be empty");
-//            return false;
-//        }
-//        else if(meditTextPresentvillage.getText().length()==0)
-//        {
-//            showToast("Present village cannot be empty");
-//            return false;
-//        }
-//        else if( meditTextPresentTaluka.getText().length()==0)
-//        {
-//            showToast("Present Taluka cannot be empty");
-//            return false;
-//        }
+
         else if(meditTextPresentDistrict.getText().length()==0)
         {
             showToast("Permanent District cannot be empty");
+
+            showPresent();
+
+            meditTextPresentDistrict.setError("Permanent District cannot be empty");
+            meditTextPresentDistrict.requestFocus();
+
             return false;
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
-            showToast("Select  Permanent State ");
+            showToast("Select Permanent State ");
+
+            showPresent();
+
+            spinnerPresentState_text.setError("Select Permanent State");
+            spinnerPresentState_text.requestFocus();
+
             return false;
         }
-//        else if(meditTextPresentvillage.getText().length()==0)
-//        {
-//            showToast("Present village cannot be empty");
-//            return false;
-//        }
+
         else if(meditTextPresentYear.getText().length()==0)
         {
             showToast("Years cannot be empty");
+
+            showPresent();
+
+            meditTextPresentYear.setError("Years cannot be empty");
+            meditTextPresentYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPresentYear) && !validation.isPhoneNumber(meditTextPresentYear,true))
         {
             showToast("only digit in Years");
+
+            showPresent();
+
+            meditTextPresentYear.setError("only digit in Years");
+            meditTextPresentYear.requestFocus();
+
             return false;
         }
         else if(validation.hasText(meditTextPresentMonth) && !validation.isPhoneNumber(meditTextPresentMonth,true))
         {
-            showToast("only digit in Months");
+            showToast("only digits allowed in Months");
+
+            showPresent();
+
+            meditTextPresentMonth.setError("only digits allowed in Months");
+            meditTextPresentMonth.requestFocus();
+
             return false;
         }
         else if(meditTextPresentPinCode.getText().length()<6)
         {
-            showToast("Invalid Present Pincode ");
+            showToast("Invalid Permanent Pincode ");
+
+            showPresent();
+
+            meditTextPresentPinCode.setError("Invalid Permanent Pincode ");
+            meditTextPresentPinCode.requestFocus();
+
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentPinCode,true))
         {
             showToast("Digits only in Pincode ");
+
+            showPresent();
+
+            meditTextPresentPinCode.setError("Digits only in Pincode");
+            meditTextPresentPinCode.requestFocus();
+
             return false;
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
-            showToast("Invalid  Permanent Moblie Number ");
+            showToast("Mobile number should have 10 digits");
+
+            showPresent();
+            meditTextPresentMoblieNo.setError("Mobile number should have 10 digits");
+            meditTextPresentMoblieNo.requestFocus();
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
         {
-            showToast("Digits only in mobile number ");
-            return false;
-        }
-        else if(mspinnerCitizenship.getSelectedItemPosition()==0)
-        {
-            showToast("Select Citizenship");
+            showToast("Only digits allowed in mobile number ");
+
+            showPresent();
+
+            meditTextPresentMoblieNo.setError("Only digits allowed in mobile number");
+            meditTextPresentMoblieNo.requestFocus();
             return false;
         }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
         {
             showToast("Select Qualification");
+
+            showOtherInfo();
+            spinnerQualification_text.setError("Select Qualification");
+            spinnerQualification_text.requestFocus();
             return false;
         }
         else if(mspinnerIdmark.getSelectedItemPosition()==0)
         {
             showToast("Select Id Mark");
+
+            showOtherInfo();
+            spinnerIdmark_text.setError("Select Id Mark");
+            spinnerIdmark_text.requestFocus();
             return false;
         }
+
+        else if(mspinnerIdmark2.getSelectedItemPosition()==0)
+        {
+            showToast("Select Id Mark2");
+
+            showOtherInfo();
+
+            spinnerIdmark2_text.setError("Select Id Mark2");
+            spinnerIdmark2_text.requestFocus();
+
+            return false;
+        }
+
         else if(mspinnerBloodGroup.getSelectedItemPosition()==0)
         {
             showToast("Select BloodGroup");
-            return false;
-        }
-        else if(mspinnerRH.getSelectedItemPosition()==0)
-        {
-            showToast("Select Rh of Blood Group");
+
+            showOtherInfo();
+            mspinnerBloodGroup.requestFocus();
             return false;
         }
         return true;
@@ -1112,85 +1332,156 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private String detailString()
     {
-        Random rand = new Random();
-        int num = rand.nextInt(9000000) + 1000000;
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("receiptNum",Integer.toString(num));
         editor.commit();
-        String s= "ref_num="+num+
+        String s=
+//                "ref_num="+num+
 //                "&first_name="+meditViewApplicantFirstName.getText()+
                 "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
 //                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
-                "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
-                "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
-                "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
-                "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
+                        "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
+                        "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
+                        "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
+                        "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+
 
-                "&dob="+mtextViewDate.getText().toString().toUpperCase()+
-                "&gender="+mspinnerGender.getSelectedItem().toString().toUpperCase()+
-                "&relation="+mspinnerRelationshipType.getSelectedItem().toString().toUpperCase()+
-                "&p_first_name="+meditViewApplicantRelationsName.getText().toString().toUpperCase()+
-                "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase()+
-                "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString().toUpperCase()+
+                        "&dob="+mtextViewDate.getText().toString().toUpperCase()+
+                        "&gender="+mspinnerGender.getSelectedItem().toString().toUpperCase()+
+                        "&relation="+mspinnerRelationshipType.getSelectedItem().toString().toUpperCase()+
+                        "&p_first_name="+meditViewApplicantRelationsName.getText().toString().toUpperCase()+
+                        "&p_middle_name="+meditViewApplicantRelationsMiddleName.getText().toString().toUpperCase()+
+                        "&p_last_name="+meditViewApplicantRelationsLastName.getText().toString().toUpperCase()+
 //                "&edu_qualification="+qualificatinCode[mspinnerQualification.getSelectedItemPosition()+1]+
-                "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
-                "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                "&blood_group="+mspinnerBloodGroup.getSelectedItem().toString()+","+Integer.toString(mspinnerRH.getSelectedItemPosition())+
+                        "&edu_qualification="+mspinnerQualification.getSelectedItem().toString().toUpperCase()+
+                        "&identification_mark="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                        "&blood_group="+mspinnerBloodGroup.getSelectedItemPosition()+
 
-                "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
-                "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
-                "&p_house_no="+meditTextPermanentHouseNum.getText().toString().toUpperCase()+
+                        "&p_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                        "&p_house_name="+meditTextPermanentHouseName.getText().toString().toUpperCase()+
+                        "&p_house_no="+meditTextPermanentHouseNum.getText().toString().toUpperCase()+
 
 
-                "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
-                "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
-                "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
-                "&p_taluka="+meditTextPermanentTaluka.getSelectedItem().toString().toUpperCase()+
-                "&p_district="+mSPerDistrict.getSelectedItem().toString().toUpperCase()+
+                        "&p_street_locality="+meditTextPermanentStreet.getText().toString().toUpperCase()+
+                        "&p_locality="+meditTextPermanentLocality.getText().toString().toUpperCase()+
+                        "&p_village_city="+meditTextPermanentvillage.getText().toString().toUpperCase()+
+                        "&p_taluka="+meditTextPermanentTaluka.getSelectedItem().toString().toUpperCase()+
+                        "&p_district="+mSPerDistrict.getSelectedItem().toString().toUpperCase()+
 //                "&p_state="+statecode[mspinnerPermanentState.getSelectedItemPosition()+1]+
-                "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
-                "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
-                "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
-                "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
-                "&p_years="+meditTextPermanentYear.getText().toString().toUpperCase()+
-                "&p_months="+meditTextPermanentMonth.getText().toString().toUpperCase()+
+                        "&p_state="+mspinnerPermanentState.getSelectedItem().toString().toUpperCase()+
+                        "&p_pin="+meditTextPermanentPinCode.getText().toString().toUpperCase()+
+                        "&p_phone_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                        "&p_mobile_no="+meditTextPermanentMoblieNo.getText().toString().toUpperCase()+
+                        "&p_years="+meditTextPermanentYear.getText().toString().toUpperCase()+
+                        "&p_months="+meditTextPermanentMonth.getText().toString().toUpperCase()+
 
-                "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
-                "&t_house_name="+meditTextPresentHouseName.getText().toString().toUpperCase()+
-                "&t_house_no="+meditTextPresentHouseNum.getText().toString().toUpperCase()+
+                        "&t_flat_house_no="+meditTextPresentFlatNum.getText().toString().toUpperCase()+
+                        "&t_house_name="+meditTextPresentHouseName.getText().toString().toUpperCase()+
+                        "&t_house_no="+meditTextPresentHouseNum.getText().toString().toUpperCase()+
 
-                "&t_street_locality="+meditTextPresentStreet.getText().toString().toUpperCase()+
-                "&t_locality="+meditTextPresentLocality.getText().toString().toUpperCase()+
-                "&t_village_city="+meditTextPresentvillage.getText().toString().toUpperCase()+
-                "&t_taluka="+meditTextPresentTaluka.getText().toString().toUpperCase()+
-                "&t_district="+meditTextPresentDistrict.getText().toString().toUpperCase()+
+                        "&t_street_locality="+meditTextPresentStreet.getText().toString().toUpperCase()+
+                        "&t_locality="+meditTextPresentLocality.getText().toString().toUpperCase()+
+                        "&t_village_city="+meditTextPresentvillage.getText().toString().toUpperCase()+
+                        "&t_taluka="+meditTextPresentTaluka.getText().toString().toUpperCase()+
+                        "&t_district="+meditTextPresentDistrict.getText().toString().toUpperCase()+
 //                "&t_state="+statecode[mspinnerPresentState.getSelectedItemPosition()+1]+
-                "&t_state="+mspinnerPresentState.getSelectedItem().toString().toUpperCase()+
-                "&t_pin="+meditTextPresentPinCode.getText().toString().toUpperCase()+
-                "&t_phone_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
-                "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
-                "&t_years="+meditTextPresentYear.getText().toString().toUpperCase()+
-                "&t_months="+meditTextPresentMonth.getText().toString().toUpperCase()+
+                        "&t_state="+mspinnerPresentState.getSelectedItem().toString().toUpperCase()+
+                        "&t_pin="+meditTextPresentPinCode.getText().toString().toUpperCase()+
+                        "&t_phone_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                        "&t_mobile_no="+meditTextPresentMoblieNo.getText().toString().toUpperCase()+
+                        "&t_years="+meditTextPresentYear.getText().toString().toUpperCase()+
+                        "&t_months="+meditTextPresentMonth.getText().toString().toUpperCase()+
 
-                "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString().toUpperCase()+
+                        "&citizenship_status="+mspinnerCitizenship.getSelectedItem().toString().toUpperCase()+
 
-                "& birth_place="+meditViewPlaceOfBirth.getText().toString().toUpperCase()+
-                "&year="+meditViewYear.getText().toString().toUpperCase()+
-                "&birth_country="+mspinnerCountry.getSelectedItem().toString().toUpperCase()+
-                "&email_id="+meditViewEmail.getText().toString().toUpperCase()+
-                "&identification_marks="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
-                "&identification_marks2="+mspinnerIdmark2.getSelectedItem().toString().toUpperCase()+
-                "&rcnumber="+
-                "&parentleterforbelow18age=n"+
-                "&allnecessarycertificates=y"+
-                "&exemptedmedicaltest=n"+
-                "&exemptedpreliminarytest=n"+
-                "&convicted=n"+
-                "&attdlnumber="+
-                "&attdtofconviction="+
-                "&attreason=";
-            return s;
+                        "& birth_place="+meditViewPlaceOfBirth.getText().toString().toUpperCase()+
+                        "&year="+meditViewYear.getText().toString().toUpperCase()+
+                        "&birth_country="+mspinnerCountry.getSelectedItem().toString().toUpperCase()+
+                        "&email_id="+meditViewEmail.getText().toString().toUpperCase()+
+                        "&identification_marks="+mspinnerIdmark.getSelectedItem().toString().toUpperCase()+
+                        "&identification_marks2="+mspinnerIdmark2.getSelectedItem().toString().toUpperCase()+
+                        "&rcnumber="+
+                        "&parentleterforbelow18age=n"+
+                        "&allnecessarycertificates=y"+
+                        "&exemptedmedicaltest=n"+
+                        "&exemptedpreliminarytest=n"+
+                        "&convicted=n"+
+                        "&attdlnumber="+
+                        "&attdtofconviction="+
+                        "&attreason=";
+        return s;
+    }
+
+    private String jsonNIC() {
+        JSONObject jsNic = new JSONObject();
+        try {
+
+            jsNic.put("refno",Integer.toString(num));
+            jsNic.put("statecode","OD");
+            jsNic.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+            jsNic.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
+
+            jsNic.put("licenceType","l");
+            jsNic.put("aFName",meditViewApplicantFirstName.getText().toString());
+            jsNic.put("aFMiddle",meditViewApplicantMiddleName.getText().toString());
+            jsNic.put("aFLast",meditViewApplicantLastName.getText().toString());
+            jsNic.put("dob",mtextViewDate.getText().toString().replace("/","-"));
+            jsNic.put("gender",mspinnerGender.getSelectedItem().toString());
+            jsNic.put("relation-type",mspinnerRelationshipType.getSelectedItem().toString());
+            jsNic.put("pFName",meditViewApplicantRelationsName.getText().toString());
+            jsNic.put("pFMiddle",meditViewApplicantRelationsMiddleName.getText().toString());
+            jsNic.put("pFLast",meditViewApplicantRelationsLastName.getText().toString());
+
+            jsNic.put("qualification",qualificateCode[mspinnerQualification.getSelectedItemPosition()-1]);
+
+
+            jsNic.put("identification-marks",mspinnerIdmark.getSelectedItem().toString());
+            jsNic.put("identification-marks2",mspinnerIdmark2.getSelectedItem().toString());
+
+            jsNic.put("blood-group",mspinnerBloodGroup.getSelectedItem().toString());
+
+
+            jsNic.put("tFlatHouseNo",meditTextPermanentFlatNum.getText().toString()+" "+meditTextPermanentHouseName.getText().toString()+" "+meditTextPresentHouseNum.getText().toString());
+            jsNic.put("tStreetLocality",meditTextPermanentStreet.getText().toString()+" "+meditTextPermanentLocality.getText().toString());
+            jsNic.put("tVillageCity",meditTextPermanentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
+
+            jsNic.put("tDistrict",mSPerDistrict.getSelectedItem().toString());
+            jsNic.put("tState",stateCode[mspinnerPermanentState.getSelectedItemPosition()-1]);
+            jsNic.put("tPin",meditTextPermanentPinCode.getText().toString());
+            jsNic.put("tPhoneNo",meditTextPermanentMoblieNo.getText().toString());
+            jsNic.put("tMobileNo",meditTextPermanentMoblieNo.getText().toString());
+            jsNic.put("tYears",meditTextPermanentYear.getText().toString());
+            jsNic.put("tMonths",meditTextPermanentMonth.getText().toString());
+
+
+            jsNic.put("pFlatHouseNo",meditTextPresentFlatNum.getText().toString()+" "+meditTextPresentHouseName.getText().toString()+" "+meditTextPresentHouseNum.getText().toString());
+            jsNic.put("pStreetLocality",meditTextPresentStreet.getText().toString()+" "+meditTextPresentLocality.getText().toString());
+            jsNic.put("pVillageCity",meditTextPresentvillage.getText().toString()+" "+meditTextPresentTaluka.getText().toString());
+
+            jsNic.put("pDistrict",meditTextPresentDistrict.getText().toString());
+            jsNic.put("pState",stateCode[mspinnerPresentState.getSelectedItemPosition()-1]);
+            jsNic.put("pPin",meditTextPresentPinCode.getText().toString());
+            jsNic.put("pPhoneNo",meditTextPresentMoblieNo.getText().toString());
+            jsNic.put("pMobileNo",meditTextPresentMoblieNo.getText().toString());
+            jsNic.put("pYears",meditTextPresentYear.getText().toString());
+            jsNic.put("pMonths",meditTextPresentMonth.getText().toString());
+
+            jsNic.put("citizenship-status",mspinnerCitizenship.getSelectedItem().toString());
+            jsNic.put("birth-place",meditViewPlaceOfBirth.getText().toString());
+            jsNic.put("year",meditViewYear.getText().toString());
+            jsNic.put("month",meditViewMonth.getText().toString());
+            jsNic.put("birth-country","IND");
+            jsNic.put("email-id",meditViewEmail.getText().toString());
+//            jsNic.put("pMonths",meditTextPresentMonth.getText().toString().toUpperCase());
+
+            return jsNic.toString();
+
+        }catch (JSONException e)
+        {
+            e.printStackTrace();
+
+        }
+        return jsNic.toString();
     }
 
     private String jsonString()
@@ -1201,151 +1492,17 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             js.put("moblie",meditTextPermanentMoblieNo.getText().toString().toUpperCase() );
             js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
             js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
+
+
+            js.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
             js.put("email",meditViewEmail.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return js.toString();
     }
-    private String createJsonString()
-    {
-        JSONArray ja = new JSONArray();
-        JSONObject js = new JSONObject();
-        JSONObject applicant = new JSONObject();
-        try
-        {
-        applicant.put("refno","");
-        applicant.put("statecode","");
-        applicant.put("rtocode","");
-
-        js.put("applicant_first_name","");
-        js.put("applicant_middle_name","");
-        js.put("applicant_last_name","");
-        applicant.put("applicant",js);
-        applicant.put("dob","");
-        applicant.put("gender_type","");
-        applicant.put("relation_type","");
-        applicant.put("relative_first_name","");
-        applicant.put("relative_middle_name","");
-        applicant.put("relative_last_name","");
-        applicant.put("edu_qualification","");
-        applicant.put("identification_mark","");
-        applicant.put("blood_group","");
-
-        JSONObject permanentAddress = new JSONObject();
-        permanentAddress.put("p_flat_house_no","");
-        permanentAddress.put("p_street_locality","");
-        permanentAddress.put("p_village_city","");
-        permanentAddress.put("p_district","");
-        permanentAddress.put("p_state","");
-        permanentAddress.put("p_pin","");
-        permanentAddress.put("p_phone_no","");
-        permanentAddress.put("p_mobile_no","");
-        permanentAddress.put("p_years","");
-        permanentAddress.put("p_months","");
-
-        applicant.accumulate("permanent",permanentAddress);
-
-        JSONObject presentAddress = new JSONObject();
-        presentAddress.put("t_flat_house_no","");
-        presentAddress.put("t_street_locality","");
-        presentAddress.put("t_village_city","");
-        presentAddress.put("t_district","");
-        presentAddress.put("t_state","");
-        presentAddress.put("t_pin","");
-        presentAddress.put("t_phone_no","");
-        presentAddress.put("t_mobile_no","");
-        presentAddress.put("t_years","");
-        presentAddress.put("t_months","");
 
 
-        applicant.accumulate("present",presentAddress);
-        applicant.put("citizenship_status_type","");
-        applicant.put(" birth_place","");
-        applicant.put("year","");
-        applicant.put("birth_country","");
-        applicant.put("email_id","");
-        applicant.put("proofcode","");
-        applicant.put("licence_certificate_badge_no","");
-        applicant.put("issuing_authority","");
-        applicant.put("date_of_issue","");
-        applicant.put("covs","");
-        applicant.put("rcnumber","");
-        applicant.put("parentleterforbelow18age","");
-        applicant.put("allnecessarycertificates","");
-        applicant.put("exemptedmedicaltest","");
-        applicant.put("exemptedpreliminarytest","");
-        applicant.put("convicted","");
-        applicant.put("attdlnumber","");
-        applicant.put("attdtofconviction","");
-        applicant.put("attreason","");
-
-            return applicant.toString();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
-    private void getFieldData() {
-        usr_fname = meditViewApplicantFirstName.getText().toString() + " " + meditViewApplicantMiddleName.getText().toString();
-        usr_lname = meditViewApplicantLastName.getText().toString();
-        usr_father_name = meditViewApplicantRelationsName.getText().toString();
-       /* usr_email = meditViewEmail.getText().toString();
-        usr_mobile = meditViewMobileNo.getText().toString();
-        usr_pincode = meditViewPincode.getText().toString();
-        usr_address = meditViewAddress.getText().toString();
-        usr_feeamnt = meditViewFee.getText().toString();*/
-
-        usr_city = "indore";
-        usr_district = usr_city;
-
-//        usr_rtmspinnerRTO.getSelectedItem().toString();
-        usr_relation_type = mspinnerRelationshipType.getSelectedItem().toString();
-        usr_qualification = mspinnerQualification.getSelectedItem().toString();
-        usr_gender = mspinnerGender.getSelectedItem().toString();
-        usr_idmark = mspinnerIdmark.getSelectedItem().toString();
-        usr_blood_gr = mspinnerBloodGroup.getSelectedItem().toString();
-        usr_blood_rh = mspinnerRH.getSelectedItem().toString();
-//        usr_apply_class = getVehicleClass();
-        usr_dob = mtextViewDate.getText().toString();
-
-        usr_status = "1";
-
-        int_relation_type = mspinnerRelationshipType.getSelectedItemPosition();
-        int_qualification = mspinnerQualification.getSelectedItemPosition();
-        int_gender = mspinnerGender.getSelectedItemPosition();
-        int_idmark = mspinnerIdmark.getSelectedItemPosition();
-        int_blood_gr = mspinnerBloodGroup.getSelectedItemPosition();
-        int_blood_rh = mspinnerRH.getSelectedItemPosition();
-
-    }
-
-    private boolean textFieldValidation()
-    {
-        if(usr_fname.length()<1 ||  usr_lname.length() <1 ||  usr_father_name.length() <1 || usr_email.length()<1 || usr_mobile.length()<1 ||
-             usr_pincode.length()<1 || usr_address.length()<1 || usr_feeamnt.length()<1 || usr_city.length()<1 || usr_district.length()<1){
-            showToast("Enter All fields");
-            return false;
-        }
-        else if( int_relation_type == 0 || int_qualification== 0 || int_gender== 0 ||
-            int_idmark== 0 || int_blood_gr== 0 || int_blood_rh== 0
-           ){
-            showToast("Enter All Drop DownItem");
-            return false;
-        }
-        else if( usr_dob.length()<1)
-        {
-            showToast("Enter Date");
-            return false;
-        }
-
-
-        return true;
-
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -1384,6 +1541,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showPersonalDetail()
     {
+        scrollView.scrollTo(0, mlinearlayoutPersonalDetail.getTop());
         mtablelayoutPersonalDetail.setVisibility(View.VISIBLE);
         personalDetail = true;
         imageViewPersonal.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
@@ -1395,7 +1553,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
     }
 
-    private void showOtherInfo() {
+    private void showOtherInfo()
+    {
+        scrollView.scrollTo(0, mlinearlayoutOtherInfo.getTop());
+
         mtablelayoutOtherInfo.setVisibility(View.VISIBLE);
         otherInfo = true;
         imageViewOther.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
@@ -1410,28 +1571,30 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
     private void showPremanent()
     {
+        scrollView.scrollTo(0, mlinearlayoutPresentAddress.getTop());
+
         mtablelayoutPremanentAddress.setVisibility(View.VISIBLE);
         permanent=true;
         imageViewPermanent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
-
     }
 
-   private void hidePresent()
-   {
-       mtablelayoutPresentAddress.setVisibility(View.GONE);
-       present=false;
-       imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
-   }
+    private void hidePresent()
+    {
+        mtablelayoutPresentAddress.setVisibility(View.GONE);
+        present=false;
+        imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_p,null));
+    }
 
     private void showPresent()
     {
+        scrollView.scrollTo(0, mlinearlayoutPresentAddress.getTop());
         mtablelayoutPresentAddress.setVisibility(View.VISIBLE);
         present=true;
         imageViewPresent.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.iocn_m,null));
     }
 
     @Override
-     public void onPause ()
+    public void onPause ()
     {
         super.onPause();
         Log.d("onPause :"," saving session");
@@ -1469,10 +1632,10 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(adapterView.getItemAtPosition(i).toString().toUpperCase().equals("INDIA"))
                 {
-                        meditViewMonth.setText("");
-                        meditViewYear.setText("");
-                        meditViewYear.setEnabled(false);
-                        meditViewMonth.setEnabled(false);
+                    meditViewMonth.setText("");
+                    meditViewYear.setText("");
+                    meditViewYear.setEnabled(false);
+                    meditViewMonth.setEnabled(false);
                 }
                 else
                 {
@@ -1521,19 +1684,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         });
     }
 
-
     public void addListenerOnSpinnerEducationQualification() {
         mspinnerQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 hideKeyboard(getActivity());
-                mspinnerQualification.requestFocus();
+
+                if((i == 1 || i == 2 || i == 3) && new ConValidation(getActivity()).QualificationCheck())
+                {
+                    mspinnerQualification.setSelection(0);
+                    showToast("For Transport Vehicle Applicant should be atleast 8th passed.");
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 hideKeyboard(getActivity());
-                mspinnerQualification.requestFocus();
             }
         });
     }
@@ -1549,117 +1715,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
-    public void sendPostRequest(View View) {
-        new PostClass(getActivity()).execute();
-    }
 
-    private class PostClass extends AsyncTask<String, Void, Void> {
-
-        private final Context context;
-
-        public PostClass(Context c) {
-            this.context = c;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Loading");
-            progress.show();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-
-
-                URL url = new URL("http://103.27.233.206/learningLicense/user_registration.php/");
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                String urlParameters =
-                        "usr_fname=" + usr_fname + "&" + "usr_lname=" + usr_lname + "& " + "usr_relation_type=" + usr_relation_type + "&" + "usr_father_name=" + usr_father_name + "&" +
-                                "usr_address=" + usr_address + "&" + "usr_city= " + usr_city + "&" +
-                                "usr_district=" + usr_district + "&" + "usr_pincode=" + usr_pincode + "&" + "usr_apply_class=" + usr_apply_class + "&" + "usr_mobile=" + usr_mobile + "&" +
-                                "usr_email=" + usr_email + "&" + "usr_qualification=" + usr_qualification + "&" + "usr_dob=" + usr_dob + "&" + "usr_gender=" + usr_gender + "&"
-                                + "usr_blood_gr=" + usr_blood_gr + "&" + "usr_blood_rh=" + usr_blood_rh + "&" + "usr_idmark=" + usr_idmark + "& " + "usr_feeamnt=" + usr_feeamnt + "&" +
-                                "usr_status=" + usr_status;
-
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setDoOutput(true);
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
-                dStream.flush();
-                dStream.close();
-                int responseCode = connection.getResponseCode();
-
-
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                output.append(System.getProperty("line.separator") + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator") + "Type " + "POST" + " " + connection.getRequestProperty("success"));
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                br.close();
-
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-//                {"success":1,"referenceId":"MPO91000000001"referenceId" -> "1"","receiptNum":1000000001}
-                String responseDetail= responseOutput.toString();
-                String detail[] =responseDetail.split(",");
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                String ref[] = detail[2].split(":");
-                editor.putString("receiptNum",ref[1].substring(0, 10));
-                String ref2[]=detail[1].split(":");
-                editor.putString("referenceId",ref2[1].substring(1,15));
-                editor.commit();
-                progress.dismiss();
-                Message msgObj = handler.obtainMessage();
-                Bundle b = new Bundle();
-                b.putInt("num", 1);
-                msgObj.setData(b);
-                handler.sendMessage(msgObj);
-//                getActivity().runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-////                        outputView.setText(output);
-////                        Toast.makeText(getActivity(),output.toString(),Toast.LENGTH_LONG).show();
-//                        Log.d("Rsponse   ", output.toString());
-//                        progress.dismiss();
-//                    }
-//                });
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 }
 
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
