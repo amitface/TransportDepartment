@@ -533,7 +533,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private class scheduleSlotServer extends AsyncTask<Void, Integer, Long>
     {
         private final Context context;
-        private ProgressDialog progressSendMail;
+
 
         public scheduleSlotServer(Context c) {
             this.context = c;
@@ -668,7 +668,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     //For Nic server
     private class saveApplicantSlot extends AsyncTask<Void, Integer, Long>
     {
-        private ProgressDialog progress;
+
         private final Context context;
         private ProgressDialog progressSendMail;
         private int i;
@@ -683,12 +683,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         }
 
         protected void onPreExecute() {
-            progressSendMail = new ProgressDialog(this.context);
-            progressSendMail.setMessage("Getting appointment slot please wait...");
-            progressSendMail.setCancelable(false);
-            progressSendMail.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressSendMail.setProgress(0);
-            progressSendMail.show();
+            progress.setMessage("Getting appointment slot please wait...");
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
         }
 
         @Override
@@ -778,11 +777,11 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-            progressSendMail.setProgress(percent[0]);
+            progress.setProgress(percent[0]);
         }
 
         protected void onPostExecute(Long result) {
-            progressSendMail.hide();
+            progress.hide();
             if(result==1)
             {
                 getActivity().runOnUiThread(new Runnable() {
@@ -826,9 +825,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     //For Converge server
     private class saveApplicantSlotToServer extends AsyncTask<Void, Integer, Long>
     {
-        private ProgressDialog progress;
         private final Context context;
-        private ProgressDialog progressSendMail;
         private int i;
         private String dob;
         private Long appNum;
@@ -900,7 +897,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         protected void onProgressUpdate(Integer... percent) {
 //        Log.d("ANDRO_ASYNC",Integer.toString(progressInt));
-            progressSendMail.setProgress(percent[0]);
+            progress.setProgress(percent[0]);
         }
 
         protected void onPostExecute(Long result) {

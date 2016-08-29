@@ -221,6 +221,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             marker=1;
         }
     }
+
     private void callFragment() {
         if(pgoption==1)
         {
@@ -360,7 +361,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 jsonlist.put("list",arraylist);
 
                 jsonData.put("ref",jsonObjectData.get("applicantNum").toString());
-                jsonData.put("rto_code",jsonObjectData.get("rtocode").toString());
+                jsonData.put("rto_code",jsonObjectData.get("rtocodeReal").toString());
                 jsonData.put("vehicle_number",jsonObjectData.get("name").toString());
 
                 jsonData.put("applicant_name",jsonObjectData.get("name").toString());
