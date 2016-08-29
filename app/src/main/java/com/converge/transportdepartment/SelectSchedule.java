@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.converge.transportdepartment.ActivityFragments.SuperAwesomeCardFragment;
 import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.SlotData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -250,7 +251,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
                         {
                                 temp.add(dateSetArray[j]);
                                 Log.d("unique Date",""+data.get(i).getSlotdate());
-                                if(temp.size()==6)
+                                if(temp.size()==7)
                                     return temp;
                                 break;
                         }
@@ -268,7 +269,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
         @Override
         public int getCount() {
-            return 5;
+            return 7;
         }
 
         @Override
@@ -551,8 +552,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             HttpURLConnection connection=null;
             try{
 
-//                URL url = new URL(Links.saveSlotSCServer);
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/fetch_slot.php");
+                URL url = new URL(Links.saveSlotSCServer);
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/fetch_slot.php");
 
                 connection = (HttpURLConnection) url.openConnection();
                 //Creating json object.
@@ -845,7 +846,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         protected Long doInBackground(Void... params) {
             HttpURLConnection connection=null;
             try{
-                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/assgn_slot.php?");
+//                URL url = new URL("http://103.27.233.206/M-Parivahan-Odisha/savetime_slot/assgn_slot.php?");
+                URL url = new URL(Links.updateSlotSCServer);
                 connection = (HttpURLConnection) url.openConnection();
 
                 String json = "rtocode="+rtoCode+"&slotNum="+slotNumber+"&slotdate="+slotDate+"&code="+i;

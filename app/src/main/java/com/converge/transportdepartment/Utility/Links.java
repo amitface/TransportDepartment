@@ -18,7 +18,9 @@ public class Links {
     public static String paymentReport = stringSmartChip+"payment_log.php";
 
 
-    public static String saveSlotSCServer=stringSmartChip+"savetime_slot/fetch_slot.php";
+    public static String saveSlotSCServer = stringSmartChip+"savetime_slot/fetch_slot.php";
+
+    public static String updateSlotSCServer = stringSmartChip+"savetime_slot/assgn_slot.php";
 
 
 }

@@ -451,6 +451,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
                 }
         }
     }
+
     private boolean validate() {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
@@ -1063,7 +1064,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
 //                final TextView outputView = (TextView) findViewById(R.id.showOutput);
                 URL url = new URL("http://164.100.148.109:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
-
+//                URL url = new URL("http://www.sarathi.nic.in:8080/SOW3LLDLWS_MH/rsServices/AgentChoiceBusiness/readXMLFile");
                 connection = (HttpURLConnection) url.openConnection();
 
                 //Creating json object.
