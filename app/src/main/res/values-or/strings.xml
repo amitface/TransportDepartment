@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Learning License </string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="Home"></string>
+
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="IdproofHeading"><![CDATA[* At least one photo & one address proof mandatory.]]></string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="card_number_hint">Enter card number</string>
+    <string name="credit_card_number_hint">Enter Credit Card number</string>
+    <string name="card_name_hint">Enter card holder name</string>
+    <string name="card_nick_name_hint">Enter nick name</string>
+
+    <string name="dp_request_prompt">Select the DP Request Type</string>
+    <string name="sign_in_btn_text">Sign In</string>
+    <string name="resend_btn_text">Resend</string>
+    <string name="reset_pass_text">Reset Password</string>
+    <string name="signup_text">Sign Up</string>
+    <string name="password_hint">Password</string>
+    <string name="is_citrus_member_text">Is Citrus Member?</string>
+    <string name="enter_mobile_text">Enter Mobile No</string>
+    <string name="dummy_mobile_hint"></string>
+    <string name="dummy_email_hint"></string>
+    <string name="dummy_password"></string>
+    <string name="enter_email_text">Enter Email Id</string>
+    <string name="login_credentials_text">Login Credentials</string>
+    <string name="home">ହୋମ୍</string>
+    <string name="apply_for_ll">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>
+    <string name="rto_locator">ଆରଟିଓ ନାମ ଚିହ୍ନଟ କରନ୍ତୁ</string>
+    <string name="check_status_of_ll">ଆବେଦନ ସ୍ଥିତି ଦେଖନ୍ତୁ</string>
+    <string name="read_instructions">ନୀୟମାବଳୀ ପଢନ୍ତୁ</string>
+    <string name="download_form">ଆବେଦନପତ୍ର ଡାଉନଲୋଡ କରନ୍ତୁ</string>
+    <string name="exit">ପ୍ରସ୍ଥାନ</string>
+    <string name="apply_for_learning_licence">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>
+    <string name="learning_license">ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ</string>
+    <string name="odissa_state_transport">Oଡିସ୍ସ ସ୍ଟଟେ ଟ୍ରନ୍ସ୍ପୋର୍ଟ୍</string>
+    <!--navigation drawer ends-->
+    <!--home starts-->
+    <string name="please_take_the_appointment_for_district_rto_where_he_she_resides">NA Pଲେଅସେ ଟକେ ତେ ଅପ୍ପୋଇନ୍ଟ୍ମେନ୍ଟ୍ fଓର୍  ଢିସ୍ଟ୍ରିcଟ୍ ଡ଼୍ଠ୍O wହେରେ ହେ/ଶେ ରେସିଡେସ୍</string>
+    <string name="please_choose_an_appointment_slot_as_per_your_preference">NA Pଲେଅସେ ଚୂସେ ଅନ୍ ଅପ୍ପୋଇନ୍ଟ୍ମେନ୍ଟ୍ ସ୍ଲୋଟ୍ ଅସ୍ ପେର୍ ଯୋଉର୍ ପ୍ରେfଏରେନ୍cଏ</string>
+    <string name="after_fee_payment_download_application_form">NA ଆfଟେର୍ fଈ Pଅଯ୍ମେନ୍ଟ୍ ଡୋwନ୍ଲୋଅଡ୍ ଅପ୍ପ୍ଲିcଅଟିଓନ୍ fଓର୍ମ୍</string>
+    <string name="note">NA ନୋଟେ :-</string>
+    <!--COVs page starts-->
+    <string name="please_select_the_desired_class_for_which_you_are_applying">NA Pଲେଅସେ ସେଲେcଟ୍ ତେ ଡେସିରେଡ୍ cଲସ୍ସ୍ fଓର୍ wହିଚ୍ ଯୋଉ ଅରେ ଅପ୍ପ୍ଲ୍ଯିଙ୍</string>
+    <string name="select_rto">ଆରଟିଓ ନାମ ଚୟନ କରନ୍ତୁ*</string>
+    <string name="mandatory_fields">* ବାଧ୍ୟତାମୁଳକ କ୍ଷେତ୍ର</string>
+    <string name="personal_detail">ପେର୍ସୋନଲ୍ ଡେଟୈଲ୍ସ୍</string>
+    <string name="applicant_name">ଆବେଦକ ଙ୍କ ନାମ*</string>
+    <string name="midddle_name">ମଧ୍ୟ  ନାମ</string>
+    <string name="last_name">ଶେଷ ନାମ*</string>
+    <string name="date_of_birth">ଜନ୍ମ ତାରିଖ*</string>
+    <string name="gender">NA ଗେନ୍ଡେର୍</string>
+    <string name="place_of_birth">NA ପ୍ଲcଏ ଓf ବିର୍ତ୍*</string>
+    <string name="country_by_birth">ଜନ୍ମୀତ ଦେଶ*</string>
+    <string name="citizenship_status_by">ନାଗରିକତ୍ୱ  ସ୍ଥିତି*</string>
+    <string name="if_place_of_birth_is_out_side_india_month_and_year_when_migrated_to_india">ଭାରତ କୁ ସ୍ତାନାନ୍ତରିତ ବର୍ଷ:</string>
+    <string name="email">ଇ-ମେଲ*</string>
+    <string name="relationship_type">ସମ୍ପର୍କ ପ୍ରକାର*</string>
+    <string name="relation_s_name">ସମ୍ପର୍କୀୟ ଙ୍କ ନାମ*</string>
+    <string name="middle_name">ମିଡ୍ଡ୍ଲେ ନମେ </string>
+    <string name="present_address">NA ପ୍ରେସେନ୍ଟ୍ ଅଡ୍ଡ୍ରେସ୍ସ୍</string>
+    <string name="atleast_one_field_required_in_present_address">NA ଅଟ୍ଲେଅସ୍ଟ୍ ଓନେ fଇଏଲ୍ଡ୍ ଇସ୍ ରେqଉଇରେଡ୍ ଇନ୍ ପ୍ରେସେନ୍ଟ୍ ଅଡ୍ଡ୍ରେସ୍ସ୍</string>
+    <string name="flat_number">NA fଲଟ୍ ନୁମ୍ବେର୍</string>
+    <string name="flat_house_name">NA Fଲଟ୍ / Hଓଉସେ ଣମେ</string>
+    <string name="house_number_plot_no">NA Hଓଉସେ ଣୁମ୍ବେର୍/Pଲୋଟ୍ ଣୋ</string>
+    <string name="street">NA Sଟ୍ରୀଟ୍</string>
+    <string name="locality">NA ଳୋcଅଲିଟ୍ଯ୍</string>
+    <string name="village_town_city">NA Vଇଲ୍ଲଗେ / ଠୋwନ୍ / Cଇଟ୍ଯ୍</string>
+    <string name="taluka_mandal">NA ଠଲୁକ / Mଅନ୍ଡଲ୍</string>
+    <string name="district">NA District*</string>
+    <string name="educational_qualification">ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା*</string>
+    <string name="id_mark_1">ପରିଚୟ ନିଶାନ ୧</string>
+    <string name="id_mark_2">ପରିଚୟ ନିଶାନ 2</string>
+    <string name="blood_group">ବ୍ଲଡ ଗୃପ</string>
+    <string name="rh">ଆର ଏଚ୍*</string>
+    <string name="document_number">ଡକ୍ୟୁମେଣ୍ଟ ସଂଖ୍ୟା</string>
+    <string name="issuing_authority">ପ୍ରଦାନକାରୀ ଅଧିକାରୀ</string>
+    <string name="date_of_issue">ପ୍ରଦାନ ତାରିଖ</string>
+    <string name="debit_card">ଡେବିଟ କାର୍ଡ</string>
+    <string name="card_number">କାର୍ଡ ସଂଖ୍ୟା</string>
+    <string name="card_name">କାର୍ଡ ନାମ</string>
+    <string name="expiry_date"> ବୈଧତା ତାରିଖ</string>
+    <string name="id_proof">ପରିଚୟ ପ୍ରମାଣ*</string>
+    <string name="next">ପରବର୍ତ୍ତୀ</string>
+    <string name="fee_information">ଦେୟ ସୂଚନା</string>
+    <string name="application_fee_rs_0">ଆବେଦନ ଦେୟ : Rs. 0</string>
+    <string name="paperdoc_fee_tax_rs_20">କାଗଜ  ଡକ୍ୟୁମେଣ୍ଟ ଦେୟ + ଟିକସ : Rs. 20</string>
+    <string name="smart_card_fee_rs_0">ସ୍ମାଟ କାର୍ଡ ଦେୟ: Rs.0</string>
+    <string name="appointment_schedule">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ</string>
+    <string name="permanent_address">ସ୍ଥାୟୀ ଠିକଣା</string>
+    <string name="back">ପଛକୁ  ଯଆନ୍ତୁ</string>
+    <string name="credit_card">କ୍ରେଡିଟ କାର୍ଡ</string>
+    <string name="netbanking">ନେଟ୍ ବ୍ୟାଙ୍କିଙ୍ଗ୍</string>
+    <string name="wallet_accounts">ୱାଲେଟ ଏକାଉଣ୍ଟ</string>
+
+</resources>

@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Debit Card"/>
+        android:text="@string/debit_card"/>
     <ScrollView
         android:id="@+id/personalDetailsScroll"
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
-                    android:text="Card Number"
+                    android:text="@string/card_number"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="12sp"/>
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
-                    android:text="Card Name"
+                    android:text="@string/card_name"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"/>
 
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="3dp"
-                        android:text="Expiry Date"
+                        android:text="@string/expiry_date"
                         android:textColor="@android:color/black"
                         android:textSize="12sp"/>
 

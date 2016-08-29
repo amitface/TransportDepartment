@@ -5,32 +5,32 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home_nav"
-            android:title="Home"/>
+            android:title="@string/home"/>
         <item
             android:id="@+id/nav_apply_license"
             android:icon="@drawable/apply_nav"
-            android:title="Apply for LL" />
+            android:title="@string/apply_for_ll" />
         <item
             android:id="@+id/nav_rto_locator"
-            android:title="Rto Locator"
+            android:title="@string/rto_locator"
             android:icon="@drawable/location_pin"
             />
         <item
             android:id="@+id/nav_check_status"
             android:icon="@drawable/check_nav"
-            android:title="Check Status of LL" />
+            android:title="@string/check_status_of_ll" />
         <item
             android:id="@+id/nav_read_instruction"
             android:icon="@drawable/read_nav"
-            android:title="Read Instructions" />
+            android:title="@string/read_instructions" />
         <item
             android:id="@+id/nav_download"
             android:icon="@drawable/download_nav"
-            android:title="Download Form " />
+            android:title="@string/download_form" />
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/exit_nav"
-            android:title="Exit" />
+            android:title="@string/exit" />
 
 
     </group>

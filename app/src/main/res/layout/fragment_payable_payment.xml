@@ -128,25 +128,25 @@
         android:id="@+id/radioCreditCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Credit Card" />
+        android:text="@string/credit_card" />
 
     <RadioButton
         android:id="@+id/radioDebitCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Debit Card" />
+        android:text="@string/debit_card" />
 
     <RadioButton
         android:id="@+id/radioNetBank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NetBanking" />
+        android:text="@string/netbanking" />
 
     <RadioButton
         android:id="@+id/radioWalletAccounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wallet Accounts"
+        android:text="@string/wallet_accounts"
         android:checked="false" />
 
 

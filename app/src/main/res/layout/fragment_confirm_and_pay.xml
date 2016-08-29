@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:padding="5dp"
-                android:text="Fee Information"
+                android:text="@string/fee_information"
                 android:background="@color/colorPrimaryTransportDepartment"/>
 
             <TableRow
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
-                    android:text="Application Fee : Rs. 0"
+                    android:text="@string/application_fee_rs_0"
                     android:background="@drawable/edit_text_personal_details"
                     android:padding="5dp"/>
                 <TextView
@@ -59,13 +59,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
-                    android:text="PaperDoc fee+tax : Rs. 20"
+                    android:text="@string/paperdoc_fee_tax_rs_20"
                     android:background="@drawable/edit_text_personal_details"
                     android:padding="5dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Smart Card fee : Rs.0"
+                    android:text="@string/smart_card_fee_rs_0"
                     android:textSize="10sp"
                     android:background="@drawable/edit_text_personal_details"
                     android:padding="5dp"/>
@@ -126,7 +126,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Appointment Schedule"
+                    android:text="@string/appointment_schedule"
                     android:textSize="12sp"
                     android:padding="2dp"
                     android:layout_marginTop="5dp"/>
@@ -168,7 +168,7 @@
                     android:layout_margin="2dp"
                     android:layout_gravity="center_vertical|start"
                     android:layout_centerVertical="true"
-                    android:text="Personal Detail"/>
+                    android:text="@string/personal_detail"/>
                 <ImageView
                     android:id="@+id/imagePersonalC"
                     android:layout_width="30dp"
@@ -199,21 +199,21 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Applicant Name"/>
+                        android:text="@string/applicant_name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Midddle Name"/>
+                        android:text="@string/midddle_name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Last Name"/>
+                        android:text="@string/last_name"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -270,7 +270,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="2"
-                        android:text="Date of Birth"/>
+                        android:text="@string/date_of_birth"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -336,7 +336,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="Place of Birth"/>
+                        android:text="@string/place_of_birth"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -364,7 +364,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="If place of birth is out side India, Month and Year when migrated to India:"/>
+                        android:text="@string/if_place_of_birth_is_out_side_india_month_and_year_when_migrated_to_india"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -429,7 +429,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="Country by Birth"/>
+                        android:text="@string/country_by_birth"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -490,7 +490,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Relationship Type"/>
+                        android:text="@string/relationship_type"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -518,7 +518,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Relation's Name"/>
+                        android:text="@string/relation_s_name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -527,7 +527,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text=" Middle Name"/>
+                        android:text="@string/midddle_name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -536,7 +536,7 @@
                         android:layout_margin="2dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Last Name"/>
+                        android:text="@string/last_name"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -601,7 +601,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_centerVertical="true"
                     android:textColor="@android:color/white"
-                    android:text="Present Address"/>
+                    android:text="@string/present_address"/>
                 <ImageView
                     android:id="@+id/imagePermanentC"
                     android:layout_width="30dp"
@@ -631,14 +631,14 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="Flat Number"/>
+                        android:text="@string/flat_number"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Flat / House Name"/>
+                        android:text="@string/flat_house_name"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress2" >
@@ -682,7 +682,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="House Number/Plot No"/>
+                        android:text="@string/house_number_plot_no"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -761,7 +761,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Village / Town / City"/>
+                        android:text="@string/village_town_city"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress8">
@@ -794,7 +794,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Taluka / Mandal"/>
+                        android:text="@string/taluka_mandal"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress10" >
@@ -826,7 +826,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text=" District"/>
+                        android:text="@string/district"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress12">
@@ -1007,7 +1007,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Permanent Address"/>
+                    android:text="@string/permanent_address"/>
                 <ImageView
                     android:id="@+id/imagePresentC"
                     android:layout_width="30dp"
@@ -1038,14 +1038,14 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="Flat Number"/>
+                        android:text="@string/flat_number"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Flat / House Name"/>
+                        android:text="@string/flat_house_name"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress2" >
@@ -1089,7 +1089,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="House Number/Plot No"/>
+                        android:text="@string/house_number_plot_no"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1173,7 +1173,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Village / Town / City"/>
+                        android:text="@string/village_town_city"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress8">
@@ -1205,7 +1205,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Taluka / Mandal"/>
+                        android:text="@string/taluka_mandal"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress10">
@@ -1237,7 +1237,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text=" District"/>
+                        android:text="@string/district"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress12">
@@ -1437,7 +1437,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Citizenship status by"/>
+                        android:text="@string/citizenship_status_by"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -1466,7 +1466,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Educational Qualification"/>
+                        android:text="@string/educational_qualification"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -1495,7 +1495,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Id Mark 1"/>
+                        android:text="@string/id_mark_1"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1526,7 +1526,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text="Id Mark 2"/>
+                        android:text="@string/id_mark_2"/>
                 </TableRow>
                 <TableRow
                     android:layout_gravity="center">
@@ -1556,7 +1556,7 @@
                         android:layout_gravity="start"
 
                         android:layout_span="1"
-                        android:text="Blood Group"/>
+                        android:text="@string/blood_group"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1564,7 +1564,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="1"
-                        android:text="RH"/>
+                        android:text="@string/rh"/>
                 </TableRow>
                 <TableRow >
                     <TextView
@@ -1605,7 +1605,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_span="2"
-                        android:text="Id Proof 4"/>
+                        android:text="@string/id_proof"/>
                 </TableRow>
                 <TableRow    android:visibility="gone"  >
                     <TextView
@@ -1630,7 +1630,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Document Number"/>
+                        android:text="@string/document_number"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1638,7 +1638,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
 
-                        android:text="Issuing Authority"/>
+                        android:text="@string/issuing_authority"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1646,7 +1646,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
 
-                        android:text="Date of Issue"/>
+                        android:text="@string/date_of_issue"/>
 
                 </TableRow>
                 <TableRow
@@ -1698,7 +1698,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:text="Back"
+                android:text="@string/back"
                 android:src="@drawable/back"
                 android:layout_margin="2dp"
                 android:padding="2dp"

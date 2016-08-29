@@ -61,7 +61,7 @@
             android:layout_height="40dp"
             android:inputType="textPersonName"
             android:padding="5dp"
-            android:hint="Last Name"
+            android:hint="@string/last_name"
             android:maxLength="16"
             android:maxLines="1"
             android:layout_margin="4dp"

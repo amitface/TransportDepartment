@@ -161,7 +161,7 @@
             android:layout_alignParentRight="true"
             android:textColor="@android:color/background_light"
             android:background="@color/colorPrimaryTransportDepartment"
-            android:text="Next"
+            android:text="@string/next"
             android:onClick="onClick"/>
     </RelativeLayout>
 

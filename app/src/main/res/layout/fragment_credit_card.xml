@@ -33,7 +33,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
-                android:text="Card Number"
+                android:text="@string/card_name"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="12sp"/>
@@ -69,7 +69,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
-                android:text="Card Name"
+                android:text="@string/card_name"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"/>
 
@@ -143,7 +143,7 @@ tools:context="com.converge.transportdepartment.Fragments.CreditCardFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
-                    android:text="Expiry Date"
+                    android:text="@string/expiry_date"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"/>
 

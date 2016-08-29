@@ -141,7 +141,7 @@
             android:textStyle="bold"
             android:textSize="16dp"
             android:layout_marginTop="5dp"
-            android:text="NOTE :-"/>
+            android:text="@string/note"/>
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Please take the appointment for  District RTO where he/she resides."
+                    android:text="@string/please_take_the_appointment_for_district_rto_where_he_she_resides"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView1"
                     android:paddingLeft="5dp"
@@ -179,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Please choose an appointment slot as per your preference"
+                    android:text="@string/please_choose_an_appointment_slot_as_per_your_preference"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView1"
                     android:paddingLeft="5dp"
@@ -200,7 +200,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="After fee Payment download application form"
+                    android:text="@string/after_fee_payment_download_application_form"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView1"
                     android:paddingLeft="5dp"

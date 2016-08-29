@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -26,6 +29,8 @@ import com.citrus.sdk.classes.CitrusConfig;
 import com.converge.transportdepartment.ActivityFragments.RtoLocatorFragment;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.Constants;
+
+import java.util.Locale;
 
 public class Home extends AppCompatActivity
         implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
@@ -41,6 +46,7 @@ public class Home extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLocale("or");
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,6 +82,7 @@ public class Home extends AppCompatActivity
         citrusConfig.setColorPrimaryDark(Constants.colorPrimaryDark);
         citrusConfig.setTextColorPrimary(Constants.textColor);
         citrusConfig.enableOneTapPayment(Constants.ENABLE_ONE_TAP_PAYMENT);
+
         addDynamicFragment();
         createDB();
     }
@@ -366,6 +373,15 @@ public class Home extends AppCompatActivity
         super.onStop();
 //        progressDialog.hide();
     }
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+    }
+
 }
 
 

@@ -58,7 +58,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Id Proof *"/>
+                    android:text="@string/id_proof"/>
             </TableRow>
             <TableRow>
                 <Spinner
@@ -80,7 +80,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Document Number*"/>
+                    android:text="@string/document_number"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Issuing Authority*"/>
+                    android:text="@string/issuing_authority"/>
 
             </TableRow>
             <TableRow  >
@@ -127,7 +127,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Date of Issue*"/>
+                    android:text="@string/date_of_issue"/>
 
             </TableRow>
             <TableRow>
@@ -178,7 +178,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Id Proof "/>
+                    android:text="@string/id_proof"/>
             </TableRow>
             <TableRow>
                 <Spinner
@@ -199,7 +199,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-                    android:text="Document Number"/>
+                    android:text="@string/document_number"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Issuing Authority"/>
+                    android:text="@string/issuing_authority"/>
 
 
             </TableRow>
@@ -245,7 +245,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Date of Issue"/>
+                    android:text="@string/date_of_issue"/>
             </TableRow>
             <TableRow>
                 <RelativeLayout
@@ -296,7 +296,7 @@
                 android:textSize="12dp"
                 android:layout_gravity="start"
                 android:layout_span="2"
-                android:text="Id Proof "/>
+                android:text="@string/id_proof"/>
         </TableRow>
         <TableRow>
             <Spinner
@@ -317,7 +317,7 @@
                 android:textSize="12dp"
                 android:layout_gravity="start"
                 android:layout_margin="2dp"
-                android:text="Document Number"/>
+                android:text="@string/document_number"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -325,7 +325,7 @@
                 android:layout_gravity="start"
                 android:layout_margin="2dp"
 
-                android:text="Issuing Authority"/>
+                android:text="@string/issuing_authority"/>
 
 
         </TableRow>
@@ -362,7 +362,7 @@
                 android:textSize="12dp"
                 android:layout_gravity="start"
                 android:layout_margin="2dp"
-                android:text="Date of Issue"/>
+                android:text="@string/date_of_issue"/>
             </TableRow>
             <TableRow>
             <RelativeLayout
@@ -411,7 +411,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_span="2"
-                    android:text="Id Proof "/>
+                    android:text="@string/id_proof"/>
             </TableRow>
             <TableRow>
                 <Spinner
@@ -432,7 +432,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-                    android:text="Document Number"/>
+                    android:text="@string/document_number"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -440,7 +440,7 @@
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
 
-                    android:text="Issuing Authority"/>
+                    android:text="@string/issuing_authority"/>
 
             </TableRow>
             <TableRow  >
@@ -476,7 +476,7 @@
                     android:textSize="12dp"
                     android:layout_gravity="start"
                     android:layout_margin="2dp"
-                    android:text="Date of Issue"/>
+                    android:text="@string/date_of_issue"/>
             </TableRow>
             <TableRow>
                 <RelativeLayout
