@@ -198,7 +198,7 @@ public class NoPaymentFragment extends Fragment {
             }
         });
 
-//        deleteSession();
+        deleteSession();
         return view;
     }
 

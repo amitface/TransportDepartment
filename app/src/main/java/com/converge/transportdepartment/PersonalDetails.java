@@ -494,7 +494,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
 
         scrollView=(ScrollView) rootView.findViewById(R.id.scrollView);
-        
+
         textView13 = (TextView) rootView.findViewById(R.id.textView13);
         setectRto_text = (EditText) rootView.findViewById(R.id.setectRto_text);
         spinnerRelationshipType_text = (EditText) rootView.findViewById(R.id.spinnerRelationshipType_text);

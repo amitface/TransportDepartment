@@ -81,21 +81,26 @@
     <string name="rh">RH*</string>
     <string name="document_number">Document Number</string>
     <string name="issuing_authority">Issuing Authority</string>
-    <string name="date_of_issue">ପ୍ରଦାନ ତାରିଖ</string>
-    <string name="debit_card">ଡେବିଟ କାର୍ଡ</string>
-    <string name="card_number">କାର୍ଡ ସଂଖ୍ୟା</string>
-    <string name="card_name">କାର୍ଡ ନାମ</string>
-    <string name="expiry_date"> ବୈଧତା ତାରିଖ</string>
-    <string name="id_proof">ପରିଚୟ ପ୍ରମାଣ*</string>
+    <string name="date_of_issue">Date of Issue</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="card_number">Card numberା</string>
+    <string name="card_name">Card Name</string>
+    <string name="expiry_date"> Expiry Date</string>
+    <string name="id_proof">Id Proof*</string>
     <string name="next">Next</string>
-    <string name="fee_information">ଦେୟ ସୂଚନା</string>
-    <string name="application_fee_rs_0">ଆବେଦନ ଦେୟ: Rs. 0</string>
-    <string name="paperdoc_fee_tax_rs_20">କାଗଜ  ଡକ୍ୟୁମେଣ୍ଟ ଦେୟ : Rs. 20</string>
-    <string name="smart_card_fee_rs_0">ସ୍ମାଟ କାର୍ଡ ଦେୟ : Rs.0</string>
-    <string name="appointment_schedule">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ</string>
-    <string name="permanent_address">ସ୍ଥାୟୀ ଠିକଣା</string>
-    <string name="back">ପଛକୁ  ଯଆନ୍ତୁ</string>
-    <string name="credit_card">କ୍ରେଡିଟ କାର୍ଡ</string>
-    <string name="netbanking">ନେଟ୍ ବ୍ୟାଙ୍କିଙ୍ଗ୍</string>
-    <string name="wallet_accounts">ୱାଲେଟ ଏକାଉଣ୍ଟ</string>
+    <string name="fee_information">Fee Information</string>
+    <string name="application_fee_rs_0">Application fee: Rs. 0</string>
+    <string name="paperdoc_fee_tax_rs_20">Paperdoc fee+tax : Rs. 20</string>
+    <string name="smart_card_fee_rs_0">Smart card fee : Rs.0</string>
+    <string name="appointment_schedule">
+        Appointment schedule :
+    </string>
+    <string name="permanent_address">Permanent Address</string>
+    <string name="back">back</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="netbanking">Net Banking</string>
+    <string name="wallet_accounts">
+        Wallet Account
+    </string>
+
 </resources>

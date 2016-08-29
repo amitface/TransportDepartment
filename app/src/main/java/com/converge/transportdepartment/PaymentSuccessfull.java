@@ -226,7 +226,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         downloadPdf();
                     }
                 });
-//        deleteSession();
+        deleteSession();
 
         return view;
     }
