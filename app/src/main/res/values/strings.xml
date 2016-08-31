@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Learning License </string>
 
+    <string name="noInternet">No internet connection...</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -37,6 +39,7 @@
     <string name="check_status_of_ll">Check Status of LL</string>
     <string name="read_instructions">Read Instructions</string>
     <string name="download_form">Download Form</string>
+    <string name="chang_lang">Change Language</string>
     <string name="exit">Exit</string>
     <string name="apply_for_learning_licence">Apply for Learning Licence</string>
     <string name="check_status_of_learning_license_application">Check Status of Learning License Application</string>
@@ -75,8 +78,8 @@
     <string name="taluka_mandal">Taluka / Mandal</string>
     <string name="district">District*</string>
     <string name="educational_qualification">Educational Qualification*</string>
-    <string name="id_mark_1">Id Mark 1</string>
-    <string name="id_mark_2">Id Mark 2</string>
+    <string name="id_mark_1">Id Mark1</string>
+    <string name="id_mark_2">Id Mark2</string>
     <string name="blood_group">Blood Group</string>
     <string name="rh">RH*</string>
     <string name="document_number">Document Number</string>
@@ -92,9 +95,7 @@
     <string name="application_fee_rs_0">Application fee: Rs. 0</string>
     <string name="paperdoc_fee_tax_rs_20">Paperdoc fee+tax : Rs. 20</string>
     <string name="smart_card_fee_rs_0">Smart card fee : Rs.0</string>
-    <string name="appointment_schedule">
-        Appointment schedule :
-    </string>
+    <string name="appointment_schedule">        Appointment schedule :    </string>
     <string name="permanent_address">Permanent Address</string>
     <string name="back">back</string>
     <string name="credit_card">Credit Card</string>
@@ -103,4 +104,71 @@
         Wallet Account
     </string>
 
+
+    <string name="selectRTO">Select RTO</string>
+    <string name="aFName">Enter applicant first name</string>
+    <string name="aLNAME">Enter applicant last name</string>
+    <string name="oANAME">Only aplhabets  allowed in the Name</string>
+    <string name="eDOB">Enter Date of Birth</string>
+    <string name="sGender">Select Gender</string>
+    <string name="sCOBirth">"Select Country of Birth"</string>
+    <string name="sCitizenship">"Select Citizenship"</string>
+    <string name="ePOBirth">"Enter place of birth"</string>
+    <string name="eVEmailId">"Enter valid Email Id"</string>
+    <string name="sRelationType">"Select RelationType"</string>
+    <string name="RTNGender">"RelationType and Gender Does not match"</string>
+    <string name="eRelativeFirstN">"Enter applicant relative first name"</string>
+    <string name="eRelativeLName">"Enter applicant relative last name"</string>
+
+    <string name="tOneField">"Atleast one field required in Present Address"</string>
+    <string name="tTaluka">"Present Taluka cannot be empty"</string>
+    <string name="tDEmpty">"Present District cannot be empty"</string>
+    <string name="tState">"Select Present State"</string>
+    <string name="tMonth">"Present Month cannot be empty"</string>
+    <string name="tAYears">"only digits allowed in Present Years"</string>
+    <string name="tAMonths">"only digits allowed in Present Months"</string>
+    <string name="tAPincode">"only digits allowed in Pincode"</string>
+    <string name="tPincode">"Present Pincode not vaild"</string>
+    <string name="mDigits">"Mobile Number should have 10 digits"</string>
+    <string name="mANumber">"only digits allowed in Mobile Number"</string>
+
+    <string name="pOneField">"Atleast one field required in Permanent Address"</string>
+    <string name="pDEmpty">"Permanent District cannot be empty"</string>
+    <string name="pState">"Select Permanent State"</string>
+    <string name="pYear">"Years cannot be empty"</string>
+    <string name="pAYears">"only digit in Years"</string>
+    <string name="pAMonths">"only digits allowed in Months"</string>
+    <string name="pPincode">"Invalid Permanent Pincode "</string>
+    <string name="pAPincode">"only digits allowed in Pincode"</string>
+    <string name="pMDigits">"Mobile Number should have 10 digits"</string>
+
+    <string name="qualification">"Select Qualification "</string>
+    <string name="idMark">"Select Id Mark1"</string>
+    <string name="idMark2">"Select Id Mark2"</string>
+    <string name="bloodGroup">"Select Bloodgroup"</string>
+    <string name="pDistrict">"Present District cannot be empty"</string>
+
+    <!--OtherDetails-->
+    <string name="rcRequired">Registration number required for INVALID CARRIAGE VEHICLE</string>
+    <string name="eId">Enter Id proof</string>
+    <string name="eDocNum">Enter Document Number</string>
+    <string name="eIssAuthority">Enter Issuing Authority</string>
+    <string name="eDateOfIssue">Enter Date of Issue</string>
+    <string name="rcInvalidRequired">Registration number required for INVALID CARRIAGE VEHICLE</string>
+    <string name="eRC">Enter Registration number</string>
+    <string name="idLimit">Cannot exceed limit of 4 Id proof</string>
+    <string name="cannotRemove">Cannot Remove More</string>
+    <string name="paymentFailed">Payment failed</string>
+    <string name="DLTvehicle">Driving license is compulsory for Transport vehicle</string>
+    <string name="DL1less">Driving license issue date should be, 1 year less than current date</string>
+
+    <!--Check status-->
+    <string name="refLength">Reference number should be 7 digit long.</string>
+    <string name="dateCEmpty">Date cannot be empty</string>
+
+    <!--payable payment-->
+    <string name="PayFail">Payable payment failure</string>
+    <string name="selectOne">Please select any one option</string>
 </resources>
+
+

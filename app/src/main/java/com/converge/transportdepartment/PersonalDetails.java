@@ -817,59 +817,56 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         if( mspinnerRTO.getSelectedItemPosition()==0)
         {
-            showToast("Select RTO");
+            showToast(getActivity().getResources().getString(R.string.selectRTO));
 
-            setectRto_text.setError("Select RTO");
+            setectRto_text.setError(getActivity().getResources().getString(R.string.selectRTO));
             setectRto_text.requestFocus();
 
             return false;
         }
         else if(meditViewApplicantFirstName.getText().length()==0)
         {
-            showToast("Enter applicant first name");
-
+            showToast(getActivity().getResources().getString(R.string.aFName));
             showPersonalDetail();
-
-            meditViewApplicantFirstName.setError("Enter applicant first name");
+            meditViewApplicantFirstName.setError(getActivity().getResources().getString(R.string.aFName));
             meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
         else if(meditViewApplicantLastName.getText().length()==0)
         {
-            showToast("Enter applicant last name");
+            showToast(getActivity().getResources().getString(R.string.aLNAME));
 
             showPersonalDetail();
-
-            meditViewApplicantLastName.setError("Enter applicant last name");
+            meditViewApplicantLastName.setError(getActivity().getResources().getString(R.string.aLNAME));
             meditViewApplicantLastName.requestFocus();
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) || !validation.isAlpha(meditViewApplicantLastName.getText().toString()))
         {
-            showToast("Only aplhabets  allowed in the Name ");
+            showToast(getActivity().getResources().getString(R.string.oANAME));
 
             showPersonalDetail();
 
-            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name ");
+            meditViewApplicantFirstName.setError(getActivity().getResources().getString(R.string.oANAME));
             meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
         else if(mtextViewDate.getText().length()==0)
         {
-            showToast("Enter Date of Birth");
+            showToast(getActivity().getResources().getString(R.string.eDOB));
 
             showPersonalDetail();
 
-            mtextViewDate.setError("Enter Date of Birth");
+            mtextViewDate.setError(getActivity().getResources().getString(R.string.eDOB));
             mtextViewDate.requestFocus();
 
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()==0)
         {
-            showToast("Select Gender");
+            showToast(getActivity().getResources().getString(R.string.sGender));
             showPersonalDetail();
             mspinnerGender.requestFocus();
 
@@ -878,55 +875,55 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(mspinnerCountry.getSelectedItemPosition()==0)
         {
-            showToast("Select Country of Birth");
+            showToast(getActivity().getResources().getString(R.string.sCOBirth));
 
             showPersonalDetail();
 
-            spinnerCountry_text.setError("Select Country of Birth");
+            spinnerCountry_text.setError(getActivity().getResources().getString(R.string.sCOBirth));
             spinnerCountry_text.requestFocus();
 
             return false;
         }
         else if(mspinnerCitizenship.getSelectedItemPosition()==0)
         {
-            showToast("Select Citizenship");
+            showToast(getActivity().getResources().getString(R.string.sCitizenship));
 
             showPersonalDetail();
 
-            spinnerCitizenship_text.setError("Select Citizenship");
+            spinnerCitizenship_text.setError(getActivity().getResources().getString(R.string.sCitizenship));
             spinnerCitizenship_text.requestFocus();
 
             return false;
         }
         else if(meditViewPlaceOfBirth.getText().length()==0)
         {
-            showToast("Enter place of birth");
+            showToast(getActivity().getResources().getString(R.string.ePOBirth));
 
             showPersonalDetail();
 
-            meditViewPlaceOfBirth.setError("Enter place of birth");
+            meditViewPlaceOfBirth.setError(getActivity().getResources().getString(R.string.ePOBirth));
             meditViewPlaceOfBirth.requestFocus();
 
             return false;
         }
         else if(meditViewEmail.getText().length()==0)
         {
-            showToast("Enter valid Email Id");
+            showToast(getActivity().getResources().getString(R.string.eVEmailId));
 
             showPersonalDetail();
 
-            meditViewEmail.setError("Enter Email");
+            meditViewEmail.setError(getActivity().getResources().getString(R.string.eVEmailId));
             meditViewEmail.requestFocus();
 
             return false;
         }
         else if(!validation.isEmailAddress(meditViewEmail,true))
         {
-            showToast("Enter valid Email Id");
+            showToast(getActivity().getResources().getString(R.string.eVEmailId));
 
             showPersonalDetail();
 
-            meditViewEmail.setError("Enter valid Email Id");
+            meditViewEmail.setError(getActivity().getResources().getString(R.string.eVEmailId));
             meditViewEmail.requestFocus();
 
             return false;
@@ -934,18 +931,18 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(mspinnerRelationshipType.getSelectedItemPosition()==0)
         {
-            showToast("Select RelationType");
+            showToast(getActivity().getResources().getString(R.string.sRelationType));
 
             showPersonalDetail();
 
-            spinnerRelationshipType_text.setError("Select RelationType");
+            spinnerRelationshipType_text.setError(getResources().getString(R.string.sRelationType));
             spinnerRelationshipType_text.requestFocus();
 
             return false;
         }
         else if(mspinnerGender.getSelectedItemPosition()==1 && mspinnerRelationshipType.getSelectedItemPosition()==2)
         {
-            showToast("RelationType and Gender Does not match");
+            showToast(getResources().getString(R.string.RTNGender));
             showPersonalDetail();
             mspinnerGender.requestFocus();
             return false;
@@ -953,71 +950,71 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditViewApplicantRelationsName.getText().length()==0)
         {
-            showToast("Enter applicant relative first name");
+            showToast(getResources().getString(R.string.eRelativeFirstN));
 
             showPersonalDetail();
 
-            meditViewApplicantRelationsName.setError("Enter applicant relative first name");
+            meditViewApplicantRelationsName.setError(getResources().getString(R.string.eRelativeFirstN));
             meditViewApplicantRelationsName.requestFocus();
 
             return false;
         }
         else if(meditViewApplicantRelationsLastName.getText().length()==0)
         {
-            showToast("Enter applicant relative Last name");
+            showToast(getResources().getString(R.string.eRelativeLName));
 
             showPersonalDetail();
 
-            meditViewApplicantRelationsLastName.setError("Enter applicant relative Last name");
+            meditViewApplicantRelationsLastName.setError(getResources().getString(R.string.eRelativeLName));
             meditViewApplicantRelationsLastName.requestFocus();
 
             return false;
         }
         else  if(!validation.isAlpha(meditViewApplicantFirstName.getText().toString()) )
         {
-            showToast("Only aplhabets allowed in the Name");
+            showToast(getResources().getString(R.string.oANAME));
 
             showPersonalDetail();
 
-            meditViewApplicantFirstName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantFirstName.setError(getResources().getString(R.string.oANAME));
             meditViewApplicantFirstName.requestFocus();
 
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantRelationsLastName.getText().toString()))
         {
-            showToast("Only aplhabets allowed in the Name");
+            showToast(getResources().getString(R.string.oANAME));
 
             showPersonalDetail();
 
-            meditViewApplicantRelationsName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsName.setError(getResources().getString(R.string.oANAME));
             meditViewApplicantRelationsName.requestFocus();
             return false;
         }
         else if(!validation.isAlpha(meditViewApplicantRelationsMiddleName.getText().toString()))
         {
-            showToast("Only aplhabets allowed in the Name");
+            showToast(getResources().getString(R.string.oANAME));
 
             showPersonalDetail();
 
-            meditViewApplicantRelationsLastName.setError("Only aplhabets allowed in the Name");
+            meditViewApplicantRelationsLastName.setError(getResources().getString(R.string.oANAME));
             meditViewApplicantRelationsLastName.requestFocus();
             return false;
         }
         else if(meditTextPermanentFlatNum.getText().length()==0 && meditTextPermanentHouseName.getText().length()==0 && meditTextPermanentHouseNum.getText().length()==0 && meditTextPermanentStreet.getText().length()==0 && meditTextPermanentLocality.getText().length()==0 && meditTextPermanentvillage.getText().length()==0 )
         {
-            showToast("Atleast one field required in Present Address");
+            showToast(getResources().getString(R.string.tOneField));
 
             showPremanent();
 
-            meditTextPermanentFlatNum.setError("Atleast one field required in Present Address");
+            meditTextPermanentFlatNum.setError(getResources().getString(R.string.tOneField));
             meditTextPermanentFlatNum.requestFocus();
             return false;
         }
 
         else if( meditTextPermanentTaluka.getSelectedItemPosition()==0)
         {
-            showToast("Present Taluka cannot be empty");
+            showToast(getResources().getString(R.string.tTaluka));
 
             showPremanent();
 
@@ -1027,22 +1024,22 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         }
         else if(mSPerDistrict.getSelectedItemPosition()==0)
         {
-            showToast("Present District cannot be empty");
+            showToast(getResources().getString(R.string.tDEmpty));
 
             showPremanent();
 
-            sPerDistrict_text.setError("Present District cannot be empty");
+            sPerDistrict_text.setError(getResources().getString(R.string.tDEmpty));
             sPerDistrict_text.requestFocus();
 
             return false;
         }
         else if(mspinnerPermanentState.getSelectedItemPosition()==0)
         {
-            showToast("Select Present State");
+            showToast(getResources().getString(R.string.tState));
 
             showPremanent();
 
-            spinnerPermanentState_text.setError("Select Present State");
+            spinnerPermanentState_text.setError(getResources().getString(R.string.tState));
             spinnerPermanentState_text.requestFocus();
 
             return false;
@@ -1050,115 +1047,115 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditTextPermanentMonth.getText().length()==0 && meditTextPermanentYear.getText().length()==0)
         {
-            showToast("Present Month cannot be empty");
+            showToast(getResources().getString(R.string.tMonth));
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("Present Month cannot be empty");
+            meditTextPermanentMonth.setError(getResources().getString(R.string.tMonth));
             meditTextPermanentMonth.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPermanentYear) && !validation.isPhoneNumber(meditTextPermanentYear,true))
         {
-            showToast("only digits allowed in Present Years");
+            showToast(getResources().getString(R.string.tAYears));
 
             showPremanent();
 
-            meditTextPermanentYear.setError("only digits allowed in Present Years");
+            meditTextPermanentYear.setError(getResources().getString(R.string.tAYears));
             meditTextPermanentYear.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPermanentMonth) && !validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digits allowed in Present Months");
+            showToast(getResources().getString(R.string.tAMonths));
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("only digits allowed in Months");
+            meditTextPermanentMonth.setError(getResources().getString(R.string.tAMonths));
             meditTextPermanentMonth.requestFocus();
 
             return false;
         }
         else if(meditTextPermanentPinCode.getText().length()<6)
         {
-            showToast("Only digits allowed in Pincode");
+            showToast(getResources().getString(R.string.tAPincode));
 
             showPremanent();
 
-            meditTextPermanentPinCode.setError("Only digits allowed in Pincode");
+            meditTextPermanentPinCode.setError(getResources().getString(R.string.tAPincode));
             meditTextPermanentPinCode.requestFocus();
 
             return false;
         }
         else if(!(s.equals("77") || s.equals("76") || s.equals("75")))
         {
-            showToast("Present Pincode not vaild");
+            showToast(getResources().getString(R.string.tPincode));
 
             showPremanent();
-            meditTextPermanentPinCode.setError("Invalid Pincode");
+            meditTextPermanentPinCode.setError(getResources().getString(R.string.tPincode));
             meditTextPermanentPinCode.requestFocus();
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMonth,true))
         {
-            showToast("only digits allowed in Present Month");
+            showToast(getResources().getString(R.string.tAMonths));
 
             showPremanent();
 
-            meditTextPermanentMonth.setError("only digits allowed in Month");
+            meditTextPermanentMonth.setError(getResources().getString(R.string.tAMonths));
             meditTextPermanentMonth.requestFocus();
 
             return false;
         }
         else if(meditTextPermanentMoblieNo.getText().length()!=10)
         {
-            showToast("Mobile Number should have 10 digits");
+            showToast(getResources().getString(R.string.mDigits));
 
             showPremanent();
 
-            meditTextPermanentMoblieNo.setError("Mobile Number should have 10 digits");
+            meditTextPermanentMoblieNo.setError(getResources().getString(R.string.mDigits));
             meditTextPermanentMoblieNo.requestFocus();
 
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPermanentMoblieNo,true))
         {
-            showToast("only digits allowed in Mobile Number");
+            showToast(getResources().getString(R.string.mDigits));
             showPremanent();
-            meditTextPermanentMoblieNo.setError("only digits allowed in Mobile Number");
+            meditTextPermanentMoblieNo.setError(getResources().getString(R.string.mDigits));
             meditTextPermanentMoblieNo.requestFocus();
             return false;
         }
 
         else if(meditTextPresentFlatNum.getText().length()==0 && meditTextPresentHouseName.getText().length()==0 && meditTextPresentHouseNum.getText().length()==0 && meditTextPresentStreet.getText().length()==0 && meditTextPresentLocality.getText().length()==0 && meditTextPresentvillage.getText().length()==0 &&  meditTextPresentTaluka.getText().length()==0)
         {
-            showToast("At least one field required in Permanent Address");
+            showToast(getActivity().getResources().getString(R.string.pOneField));
             showPresent();
-            meditTextPresentFlatNum.setError("At least one field required in Permanent Address");
+            meditTextPresentFlatNum.setError(getActivity().getResources().getString(R.string.pOneField));
             meditTextPresentFlatNum.requestFocus();
             return false;
         }
 
         else if(meditTextPresentDistrict.getText().length()==0)
         {
-            showToast("Permanent District cannot be empty");
+            showToast(getActivity().getResources().getString(R.string.pDistrict));
 
             showPresent();
 
-            meditTextPresentDistrict.setError("Permanent District cannot be empty");
+            meditTextPresentDistrict.setError(getActivity().getResources().getString(R.string.pDistrict));
             meditTextPresentDistrict.requestFocus();
 
             return false;
         }
         else if(mspinnerPresentState.getSelectedItemPosition()==0)
         {
-            showToast("Select Permanent State ");
+            showToast(getActivity().getResources().getString(R.string.pState));
 
             showPresent();
 
-            spinnerPresentState_text.setError("Select Permanent State");
+            spinnerPresentState_text.setError(getActivity().getResources().getString(R.string.pState));
             spinnerPresentState_text.requestFocus();
 
             return false;
@@ -1166,104 +1163,104 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(meditTextPresentYear.getText().length()==0)
         {
-            showToast("Years cannot be empty");
+            showToast(getActivity().getResources().getString(R.string.pYear));
 
             showPresent();
 
-            meditTextPresentYear.setError("Years cannot be empty");
+            meditTextPresentYear.setError(getActivity().getResources().getString(R.string.pYear));
             meditTextPresentYear.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPresentYear) && !validation.isPhoneNumber(meditTextPresentYear,true))
         {
-            showToast("only digit in Years");
+            showToast(getActivity().getResources().getString(R.string.pAYears));
 
             showPresent();
 
-            meditTextPresentYear.setError("only digit in Years");
+            meditTextPresentYear.setError(getActivity().getResources().getString(R.string.pAYears));
             meditTextPresentYear.requestFocus();
 
             return false;
         }
         else if(validation.hasText(meditTextPresentMonth) && !validation.isPhoneNumber(meditTextPresentMonth,true))
         {
-            showToast("only digits allowed in Months");
+            showToast(getActivity().getResources().getString(R.string.pAMonths));
 
             showPresent();
 
-            meditTextPresentMonth.setError("only digits allowed in Months");
+            meditTextPresentMonth.setError(getActivity().getResources().getString(R.string.pAMonths));
             meditTextPresentMonth.requestFocus();
 
             return false;
         }
         else if(meditTextPresentPinCode.getText().length()<6)
         {
-            showToast("Invalid Permanent Pincode ");
+            showToast(getActivity().getResources().getString(R.string.pPincode));
 
             showPresent();
 
-            meditTextPresentPinCode.setError("Invalid Permanent Pincode ");
+            meditTextPresentPinCode.setError(getActivity().getResources().getString(R.string.pPincode));
             meditTextPresentPinCode.requestFocus();
 
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentPinCode,true))
         {
-            showToast("Digits only in Pincode ");
+            showToast(getActivity().getResources().getString(R.string.pAPincode));
 
             showPresent();
 
-            meditTextPresentPinCode.setError("Digits only in Pincode");
+            meditTextPresentPinCode.setError(getActivity().getResources().getString(R.string.pAPincode));
             meditTextPresentPinCode.requestFocus();
 
             return false;
         }
         else if(meditTextPresentMoblieNo.getText().length()!=10)
         {
-            showToast("Mobile number should have 10 digits");
+            showToast(getActivity().getResources().getString(R.string.pMDigits));
 
             showPresent();
-            meditTextPresentMoblieNo.setError("Mobile number should have 10 digits");
+            meditTextPresentMoblieNo.setError(getActivity().getResources().getString(R.string.pMDigits));
             meditTextPresentMoblieNo.requestFocus();
             return false;
         }
         else if(!validation.isPhoneNumber(meditTextPresentMoblieNo,true))
         {
-            showToast("Only digits allowed in mobile number ");
+            showToast(getActivity().getResources().getString(R.string.pMDigits));
 
             showPresent();
 
-            meditTextPresentMoblieNo.setError("Only digits allowed in mobile number");
+            meditTextPresentMoblieNo.setError(getActivity().getResources().getString(R.string.pMDigits));
             meditTextPresentMoblieNo.requestFocus();
             return false;
         }
         else if(mspinnerQualification.getSelectedItemPosition()==0)
         {
-            showToast("Select Qualification");
+            showToast(getActivity().getResources().getString(R.string.qualification));
 
             showOtherInfo();
-            spinnerQualification_text.setError("Select Qualification");
+            spinnerQualification_text.setError(getActivity().getResources().getString(R.string.qualification));
             spinnerQualification_text.requestFocus();
             return false;
         }
         else if(mspinnerIdmark.getSelectedItemPosition()==0)
         {
-            showToast("Select Id Mark");
+            showToast(getActivity().getResources().getString(R.string.idMark));
 
             showOtherInfo();
-            spinnerIdmark_text.setError("Select Id Mark");
+            spinnerIdmark_text.setError(getActivity().getResources().getString(R.string.idMark));
             spinnerIdmark_text.requestFocus();
             return false;
         }
 
         else if(mspinnerIdmark2.getSelectedItemPosition()==0)
         {
-            showToast("Select Id Mark2");
+            showToast(getActivity().getResources().getString(R.string.idMark2));
 
             showOtherInfo();
 
-            spinnerIdmark2_text.setError("Select Id Mark2");
+            spinnerIdmark2_text.setError(getActivity().getResources().getString(R.string.idMark2));
             spinnerIdmark2_text.requestFocus();
 
             return false;
@@ -1271,7 +1268,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         else if(mspinnerBloodGroup.getSelectedItemPosition()==0)
         {
-            showToast("Select BloodGroup");
+            showToast(getActivity().getResources().getString(R.string.bloodGroup));
 
             showOtherInfo();
             mspinnerBloodGroup.requestFocus();
@@ -1341,7 +1338,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 "&statecode=ODISHA"+
 //                "&rtocode="+(rtoCode[mspinnerRTO.getSelectedItemPosition()+1])+
 //                "&rtocode="+mspinnerRTO.getSelectedItem().toString().toUpperCase()+
-                        "&rtocode="+Integer.parseInt(rtoC[mspinnerRTO.getSelectedItemPosition()-1])+
+                        "&rtocode="+rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]+
                         "&first_name="+meditViewApplicantFirstName.getText().toString().toUpperCase()+
                         "&middle_name="+meditViewApplicantMiddleName.getText().toString().toUpperCase()+
                         "&last_name="+meditViewApplicantLastName.getText().toString().toUpperCase()+

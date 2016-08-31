@@ -193,7 +193,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                 jsonData.put("ref",Long.toString(appNumber));
                 jsonData.put("usr",userName);
                 jsonData.put("pass",userPassword);
-                jsonData.put("tamt",Long.toString(calulateTax(1L)));
+                jsonData.put("tamt",Double.toString(calulateTax(1.1)));
 //                jsonData.put("data",jsonlist);
 
                 String json =jsonData.toString();
@@ -291,7 +291,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
 
     private void alertDialogNote()
     {
-        final String[] items = {"Your amount will be Rs. "+calulateTax(1L)};
+        final String[] items = {"Your amount will be Rs. "+calulateTax(1.1)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");
@@ -312,7 +312,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
         builder.show();
     }
 
-    private Long calulateTax(Long amt)
+    private Double calulateTax(Double amt)
     {
         return amt;
     }

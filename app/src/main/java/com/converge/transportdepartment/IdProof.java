@@ -455,30 +455,30 @@ public class IdProof extends Fragment implements View.OnClickListener{
     private boolean validate() {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
-            showToast("No internet connection...");
+            showToast(getActivity().getResources().getString(R.string.noInternet));
             return false;
         }
         if(inValidStatus==true && rCNumber.getText().length()<=6 )
         {
-            showToast("Registration number required for INVALID CARRIAGE VEHICLE");
-            rCNumber.setError("Enter Registration number");
+            showToast(getActivity().getResources().getString(R.string.rcRequired));
+            rCNumber.setError(getActivity().getResources().getString(R.string.eRC));
             return false;
         }
         else if(spinnerIdcard1.getSelectedItemPosition()==0)
         {
-            showToast("Enter Id proof");
+            showToast(getActivity().getResources().getString(R.string.eId));
             return false;
         }else if(editTextDocumentNum1.getText().length()==0)
         {
-            showToast("Enter Document Number");
+            showToast(getActivity().getResources().getString(R.string.eDocNum));
             return false;
         }else if(editTextIssuingAuthority1.getText().length()==0)
         {
-            showToast("Enter Issuing Authority");
+            showToast(getActivity().getResources().getString(R.string.eIssAuthority));
             return false;
         }else if(editTextDateofIssue1.getText().length()==0)
         {
-            showToast("Enter Date of Issue");
+            showToast(getActivity().getResources().getString(R.string.eDateOfIssue));
             return false;
         }
 
@@ -544,12 +544,12 @@ public class IdProof extends Fragment implements View.OnClickListener{
                     count++;
                     tableLayout4.setVisibility(View.VISIBLE);
                 } else if (count == 3) {
-                    showToast("Cannot exceed limit of 4 Id proof");
+                    showToast(getActivity().getResources().getString(R.string.idLimit));
                 }
                 break;
             case R.id.buttonRemove:
                 if (count == 0) {
-                    showToast("Cannot Remove More");
+                    showToast(getActivity().getResources().getString(R.string.cannotRemove));
                 } else if (count == 1) {
                     count--;
                     tableLayout2.setVisibility(View.INVISIBLE);

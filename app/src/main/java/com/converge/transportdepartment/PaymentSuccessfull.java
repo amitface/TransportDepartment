@@ -636,22 +636,10 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
             if(result==1)
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
 
-                    }
-                });
             }
             else
             {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        showToast("failure");
-                    }//public void run() {
-                });
 
             }
         }

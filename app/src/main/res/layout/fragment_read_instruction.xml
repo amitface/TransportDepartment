@@ -142,6 +142,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_gravity="bottom">
+
         <ImageView
             android:id="@+id/buttonReadBack"
             android:layout_width="120dp"
@@ -152,6 +153,7 @@
             android:background="@color/colorPrimaryTransportDepartment"
             android:layout_alignParentLeft="true"
             android:onClick="onClick"/>
+
         <ImageView
             android:id="@+id/buttonReadNext"
             android:layout_width="120dp"

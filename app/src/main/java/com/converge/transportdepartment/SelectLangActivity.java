@@ -24,9 +24,6 @@ public class SelectLangActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_lang);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         initializeViews();
     }
 
@@ -74,5 +71,11 @@ public class SelectLangActivity extends AppCompatActivity implements View.OnClic
                 oriyaButton.setChecked(false);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(SelectLangActivity.this,Home.class));
     }
 }

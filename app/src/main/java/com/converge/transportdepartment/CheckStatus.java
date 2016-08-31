@@ -612,17 +612,17 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
     {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
-            Toast.makeText(getActivity(),"No internet connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.noInternet),Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(eTRefNum.getText().length()<=6)
         {
-            Toast.makeText(getActivity(),"Reference number should be 7 digit long.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.refLength),Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(textDateofIssueStatus.getText().length()==0)
         {
-            Toast.makeText(getActivity(),"Date cannot be empty",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.dateCEmpty),Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -181,7 +181,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                             pgoption=3;
                         }else
                         {
-                            Toast.makeText(getActivity(),"Please select any one option",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.selectOne),Toast.LENGTH_LONG).show();
                             break;
                         }
                         PayRequest(v);
@@ -199,7 +199,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     {
         if(!ConValidation.isNetworkAvailable(getActivity()))
         {
-            Toast.makeText(getActivity(),"No internet connnection...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.noInternet),Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -341,22 +341,31 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 JSONObject jsonlist2 = new JSONObject();
                 JSONObject jsonlist3 = new JSONObject();
 
-                jsonlist1.put("amount","1");
+//                jsonlist1.put("amount","0.7");
+//                jsonlist1.put("code","11");
+//                jsonlist1.put("hoa","1234456778898");
+//
+//                jsonlist2.put("amount","1");
+//                jsonlist2.put("code","11");
+//                jsonlist2.put("hoa","11455656");
+//
+//                jsonlist3.put("amount","1");
+//                jsonlist3.put("code","11");
+//                jsonlist3.put("hoa","1998878776676");
+
+
+                jsonlist1.put("amount","0.7");
                 jsonlist1.put("code","11");
-                jsonlist1.put("hoa","1234456778898");
+                jsonlist1.put("hoa","41001020098");
 
-                jsonlist2.put("amount","1");
+                jsonlist2.put("amount","0.4");
                 jsonlist2.put("code","11");
-                jsonlist2.put("hoa","11455656");
-
-                jsonlist3.put("amount","1");
-                jsonlist3.put("code","11");
-                jsonlist3.put("hoa","1998878776676");
+                jsonlist2.put("hoa","30434594815");
 
                 JSONArray arraylist = new JSONArray();
                 arraylist.put(jsonlist1);
                 arraylist.put(jsonlist2);
-                arraylist.put(jsonlist3);
+//                arraylist.put(jsonlist3);
 
                 jsonlist.put("list",arraylist);
 
@@ -450,7 +459,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             }
             else
             {
-                Toast.makeText(getActivity(),"Payable payment failure",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.PayFail),Toast.LENGTH_LONG).show();
             }
         }
     }

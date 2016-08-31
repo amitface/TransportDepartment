@@ -34,6 +34,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/dimen_actionbtn_textSize"
                 android:textColor="@color/white"
+                android:buttonTint="@color/white"
                 android:id="@+id/radioButton_select_lang_oriya"
                 />
 
@@ -44,6 +45,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/dimen_actionbtn_textSize"
                 android:textColor="@color/white"
+                android:buttonTint="@color/white"
                 android:id="@+id/radioButton_select_lang_english"
                 />
 

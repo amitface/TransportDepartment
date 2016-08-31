@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -28,7 +29,7 @@ import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.Constants;
 
 public class Home extends AppCompatActivity
-        implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener {
+        implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener, ChangeLanguageFragment.OnFragmentInteractionListener {
 
     private FragmentTabHost mTabHost;
     private LicenseApplication.OnFragmentInteractionListener mLicenseApplication;
@@ -99,8 +100,7 @@ public class Home extends AppCompatActivity
             case R.id.textViewApply:
 //                    initView();
                 vibrate();
-                 fragment = LicenseApplication.newInstance("0","2");
-
+                fragment = LicenseApplication.newInstance("0","2");
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_home,fragment,"App1").commit();
                 break;
             case R.id.imageViewApply:
@@ -266,6 +266,11 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_download) {
             vibrate();
             replaceFragment(DownloadPDF.newInstance("1","1"));
+        } else if (id == R.id.nav_change_lang) {
+            vibrate();
+            startActivity(new Intent(Home.this,SelectLangActivity.class));
+            finish();
+//            replaceFragment(ChangeLanguageFragment.newInstance("1","1"));
         } else if (id == R.id.nav_exit) {
             alertDialogPostReport();
         }
