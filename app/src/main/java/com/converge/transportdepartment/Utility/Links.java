@@ -22,5 +22,4 @@ public class Links {
 
     public static String updateSlotSCServer = stringSmartChip+"savetime_slot/assgn_slot.php";
 
-
 }

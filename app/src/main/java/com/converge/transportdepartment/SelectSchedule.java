@@ -376,8 +376,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
     private void getSlot()
     {
-//        new scheduleSlot(getActivity()).execute();
-        new scheduleSlotServer(getActivity()).execute();
+        new scheduleSlot(getActivity()).execute();
+//        new scheduleSlotServer(getActivity()).execute();
     }
 
     //for Nic server
@@ -404,7 +404,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         try{
 
 //             URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
-               URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
+//               URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
+               URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
 //                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
 
             connection = (HttpURLConnection) url.openConnection();
@@ -694,7 +695,8 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         protected Long doInBackground(Void... params) {
             HttpURLConnection connection=null;
             try{
-                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+//                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+                URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
                 connection = (HttpURLConnection) url.openConnection();
 
                 //Creating json object.
