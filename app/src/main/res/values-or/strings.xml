@@ -170,7 +170,12 @@
 
         <!--payable payment-->
         <string name="PayFail">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>
-    </resources>
+    <string name="pSameT">Permanent address same as Present address.</string>
+    <string name="state">ରାଜ୍ୟ*</string>
+    <string name="duration_of_stay">ରହିବା ଅବଧି*</string>
+    <string name="pin_code">ପିନ୍ କୋଡ*</string>
+    <string name="moblie_no">ମୋବାଇଲ ନମ୍ବର*</string>
+</resources>
 <!--<resources>-->
 
 
