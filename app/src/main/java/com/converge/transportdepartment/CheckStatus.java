@@ -802,8 +802,8 @@ public class CheckStatus extends Fragment implements View.OnClickListener{
             HttpURLConnection connection=null;
             try{
 
-//                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
-                URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
+                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
+//                URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
 
                 connection = (HttpURLConnection) url.openConnection();
                 //Creating json object.
