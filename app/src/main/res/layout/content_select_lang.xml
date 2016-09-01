@@ -9,8 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.converge.transportdepartment.SelectLangActivity"
     android:background="@drawable/bg_select_lang"
+    tools:context="com.converge.transportdepartment.SelectLangActivity"
+
     tools:showIn="@layout/activity_select_lang">
 
     <LinearLayout

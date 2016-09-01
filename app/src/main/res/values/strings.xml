@@ -169,6 +169,11 @@
     <!--payable payment-->
     <string name="PayFail">Payable payment failure</string>
     <string name="selectOne">Please select any one option</string>
+    <string name="pSameT">Permanent address same as Present address.</string>
+    <string name="state">State*</string>
+    <string name="duration_of_stay">Duration of Stay*</string>
+    <string name="pin_code">Pin Code*</string>
+    <string name="moblie_no">Moblie No*</string>
 </resources>
 
 

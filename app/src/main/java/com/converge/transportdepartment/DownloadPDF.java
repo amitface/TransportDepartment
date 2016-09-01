@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.converge.transportdepartment.DatePicker.DatePickerFragmentDownload;
 import com.converge.transportdepartment.Utility.ConValidation;
+import com.converge.transportdepartment.Utility.Links;
 import com.converge.transportdepartment.Utility.MarshMallowPermission;
 
 import org.json.JSONArray;
@@ -233,7 +234,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
 
     public void downloadPdfForm(int n) {
 //        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan/LL_Application_Form.php?referenceId="+sharedpreferences.getString("receiptNum",""));
-        Uri Download_Uri = Uri.parse("http://103.27.233.206/M-Parivahan-Odisha/allpdf/"+n+".pdf");
+        Uri Download_Uri = Uri.parse(Links.downloadFormsPdf+n+".pdf");
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
         //Restrict the types of networks over which this download may proceed.

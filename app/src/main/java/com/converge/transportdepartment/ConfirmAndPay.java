@@ -820,7 +820,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 if (Integer.parseInt(s) > 0) {
                     BackGroundTasks.sendMail(appNumber);
                 }
-
                 return 1;
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -834,9 +833,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
                 return 0;
             }
-
         }
-
 
         protected void onPostExecute(Integer result) {
 
@@ -858,7 +855,6 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 });
             }
         }
-
     }
 }
 

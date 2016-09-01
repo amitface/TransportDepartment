@@ -741,7 +741,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Street"/>
+                        android:text="@string/street"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress4">
@@ -783,7 +783,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text=" Locality"/>
+                        android:text="@string/locality"/>
 
                 </TableRow>
                 <TableRow
@@ -912,7 +912,7 @@
                         android:layout_gravity="start"
                         android:layout_span="3"
                         android:layout_margin="2dp"
-                        android:text="State"/>
+                        android:text="@string/state"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress14">
@@ -946,7 +946,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Duration of Stay"/>
+                        android:text="@string/duration_of_stay"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress16">
@@ -993,7 +993,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
 
-                        android:text="Pin Code"/>
+                        android:text="@string/pin_code"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1001,7 +1001,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
-                        android:text="Moblie No"/>
+                        android:text="@string/moblie_no"/>
 
 
                 </TableRow>
@@ -1148,7 +1148,7 @@
                         android:textSize="12sp"
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
-                        android:text="Street"/>
+                        android:text="@string/street"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress4" >
@@ -1192,7 +1192,7 @@
                         android:layout_margin="2dp"
                         android:layout_gravity="start"
                         android:layout_span="3"
-                        android:text=" Locality"/>
+                        android:text="@string/locality"/>
 
                 </TableRow>
                 <TableRow
@@ -1351,7 +1351,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Duration of Stay"/>
+                        android:text="@string/duration_of_stay"/>
 
                 </TableRow>
                 <TableRow
@@ -1396,7 +1396,7 @@
                         android:textSize="12dp"
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
-                        android:text="Pin Code"/>
+                        android:text="@string/pin_code"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1404,7 +1404,7 @@
                         android:layout_gravity="start"
                         android:layout_margin="2dp"
                         android:layout_span="1"
-                        android:text="Moblie No"/>
+                        android:text="@string/moblie_no"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPresentAddress18">
