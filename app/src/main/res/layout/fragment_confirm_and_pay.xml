@@ -28,7 +28,6 @@
                 android:text="@string/fee_information"
                 android:background="@color/colorPrimaryTransportDepartment"/>
 
-
                 <TextView
                     android:id="@+id/textfee"
                     android:layout_width="match_parent"
@@ -43,7 +42,6 @@
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -72,8 +70,6 @@
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,8 +83,6 @@
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,7 +98,6 @@
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
 
-
                 <TextView
                     android:id="@+id/textTotal"
                     android:layout_width="match_parent"
@@ -119,6 +112,19 @@
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
                     android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="Click to see bifurcation"
+                android:textColor="@color/white"
+                android:layout_marginLeft="13dip"
+                android:layout_marginRight="6dip"
+                android:textSize="10sp"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:padding="1dp"
+                 />
 
             <TableLayout
                 android:id="@+id/tablelayoutFee"
@@ -166,6 +172,7 @@
                 android:stretchColumns="*"
                 android:visibility="visible"
                 android:padding="6dip">
+
                 <!--Appointment Information-->
 
                 <TextView
@@ -185,7 +192,7 @@
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textColorHighlight="@android:color/black"
-                        android:text="@string/appointment_schedule"
+                        android:text="@string/appointmentDate"
                         android:background="@drawable/edit_text_personal_details"
                         android:padding="5dp"/>
 

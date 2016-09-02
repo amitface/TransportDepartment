@@ -255,7 +255,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         jsonString = sharedpreferences.getString(PGInfo, "");
         TextView textfee = (TextView) view.findViewById(R.id.textfee);
         TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
-        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + (totalFee() - 20));
+        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + (totalFee() - 28.76));
         textTotal.setText(getString(R.string.totalAmount)+" Rs. " + totalFee());
 
         initailizeFelids(view);
@@ -280,14 +280,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    private int totalFee() {
+    private Double totalFee() {
         String s = sharedpreferences.getString("mFinalStringCov", "");
         String arr[] = s.split(",");
-        int len = arr.length;
+        Double len = Double.valueOf(arr.length);
         if (arr[0].length() > 0)
-            len = len * 30 + 20;
+            len = len * 30 + 28.76;
         else
-            len = 0;
+            len = 0.0;
         return len;
     }
 

@@ -158,7 +158,7 @@ public class NoPaymentFragment extends Fragment {
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
 
-        int fee= totalFee();
+        double fee= totalFee();
         textFee.setText(getString(R.string.payAtRTOText)+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
@@ -202,12 +202,12 @@ public class NoPaymentFragment extends Fragment {
         return view;
     }
 
-    private int totalFee() {
+    private double totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
-        int len =arr.length;
+        double len =arr.length;
         if(arr[0].length()>0)
-            len = len*30+20;
+            len = len*30+28.76;
         else
             len=0;
         return len;

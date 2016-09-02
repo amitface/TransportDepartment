@@ -92,8 +92,8 @@
     <string name="id_proof">Id Proof*</string>
     <string name="next">Next</string>
     <string name="fee_information">Fee Information</string>
-    <string name="application_fee_rs_0">Application fee: Rs. 0</string>
-    <string name="paperdoc_fee_tax_rs_20">Paperdoc fee+tax : Rs. 20</string>
+    <string name="application_fee_rs_0">Application fee:</string>
+    <string name="paperdoc_fee_tax_rs_20">Paperdoc fee+tax : Rs. 23.0</string>
     <string name="smart_card_fee_rs_0">Smart card fee : Rs.0</string>
     <string name="appointment_schedule">        Appointment schedule :    </string>
     <string name="permanent_address">Permanent Address</string>
@@ -181,7 +181,7 @@
 
     <!--confirm and pay-->
 
-    <string name="smartchipFeeTax">Smartchip fee+tax :</string>
+    <string name="smartchipFeeTax">Smartchip fee+tax : Rs. 5.76</string>
     <string name="totalAmount">Total Amount :</string>
     <string name="rto">RTO</string>
     <string name="appointmentTime">Appointment time :</string>
@@ -211,7 +211,7 @@
     <string name="loadingText_idProof">Submitting form please wait...</string>
 
 
-    <string name="postalFee">Postal fee :</string>
+    <string name="postalFee">Postal fee : Rs.0</string>
     <string name="otherInfo">Other Info</string>
 
     <string name="refreshBtnTxt">Refresh</string>

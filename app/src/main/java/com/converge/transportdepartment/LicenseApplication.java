@@ -93,7 +93,7 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
         mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator(getString(R.string.confirmAndPay)),
                ConfirmAndPay.class, null);
 
-//        mTabHost.getTabWidget().setEnabled(false);
+        mTabHost.getTabWidget().setEnabled(false);
 
         mTabHost.setCurrentTab(Integer.parseInt(mParam1));
 
@@ -113,9 +113,6 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
                 tv.setTextSize(8);
                 tv.setPadding(0,0,0,0);
             }
-
-
-
         }
 
         return mTabHost;

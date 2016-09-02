@@ -197,7 +197,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
         CitrusClient client = CitrusClient.getInstance(getActivity());
 
-        amount=new Amount(Double.toString(calulateTax(1.0,tax)));
+        amount=new Amount(Double.toString(calulateTax(1.1,tax)));
 
         PaymentType paymentType1;
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {

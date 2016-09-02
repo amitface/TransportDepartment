@@ -239,12 +239,12 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private int totalFee() {
+    private double totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
-        int len =arr.length;
+        double len =arr.length;
         if(arr[0].length()>0)
-            len = len*30+20;
+            len = len*30+28.76;
         else
             len=0;
         return len;
@@ -391,8 +391,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(25000);
-                connection.setReadTimeout(15000);
+                connection.setConnectTimeout(60000);
+                connection.setReadTimeout(25000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 

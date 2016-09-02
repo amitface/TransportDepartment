@@ -165,7 +165,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     {
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
+        final Amount amount = new Amount(Double.toString(calulateTax(1.1)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
