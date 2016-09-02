@@ -444,8 +444,8 @@ public class IdProof extends Fragment implements View.OnClickListener{
             for(int j =0;j<arrCov.length;j++)
                 if(covTCode[i].equals(arrCov[j]))
                 {
-                    Toast.makeText(getActivity(),"Driving license is compulsory for Transport vehicle.",Toast.LENGTH_LONG).show();
-                    Toast.makeText(getActivity(),"Driving license issue date should be, 1 year less than current date",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getString(R.string.driving_lic_comp_trans),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getString(R.string.driving_lic_issue_date),Toast.LENGTH_LONG).show();
                     dlStatus= true;
                     return;
                 }
@@ -1050,7 +1050,7 @@ public class IdProof extends Fragment implements View.OnClickListener{
 
         protected void onPreExecute() {
 
-            progressDialog.setMessage("Submitting form please wait....");
+            progressDialog.setMessage(getString(R.string.loadingText_idProof));
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);

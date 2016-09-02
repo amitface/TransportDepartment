@@ -27,6 +27,8 @@ import com.citrus.sdk.classes.CitrusConfig;
 import com.converge.transportdepartment.ActivityFragments.RtoLocatorFragment;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.Constants;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class Home extends AppCompatActivity
         implements View.OnClickListener,DownloadPDF.OnFragmentInteractionListener, ConfirmAndPay.OnFragmentInteractionListener, SelectSchedule.OnFragmentInteractionListener,  CheckStatus.OnFragmentInteractionListener, PaymentSuccessfull.OnFragmentInteractionListener, PayablePayment.OnFragmentInteractionListener, ReadInstructionFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener, LicenseApplication.OnFragmentInteractionListener, ChangeLanguageFragment.OnFragmentInteractionListener {
@@ -42,6 +44,7 @@ public class Home extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
 //        setLocale("or");
         setContentView(R.layout.activity_home);
 
@@ -376,7 +379,7 @@ public class Home extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-//        progressDialog.hide();
+//       progressDialog.hide();
     }
 //    public void setLocale(String lang) {
 //        Locale myLocale = new Locale(lang);

@@ -106,7 +106,7 @@
             android:textColor="@android:color/white"
             android:padding="4dp"
             android:textSize="12sp"
-            android:text="PAYMENT OPTIONS"
+            android:text="@string/payment_options"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imagePersonal"
             android:layout_toEndOf="@+id/imagePersonal" />

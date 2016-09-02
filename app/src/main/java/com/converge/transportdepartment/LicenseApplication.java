@@ -76,21 +76,21 @@ public class LicenseApplication extends Fragment implements TabHost.OnTabChangeL
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
         mTabHost.setPadding(10,0,0,0);
 
-        mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator("Class of Vehicle"),
+        mTabHost.addTab(mTabHost.newTabSpec("Type").setIndicator(getString(R.string.classOfVehicles)),
                 SelectApplicationType.class, null);
 //
-        mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator("Personal Details"),
+        mTabHost.addTab(mTabHost.newTabSpec("details").setIndicator(getString(R.string.personalDetails)),
                PersonalDetails.class, null);
 
-        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("Other Details"),
+        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator(getString(R.string.otherDetails)),
                 IdProof.class, null);
 
-        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("Appointment Schedule"),
+        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator(getString(R.string.appointmentSchedule)),
                SelectSchedule.class, null);
 
 //        mTabHost.addTab(mTabHost.newTabSpec("schedule").setIndicator("",getResources().getDrawable(R.drawable.app_schedule_selected,null)),
 //               SelectSchedule.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator("Confirm and Pay"),
+        mTabHost.addTab(mTabHost.newTabSpec("pay").setIndicator(getString(R.string.confirmAndPay)),
                ConfirmAndPay.class, null);
 
 //        mTabHost.getTabWidget().setEnabled(false);

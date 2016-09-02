@@ -156,10 +156,10 @@ public class NoPaymentFragment extends Fragment {
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
-        textView2.setText("Application Form : "+appNumber);
+        textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
 
         int fee= totalFee();
-        textFee.setText("Pay at RTO amount of Rs. "+fee);
+        textFee.setText(getString(R.string.payAtRTOText)+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
         {
@@ -193,7 +193,7 @@ public class NoPaymentFragment extends Fragment {
                 if(Validation.isEmailAddress(editText,true)) {
                     emailToSend = editText.getText().toString();
                     new SendMail(getActivity()).execute();
-                    alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+                    alertDialogPostReport(getString(R.string.pdfDwnLoadMsg1));
                 }
             }
         });
@@ -386,7 +386,7 @@ public class NoPaymentFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                alertDialogPostReport("Documents (PDF) for Application Form  can be accessed from your Mobile Device from this location – M-Parivahan");
+                alertDialogPostReport(getString(R.string.paymntSuccessMsg1));
             }
         });
     }
@@ -469,7 +469,7 @@ public class NoPaymentFragment extends Fragment {
 
     public void alertDialogPostReport(String s)
     {
-        final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
+        final String[] items = {s,getString(R.string.paymntSuccessMsg2),getString(R.string.paymntSuccessMsg3)
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

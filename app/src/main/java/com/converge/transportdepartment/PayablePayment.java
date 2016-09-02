@@ -119,7 +119,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         pgoption=0;
         TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText("Payable Amount : Rs. "+totalFee());
+        textView.setText(getString(R.string.payable_amount)+" Rs. "+totalFee());
         radioGroup = (RadioGroup) view.findViewById(R.id.radioPaymentOption);
 
         radioButton1 = (RadioButton) view.findViewById(R.id.radioCreditCard);
@@ -330,9 +330,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             try
             {
                 URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
-
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-
                 JSONObject jsonObject = new JSONObject();
 
                 JSONObject jsonData = new JSONObject();
@@ -393,7 +391,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(15000);
+                connection.setConnectTimeout(25000);
                 connection.setReadTimeout(15000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);

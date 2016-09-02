@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.converge.transportdepartment.task.GetRefIdAndTime;
+
+import org.json.JSONObject;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -26,7 +33,7 @@ import java.util.Map;
  * Use the {@link SelectApplicationType#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectApplicationType extends Fragment implements View.OnClickListener{
+public class SelectApplicationType extends Fragment implements View.OnClickListener, GetRefIdAndTime.GetRefIdAndTimeResultListener {
     // TODO: Rename parameter arguments, choose names that match
 
     public static final String PREFS_NAME = "MyTransportFile";
@@ -53,6 +60,8 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
     private String mParam1;
     private String mParam2;
     private String []arrCov;
+
+    public static long generatedRefId = 0,generatedDate = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -111,6 +120,9 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
     @Override
     public void onPause()
@@ -124,6 +136,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_select_application_type, container, false);
+
         ImageView buttonSelectionApplicationNext = (ImageView) fragmentView.findViewById(R.id.buttonNextSelectApplication);
 
         hideKeyboard(getContext());
@@ -144,6 +157,12 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
 
         ImageView buttonNext = (ImageView) fragmentView.findViewById(R.id.buttonNextSelectApplication);
         buttonNext.setOnClickListener(this);
+
+        Log.e("Log","Starting Web Call");
+        //Task for getting Ref Id and Current time from server
+//        GetRefIdAndTime getRefIdTask = new GetRefIdAndTime(getActivity());
+//        getRefIdTask.setGetRefIdAndTimeResultListener(this);
+//        getRefIdTask.initializeGetRefIdAndTime();
         return fragmentView;
     }
 
@@ -683,6 +702,29 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         for(int i=0;i<19;i++)
         {
             mCheckBox.put(i,false);
+        }
+    }
+
+    @Override
+    public void onGetRefIdAndTimeCompleteResult(String result) {
+        try {
+
+            //{"TRANS_ID":1472729515,"CURR_DATE":1472668200}
+
+            JSONObject obj = new JSONObject(result);
+            generatedDate = obj.getLong("CURR_DATE");
+            generatedRefId = obj.getLong("TRANS_ID");
+
+            Log.e("Result From Server", "RESULT : " + result);
+
+
+        } catch(Exception ex) {
+
+            Calendar calendar = Calendar.getInstance();
+            Log.d("**slotDate**",""+calendar.getTimeInMillis());
+            generatedDate = calendar.getTimeInMillis();
+            Random rand = new Random();
+            generatedRefId = rand.nextInt(9000000) + 1000000;;
         }
     }
 

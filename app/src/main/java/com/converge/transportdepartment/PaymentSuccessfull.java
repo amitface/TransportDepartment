@@ -849,7 +849,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 //                        showToast("success");
 //                        showToast("Check M-Parivahan folder in directory for HTML");
 //                        showToast("Back press to go home");
-                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
+                        alertDialogPostReport(getString(R.string.paymntSuccessMsg1));
                     }//public void run() {
                 });
             }
@@ -943,7 +943,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void alertDialogPostReport(String s)
     {
-            final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
+            final String[] items = {s,getString(R.string.paymntSuccessMsg2),getString(R.string.paymntSuccessMsg3)
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

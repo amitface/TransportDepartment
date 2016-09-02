@@ -4,65 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@drawable/bg_select_lang"
     tools:context="com.converge.transportdepartment.SelectLangActivity"
+    tools:showIn="@layout/activity_select_lang" >
 
-    tools:showIn="@layout/activity_select_lang">
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_select_lang">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_50_dp"
-            android:layout_marginRight="@dimen/dimen_50_dp"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp">
 
-            <RadioButton
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_50_dp"
+                android:layout_marginRight="@dimen/dimen_50_dp"
+                android:weightSum="1">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oriya"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/dimen_actionbtn_textSize"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"
+                    android:id="@+id/radioButton_select_lang_oriya" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="English"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/dimen_actionbtn_textSize"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"
+                    android:id="@+id/radioButton_select_lang_english" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_marginTop="@dimen/dimen_20_dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Oriya"
-                android:layout_weight="1"
-                android:textSize="@dimen/dimen_actionbtn_textSize"
+                android:id="@+id/button_enter"
                 android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:id="@+id/radioButton_select_lang_oriya"
-                />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="English"
-                android:layout_weight="1"
-                android:textSize="@dimen/dimen_actionbtn_textSize"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:id="@+id/radioButton_select_lang_english"
-                />
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:text="Enter" />
 
         </LinearLayout>
 
-        <Button
-            android:layout_marginTop="@dimen/dimen_20_dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_enter"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimaryTransportDepartment"
-            android:text="Enter"/>
+    </RelativeLayout>
 
-    </LinearLayout>
 
 
 

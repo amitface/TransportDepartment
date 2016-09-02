@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Postal fee: Rs.0"
+                    android:text="@string/postalFee"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
@@ -95,7 +95,8 @@
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
-                    android:text="Smartchip fee+tax : Rs. 0"
+                    android:text="@string/smartchipFeeTax"
+
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_marginLeft="6dip"
                     android:layout_marginRight="6dip"
@@ -108,7 +109,7 @@
                     android:id="@+id/textTotal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Amount :Rs 290"
+                    android:text="@string/totalAmount"
                     android:background="@drawable/edit_text_personal_details"
                     android:textStyle="bold"
                     android:layout_marginLeft="6dip"
@@ -138,7 +139,7 @@
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:layout_margin="6dip"
                 android:padding="8dp"
-                android:text=" RTO"
+                android:text="@string/rto"
                 android:layout_marginTop="3dp" />
 
             <TextView
@@ -195,7 +196,7 @@
                         android:id="@+id/txtAppiontmentTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Appointment time : 11:30 to 11:50"
+                        android:text="@string/appointmentTime"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textColorHighlight="@android:color/black"
@@ -1458,7 +1459,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Other Info"
+                    android:text="@string/otherInfo"
                     android:id="@+id/textView13" />
                 <ImageView
                     android:id="@+id/imageOtherC"

@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Thank You for Using M-Parivahan"
+                android:text="@string/thankYouMsgPart1"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 android:layout_marginTop="10dp"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="for your Learning License Application"
+                android:text="@string/thankYouMsgPart2"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 android:id="@+id/textView9"
@@ -80,7 +80,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -88,7 +87,6 @@
                 android:background="#d7b89c" />
 
             <RelativeLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -102,12 +100,12 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryTransportDepartment"
                     android:layout_gravity="center_vertical|start"
-                    android:text="Save Application Details"
+                    android:text="@string/saveApplicationMsg"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
 
-
             </RelativeLayout>
+
             <EditText
                 android:id="@+id/emailToSend"
                 android:layout_width="match_parent"
@@ -118,7 +116,7 @@
                 android:maxLength="30"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/edit_text_personal_details"
-                android:hint="Enter email to receive pdf"
+                android:hint="@string/emailEdtTxtHint"
                 android:layout_span="5"
                 android:textColorHint="@android:color/secondary_text_dark_nodisable"
                 />
@@ -134,9 +132,6 @@
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:src="@drawable/send"
                 />
-
-
-
 
             <View
                 android:layout_width="match_parent"
@@ -161,6 +156,7 @@
                 android:background="@drawable/edit_text_personal_details"
                 android:padding="10dp"
                 android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/buttonDownload"
                 android:layout_width="100dp"

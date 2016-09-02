@@ -1484,29 +1484,29 @@
         <item>19.8026601</item>
         <item>22.2257565</item>
         <item>21.4560162</item>
-        <item>nodata</item>
+        <item>22.130373</item>
         <item>21.342675</item>
         <item>19.1725519</item>
-        <item>nodata</item>
+        <item>20.823495</item>
         <item>18.7727637</item>
         <item>20.256638</item>
-        <item>nodata</item>
+        <item>21.094211</item>
         <item>21.8716121</item>
         <item>19.2311336</item>
         <item>20.1127671</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
+        <item>20.802854</item>
+        <item>20.848687</item>
+        <item>21.538878</item>
+        <item>20.489632</item>
+        <item>18.333049</item>
+        <item>20.843354</item>
+        <item>19.947949</item>
+        <item>20.360497</item>
+        <item>20.838800</item>
+        <item>20.958340</item>
+        <item>20.169301</item>
+        <item>22.114837</item>
+        <item>22.279329</item>
     </string-array>
 
     <string-array name="Rto_Long">
@@ -1525,31 +1525,201 @@
         <item>85.8385002</item>
         <item>84.8355138</item>
         <item>83.9738153</item>
-        <item>nodata</item>
+        <item>84.051672</item>
         <item>83.6217399</item>
         <item>83.4187496</item>
-        <item>nodata</item>
+        <item>85.058681</item>
         <item>84.0992532</item>
         <item>86.1842368</item>
-        <item>nodata</item>
+        <item>86.528832</item>
         <item>83.9899136</item>
         <item>82.5468533</item>
         <item>85.0846053</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
-        <item>nodata</item>
+        <item>82.534093</item>
+        <item>84.302918</item>
+        <item>84.733695</item>
+        <item>86.413058</item>
+        <item>81.874699</item>
+        <item>83.899163</item>
+        <item>84.578889</item>
+        <item>85.828635</item>
+        <item>86.309120</item>
+        <item>85.235923</item>
+        <item>85.613221</item>
+        <item>85.385934</item>
+        <item>86.162310</item>
     </string-array>
+
+    <!--RTO Latitude,Longitude-->
+    <!--<string-array name ="RtoLatLng">-->
+        <!--&lt;!&ndash;<item>21.486203,86.914984</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.2963141,85.8335172</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.6871409,83.4699804</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.7059895,86.113329</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.4649249,85.856712</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.6502084,85.5958008</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>19.3535823,84.9869085</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>19.9074846,83.1454995</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>21.6305721,85.6120815</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>18.8158712,82.7049601</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>21.9490004,86.739623</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>20.4805615,84.2322099</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>19.8026601,85.8385002</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>22.2257565,84.8355138</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>21.4560162,83.9738153</item>&ndash;&gt;-->
+        <!--<item>22.130373,84.051672</item>-->
+        <!--<item>21.342675,83.6217399</item>-->
+        <!--<item>19.1725519,83.4187496</item>-->
+        <!--<item>20.823495,85.058681</item>-->
+        <!--<item>18.7727637,84.0992532</item>-->
+        <!--<item>20.256638,86.1842368</item>-->
+        <!--<item>21.094211,86.528832</item>-->
+        <!--<item>21.8716121,83.9899136</item>-->
+        <!--<item>19.2311336,82.5468533</item>-->
+        <!--<item>20.1127671,85.0846053</item>-->
+        <!--<item>20.802854,82.534093</item>-->
+        <!--<item>20.848687,84.302918</item>-->
+        <!--<item>21.538878,84.733695</item>-->
+        <!--<item>20.489632,86.413058</item>-->
+        <!--<item>18.333049,81.874699</item>-->
+        <!--<item>20.843354,83.899163</item>-->
+        <!--<item>19.947949,84.578889</item>-->
+        <!--<item>20.360497,85.828635</item>-->
+        <!--<item>20.838800,86.309120</item>-->
+        <!--<item>20.958340,85.235923</item>-->
+        <!--<item>20.169301,85.613221</item>-->
+        <!--<item>22.114837,85.385934</item>-->
+        <!--<item>22.279329,86.162310</item>-->
+    <!--</string-array>-->
+
+    <!--RTO location-->
+    <string-array name ="RtoLocation">
+        <item>Balasore</item>
+        <item>Bhubaneswar - I</item>
+        <item>Bolangir</item>
+        <item>Chandikhole</item>
+        <item>Cuttack</item>
+        <item>Dhenkanal</item>
+        <item>Chatarpur</item>
+        <item>Kalahandi</item>
+        <item>Keonjhar</item>
+        <item>Koraput</item>
+        <item>Mayurbhanj</item>
+        <item>Phulbani</item>
+        <item>Puri</item>
+        <item>Rourkela</item>
+        <item>Sambalpur</item>
+        <item>Sundargarh</item>
+        <item>Bargarh</item>
+        <item>Rayagada</item>
+        <item>Angul</item>
+        <item>Gajpati</item>
+        <item>Jagatsinghpur</item>
+        <item>Bhadrak</item>
+        <item>Jharusguda</item>
+        <item>Nawrangpur</item>
+        <item>Nayagarh</item>
+        <item>Nuapada</item>
+        <item>Boudh</item>
+        <item>Deogarh</item>
+        <item>Kendrapara</item>
+        <item>Malkanagiri</item>
+        <item>Sonepur</item>
+        <item>Bhanjanagar</item>
+        <item>Bhubaneswar - II</item>
+        <item>Jajpur</item>
+        <item>Talcher</item>
+        <item>Khurda</item>
+        <item>Barbil</item>
+        <item>Rayrangpur</item>
+    </string-array>
+
+    <!-- RTO Code -->
+    <string-array name ="RtoCode">
+        <item>OD - 01</item>
+        <item>OD - 02</item>
+        <item>OD - 03</item>
+        <item>OD - 04</item>
+        <item>OD - 05</item>
+        <item>OD - 06</item>
+        <item>OD - 07</item>
+        <item>OD - 08</item>
+        <item>OD - 09</item>
+        <item>OD - 10</item>
+        <item>OD - 11</item>
+        <item>OD - 12</item>
+        <item>OD - 13</item>
+        <item>OD - 14</item>
+        <item>OD - 15</item>
+        <item>OD - 16</item>
+        <item>OD - 17</item>
+        <item>OD - 18</item>
+        <item>OD - 19</item>
+        <item>OD - 20</item>
+        <item>OD - 21</item>
+        <item>OD - 22</item>
+        <item>OD - 23</item>
+        <item>OD - 24</item>
+        <item>OD - 25</item>
+        <item>OD - 26</item>
+        <item>OD - 27</item>
+        <item>OD - 28</item>
+        <item>OD - 29</item>
+        <item>OD - 30</item>
+        <item>OD - 31</item>
+        <item>OD - 32</item>
+        <item>OD - 33</item>
+        <item>OD - 34</item>
+        <item>OD - 35</item>
+        <item>OD - 02 K</item>
+        <item>OD - 09 B</item>
+        <item>OD - 11 R</item>
+    </string-array>
+
+    <!--RTO Address-->
+    <string-array name ="RtoAddress">
+        <item>RTO Office, ITI Square, Balasore. Pin - 756001</item>
+        <item>RTO Office, Bhoi Nagar, Achrya Vihar, Bhubaneswar, Khurda. Pin - 751022</item>
+        <item>RTO Office, Bolangir. Pin - 767001.</item>
+        <item>RTO Office, Near Fly Over, Chandikhole. Pin - 755044</item>
+        <item>RTO Office, Infront of SBI, High Court Square, Cuttack. Pin -753002</item>
+        <item>RTO Office, Near Dhenkanal College, Kunja Kanta, Dhenkanal. Pin - 759001</item>
+        <item>RTO Office, Beside Collectorate Campus, Chhatrapur, Ganjam. Pin - 761020</item>
+        <item>RTO Office, Nakti Guda, Bhabanipatna, Kalahandi. Pin - 766001</item>
+        <item>RTO Office, AT-Kashipur, Keonjhar. Pin - 758001</item>
+        <item>RTO Office, In front of Circuit House, Koraput. Pin - 764020</item>
+        <item>RTO Office, In front of DRDA Office, Baripada. Pin - 757002</item>
+        <item>RTO Office, Jiringpada, Phulbani. Pin - 762001</item>
+        <item>RTO Office, Chakra Tirtha Road, Infront of Holiday Resort, Puri. Pin - 752002</item>
+        <item>RTO Office, Udit Nagar, Rourkela.Pin - 769012.</item>
+        <item>RTO Office, Near District Court, Sambalpur. Pin- - 768001</item>
+        <item>RTO Office, Rani Bagicha, Sundargarh. Pin - 770001</item>
+        <item>RTO Office, Near Supermarket, Bargarh. Pin - 768028.</item>
+        <item>RTO Office, New Colony, Opposite of SriRam Temple. Rayagada.Pin - 765001.</item>
+        <item>RTO Office, At- Rantalei, Panchamahala, Angul. Pin - 759132</item>
+        <item>RTO Office, Main Road, Near Excise , Parlakhemundi, Gajapati. Pin - 761200</item>
+        <item>RTO Office, AT/PO - Charchika Bazar, Jagatsinghpur. Pin- 754103</item>
+        <item>RTO Office, Near Fire Station, Charampa Bhadrak. Pin - 756101</item>
+        <item>RTO Office, Near BTM Phandi, Po-  Akatali, Jharsuguda. Pin -768205</item>
+        <item>RTO Office, AT/PO.Nawarangpur, Pin - 764059</item>
+        <item>RTO Office, In Front of Nabodaya School, Near SP Office, DRDA Road, Nayagarh. Pin - 752070</item>
+        <item>RTO Office, AT/PO.- Nuapada, Near Sishu Mandir, Pin - 766105</item>
+        <item>RTO Office, At- Tutusingha, Po/Ps - Boudh, Dist. Boudh, Pin-762014</item>
+        <item>RTO Office, At-Purohit Sahi, Po/Dist-Deogarh. Pin - 768108</item>
+        <item>RTO Office,Odisho, Gopa Chhak, Kendrapara. Pin - 754223</item>
+        <item>RTO Office, Plot No. 5275/7080, At/Po.Satyamguda,Dist. Malkangiri. Pin - 76045</item>
+        <item>RTO Office, At/Po.Patabhadi, Subarnapur. Pin - 767017</item>
+        <item>RTO Office, Bhanjanagar, Landei Sahi Chak, Bhanjanagar, Dist. Ganjam. Pin - -761126</item>
+        <item>RTO Office, Plot No. 306/1818/3717, Banshi Vihar, Bhuabeswar, Dist. Khurda. Pin - -751031</item>
+        <item>RTO Office, At- Abdalpur, Near N.C. College, Post- Baidyarajpur, Jajpur Town, Jajpur, Pin- 755007</item>
+        <item>RTO Office, Talcher, Stadium Building, Talcher Dist - Angul. Pin - -759107</item>
+        <item>ARTO Office, Near SBI , Panjabi Pada, Mita Singh Building, Barbil.Pin - 758035</item>
+        <item>ARTO Office, Near SBI , Panjabi Pada, Mita Singh Building, Barbil.Pin - 758035</item>
+        <item>ARTO Office, AT-RAIRANGPUR.DIST. MAYURBHANJ-757043.</item>
+    </string-array>
+
+
+
 </resources>
 
 

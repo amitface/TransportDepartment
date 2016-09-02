@@ -255,8 +255,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         jsonString = sharedpreferences.getString(PGInfo, "");
         TextView textfee = (TextView) view.findViewById(R.id.textfee);
         TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
-        textfee.setText("Application Fee : Rs. " + (totalFee() - 20));
-        textTotal.setText("Total Fee : Rs. " + totalFee());
+        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + (totalFee() - 20));
+        textTotal.setText(getString(R.string.totalAmount)+" Rs. " + totalFee());
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);
@@ -481,14 +481,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         mTxtAppointmentTime = (TextView) rootView.findViewById(R.id.txtAppiontmentTime);
         try {
             JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo, ""));
-            mTxtAppointmentTime.setText("Appointment time : " + jsonObject.getString("slotTime"));
+            mTxtAppointmentTime.setText(getString(R.string.appointmentTime) + jsonObject.getString("slotTime"));
             SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
             Calendar calendar = Calendar.getInstance();
             Long aLong = jsonObject.getLong("slotDate");
             calendar.setTimeInMillis(aLong);
             dateFormat.format(calendar.getTime());
             System.out.println(dateFormat.format(calendar.getTime()));
-            mTxtAppointmentDate.setText("Appointment time : " + dateFormat.format(calendar.getTime()));
+            mTxtAppointmentDate.setText(getString(R.string.appointmentDate) + dateFormat.format(calendar.getTime()));
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -190,7 +190,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private static final String mFinalString1="mFinalString1";
     private static final String PGInfo="PgInfo";
     private final String NICjson= "NICjson";
-    private int num;
+    private Long num;
+    private Long genDate;
 
 
     public PersonalDetails() {
@@ -236,7 +237,11 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         qualificateCode=getResources().getStringArray(R.array.qualificationCode);
         stateCode=getResources().getStringArray(R.array.statesCode);
         Random rand = new Random();
-        num = rand.nextInt(9000000) + 1000000;
+        num = Long.valueOf(rand.nextInt(9000000) + 1000000);
+//        num = SelectApplicationType.generatedRefId;
+//        Log.e("Ref ID :","generatedRefId = "+num);
+        genDate = SelectApplicationType.generatedDate;
+
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
         hidePermanent();
@@ -324,6 +329,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         editor.putString(PGInfo,jsonString());
         editor.putString(NICjson,jsonNIC());
         editor.putString("EmailZ",meditViewEmail.getText().toString());
+
         editor.commit();
     }
 
@@ -1330,7 +1336,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private String detailString()
     {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("receiptNum",Integer.toString(num));
+        editor.putString("receiptNum",Long.toString(num));
         editor.commit();
         String s=
 //                "ref_num="+num+
@@ -1413,7 +1419,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
         JSONObject jsNic = new JSONObject();
         try {
 
-            jsNic.put("refno",Integer.toString(num));
+            jsNic.put("refno",Long.toString(num));
+
             jsNic.put("statecode","OD");
             jsNic.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
             jsNic.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
@@ -1489,10 +1496,12 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
             js.put("moblie",meditTextPermanentMoblieNo.getText().toString().toUpperCase() );
             js.put("name", meditViewApplicantFirstName.getText().toString().toUpperCase());
             js.put("rtocode",rtoC[mspinnerRTO.getSelectedItemPosition()-1]);
-
+            js.put("genDate",Long.toString(genDate));
 
             js.put("rtocodeReal",rtoRealCode[mspinnerRTO.getSelectedItemPosition()-1]);
             js.put("email",meditViewEmail.getText().toString());
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

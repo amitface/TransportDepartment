@@ -174,6 +174,65 @@
     <string name="duration_of_stay">Duration of Stay*</string>
     <string name="pin_code">Pin Code*</string>
     <string name="moblie_no">Moblie No*</string>
+
+    <!--personal details-->
+    <string name="permanentAddress">Permanent Address</string>
+    <string name="permanentAddressCondition">Atleast one field required in Permanent Address</string>
+
+    <!--confirm and pay-->
+
+    <string name="smartchipFeeTax">Smartchip fee+tax :</string>
+    <string name="totalAmount">Total Amount :</string>
+    <string name="rto">RTO</string>
+    <string name="appointmentTime">Appointment time :</string>
+    <string name="appointmentDate">Appointment date :</string>
+
+    <string name="classOfVehicles">Class of Vehicle</string>
+    <string name="personalDetails">Personal Details</string>
+    <string name="otherDetails">Other Details</string>
+    <string name="appointmentSchedule">Appointment Schedule</string>
+    <string name="confirmAndPay">Confirm and Pay</string>
+
+
+    <string name="payment_options">Payment Options</string>
+    <string name="payable_amount">Payable amount :</string>
+    <string name="userName">User Name</string>
+    <string name="userPwd">Password</string>
+    <string name="payRs">Pay Rs.1</string>
+
+    <!--payment successful-->
+    <string name="paymntSuccessMsg1">1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification</string>
+    <string name="paymntSuccessMsg2">2. Press ok to go Home.</string>
+    <string name="paymntSuccessMsg3">3. Press stay for further activity.</string>
+
+    <!--idProof-->
+    <string name="driving_lic_comp_trans">Driving license is compulsory for Transport vehicle.</string>
+    <string name="driving_lic_issue_date">Driving license issue date should be, 1 year less than current date.</string>
+    <string name="loadingText_idProof">Submitting form please wait...</string>
+
+
+    <string name="postalFee">Postal fee :</string>
+    <string name="otherInfo">Other Info</string>
+
+    <string name="refreshBtnTxt">Refresh</string>
+
+
+    <string name="timeSlotSelector">Time</string>
+
+    <string name="availSlotSelector">Available Slot</string>
+
+
+
+    <!-- no payment fragment-->
+    <string name="thankYouMsgPart1">Thank You for Using M-Parivahan</string>
+    <string name="thankYouMsgPart2">for your Learning License Application</string>
+    <string name="saveApplicationMsg">Save Application Details</string>
+    <string name="emailEdtTxtHint">Enter email to receive pdf</string>
+    <string name="applicationFormTxt">Application Form : </string>
+    <string name="payAtRTOText">Pay at RTO amount of Rs.</string>
+    <string name="pdfDwnLoadMsg1">1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.</string>
+
+
 </resources>
 
 
