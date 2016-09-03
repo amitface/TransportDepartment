@@ -54,7 +54,7 @@ public class DownloadPDF extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1, mParam2;
     private String refNum,fname, lname,dob;
-
+//   private
 
     private OnFragmentInteractionListener mListener;
     private long lastDownload = -1L;
