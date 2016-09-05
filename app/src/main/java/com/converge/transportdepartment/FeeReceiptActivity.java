@@ -26,8 +26,8 @@ public class FeeReceiptActivity extends AppCompatActivity
         feeD = getIntent().getDoubleExtra("fee",30.0);
         fee = (TextView) findViewById(R.id.covFee);
         totalFee = (TextView) findViewById(R.id.totalFee);
-        fee.setText("30 * "+(Math.round(((feeD-28.76)/30.0) * 100D)) / 100D+" = "+(feeD-28.76));
-        totalFee.setText("Rs. "+Double.toString(feeD));
+        fee.setText("30 * "+(int)((feeD-28.76)/30.0)+" = "+Math.round((feeD-28.76)*100D)/100D);
+        totalFee.setText("Rs. "+Double.toString(+Math.round(feeD*100D)/100D));
     }
     public void setuptoolbar() {
         mToolbar = (Toolbar) findViewById(R.id.tools);

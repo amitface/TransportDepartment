@@ -259,8 +259,8 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         btnFee=(TextView)view.findViewById(R.id.btnFee);
 
 
-        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + (totalFee() - 28.76));
-        textTotal.setText(getString(R.string.totalAmount)+" Rs. " + totalFee());
+        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " +(int) (totalFee() - 28.76));
+        textTotal.setText(getString(R.string.totalAmount)+" Rs. " + Math.round(totalFee()*100D)/100D);
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);

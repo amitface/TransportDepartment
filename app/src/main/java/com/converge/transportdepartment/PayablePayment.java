@@ -121,7 +121,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         pgoption=0;
         TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText(getString(R.string.payable_amount)+" Rs. "+totalFee());
+        textView.setText(getString(R.string.payable_amount)+" Rs. "+Math.round(totalFee()*100D)/100D);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioPaymentOption);
 
         radioButton1 = (RadioButton) view.findViewById(R.id.radioCreditCard);
@@ -196,8 +196,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NoPaymentFragment.newInstance("1","1"),"NoPaymentFragment").commit();
                 }
                 break;
+
             case R.id.payableBifurfication:
                 Intent intent = new Intent(getContext(),FeeReceiptActivity.class);
+                intent.putExtra("fee",totalFee());
                 startActivity(intent);
                 break;
         }
@@ -257,8 +259,6 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             len=0;
         return len;
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -210,7 +210,7 @@
     <string name="driving_lic_issue_date">Driving license issue date should be, 1 year less than current date.</string>
     <string name="loadingText_idProof">Submitting form please wait...</string>
 
-    <string name="postalFee">ଡାକ ଖର୍ଚ୍ଚ: </string>
+    <string name="postalFee">ଡାକ ଖର୍ଚ୍ଚ: Rs. 0</string>
     <string name="otherInfo">ଅନ୍ୟାନ୍ୟ ବିବରଣୀ</string>
 
     <string name="refreshBtnTxt">Refresh</string>

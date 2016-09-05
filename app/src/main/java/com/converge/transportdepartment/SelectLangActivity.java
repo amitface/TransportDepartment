@@ -49,7 +49,7 @@ public class SelectLangActivity extends AppCompatActivity implements View.OnClic
 
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
-        Resources res = getResources();
+        Resources res = getApplication().getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;

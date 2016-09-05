@@ -172,7 +172,6 @@
                         android:layout_margin="2dp"
                         android:layout_span="1"
                         android:text="@string/gender"/>
-
                 </TableRow>
 
                 <TableRow>
@@ -188,6 +187,7 @@
                             android:layout_height="36dp"
                             android:src="@drawable/calender"
                             android:layout_gravity="start"
+                            android:imeOptions="actionNext"
                             android:onClick="onClickPersonalDetails"
                             />
                         <TextView
@@ -311,6 +311,7 @@
                      android:id="@+id/spinnerCitizenship_text"
                      android:layout_width="0dp"
                      android:layout_height="0dp"
+                     android:imeOptions="actionNext"
                      android:text=""/>
                 <!--Migration time-->
                 <TableRow
@@ -407,6 +408,7 @@
                          android:id="@+id/spinnerRelationshipType_text"
                          android:layout_width="0dp"
                          android:layout_height="0dp"
+                         android:imeOptions="actionNext"
                          android:text=""/>
                  </TableRow>
 
@@ -668,9 +670,6 @@
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
-
-
-
                 </TableRow>
 
 
@@ -689,8 +688,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowAddress8">
-
-
                     <EditText
                         android:id="@+id/editTextPermanentvillage"
                         android:layout_width="match_parent"
@@ -903,6 +900,7 @@
                         android:layout_margin="2dp"
                         android:layout_span="1"
                         android:maxLength="6"
+                        android:imeOptions="actionNext"
                         android:inputType="number"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -914,6 +912,7 @@
                         android:layout_span="1"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
+                        android:imeOptions="actionNext"
                         android:paddingLeft="5dp"
                         android:inputType="number" />
 

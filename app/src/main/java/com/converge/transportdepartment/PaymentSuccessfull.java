@@ -171,7 +171,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText("Application Form : "+appNumber);
         textReceipt.setText("Receipt No.      : "+receiptNumber);
-        int fee= totalFee();
+        Double fee= Math.round(totalFee()*100D)/100D;
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )

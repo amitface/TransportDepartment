@@ -158,7 +158,7 @@ public class NoPaymentFragment extends Fragment {
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
 
-        double fee= totalFee();
+        double fee= Math.round(totalFee()*100D)/100D;
         textFee.setText(getString(R.string.payAtRTOText)+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
