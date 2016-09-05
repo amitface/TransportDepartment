@@ -28,6 +28,7 @@ import com.converge.transportdepartment.ActivityFragments.RtoLocatorFragment;
 import com.converge.transportdepartment.DataBaseHelper.DBAdapter;
 import com.converge.transportdepartment.Utility.Constants;
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
 
 public class Home extends AppCompatActivity
@@ -89,6 +90,7 @@ public class Home extends AppCompatActivity
 
         addDynamicFragment();
         createDB();
+//        Log.e("Locale ",getL)
     }
 
     private void initCitrusClient() {

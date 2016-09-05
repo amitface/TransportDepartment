@@ -260,7 +260,6 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private Double calulateTax(Double amt)
     {
         amt = amt+(amt/100)*0.75+(amt/100)*15;
-
         return (Math.round(amt * 100D)) / 100D;
     }
 

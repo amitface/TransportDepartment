@@ -3,6 +3,7 @@ package com.converge.transportdepartment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -180,7 +181,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private TextView mspinnerSDate, mspinnerSTime;
     private TextView mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState, mspinnerPresentState;
-    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2;
+    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2,btnFee;
 
     private ImageView mimageViewDatePicker;
 
@@ -255,6 +256,9 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         jsonString = sharedpreferences.getString(PGInfo, "");
         TextView textfee = (TextView) view.findViewById(R.id.textfee);
         TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
+        btnFee=(TextView)view.findViewById(R.id.btnFee);
+
+
         textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + (totalFee() - 28.76));
         textTotal.setText(getString(R.string.totalAmount)+" Rs. " + totalFee());
 
@@ -346,6 +350,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 else
                     showPersonalDetail();
                 break;
+            case R.id.btnFee:
+                Intent intent= new Intent(getContext(),FeeReceiptActivity.class);
+                intent.putExtra("fee",totalFee());
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -384,7 +393,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         buttonNext.setOnClickListener(this);
         buttonBackConfirmAndPay.setOnClickListener(this);
 //        buttonClearPersonalDetails.setOnClickListener(this);
-
+        btnFee.setOnClickListener(this);
         mlinearlayoutPresentAddress.setOnClickListener(this);
         mlinearlayoutPremanentAddress.setOnClickListener(this);
         mlinearlayoutPersonalDetail.setOnClickListener(this);

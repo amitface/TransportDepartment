@@ -39,7 +39,7 @@
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_marginLeft="6dip"
                     android:layout_marginRight="6dip"
-                    android:layout_marginTop="2dip"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
 
@@ -71,6 +71,7 @@
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/smart_card_fee_rs_0"
@@ -114,16 +115,16 @@
                     android:padding="5dp"/>
 
             <TextView
+                android:id="@+id/btnFee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                android:layout_marginLeft="6dip"
                 android:text="Click to see bifurcation"
                 android:textColor="@color/white"
-                android:layout_marginLeft="13dip"
-                android:layout_marginRight="6dip"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:background="@color/colorPrimaryTransportDepartment"
-                android:padding="1dp"
+                android:padding="2dp"
+                android:layout_marginTop="10dp"
                  />
 
             <TableLayout

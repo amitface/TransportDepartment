@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.converge.transportdepartment.task.GetRefIdAndTime;
 
 import org.json.JSONObject;
 
@@ -33,7 +32,7 @@ import java.util.Random;
  * Use the {@link SelectApplicationType#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectApplicationType extends Fragment implements View.OnClickListener, GetRefIdAndTime.GetRefIdAndTimeResultListener {
+public class SelectApplicationType extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
 
     public static final String PREFS_NAME = "MyTransportFile";
@@ -705,28 +704,7 @@ public class SelectApplicationType extends Fragment implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onGetRefIdAndTimeCompleteResult(String result) {
-        try {
 
-            //{"TRANS_ID":1472729515,"CURR_DATE":1472668200}
-
-            JSONObject obj = new JSONObject(result);
-            generatedDate = obj.getLong("CURR_DATE");
-            generatedRefId = obj.getLong("TRANS_ID");
-
-            Log.e("Result From Server", "RESULT : " + result);
-
-
-        } catch(Exception ex) {
-
-            Calendar calendar = Calendar.getInstance();
-            Log.d("**slotDate**",""+calendar.getTimeInMillis());
-            generatedDate = calendar.getTimeInMillis();
-            Random rand = new Random();
-            generatedRefId = rand.nextInt(9000000) + 1000000;;
-        }
-    }
 
     /**
      * This interface must be implemented by activities that contain this

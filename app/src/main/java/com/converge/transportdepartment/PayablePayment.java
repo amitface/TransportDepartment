@@ -2,6 +2,7 @@ package com.converge.transportdepartment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -72,6 +73,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private ImageView imagePersonal,imageAtRto;
     private int marker =1;
 
+    TextView payableBifurfication;
     private String jsonString;
 
     private int pgoption ;
@@ -126,12 +128,14 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         radioButton2 = (RadioButton) view.findViewById(R.id.radioDebitCard);
         radioButton3 = (RadioButton) view.findViewById(R.id.radioNetBank);
         radioButton4 = (RadioButton) view.findViewById(R.id.radioWalletAccounts);
+        payableBifurfication=(TextView)view.findViewById(R.id.payableBifurfication);
 
         R1 = (RelativeLayout)view.findViewById(R.id.paymentOptionsTextId);
         R2 = (RelativeLayout)view.findViewById(R.id.payAtRto);
 
         R1.setOnClickListener(this);
         R2.setOnClickListener(this);
+        payableBifurfication.setOnClickListener(this);
 
         imagePersonal = (ImageView) view.findViewById(R.id.imagePersonal);
         imageAtRto = (ImageView)view.findViewById(R.id.imageAtRto);
@@ -191,6 +195,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NoPaymentFragment.newInstance("1","1"),"NoPaymentFragment").commit();
                 }
+                break;
+            case R.id.payableBifurfication:
+                Intent intent = new Intent(getContext(),FeeReceiptActivity.class);
+                startActivity(intent);
                 break;
         }
     }
