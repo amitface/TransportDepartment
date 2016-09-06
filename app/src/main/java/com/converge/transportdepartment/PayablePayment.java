@@ -2,6 +2,7 @@ package com.converge.transportdepartment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -71,7 +72,9 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private RelativeLayout R1,R2;
     private ImageView imagePersonal,imageAtRto;
     private int marker =1;
+    public static int status=0;
 
+    TextView payableBifurfication;
     private String jsonString;
 
     private int pgoption ;
@@ -119,19 +122,21 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         pgoption=0;
         TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText("Payable Amount : Rs. "+totalFee());
+        textView.setText(getString(R.string.payable_amount)+" Rs. "+Math.round(totalFee()*100D)/100D);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioPaymentOption);
 
         radioButton1 = (RadioButton) view.findViewById(R.id.radioCreditCard);
         radioButton2 = (RadioButton) view.findViewById(R.id.radioDebitCard);
         radioButton3 = (RadioButton) view.findViewById(R.id.radioNetBank);
         radioButton4 = (RadioButton) view.findViewById(R.id.radioWalletAccounts);
+        payableBifurfication=(TextView)view.findViewById(R.id.payableBifurfication);
 
         R1 = (RelativeLayout)view.findViewById(R.id.paymentOptionsTextId);
         R2 = (RelativeLayout)view.findViewById(R.id.payAtRto);
 
         R1.setOnClickListener(this);
         R2.setOnClickListener(this);
+        payableBifurfication.setOnClickListener(this);
 
         imagePersonal = (ImageView) view.findViewById(R.id.imagePersonal);
         imageAtRto = (ImageView)view.findViewById(R.id.imageAtRto);
@@ -166,8 +171,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                     if(selectedId==R.id.radioWalletAccounts)
                     {
                         pgoption=4;
-                        PayRequest(v);
-//                    callFragment();
+                        if(status==0)
+                            PayRequest(v);
+                        else
+                            callFragment();
                     }
                     else{
                         if(selectedId==R.id.radioCreditCard)
@@ -184,13 +191,23 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                             Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.selectOne),Toast.LENGTH_LONG).show();
                             break;
                         }
-                        PayRequest(v);
+
+                        if(status==0)
+                            PayRequest(v);
+                        else
+                            callFragment();
                     }
                 }
                 else
                 {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, NoPaymentFragment.newInstance("1","1"),"NoPaymentFragment").commit();
                 }
+                break;
+
+            case R.id.payableBifurfication:
+                Intent intent = new Intent(getContext(),FeeReceiptActivity.class);
+                intent.putExtra("fee",totalFee());
+                startActivity(intent);
                 break;
         }
     }
@@ -223,6 +240,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     }
 
     private void callFragment() {
+
+        status=1;
         if(pgoption==1)
         {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, CreditCardFragment.newInstance("1","1"),"CreditCard").commit();
@@ -239,18 +258,16 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private int totalFee() {
+    private double totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
-        int len =arr.length;
+        double len =arr.length;
         if(arr[0].length()>0)
-            len = len*30+20;
+            len = len*30+28.76;
         else
             len=0;
         return len;
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -330,9 +347,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
             try
             {
                 URL url = new URL("http://27.251.76.25:9012/DemoWebServices/resources/data/info");
-
                 JSONObject jsonObjectData= new JSONObject(jsonString);
-
                 JSONObject jsonObject = new JSONObject();
 
                 JSONObject jsonData = new JSONObject();
@@ -393,8 +408,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(15000);
-                connection.setReadTimeout(15000);
+                connection.setConnectTimeout(60000);
+                connection.setReadTimeout(25000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 

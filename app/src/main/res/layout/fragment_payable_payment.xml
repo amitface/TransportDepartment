@@ -14,9 +14,23 @@
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:text=""
     android:id="@+id/textPayment"
-    android:textSize="24dp"
+    android:textSize="20sp"
     android:layout_gravity="center_horizontal"
     />
+    <TextView
+        android:id="@+id/payableBifurfication"
+        android:layout_below="@+id/textPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:text="Click to see bifurcation"
+        android:textColor="@color/white"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:textSize="10sp"
+        android:background="@color/colorPrimaryTransportDepartment"
+        android:padding="1dp"
+        />
 <RelativeLayout
     android:id="@+id/relative1"
     android:layout_width="match_parent"
@@ -106,7 +120,7 @@
             android:textColor="@android:color/white"
             android:padding="4dp"
             android:textSize="12sp"
-            android:text="PAYMENT OPTIONS"
+            android:text="@string/payment_options"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imagePersonal"
             android:layout_toEndOf="@+id/imagePersonal" />

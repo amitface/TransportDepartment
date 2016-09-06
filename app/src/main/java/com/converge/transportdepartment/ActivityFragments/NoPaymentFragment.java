@@ -76,11 +76,12 @@ public class NoPaymentFragment extends Fragment {
     private String emailToSend;
     private long lastDownload = -1L;
     private long appNumber;
-    private String rtoCode, msg;
+    private String rtoCode, msg, receiptNumber;
 
     private DownloadManager mgr=null;
 
     private HashMap<String,String> hashMap=new HashMap<>();
+
 
 
     public NoPaymentFragment() {
@@ -144,6 +145,7 @@ public class NoPaymentFragment extends Fragment {
         try {
             JSONObject jsonObjectData= new JSONObject(jsonString);
             appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
             rtoCode = jsonObjectData.getString("rtocodeReal");
 
         } catch (JSONException e) {
@@ -156,10 +158,10 @@ public class NoPaymentFragment extends Fragment {
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
-        textView2.setText("Application Form : "+appNumber);
+        textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
 
-        int fee= totalFee();
-        textFee.setText("Pay at RTO amount of Rs. "+fee);
+        double fee= Math.round(totalFee()*100D)/100D;
+        textFee.setText(getString(R.string.payAtRTOText)+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
         {
@@ -193,7 +195,7 @@ public class NoPaymentFragment extends Fragment {
                 if(Validation.isEmailAddress(editText,true)) {
                     emailToSend = editText.getText().toString();
                     new SendMail(getActivity()).execute();
-                    alertDialogPostReport("1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+                    alertDialogPostReport(getString(R.string.pdfDwnLoadMsg1));
                 }
             }
         });
@@ -202,12 +204,12 @@ public class NoPaymentFragment extends Fragment {
         return view;
     }
 
-    private int totalFee() {
+    private double totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
-        int len =arr.length;
+        double len =arr.length;
         if(arr[0].length()>0)
-            len = len*30+20;
+            len = len*30+28.76;
         else
             len=0;
         return len;
@@ -386,7 +388,7 @@ public class NoPaymentFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                alertDialogPostReport("Documents (PDF) for Application Form  can be accessed from your Mobile Device from this location – M-Parivahan");
+                alertDialogPostReport(getString(R.string.paymntSuccessMsg1));
             }
         });
     }
@@ -469,7 +471,7 @@ public class NoPaymentFragment extends Fragment {
 
     public void alertDialogPostReport(String s)
     {
-        final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
+        final String[] items = {s,getString(R.string.paymntSuccessMsg2),getString(R.string.paymntSuccessMsg3)
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -535,7 +537,7 @@ public class NoPaymentFragment extends Fragment {
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg="+message;
+                String s ="user=pmtkc&pwd=pmtkc&from=ODTRPT&to="+jsonObjectData.get("moblie")+"&msg="+message;
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

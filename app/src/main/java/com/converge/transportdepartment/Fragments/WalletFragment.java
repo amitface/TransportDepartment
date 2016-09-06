@@ -239,7 +239,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
                 JSONObject  jsonObject1= new JSONObject(responseOutput.toString());
                 msg = jsonObject1.getString("message");
                 transId =jsonObject1.getString("transaction_id");
-                amt="1";
+                amt=Double.toString(calulateTax(1.1));
                 if(jsonObject1.get("status").equals("Success"))
                     return 1;
 

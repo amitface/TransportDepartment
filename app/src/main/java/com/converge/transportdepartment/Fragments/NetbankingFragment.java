@@ -197,7 +197,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
         CitrusClient client = CitrusClient.getInstance(getActivity());
 
-        amount=new Amount(Double.toString(calulateTax(1.0,tax)));
+        amount=new Amount(Double.toString(calulateTax(1.1,tax)));
 
         PaymentType paymentType1;
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
@@ -272,7 +272,7 @@ public class NetbankingFragment extends Fragment implements View.OnClickListener
 
     private void alertDialogNote(String s, final NetbankingOption netbankingOption)
     {
-        final String[] items = {s,"Your final amount will be Rs "+calulateTax(1.0,tax)};
+        final String[] items = {s,"Your final amount will be Rs "+calulateTax(1.1,tax)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan ");

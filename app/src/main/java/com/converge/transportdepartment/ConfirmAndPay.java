@@ -3,6 +3,7 @@ package com.converge.transportdepartment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -180,7 +181,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
     private TextView mspinnerSDate, mspinnerSTime;
     private TextView mspinnerRTO, mspinnerRelationshipType, mspinnerQualification, mspinnerGender;
     private TextView mspinnerIdmark, mspinnerBloodGroup, mspinnerRH, mspinnerPermanentState, mspinnerPresentState;
-    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2;
+    private TextView mspinnerCitizenship, mspinnerCountry, mspinnerIdmark2,btnFee;
 
     private ImageView mimageViewDatePicker;
 
@@ -247,7 +248,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_and_pay, container, false);
         hideKeyboard(getContext());
-
+        PayablePayment.status=0;
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         progressDialog = new ProgressDialog(getActivity());
@@ -255,8 +256,13 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         jsonString = sharedpreferences.getString(PGInfo, "");
         TextView textfee = (TextView) view.findViewById(R.id.textfee);
         TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
-        textfee.setText("Application Fee : Rs. " + (totalFee() - 20));
-        textTotal.setText("Total Fee : Rs. " + totalFee());
+        btnFee=(TextView)view.findViewById(R.id.btnFee);
+
+        int fee = (int) (totalFee() - 28.76);
+        double amount =Math.round((totalFee()*100D))/100D;
+
+        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + fee);
+        textTotal.setText(getString(R.string.totalAmount)+" Rs. " +amount );
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);
@@ -280,14 +286,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    private int totalFee() {
+    private Double totalFee() {
         String s = sharedpreferences.getString("mFinalStringCov", "");
         String arr[] = s.split(",");
-        int len = arr.length;
+        Double len = Double.valueOf(arr.length);
         if (arr[0].length() > 0)
-            len = len * 30 + 20;
+            len = len * 30 + 28.76;
         else
-            len = 0;
+            len = 0.0;
         return len;
     }
 
@@ -346,6 +352,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
                 else
                     showPersonalDetail();
                 break;
+            case R.id.btnFee:
+                Intent intent= new Intent(getContext(),FeeReceiptActivity.class);
+                intent.putExtra("fee",totalFee());
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -384,7 +395,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         buttonNext.setOnClickListener(this);
         buttonBackConfirmAndPay.setOnClickListener(this);
 //        buttonClearPersonalDetails.setOnClickListener(this);
-
+        btnFee.setOnClickListener(this);
         mlinearlayoutPresentAddress.setOnClickListener(this);
         mlinearlayoutPremanentAddress.setOnClickListener(this);
         mlinearlayoutPersonalDetail.setOnClickListener(this);
@@ -481,14 +492,14 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         mTxtAppointmentTime = (TextView) rootView.findViewById(R.id.txtAppiontmentTime);
         try {
             JSONObject jsonObject = new JSONObject(sharedpreferences.getString(PGInfo, ""));
-            mTxtAppointmentTime.setText("Appointment time : " + jsonObject.getString("slotTime"));
+            mTxtAppointmentTime.setText(getString(R.string.appointmentTime) + jsonObject.getString("slotTime"));
             SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd/MM/yy");
             Calendar calendar = Calendar.getInstance();
             Long aLong = jsonObject.getLong("slotDate");
             calendar.setTimeInMillis(aLong);
             dateFormat.format(calendar.getTime());
             System.out.println(dateFormat.format(calendar.getTime()));
-            mTxtAppointmentDate.setText("Appointment time : " + dateFormat.format(calendar.getTime()));
+            mTxtAppointmentDate.setText(getString(R.string.appointmentDate) + dateFormat.format(calendar.getTime()));
         } catch (JSONException e) {
             e.printStackTrace();
         }

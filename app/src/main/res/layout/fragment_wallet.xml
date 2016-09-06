@@ -14,7 +14,7 @@
         android:padding="5dp"
         android:layout_margin="2dp"
         android:background="@drawable/edit_text_personal_details"
-        android:hint="User Name"/>
+        android:hint="@string/userName"/>
 
     <EditText
         android:id="@+id/editWalletPassword"
@@ -23,7 +23,7 @@
         android:padding="5dp"
         android:background="@drawable/edit_text_personal_details"
         android:layout_margin="2dp"
-        android:hint="Password"/>
+        android:hint="@string/userPwd"/>
 
     <Button
         android:id="@+id/btnWallet"
@@ -32,7 +32,7 @@
         android:textColor="@android:color/white"
         android:layout_margin="2dp"
         android:background="@color/colorPrimaryTransportDepartment"
-        android:text="Pay Rs.1 "/>
+        android:text="@string/payRs"/>
 
 
 </LinearLayout>

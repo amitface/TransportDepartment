@@ -28,7 +28,6 @@
                 android:text="@string/fee_information"
                 android:background="@color/colorPrimaryTransportDepartment"/>
 
-
                 <TextView
                     android:id="@+id/textfee"
                     android:layout_width="match_parent"
@@ -40,15 +39,14 @@
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_marginLeft="6dip"
                     android:layout_marginRight="6dip"
-                    android:layout_marginTop="2dip"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Postal fee: Rs.0"
+                    android:text="@string/postalFee"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
@@ -72,9 +70,8 @@
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
-
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/smart_card_fee_rs_0"
@@ -87,28 +84,26 @@
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
-                    android:text="Smartchip fee+tax : Rs. 0"
+                    android:text="@string/smartchipFeeTax"
+
                     android:background="@drawable/edit_text_personal_details"
                     android:layout_marginLeft="6dip"
                     android:layout_marginRight="6dip"
                     android:layout_marginTop="2dip"
                     android:layout_marginBottom="2dip"
                     android:padding="5dp"/>
-
 
                 <TextView
                     android:id="@+id/textTotal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Amount :Rs 290"
+                    android:text="@string/totalAmount"
                     android:background="@drawable/edit_text_personal_details"
                     android:textStyle="bold"
                     android:layout_marginLeft="6dip"
@@ -118,6 +113,19 @@
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
                     android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/btnFee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dip"
+                android:text="Click to see bifurcation"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:background="@color/colorPrimaryTransportDepartment"
+                android:padding="2dp"
+                android:layout_marginTop="10dp"
+                 />
 
             <TableLayout
                 android:id="@+id/tablelayoutFee"
@@ -138,7 +146,7 @@
                 android:background="@color/colorPrimaryTransportDepartment"
                 android:layout_margin="6dip"
                 android:padding="8dp"
-                android:text=" RTO"
+                android:text="@string/rto"
                 android:layout_marginTop="3dp" />
 
             <TextView
@@ -165,8 +173,8 @@
                 android:stretchColumns="*"
                 android:visibility="visible"
                 android:padding="6dip">
-                <!--Appointment Information-->
 
+                <!--Appointment Information-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,7 +192,7 @@
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textColorHighlight="@android:color/black"
-                        android:text="@string/appointment_schedule"
+                        android:text="@string/appointmentDate"
                         android:background="@drawable/edit_text_personal_details"
                         android:padding="5dp"/>
 
@@ -195,7 +203,7 @@
                         android:id="@+id/txtAppiontmentTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Appointment time : 11:30 to 11:50"
+                        android:text="@string/appointmentTime"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textColorHighlight="@android:color/black"
@@ -1458,7 +1466,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:padding="4dp"
                     android:textColor="@android:color/white"
-                    android:text="Other Info"
+                    android:text="@string/otherInfo"
                     android:id="@+id/textView13" />
                 <ImageView
                     android:id="@+id/imageOtherC"

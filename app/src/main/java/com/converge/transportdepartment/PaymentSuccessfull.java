@@ -148,7 +148,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-
+        PayablePayment.status=0;
         ConValidation.hideKeyboard(getContext());
         progressDialog = new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
@@ -171,7 +171,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         editText.setText(sharedpreferences.getString("EmailZ",""));
         textView2.setText("Application Form : "+appNumber);
         textReceipt.setText("Receipt No.      : "+receiptNumber);
-        int fee= totalFee();
+        Double fee= Math.round(totalFee()*100D)/100D;
         textFee.setText("Payment Successful for amount Rs. "+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
@@ -849,7 +849,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 //                        showToast("success");
 //                        showToast("Check M-Parivahan folder in directory for HTML");
 //                        showToast("Back press to go home");
-                        alertDialogPostReport("1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification");
+                        alertDialogPostReport(getString(R.string.paymntSuccessMsg1));
                     }//public void run() {
                 });
             }
@@ -943,7 +943,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
     public void alertDialogPostReport(String s)
     {
-            final String[] items = {s,"2. Press ok to go Home.","3. Press stay for further activity."
+            final String[] items = {s,getString(R.string.paymntSuccessMsg2),getString(R.string.paymntSuccessMsg3)
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -1083,7 +1083,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="user=pmtkc&pwd=pmtkc&from=ODTRPT&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No "+receiptNumber+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -165,7 +165,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     {
         citrusClient = CitrusClient.getInstance(getActivity());
         DebitCardOption debitCardOption = new DebitCardOption(cardHolderName,cardNumber, cardCVV, Month.getMonth(md[0]), Year.getYear(md[1]));
-        final Amount amount = new Amount(Double.toString(calulateTax(1.0)));
+        final Amount amount = new Amount(Double.toString(calulateTax(1.1)));
         PaymentType paymentType;
 
         Callback<TransactionResponse> callback = new Callback<TransactionResponse>() {
@@ -237,7 +237,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     private void alertDialogNote()
     {
-        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax((double) 1)};
+        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax(1.1)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan");
@@ -260,7 +260,6 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
     private Double calulateTax(Double amt)
     {
         amt = amt+(amt/100)*0.75+(amt/100)*15;
-
         return (Math.round(amt * 100D)) / 100D;
     }
 

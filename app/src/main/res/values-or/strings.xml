@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
     <resources>
         <string name="app_name">ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ</string>
 
         <string name="navigation_drawer_open">Open navigation drawer</string>
         <string name="Home"></string>
-
 
         <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -28,13 +26,13 @@
         <string name="resend_btn_text">Resend</string>
         <string name="reset_pass_text">Reset Password</string>
         <string name="signup_text">Sign Up</string>
-        <string name="password_hint">Password</string>
+        <string name="password_hint">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
         <string name="is_citrus_member_text">Is Citrus Member?</string>
         <string name="enter_mobile_text">Enter Mobile No</string>
         <string name="dummy_mobile_hint"></string>
         <string name="dummy_email_hint"></string>
         <string name="dummy_password"></string>
-        <string name="enter_email_text">Enter Email Id</string>
+        <string name="enter_email_text">ଇ-ମେଲ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
         <string name="login_credentials_text">Login Credentials</string>
         <string name="home">ହୋମ୍</string>
         <string name="apply_for_ll">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>
@@ -97,8 +95,8 @@
         <string name="id_proof">ପରିଚୟ ପ୍ରମାଣ*</string>
         <string name="next">ପରବର୍ତ୍ତୀ</string>
         <string name="fee_information">ଦେୟ ସୂଚନା</string>
-        <string name="application_fee_rs_0">ଆବେଦନ ଦେୟ : Rs. 0</string>
-        <string name="paperdoc_fee_tax_rs_20">କାଗଜ  ଡକ୍ୟୁମେଣ୍ଟ ଦେୟ + ଟିକସ : Rs. 20</string>
+        <string name="application_fee_rs_0">ଆବେଦନ ଦେୟ : </string>
+        <string name="paperdoc_fee_tax_rs_20">କାଗଜ  ଡକ୍ୟୁମେଣ୍ଟ ଦେୟ + ଟିକସ : Rs. 22.51 </string>
         <string name="smart_card_fee_rs_0">ସ୍ମାଟ କାର୍ଡ ଦେୟ: Rs.0</string>
         <string name="appointment_schedule">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ</string>
         <string name="permanent_address">ସ୍ଥାୟୀ ଠିକଣା</string>
@@ -135,12 +133,12 @@
         <string name="mANumber">ମୋବାଇଲ ନମ୍ବର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ପ୍ରୟୋଗ କରନ୍ତୁ</string>
 
         <string name="pOneField">"Atleast one field required in Permanent Address"</string>
-        <string name="pDEmpty">"Permanent District cannot be empty"</string>
-        <string name="pState">"Select Permanent State"</string>
-        <string name="pYear">"Years cannot be empty"</string>
-        <string name="pAYears">"only digit in Years"</string>
+        <string name="pDEmpty">ସ୍ଥାୟୀ ଠିକଣା କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
+        <string name="pState">ସ୍ଥାୟୀ ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ</string>
+        <string name="pYear">ବର୍ଷ ର କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
+        <string name="pAYears">ବର୍ଷ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ</string>
         <string name="pAMonths">"only digits allowed in Months"</string>
-        <string name="pPincode">"Invalid Permanent Pincode "</string>
+        <string name="pPincode">ଅବୈଧ ସ୍ଥାୟୀ ପିନ୍ କୋଡ</string>
         <string name="pAPincode">"only digits allowed in Pincode"</string>
         <string name="pMDigits">"Mobile Number should have 10 digits"</string>
 
@@ -170,11 +168,69 @@
 
         <!--payable payment-->
         <string name="PayFail">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>
-    <string name="pSameT">Permanent address same as Present address.</string>
+    <string name="pSameT">ସ୍ଥାୟୀ ଠିକଣା ଏବଂ ବର୍ତ୍ତମାନ ଠିକଣା  ସମାନ ଅଟେ</string>
     <string name="state">ରାଜ୍ୟ*</string>
     <string name="duration_of_stay">ରହିବା ଅବଧି*</string>
     <string name="pin_code">ପିନ୍ କୋଡ*</string>
     <string name="moblie_no">ମୋବାଇଲ ନମ୍ବର*</string>
+
+    <!--personal details-->
+    <string name="permanentAddress">ସ୍ଥାୟୀ ଠିକଣା</string>
+    <string name="permanentAddressCondition">Atleast one field required in Permanent Address</string>
+
+    <!--confirm and pay-->
+
+    <string name="appointmentDate">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ :</string>
+    <string name="smartchipFeeTax">ସ୍ମାଟ କାର୍ଡ ଦେୟ: Rs. 5.76</string>
+    <string name="totalAmount">ସମ୍ପୂର୍ଣ୍ଣ ପରିମାଣ :</string>
+    <string name="rto">RTO</string>
+
+
+    <string name="classOfVehicles">ଯାନ ର ପ୍ରକାର</string>
+    <string name="personalDetails">ନିଜସ୍ୱ ବିବରଣୀ</string>
+    <string name="otherDetails">ଅନ୍ୟାନ୍ୟ ବିବରଣୀ</string>
+    <string name="appointmentSchedule">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ</string>
+    <string name="confirmAndPay">ଦେୟ ପଇଠ</string>
+
+
+    <string name="payment_options">ଦେୟ ବିକଳ୍ପ ସମୂହ</string>
+    <string name="payable_amount">ଦେୟ ରାଶି :</string>
+    <string name="userName">ଉପଭୋକ୍ତା ନାମ</string>
+    <string name="userPwd">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+    <string name="payRs">Pay Rs.1</string>
+
+    <!--payment successful-->
+    <string name="paymntSuccessMsg1">1. ଆବେଦନ ପଂର୍ମ ଏବଂ ଦେୟ ରସିଦ  ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ . M-Parivahan</string>
+    <string name="paymntSuccessMsg2">2. ହୋମ କୁ ଯିବା ପାଇଁ OK ପ୍ରେସ କରନ୍ତୁ</string>
+    <string name="paymntSuccessMsg3">3. ପରବର୍ତ୍ତୀ କାର୍ଯ୍ୟ ପାଇଁ Stay ପ୍ରେସ କରନ୍ତୁ</string>
+
+
+    <!--idProof-->
+    <string name="driving_lic_comp_trans">Driving license is compulsory for Transport vehicle.</string>
+    <string name="driving_lic_issue_date">Driving license issue date should be, 1 year less than current date.</string>
+    <string name="loadingText_idProof">Submitting form please wait...</string>
+
+    <string name="postalFee">ଡାକ ଖର୍ଚ୍ଚ: Rs. 0</string>
+    <string name="otherInfo">ଅନ୍ୟାନ୍ୟ ବିବରଣୀ</string>
+
+    <string name="refreshBtnTxt">Refresh</string>
+
+
+    <string name="timeSlotSelector">Time</string>
+
+    <string name="availSlotSelector">Available Slot</string>
+
+    <string name="appointmentTime">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ସମୟ</string>
+
+    <!-- no payment fragment-->
+    <string name="thankYouMsgPart1">Thank You for Using M-Parivahan</string>
+    <string name="thankYouMsgPart2">for your Learning License Application</string>
+    <string name="saveApplicationMsg">Save Application Details</string>
+    <string name="emailEdtTxtHint">Enter email to receive pdf</string>
+    <string name="applicationFormTxt">Application Form : </string>
+    <string name="payAtRTOText">Pay at RTO amount of Rs.</string>
+    <string name="pdfDwnLoadMsg1">1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.</string>
+
 </resources>
 <!--<resources>-->
 

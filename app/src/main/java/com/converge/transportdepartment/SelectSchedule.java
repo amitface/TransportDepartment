@@ -93,6 +93,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     private String jsonData, jsonDataSaveSlot;
     //Start is 12/08/2016 & format dd/mm/yyyy
     private Long [] dateSetArray= {1471824000000L,1471910400000L,1471996800000L,1472083200000L,1472169600000L,1472256000000L,1472342400000L,1472428800000L,1472515200000L,1472601600000L,1472688000000L,1472774400000L,1472860800000L,1472947200000L,1473033600000L,1473120000000L,1473206400000L,1473292800000L,1473379200000L,1473552000000L,1473638400000L,1473724800000L,1473811200000L,1473897600000L,1473984000000L,1474070400000L,1474156800000L,1474243200000L,1474329600000L,1474416000000L};
+//    private Long [] dateSetArray;
     private OnFragmentInteractionListener mListener;
     private static final String CheckBoxSchedule = "currentCheckBox";
     private static final String mypreference="mypref";
@@ -159,10 +160,17 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
 //        tabs.setViewPager(pager);
 
-        initalize(view);
+        initialize(view);
         Calendar c= Calendar.getInstance();
 
         Log.d("**slotDt**","Current Date: " + c.getTimeInMillis());
+
+        if(SelectApplicationType.generatedDate!=0) {
+//            dateSetArray = (Long[]) Utilities.getNext30DateArray(SelectApplicationType.generatedDate).toArray();
+//            dateSetArray = Utilities.getNext30DateArray(SelectApplicationType.generatedDate);
+        }
+
+
         if(ConValidation.isNetworkAvailable(getActivity()))
             getSlot();
         else
@@ -192,7 +200,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
     }
 
 
-    private void initalize(View fragmentSchedule) {
+    private void initialize(View fragmentSchedule) {
         ImageView buttonBack = (ImageView) fragmentSchedule.findViewById(R.id.buttonBackSelectSchedule);
         ImageView buttonNext = (ImageView) fragmentSchedule.findViewById(R.id.buttonNextSelectSchedule);
         buttonBack.setOnClickListener(this);
@@ -237,6 +245,10 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             Log.d("**slotDate**",""+calendar.getTimeInMillis());
             Long meter = calendar.getTimeInMillis();
         }
+
+
+
+
 
         private List<Long> getUniqueDate()
         {
@@ -405,6 +417,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
 
 //             URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/ApplcntDetails/getApplDet");
                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
+//               URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/FetchSlotDet/getSltDet");
 //                URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
 
             connection = (HttpURLConnection) url.openConnection();
@@ -695,6 +708,7 @@ public class SelectSchedule extends Fragment implements View.OnClickListener{
             HttpURLConnection connection=null;
             try{
                 URL url = new URL("http://164.100.148.109:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
+//                URL url = new URL("http://www.sarathi.nic.in:8080/SOWSlotBookServices/rsServices/SaveSlotDetServ/insSltDet");
                 connection = (HttpURLConnection) url.openConnection();
 
                 //Creating json object.
