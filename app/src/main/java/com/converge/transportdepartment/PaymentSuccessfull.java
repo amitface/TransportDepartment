@@ -148,7 +148,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_payment_successfull, container, false);
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-
+        PayablePayment.status=0;
         ConValidation.hideKeyboard(getContext());
         progressDialog = new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
@@ -1083,7 +1083,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocode")+"&msg=Thanks for using M-Parivahan, your application no "+sharedpreferences.getString("receiptNum","")+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime")+" &mobile="+jsonObjectData.get("moblie");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
+                String s ="user=pmtkc&pwd=pmtkc&from=ODTRPT&to="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+appNumber+" and Receipt No "+receiptNumber+". Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

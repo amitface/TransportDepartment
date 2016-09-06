@@ -72,6 +72,7 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     private RelativeLayout R1,R2;
     private ImageView imagePersonal,imageAtRto;
     private int marker =1;
+    public static int status=0;
 
     TextView payableBifurfication;
     private String jsonString;
@@ -170,8 +171,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                     if(selectedId==R.id.radioWalletAccounts)
                     {
                         pgoption=4;
-                        PayRequest(v);
-//                    callFragment();
+                        if(status==0)
+                            PayRequest(v);
+                        else
+                            callFragment();
                     }
                     else{
                         if(selectedId==R.id.radioCreditCard)
@@ -188,7 +191,11 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
                             Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.selectOne),Toast.LENGTH_LONG).show();
                             break;
                         }
-                        PayRequest(v);
+
+                        if(status==0)
+                            PayRequest(v);
+                        else
+                            callFragment();
                     }
                 }
                 else
@@ -233,6 +240,8 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
     }
 
     private void callFragment() {
+
+        status=1;
         if(pgoption==1)
         {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_home, CreditCardFragment.newInstance("1","1"),"CreditCard").commit();

@@ -76,11 +76,12 @@ public class NoPaymentFragment extends Fragment {
     private String emailToSend;
     private long lastDownload = -1L;
     private long appNumber;
-    private String rtoCode, msg;
+    private String rtoCode, msg, receiptNumber;
 
     private DownloadManager mgr=null;
 
     private HashMap<String,String> hashMap=new HashMap<>();
+
 
 
     public NoPaymentFragment() {
@@ -144,6 +145,7 @@ public class NoPaymentFragment extends Fragment {
         try {
             JSONObject jsonObjectData= new JSONObject(jsonString);
             appNumber= jsonObjectData.getLong("applicantNum");
+            receiptNumber = jsonObjectData.getString("receiptNum");
             rtoCode = jsonObjectData.getString("rtocodeReal");
 
         } catch (JSONException e) {
@@ -535,7 +537,7 @@ public class NoPaymentFragment extends Fragment {
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg="+message;
+                String s ="user=pmtkc&pwd=pmtkc&from=ODTRPT&to="+jsonObjectData.get("moblie")+"&msg="+message;
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();

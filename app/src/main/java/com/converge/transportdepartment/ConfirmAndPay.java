@@ -248,7 +248,7 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_and_pay, container, false);
         hideKeyboard(getContext());
-
+        PayablePayment.status=0;
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         progressDialog = new ProgressDialog(getActivity());
@@ -258,9 +258,11 @@ public class ConfirmAndPay extends Fragment implements View.OnClickListener {
         TextView textTotal = (TextView) view.findViewById(R.id.textTotal);
         btnFee=(TextView)view.findViewById(R.id.btnFee);
 
+        int fee = (int) (totalFee() - 28.76);
+        double amount =Math.round((totalFee()*100D))/100D;
 
-        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " +(int) (totalFee() - 28.76));
-        textTotal.setText(getString(R.string.totalAmount)+" Rs. " + Math.round(totalFee()*100D)/100D);
+        textfee.setText(getString(R.string.application_fee_rs_0)+" Rs. " + fee);
+        textTotal.setText(getString(R.string.totalAmount)+" Rs. " +amount );
 
         initailizeFelids(view);
 //        sendPostRequest(rootView);

@@ -237,7 +237,7 @@ public class DebitCardFragment extends Fragment implements View.OnClickListener{
 
     private void alertDialogNote()
     {
-        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax((double) 1)};
+        final String[] items = {" 0.75% (Banking charges) + 15.0% Service Tax will be added for all debit cards","Your amount will be Rs. "+calulateTax(1.1)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("M-Parivahan");
