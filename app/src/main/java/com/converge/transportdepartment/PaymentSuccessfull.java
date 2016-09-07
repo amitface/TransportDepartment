@@ -149,6 +149,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         PayablePayment.status=0;
+
         ConValidation.hideKeyboard(getContext());
         progressDialog = new ProgressDialog(getActivity());
         jsonString=sharedpreferences.getString(PGInfo,"");
@@ -172,7 +173,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
         textReceipt.setText("Receipt No.      : "+receiptNumber);
         Double fee= Math.round(totalFee()*100D)/100D;
-        textFee.setText("Payment Successful for amount Rs. "+fee);
+        textFee.setText(getString(R.string.paymentSuccessAmt)+fee);
 
         if(!new MarshMallowPermission(getActivity()).checkPermissionForExternalStorage() )
         {
@@ -437,7 +438,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                alertDialogPostReport("Documents (PDF) for  Fee Receipt can be accessed from your Mobile Device from this location – M-Parivahan");
+                alertDialogPostReport(getString(R.string.downReceipt));
             }
         });
     }
@@ -466,7 +467,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                alertDialogPostReport("Documents (PDF) for Application Form  can be accessed from your Mobile Device from this location – M-Parivahan");
+                alertDialogPostReport(getString(R.string.downPdf));
             }
         });
     }

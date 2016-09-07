@@ -68,7 +68,7 @@
         <string name="relationship_type">ସମ୍ପର୍କ ପ୍ରକାର*</string>
         <string name="relation_s_name">ସମ୍ପର୍କୀୟ ଙ୍କ ନାମ*</string>
         <string name="middle_name">ମିଡ୍ଡ୍ଲେ ନମେ </string>
-        <string name="present_address">କ୍ଷେତ୍ର ଆବଶ୍ୟକ</string>
+        <string name="present_address">ବର୍ତ୍ତମାନ ଠିକଣା</string>
         <string name="atleast_one_field_required_in_present_address">ବର୍ତ୍ତମାନ ଠିକଣା ର ଅନ୍ତତଃ ଗୋଟିଏ କ୍ଷେତ୍ର ଆବଶ୍ୟକ</string>
         <string name="flat_number">ଫ୍ଲାଟ ନମ୍ବର</string>
         <string name="flat_house_name">ଫ୍ଲାଟ/ହାଉସ ନାମ</string>
@@ -231,6 +231,15 @@
     <string name="payAtRTOText">ଆରଟିଓ ରେ ପଇଠ କରନ୍ତୁ Rs.</string>
     <string name="pdfDwnLoadMsg1">ଆବେଦନ ପଂର୍ମ ଏବଂ ଦେୟ ରସିଦ  ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ ଇ-ମେଲ ରେ ପଠାଇ ଦିଆଯିବ.</string>
     <string name="chang_lang">ଭାଷା ପରିବର୍ତ୍ତନ</string>
+    <string name="thank_you_for_using_m_parivahan">ଏମ୍ - ପରିବହନ ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବଦ୍</string>
+    <string name="text2Payment">ଆପଣଙ୍କ ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ ଆପ୍ଲିକେସନ୍  ପାଇଁ</string>
+    <string name="adetails">ଆପ୍ଲିକେସନ୍ ର  ବିସ୍ତୃତ ବିବରଣୀ ସେଭ୍ କରନ୍ତୁ</string>
+    <string name="receivePDF">ପିଡିଏଫ୍ ଗ୍ରହଣ କରିବା ପାଇଁ ଇ-ମେଲ୍ ଏଣ୍ଟର କରନ୍ତୁ</string>
+    <string name="downPdf"> ଆବେଦନ ପଂର୍ମ   ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ ମୋବାଇଲ ର ଏହି କ୍ଷେତ୍ର ରେ ମଧ୍ୟ ଉପଲଦ୍ଧ \- \'ଏମ\-ପରିବହନ\'</string>
+    <string name="downReceipt">ଦେୟ ରସିଦ  ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ ମୋବାଇଲ ର ଏହି କ୍ଷେତ୍ର ରେ ମଧ୍ୟ ଉପଲଦ୍ଧ \- \'ଏମ\-ପରିବହନ\'</string>
+    <string name="payAtRto">ଆରଟିଓ ରେ ପଇଠ କରନ୍ତୁ</string>
+    <string name="paymentSuccessAmt">"Payment Successful for amount Rs. "</string>
+
 
 </resources>
 

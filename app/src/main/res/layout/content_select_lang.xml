@@ -30,7 +30,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Oriya"
+                    android:text="Odia"
                     android:layout_weight="1"
                     android:textSize="@dimen/dimen_actionbtn_textSize"
                     android:textColor="@color/white"

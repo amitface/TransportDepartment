@@ -235,6 +235,14 @@
     
     <string name="note1">1. The goods/services covered under this receipt is delivered under authority and sanction of RTO concerned and notification issues by goO vide Number FE-1-GE-5(PT)8259,dated 21.09.2006</string>
     <string name="note2">2. Service Charge include Processing &amp; Printing of respective Document. </string>
+    <string name="thank_you_for_using_m_parivahan">Thank You for Using M-Parivahan</string>
+    <string name="adetails">Save Application Details</string>
+    <string name="text2Payment">for your Learning License Application</string>
+    <string name="receivePDF">Enter email to receive pdf</string>
+    <string name="downPdf">Documents (PDF) for Application Form  can be accessed from your Mobile Device from this location – M-Parivahan</string>
+    <string name="downReceipt">Documents (PDF) for  Fee Receipt can be accessed from your Mobile Device from this location – M-Parivahan</string>
+    <string name="payAtRto">PAY AT RTO</string>
+    <string name="paymentSuccessAmt">"Payment Successful for amount Rs. "</string>
 
 </resources>
 

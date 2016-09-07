@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount Paid :Rs. 340 "
+                android:text="Amount Paid :Rs. 140 "
                 android:gravity="center"
                 android:visibility="gone"
                 android:textSize="24dp"/>
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Thank You for Using M-Parivahan"
+                android:text="@string/thank_you_for_using_m_parivahan"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 android:layout_marginTop="10dp"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="for your Learning License Application"
+                android:text="@string/text2Payment"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 android:id="@+id/textView9"
@@ -104,7 +104,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryTransportDepartment"
                     android:layout_gravity="center_vertical|start"
-                    android:text="Save Application Details"
+                    android:text="@string/adetails"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
                 <!--android:textColor="@android:color/white"-->
@@ -124,7 +124,7 @@
                         android:maxLength="30"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/edit_text_personal_details"
-                        android:hint="Enter email to receive pdf"
+                        android:hint="@string/receivePDF"
                         android:layout_span="5"
                         android:textColorHint="@android:color/secondary_text_dark_nodisable"
                         />
