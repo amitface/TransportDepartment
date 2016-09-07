@@ -198,7 +198,7 @@
     <string name="payable_amount">Payable amount :</string>
     <string name="userName">User Name</string>
     <string name="userPwd">Password</string>
-    <string name="payRs">Pay Rs.1</string>
+    <string name="payRs">Pay Rs. 1.1</string>
 
     <!--payment successful-->
     <string name="paymntSuccessMsg1">1. PDF Successfully downloaded check M-Parivahan folder in Directory or Notification</string>

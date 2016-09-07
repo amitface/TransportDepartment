@@ -169,7 +169,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
         final EditText editText = (EditText) view.findViewById(R.id.emailToSend);
         editText.setText(sharedpreferences.getString("EmailZ",""));
-        textView2.setText("Application Form : "+appNumber);
+        textView2.setText(getString(R.string.applicationFormTxt)+appNumber);
         textReceipt.setText("Receipt No.      : "+receiptNumber);
         Double fee= Math.round(totalFee()*100D)/100D;
         textFee.setText("Payment Successful for amount Rs. "+fee);
@@ -207,7 +207,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                         if(Validation.isEmailAddress(editText,true)) {
                             emailToSend = editText.getText().toString();
                             new SendMail(getActivity()).execute();
-                            alertDialogPostReport("1.Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.");
+                            alertDialogPostReport(getString(R.string.pdfDwnLoadMsg1));
                         }
                     }
                 });
@@ -233,14 +233,14 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
 
 
 
-    private int totalFee() {
+    private Double totalFee() {
         String s= sharedpreferences.getString("mFinalStringCov","");
         String arr[]=s.split(",");
-        int len =arr.length;
+        Double len = Double.valueOf(arr.length);
         if(arr[0].length()>0)
-            len = len*30+20;
+            len = len*30+28.76;
         else
-            len=0;
+            len=0.0;
         return len;
     }
 
@@ -1004,7 +1004,7 @@ public class PaymentSuccessfull extends Fragment implements View.OnClickListener
                 dateFormat.format(calendar.getTime());
                 System.out.println(dateFormat.format(calendar.getTime()));
 //                String s ="rtocode="+jsonObjectData.get("rtocodeReal")+"&mobile="+jsonObjectData.get("moblie")+"&msg=Thanks for using M-Parivahan, your application no "+jsonObjectData.getLong("applicantNum")+" and Receipt No N/A. Date of appointment "+dateFormat.format(calendar.getTime())+" and Time "+jsonObjectData.get("slotTime");
-                String s ="user=pmtkc&pwd=pmtkc&from=TPTDEP&to="+jsonObjectData.get("moblie")+"&msg="+message;
+                String s ="user=pmtkc&pwd=pmtkc&from=ODTRPT&to="+jsonObjectData.get("moblie")+"&msg="+message;
                 System.out.println(s);
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
