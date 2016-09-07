@@ -121,8 +121,10 @@ public class PayablePayment extends Fragment implements View.OnClickListener{
 
         View view = inflater.inflate(R.layout.fragment_payable_payment, container, false);
         pgoption=0;
+
+        double fee =Math.round(totalFee()*100D)/100D;
         TextView textView = (TextView) view.findViewById(R.id.textPayment);
-        textView.setText(getString(R.string.payable_amount)+" Rs. "+Math.round(totalFee()*100D)/100D);
+        textView.setText(getString(R.string.payable_amount)+" Rs. "+fee);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioPaymentOption);
 
         radioButton1 = (RadioButton) view.findViewById(R.id.radioCreditCard);

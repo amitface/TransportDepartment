@@ -11,14 +11,14 @@
 
         <!-- TODO: Remove or change this placeholder text -->
         <string name="hello_blank_fragment">Hello blank fragment</string>
-        <string name="IdproofHeading"><![CDATA[* At least one photo & one address proof mandatory.]]></string>
+        <string name="IdproofHeading"><![CDATA[* ଗୋଟିଏ ଫଟୋ ଏବଂ ଗୋଟିଏ ଠିକଣା ପ୍ରମାଣ ପତ୍ର ବାଧ୍ୟତାମୂଳକ.]]></string>
 
 
         <!-- TODO: Remove or change this placeholder text -->
 
         <string name="card_number_hint">ଏଣ୍ଟର କାଡ୍ ନମ୍ବର</string>
-        <string name="credit_card_number_hint">Enter Credit Card number</string>
-        <string name="card_name_hint">Enter card holder name</string>
+        <string name="credit_card_number_hint">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ନମ୍ବର ଏଣ୍ଟର କରନ୍</string>
+        <string name="card_name_hint">କାର୍ଡ଼ ଧାରକ ଙ୍କ ନାମ ଏଣ୍ଟର କରନ</string>
         <string name="card_nick_name_hint">Enter nick name</string>
 
         <string name="dp_request_prompt">Select the DP Request Type</string>
@@ -28,12 +28,12 @@
         <string name="signup_text">Sign Up</string>
         <string name="password_hint">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
         <string name="is_citrus_member_text">Is Citrus Member?</string>
-        <string name="enter_mobile_text">Enter Mobile No</string>
+        <string name="enter_mobile_text">ମୋବାଇଲ ନମ୍ବର ଏଣ୍ଟର କରନ୍</string>
         <string name="dummy_mobile_hint"></string>
         <string name="dummy_email_hint"></string>
         <string name="dummy_password"></string>
         <string name="enter_email_text">ଇ-ମେଲ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
-        <string name="login_credentials_text">Login Credentials</string>
+        <string name="login_credentials_text">ଲଗଇନ୍ କ୍ରେଡେନସିଆଲ୍</string>
         <string name="home">ହୋମ୍</string>
         <string name="apply_for_ll">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>
         <string name="rto_locator">ଆରଟିଓ ନାମ ଚିହ୍ନଟ କରନ୍ତୁ</string>
@@ -49,12 +49,12 @@
         <string name="please_take_the_appointment_for_district_rto_where_he_she_resides">ଦୟାକରି ନିଜ ଆବାସିକ ଜିଲ୍ଲା ର ଆଞ୍ଚଳିକ ପରିବହନ ଅଧିକାରୀ ଙ୍କ ଠାରେ ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ସମୟ ନିଅନ୍ତୁ</string>
         <string name="please_choose_an_appointment_slot_as_per_your_preference">ଦୟାକରି ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ସ୍ଲଟ୍ ନିଜ ପସନ୍ଦରେ ମନୋନୟନ କରନ୍ତୁ</string>
         <string name="after_fee_payment_download_application_form">ଦେୟ ପଇଠ ପରେ ଆବେଦନ ଫର୍ମ ଡାଉନଲୋଡ କରନ୍ତୁ</string>
-        <string name="note"> NOTE :-</string>
+        <string name="note"> ନୋଟ୍ :-</string>
         <!--COVs page starts-->
         <string name="please_select_the_desired_class_for_which_you_are_applying">ଦୟାକରି ଆବେଦନ ପାଇଁ ନିଜେ ଚିନ୍ତାକରିଥିବା ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ</string>
         <string name="select_rto">ଆରଟିଓ ନାମ ଚୟନ କରନ୍ତୁ*</string>
         <string name="mandatory_fields">* ବାଧ୍ୟତାମୁଳକ କ୍ଷେତ୍ର</string>
-        <string name="personal_detail">ପେର୍ସୋନଲ୍ ଡେଟୈଲ୍ସ୍</string>
+        <string name="personal_detail">ପେର୍ସୋନଲ୍ ଡେଟୈଲ୍୍</string>
         <string name="applicant_name">ଆବେଦକ ଙ୍କ ନାମ*</string>
         <string name="midddle_name">ମଧ୍ୟ  ନାମ</string>
         <string name="last_name">ଶେଷ ନାମ*</string>
@@ -107,7 +107,7 @@
 
         <string name="selectRTO">ଆରଟିଓ ଚୟନ କରନ୍ତୁ</string>
         <string name="aFName">ଆବେଦନକର୍ତ୍ତା ଙ୍କ ପ୍ରଥମ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
-        <string name="aLNAME">Enter applicant last name</string>
+        <string name="aLNAME">ଆବେଦକ ଙ୍କ ଶେଷ ନାମ ଏଣ୍ଟର କରନ୍</string>
         <string name="oANAME">ନାମରେ କେବଳ ବର୍ଣ୍ଣମାଳା ର ଅନୁମତି ଅଛି</string>
         <string name="eDOB">ଜନ୍ମ ତାରିଖ ଚୟନ କରନ୍ତୁ</string>
         <string name="sGender">ଲିଙ୍ଗ ଚୟନ କରନ୍ତୁ</string>
@@ -124,7 +124,7 @@
         <string name="tTaluka">ବର୍ତ୍ତମାନ ତାଲୁକ କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
         <string name="tDEmpty">ବର୍ତ୍ତମାନ ଜିଲା କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
         <string name="tState">ବର୍ତ୍ତମାନ ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ</string>
-        <string name="tMonth">"Present Month cannot be empty"</string>
+        <string name="tMonth">ବର୍ତ୍ତମାନ ମାସ କ୍ଷେତ୍ର  ଖାଲି ରହିବ ନାହିଁ</string>
         <string name="tAYears">ବର୍ଷ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ"</string>
         <string name="tAMonths">ମାସ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ</string>
         <string name="tAPincode">ପିନ୍ କୋଡ କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ପ୍ରୟୋଗ କରନ୍ତୁ</string>
@@ -132,21 +132,21 @@
         <string name="mDigits">"Mobile Number should have 10 digits"</string>
         <string name="mANumber">ମୋବାଇଲ ନମ୍ବର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ପ୍ରୟୋଗ କରନ୍ତୁ</string>
 
-        <string name="pOneField">"Atleast one field required in Permanent Address"</string>
+        <string name="pOneField">ସ୍ଥାୟୀ ଠିକଣା ର ଅନ୍ତତଃ ଗୋଟିଏ କ୍ଷେତ୍ର ଆବଶ୍ୟକ</string>
         <string name="pDEmpty">ସ୍ଥାୟୀ ଠିକଣା କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
         <string name="pState">ସ୍ଥାୟୀ ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ</string>
         <string name="pYear">ବର୍ଷ ର କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
         <string name="pAYears">ବର୍ଷ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ</string>
-        <string name="pAMonths">"only digits allowed in Months"</string>
+        <string name="pAMonths">ମାସ କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ଅନୁମତି ଅଛି</string>
         <string name="pPincode">ଅବୈଧ ସ୍ଥାୟୀ ପିନ୍ କୋଡ</string>
-        <string name="pAPincode">"only digits allowed in Pincode"</string>
-        <string name="pMDigits">"Mobile Number should have 10 digits"</string>
+        <string name="pAPincode">ପିନ୍ କୋଡ କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ଅନୁମତି ଅଛି</string>
+        <string name="pMDigits">ମୋବାଇଲ ନମ୍ବର ୧୦ ଅଙ୍କ ବିଶିଷ୍ଟ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ</string>
 
         <string name="qualification">ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା ଚୟନ କରନ୍ତୁ</string>
         <string name="idMark">ପରିଚୟ ନିଶାନ ୧ ଚୟନ କରନ୍ତୁ</string>
         <string name="idMark2">ପରିଚୟ ନିଶାନ ୨ ଚୟନ କରନ୍ତୁ</string>
         <string name="bloodGroup">ବ୍ଲଡ ଗୃପ ଚୟନ କରନ୍ତୁ</string>
-        <string name="pDistrict">"Present District cannot be empty"</string>
+        <string name="pDistrict">ବର୍ତ୍ତମାନ ଜିଲା କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
 
         <!--OtherDetails-->
         <string name="rcRequired">ଇନଭାଲିଡ୍ କ୍ୟାରେଜ୍ ଯାନ ପାଇଁ ଯାନର ପଞ୍ଜୀକରଣ ନମ୍ବର ଆବଶ୍ୟକ</string>
@@ -155,16 +155,16 @@
         <string name="eIssAuthority">ପ୍ରଦାନକାରୀ ଅଧିକାରୀ ଙ୍କ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
         <string name="eDateOfIssue">ପ୍ରଦାନ ତାରିଖ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
         <string name="rcInvalidRequired">ଇନଭାଲିଡ୍ କ୍ୟାରେଜ୍ ଯାନ ପାଇଁ ଯାନର ପଞ୍ଜୀକରଣ ନମ୍ବର ଆବଶ୍ୟକ</string>
-        <string name="eRC">Enter Registration number</string>
-        <string name="idLimit">Cannot exceed limit of 4 Id proof</string>
+        <string name="eRC">ରେଜିଷ୍ଟ୍ରେସନ ନମ୍ବର ଏଣ୍ଟର କରନ୍</string>
+        <string name="idLimit">୪ ଗୋଟି ପରିଚୟ ପ୍ରମାଣ ରୁ ଅଧିକ ହେବନାହିଁ</string>
         <string name="cannotRemove">ଅଧୀକ ଅପସାରଣ  କରିହେବ ନାହିଁ</string>
         <string name="paymentFailed">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>
         <string name="DLTvehicle">ଭାରୀ ଯାନ ପାଇଁ ଡ୍ରାଇଭିଂଗ  ଲାଇସେନ୍ସ ଅନୀବାର୍ଯ୍ୟ</string>
         <string name="DL1less"> ଆଜି ର ତାରିଖ ଠାରୁ ଡ୍ରାଇଭିଂଗ  ଲାଇସେନ୍ସ ପ୍ରଦାନ ତାରିଖ ଅନ୍ତତଃ୧ବର୍ଷ  ହେବା ଅନୀବାର୍ଯ୍ୟ</string>
 
         <!--Check status-->
-        <string name="refLength">Reference number should be 7 digit long.</string>
-        <string name="dateCEmpty">Date cannot be empty</string>
+        <string name="refLength">ରେପଂରେନସ୍ ନମ୍ବର ୭ ଅଙ୍କ ବିଶିଷ୍ଟ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ</string>
+        <string name="dateCEmpty">ତାରିଖ କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>
 
         <!--payable payment-->
         <string name="PayFail">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>
@@ -176,14 +176,14 @@
 
     <!--personal details-->
     <string name="permanentAddress">ସ୍ଥାୟୀ ଠିକଣା</string>
-    <string name="permanentAddressCondition">Atleast one field required in Permanent Address</string>
+    <string name="permanentAddressCondition">ସ୍ଥାୟୀ ଠିକଣା ର ଅନ୍ତତଃ ଗୋଟିଏ କ୍ଷେତ୍ର ଆବଶ୍ୟକ</string>
 
     <!--confirm and pay-->
 
     <string name="appointmentDate">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ :</string>
-    <string name="smartchipFeeTax">ସ୍ମାଟ କାର୍ଡ ଦେୟ: Rs. 5.76</string>
+    <string name="smartchipFeeTax">ସ୍ମାଟ କାର୍ଡ ଦେୟ+ ଟିକସ: Rs. 5.76</string>
     <string name="totalAmount">ସମ୍ପୂର୍ଣ୍ଣ ପରିମାଣ :</string>
-    <string name="rto">RTO</string>
+    <string name="rto">ଆରଟିଓ</string>
 
 
     <string name="classOfVehicles">ଯାନ ର ପ୍ରକାର</string>
@@ -197,7 +197,7 @@
     <string name="payable_amount">ଦେୟ ରାଶି :</string>
     <string name="userName">ଉପଭୋକ୍ତା ନାମ</string>
     <string name="userPwd">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
-    <string name="payRs">Pay Rs.1</string>
+    <string name="payRs">ଦେୟ Rs. 1.1</string>
 
     <!--payment successful-->
     <string name="paymntSuccessMsg1">1. ଆବେଦନ ପଂର୍ମ ଏବଂ ଦେୟ ରସିଦ  ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ . M-Parivahan</string>
@@ -206,204 +206,59 @@
 
 
     <!--idProof-->
-    <string name="driving_lic_comp_trans">Driving license is compulsory for Transport vehicle.</string>
-    <string name="driving_lic_issue_date">Driving license issue date should be, 1 year less than current date.</string>
-    <string name="loadingText_idProof">Submitting form please wait...</string>
+    <string name="driving_lic_comp_trans">ଭାରୀ ଯାନ ପାଇଁ ଡ୍ରାଇଭିଂଗ ଲାଇସେନ୍ସ ଅନୀବାର୍ଯ</string>
+    <string name="driving_lic_issue_date">ଆଜି ର ତାରିଖ ଠାରୁ ଡ୍ରାଇଭିଂଗ ଲାଇସେନ୍ସ ପ୍ରଦାନ ତାରିଖ ଅନ୍ତତଃ୧ବର୍ଷ ହେବା ଅନୀବାର୍ଯ</string>
+    <string name="loadingText_idProof">ଦାଖଲ ହେଉଛି ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ...</string>
 
     <string name="postalFee">ଡାକ ଖର୍ଚ୍ଚ: Rs. 0</string>
     <string name="otherInfo">ଅନ୍ୟାନ୍ୟ ବିବରଣୀ</string>
 
-    <string name="refreshBtnTxt">Refresh</string>
+    <string name="refreshBtnTxt">ରିଫ୍ରେସ୍</string>
 
 
-    <string name="timeSlotSelector">Time</string>
+    <string name="timeSlotSelector">ସମୟ</string>
 
-    <string name="availSlotSelector">Available Slot</string>
+    <string name="availSlotSelector">ଉପଲବ୍ଧ ସ୍ଲଟ୍</string>
 
     <string name="appointmentTime">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ସମୟ</string>
 
     <!-- no payment fragment-->
-    <string name="thankYouMsgPart1">Thank You for Using M-Parivahan</string>
-    <string name="thankYouMsgPart2">for your Learning License Application</string>
-    <string name="saveApplicationMsg">Save Application Details</string>
-    <string name="emailEdtTxtHint">Enter email to receive pdf</string>
-    <string name="applicationFormTxt">Application Form : </string>
-    <string name="payAtRTOText">Pay at RTO amount of Rs.</string>
-    <string name="pdfDwnLoadMsg1">1. Documents (PDF) for Application Form and Fee Receipt have been sent to your Email ID.</string>
+    <string name="thankYouMsgPart1">ଏମ୍ - ପରିବହନ ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବଦ୍</string>
+    <string name="thankYouMsgPart2">ଆପଣଙ୍କ ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ ଆପ୍ଲିକେସନ୍  ପାଇଁ</string>
+    <string name="saveApplicationMsg">ଆପ୍ଲିକେସନ୍ ର  ବିସ୍ତୃତ ବିବରଣୀ ସେଭ୍ କରନ୍ତୁ</string>
+    <string name="emailEdtTxtHint">ପିଡିଏଫ୍ ଗ୍ରହଣ କରିବା ପାଇଁ ଇ-ମେଲ୍ ଏଣ୍ଟର କରନ୍ତୁ</string>
+    <string name="applicationFormTxt">ଆବେଦନ ପଂର୍ମ: </string>
+    <string name="payAtRTOText">ଆରଟିଓ ରେ ପଇଠ କରନ୍ତୁ Rs.</string>
+    <string name="pdfDwnLoadMsg1">ଆବେଦନ ପଂର୍ମ ଏବଂ ଦେୟ ରସିଦ  ର ପିଡିଏପ୍ଂ ଡକୁମେଣ୍ଟ ଆପଣଙ୍କ ଇ-ମେଲ ରେ ପଠାଇ ଦିଆଯିବ.</string>
+    <string name="chang_lang">ଭାଷା ପରିବର୍ତ୍ତନ</string>
 
 </resources>
-<!--<resources>-->
+
+
+    <!--4	Settings	ସେଟିଙ୍ଗସ୍-->
+
+    <!--7Check Status of Learning License Application	ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ ଆପ୍ଲିକେସନ୍  ସ୍ଥିତି ଚେକ୍ କରନ୍ତୁ-->
+
+
+
+    <!--11	Confirm and Pay	ସୁନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ ଦେୟ ପଇଠ କରନ୍ତୁ-->
+
+
+    <!--21	Class of vehichle	ଯାନ ର ଶ୍ରେଣୀ-->
+    <!--22	Personal Details	ବ୍ୟକ୍ତିଗତ ବିବରଣୀ-->
+
+
+    <!--24	Appointment schedule	ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ଅନୁସୂଚୀ-->
+    <!--25	Appointment time	ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ସମୟ-->
+
+    <!--27	Smartchip fee+tax	ସ୍ମାର୍ଟ ଚିପ୍ ଦେୟ + ଟିକସ-->
+    <!--28	Select atleast one class of vehicle	ଅନ୍ତତଃ ଗୋଟିଏ ଯାନ ର ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ-->
 
 
 
 
-    <!--<string name="app_name">ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ</string>-->
-
-    <!--<string name="navigation_drawer_open">Open navigation drawer</string>-->
-    <!--<string name="Home"></string>-->
 
 
-    <!--<string name="navigation_drawer_close">Close navigation drawer</string>-->
 
-    <!--<string name="action_settings">Settings</string>-->
-
-    <!--&lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
-    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
-    <!--<string name="IdproofHeading"><![CDATA[* At least one photo & one address proof mandatory.]]></string>-->
-
-
-    <!--&lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
-
-    <!--<string name="card_number_hint">Enter card number</string>-->
-    <!--<string name="credit_card_number_hint">Enter Credit Card number</string>-->
-    <!--<string name="card_name_hint">Enter card holder name</string>-->
-    <!--<string name="card_nick_name_hint">Enter nick name</string>-->
-
-    <!--<string name="dp_request_prompt">Select the DP Request Type</string>-->
-    <!--<string name="sign_in_btn_text">Sign In</string>-->
-    <!--<string name="resend_btn_text">Resend</string>-->
-    <!--<string name="reset_pass_text">Reset Password</string>-->
-    <!--<string name="signup_text">Sign Up</string>-->
-    <!--<string name="password_hint">Password</string>-->
-    <!--<string name="is_citrus_member_text">Is Citrus Member?</string>-->
-    <!--<string name="enter_mobile_text">Enter Mobile No</string>-->
-    <!--<string name="dummy_mobile_hint"></string>-->
-    <!--<string name="dummy_email_hint"></string>-->
-    <!--<string name="dummy_password"></string>-->
-    <!--<string name="enter_email_text">Enter Email Id</string>-->
-    <!--<string name="login_credentials_text">Login Credentials</string>-->
-    <!--<string name="home">ହୋମ୍</string>-->
-    <!--<string name="apply_for_ll">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>-->
-    <!--<string name="rto_locator">ଆରଟିଓ ନାମ ଚିହ୍ନଟ କରନ୍ତୁ</string>-->
-    <!--<string name="check_status_of_ll">ଆବେଦନ ସ୍ଥିତି ଦେଖନ୍ତୁ</string>-->
-    <!--<string name="read_instructions">ନୀୟମାବଳୀ ପଢନ୍ତୁ</string>-->
-    <!--<string name="download_form">ଆବେଦନପତ୍ର ଡାଉନଲୋଡ କରନ୍ତୁ</string>-->
-    <!--<string name="exit">ପ୍ରସ୍ଥାନ</string>-->
-    <!--<string name="apply_for_learning_licence">ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ କରନ୍ତୁ</string>-->
-    <!--<string name="learning_license">ଲର୍ଣ୍ଣସ୍ ଲାଇସେନ୍ସ</string>-->
-    <!--<string name="odissa_state_transport">Oଡିସ୍ସ ସ୍ଟଟେ ଟ୍ରନ୍ସ୍ପୋର୍ଟ୍</string>-->
-    <!--&lt;!&ndash;navigation drawer ends&ndash;&gt;-->
-    <!--&lt;!&ndash;home starts&ndash;&gt;-->
-    <!--<string name="please_take_the_appointment_for_district_rto_where_he_she_resides">Please take the appointment for District RTO where he/she resides.୍</string>-->
-    <!--<string name="please_choose_an_appointment_slot_as_per_your_preference">Please choose an appointment slot as per your preference</string>-->
-    <!--<string name="after_fee_payment_download_application_form">After fee Payment download application form</string>-->
-    <!--<string name="note"> NOTE :-</string>-->
-    <!--&lt;!&ndash;COVs page starts&ndash;&gt;-->
-    <!--<string name="please_select_the_desired_class_for_which_you_are_applying">Please select the desired class for which you are applying</string>-->
-    <!--<string name="select_rto">ଆରଟିଓ ନାମ ଚୟନ କରନ୍ତୁ*</string>-->
-    <!--<string name="mandatory_fields">* ବାଧ୍ୟତାମୁଳକ କ୍ଷେତ୍ର</string>-->
-    <!--<string name="personal_detail">ପେର୍ସୋନଲ୍ ଡେଟୈଲ୍ସ୍</string>-->
-    <!--<string name="applicant_name">ଆବେଦକ ଙ୍କ ନାମ*</string>-->
-    <!--<string name="midddle_name">ମଧ୍ୟ  ନାମ</string>-->
-    <!--<string name="last_name">ଶେଷ ନାମ*</string>-->
-    <!--<string name="date_of_birth">ଜନ୍ମ ତାରିଖ*</string>-->
-    <!--<string name="gender">Gender</string>-->
-    <!--<string name="place_of_birth">Place of Birth*</string>-->
-    <!--<string name="country_by_birth">ଜନ୍ମୀତ ଦେଶ*</string>-->
-    <!--<string name="citizenship_status_by">ନାଗରିକତ୍ୱ  ସ୍ଥିତି*</string>-->
-    <!--<string name="if_place_of_birth_is_out_side_india_month_and_year_when_migrated_to_india">ଭାରତ କୁ ସ୍ତାନାନ୍ତରିତ ବର୍ଷ:</string>-->
-    <!--<string name="email">ଇ-ମେଲ*</string>-->
-    <!--<string name="relationship_type">ସମ୍ପର୍କ ପ୍ରକାର*</string>-->
-    <!--<string name="relation_s_name">ସମ୍ପର୍କୀୟ ଙ୍କ ନାମ*</string>-->
-    <!--<string name="middle_name">ମିଡ୍ଡ୍ଲେ ନମେ </string>-->
-    <!--<string name="present_address">Present address</string>-->
-    <!--<string name="atleast_one_field_required_in_present_address">Atleast one field required in Present Address</string>-->
-    <!--<string name="flat_number">Flat number</string>-->
-    <!--<string name="flat_house_name">Flat / House Name</string>-->
-    <!--<string name="house_number_plot_no">House Number/Plot No</string>-->
-    <!--<string name="street">Street</string>-->
-    <!--<string name="locality">Locality</string>-->
-    <!--<string name="village_town_city">Village / Town / City</string>-->
-    <!--<string name="taluka_mandal">Taluka / Mandal</string>-->
-    <!--<string name="district">District*</string>-->
-    <!--<string name="educational_qualification">ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା*</string>-->
-    <!--<string name="id_mark_1">ପରିଚୟ ନିଶାନ ୧</string>-->
-    <!--<string name="id_mark_2">ପରିଚୟ ନିଶାନ 2</string>-->
-    <!--<string name="blood_group">ବ୍ଲଡ ଗୃପ</string>-->
-    <!--<string name="rh">ଆର ଏଚ୍*</string>-->
-    <!--<string name="document_number">ଡକ୍ୟୁମେଣ୍ଟ ସଂଖ୍ୟା</string>-->
-    <!--<string name="issuing_authority">ପ୍ରଦାନକାରୀ ଅଧିକାରୀ</string>-->
-    <!--<string name="date_of_issue">ପ୍ରଦାନ ତାରିଖ</string>-->
-    <!--<string name="debit_card">ଡେବିଟ କାର୍ଡ</string>-->
-    <!--<string name="card_number">କାର୍ଡ ସଂଖ୍ୟା</string>-->
-    <!--<string name="card_name">କାର୍ଡ ନାମ</string>-->
-    <!--<string name="expiry_date"> ବୈଧତା ତାରିଖ</string>-->
-    <!--<string name="id_proof">ପରିଚୟ ପ୍ରମାଣ*</string>-->
-    <!--<string name="next">ପରବର୍ତ୍ତୀ</string>-->
-    <!--<string name="fee_information">ଦେୟ ସୂଚନା</string>-->
-    <!--<string name="application_fee_rs_0">ଆବେଦନ ଦେୟ : Rs. 0</string>-->
-    <!--<string name="paperdoc_fee_tax_rs_20">କାଗଜ  ଡକ୍ୟୁମେଣ୍ଟ ଦେୟ + ଟିକସ : Rs. 20</string>-->
-    <!--<string name="smart_card_fee_rs_0">ସ୍ମାଟ କାର୍ଡ ଦେୟ: Rs.0</string>-->
-    <!--<string name="appointment_schedule">ପୂର୍ବନିର୍ଦ୍ଦିଷ୍ଟ ସାକ୍ଷାତ ତାରିଖ</string>-->
-    <!--<string name="permanent_address">ସ୍ଥାୟୀ ଠିକଣା</string>-->
-    <!--<string name="back">ପଛକୁ  ଯଆନ୍ତୁ</string>-->
-    <!--<string name="credit_card">କ୍ରେଡିଟ କାର୍ଡ</string>-->
-    <!--<string name="netbanking">ନେଟ୍ ବ୍ୟାଙ୍କିଙ୍ଗ୍</string>-->
-    <!--<string name="wallet_accounts">ୱାଲେଟ ଏକାଉଣ୍ଟ</string>-->
-
-    <!--<string name="selectRTO">ଆରଟିଓ ଚୟନ କରନ୍ତୁ</string>-->
-    <!--<string name="aFName">ଆବେଦନକର୍ତ୍ତା ଙ୍କ ପ୍ରଥମ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-    <!--<string name="aLNAME">Enter applicant last name</string>-->
-    <!--<string name="oANAME">ନାମରେ କେବଳ ବର୍ଣ୍ଣମାଳା ର ଅନୁମତି ଅଛି</string>-->
-<!--<string name="eDOB">ଜନ୍ମ ତାରିଖ ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="sGender">ଲିଙ୍ଗ ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="sCOBirth">ଜନ୍ମୀତ ଦେଶ  ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="sCitizenship">ନାଗରିକତ୍ୱ  ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="ePOBirth">ଜନ୍ମସ୍ଥାନ ଏଣ୍ଟର୍ କରନ୍ତ</string>-->
-<!--<string name="eVEmailId">ଇ-ମେଲ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-<!--<string name="sRelationType">ସମ୍ପର୍କ  ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="RTNGender">ସମ୍ପର୍କ ଏବଂ ଲିଙ୍ଗ ମେଳ ହେଉନାହିଁ</string>-->
-<!--<string name="eRelativeFirstN">ସମ୍ପର୍କୀୟ ଙ୍କ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-<!--<string name="eRelativeLName">ସମ୍ପର୍କୀୟ ଙ୍କ ଶେଷ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-
-<!--<string name="tOneField">ବର୍ତ୍ତମାନ ଠିକଣା ର ଅନ୍ତତଃ ଗୋଟିଏ କ୍ଷେତ୍ର ଆବଶ୍ୟକ</string>-->
-<!--<string name="tTaluka">ବର୍ତ୍ତମାନ ତାଲୁକ କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>-->
-<!--<string name="tDEmpty">ବର୍ତ୍ତମାନ ଜିଲା କ୍ଷେତ୍ର ଖାଲି ରହିବ ନାହିଁ</string>-->
-<!--<string name="tState">ବର୍ତ୍ତମାନ ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ</string>-->
-    <!--<string name="tMonth">"Present Month cannot be empty"</string>-->
-<!--<string name="tAYears">ବର୍ଷ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ"</string>-->
-<!--<string name="tAMonths">ମାସ ର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ର ପ୍ରୟୋଗ କରନ୍ତୁ</string>-->
-<!--<string name="tAPincode">ପିନ୍ କୋଡ କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ପ୍ରୟୋଗ କରନ୍ତୁ</string>-->
-<!--<string name="tPincode">ଅବୈଧ ସ୍ଥାୟୀ  ପିନ୍ କୋଡ </string>-->
-    <!--<string name="mDigits">"Mobile Number should have 10 digits"</string>-->
-<!--<string name="mANumber">ମୋବାଇଲ ନମ୍ବର କ୍ଷେତ୍ର ରେ କେବଳ ସଂଖ୍ୟା ପ୍ରୟୋଗ କରନ୍ତୁ</string>-->
-
-    <!--<string name="pOneField">"Atleast one field required in Permanent Address"</string>-->
-    <!--<string name="pDEmpty">"Permanent District cannot be empty"</string>-->
-    <!--<string name="pState">"Select Permanent State"</string>-->
-    <!--<string name="pYear">"Years cannot be empty"</string>-->
-    <!--<string name="pAYears">"only digit in Years"</string>-->
-    <!--<string name="pAMonths">"only digits allowed in Months"</string>-->
-    <!--<string name="pPincode">"Invalid Permanent Pincode "</string>-->
-    <!--<string name="pAPincode">"only digits allowed in Pincode"</string>-->
-    <!--<string name="pMDigits">"Mobile Number should have 10 digits"</string>-->
-
-<!--<string name="qualification">ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="idMark">ପରିଚୟ ନିଶାନ ୧ ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="idMark2">ପରିଚୟ ନିଶାନ ୨ ଚୟନ କରନ୍ତୁ</string>-->
-<!--<string name="bloodGroup">ବ୍ଲଡ ଗୃପ ଚୟନ କରନ୍ତୁ</string>-->
-    <!--<string name="pDistrict">"Present District cannot be empty"</string>-->
-
-    <!--&lt;!&ndash;OtherDetails&ndash;&gt;-->
-<!--<string name="rcRequired">ଇନଭାଲିଡ୍ କ୍ୟାରେଜ୍ ଯାନ ପାଇଁ ଯାନର ପଞ୍ଜୀକରଣ ନମ୍ବର ଆବଶ୍ୟକ</string>-->
-<!--<string name="eId">ପରିଚୟ ପ୍ରମାଣ ପତ୍ର ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-<!--<string name="eDocNum">ଡକୁମେନ୍ଟ୍ ନମ୍ବର ଏଣ୍ଟର୍ କରନ୍ତ</string>-->
-<!--<string name="eIssAuthority">ପ୍ରଦାନକାରୀ ଅଧିକାରୀ ଙ୍କ ନାମ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-<!--<string name="eDateOfIssue">ପ୍ରଦାନ ତାରିଖ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>-->
-<!--<string name="rcInvalidRequired">ଇନଭାଲିଡ୍ କ୍ୟାରେଜ୍ ଯାନ ପାଇଁ ଯାନର ପଞ୍ଜୀକରଣ ନମ୍ବର ଆବଶ୍ୟକ</string>-->
-    <!--<string name="eRC">Enter Registration number</string>-->
-    <!--<string name="idLimit">Cannot exceed limit of 4 Id proof</string>-->
-<!--<string name="cannotRemove">ଅଧୀକ ଅପସାରଣ  କରିହେବ ନାହିଁ</string>-->
-<!--<string name="paymentFailed">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>-->
-<!--<string name="DLTvehicle">ଭାରୀ ଯାନ ପାଇଁ ଡ୍ରାଇଭିଂଗ  ଲାଇସେନ୍ସ ଅନୀବାର୍ଯ୍ୟ</string>-->
-<!--<string name="DL1less"> ଆଜି ର ତାରିଖ ଠାରୁ ଡ୍ରାଇଭିଂଗ  ଲାଇସେନ୍ସ ପ୍ରଦାନ ତାରିଖ ଅନ୍ତତଃ୧ବର୍ଷ  ହେବା ଅନୀବାର୍ଯ୍ୟ</string>-->
-
-    <!--&lt;!&ndash;Check status&ndash;&gt;-->
-    <!--<string name="refLength">Reference number should be 7 digit long.</string>-->
-    <!--<string name="dateCEmpty">Date cannot be empty</string>-->
-
-    <!--&lt;!&ndash;payable payment&ndash;&gt;-->
-<!--<string name="PayFail">ଅନ୍‌ଲାଇନ୍ ଦେୟ ବିଫଳ</string>-->
-<!--</resources>-->
 
 

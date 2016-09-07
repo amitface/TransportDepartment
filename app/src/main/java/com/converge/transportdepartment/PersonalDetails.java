@@ -53,8 +53,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static boolean permanent = false;
-    private static boolean present = false;
+    private static boolean permanent = true;
+    private static boolean present = true;
     private static boolean personalDetail = true;
     private static boolean otherInfo = true;
 
@@ -244,8 +244,8 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
 
         initailizeFelids(rootView);
 //        sendPostRequest(rootView);
-        hidePermanent();
-        hidePresent();
+
+//        hidePresent();
         setListner();
         return rootView;
     }
@@ -581,6 +581,7 @@ public class PersonalDetails extends Fragment implements View.OnClickListener {
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
                 meditTextPermanentTaluka.setAdapter(spinnerArrayAdapter);
                 meditTextPermanentTaluka.setSelection(Integer.parseInt(c.getString(22)));
+                hidePermanent();
             }
 
 

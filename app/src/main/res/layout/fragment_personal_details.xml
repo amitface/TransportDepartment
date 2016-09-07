@@ -149,6 +149,7 @@
                         android:inputType="textPersonName|textCapCharacters"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/editTextPlaceofBirth"
                         android:maxLength="17"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -238,6 +239,7 @@
                         android:maxLength="50"
                         android:inputType="textPersonName|textCapCharacters"
                         android:singleLine="true"
+                        android:nextFocusForward="@+id/editTextEmail"
                         android:imeOptions="actionNext"
                         android:background="@drawable/edit_text_personal_details"
                         android:paddingLeft="5dp" />
@@ -266,7 +268,6 @@
                          android:layout_marginRight="2dp"
                          android:layout_span="3"
                          android:layout_margin="2dp"
-
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dialog" />
 
@@ -287,9 +288,9 @@
                          android:layout_margin="2dp"
                          android:layout_gravity="start"
                          android:layout_span="3"
-
                          android:text="@string/citizenship_status_by"/>
                  </TableRow>
+
                  <TableRow>
                      <Spinner
                          android:id="@+id/spinnerCitizenship"
@@ -299,12 +300,8 @@
                          android:entries="@array/Citizenship"
                          android:layout_marginRight="2dp"
                          android:layout_span="3"
-
                          android:background="@drawable/gradient_spinner"
                          android:spinnerMode="dropdown" />
-
-
-
                  </TableRow>
 
                  <EditText
@@ -380,6 +377,7 @@
                         android:layout_height="36dp"
                         android:inputType="textEmailAddress|textCapCharacters"
                         android:singleLine="true"
+                        android:nextFocusForward="@+id/editTextRelationsName"
                         android:imeOptions="actionNext"
                         android:maxLength="50"
                         android:layout_span="3"
@@ -491,6 +489,7 @@
                         android:inputType="textPersonName|textCapCharacters"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/editTextPermanentFlatNum"
                         android:maxLength="17"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="1" />
@@ -544,7 +543,7 @@
                 android:textAlignment="center"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                 android:visibility="gone"
+                 android:visibility="visible"
                 android:padding="6dip">
 
 
@@ -697,6 +696,7 @@
                         android:inputType="text|textCapCharacters"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/editTextPermanentYear"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
 
@@ -849,6 +849,7 @@
                         android:hint="Year*"
                         android:layout_margin="2dp"
                         android:inputType="number"
+                        android:imeOptions="actionNext"
                         android:maxLength="3"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -860,6 +861,8 @@
                         android:hint="Month*"
                         android:layout_margin="2dp"
                         android:inputType="number"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:maxLength="2"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"/>
@@ -913,6 +916,7 @@
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/editTextPresentFlatNum"
                         android:paddingLeft="5dp"
                         android:inputType="number" />
 
@@ -984,7 +988,7 @@
                 android:textAlignment="center"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                 android:visibility="gone"
+                 android:visibility="visible"
                 android:padding="6dip">
                  <TableRow
                     android:id="@+id/tableRowPresentAddress1">
@@ -1197,6 +1201,7 @@
                         android:inputType="textPersonName|textCapCharacters"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/editTextPresentYear"
                         android:background="@drawable/edit_text_personal_details"
                         android:layout_span="3" />
                 </TableRow>
@@ -1325,9 +1330,9 @@
                         android:paddingLeft="5dp"
                         android:background="@drawable/edit_text_personal_details"
                         android:maxLength="10"
-
+                        android:maxLines="1"
                         android:singleLine="true"
-                        android:imeOptions="actionNext"
+
                         android:inputType="number" />
                 </TableRow>
             </TableLayout>
@@ -1425,8 +1430,6 @@
                     android:entries="@array/idMark"
                     android:background="@drawable/gradient_spinner"
                     android:spinnerMode="dialog" />
-
-
 
             </TableRow>
 
